@@ -10,7 +10,7 @@
       @apply text-2xl;
     }
     h3 {
-        @apply 
+        @apply text-2xl;
     }
     /* ... */
 }

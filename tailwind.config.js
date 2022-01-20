@@ -53,6 +53,7 @@ module.exports = {
         "500": "#243E3E",
         "900": "#2A2D2C",
       },
+      white: "#FFF",
       sideBar: "#EAF2F4",
       cardStrokes: "#CED4D4"
     },
@@ -68,8 +69,10 @@ module.exports = {
       lg: '18px',
       xl: '20px',
       '2xl': '24px',
+      '7xl': '72px'
     },
-    extend: {},
+    extend: {
+    },
   },
   plugins: [
     require('@tailwindcss/forms'),
