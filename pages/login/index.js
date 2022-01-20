@@ -11,7 +11,7 @@ export default function LoginPage() {
     const [password, setPassword] = useState('');
   return(
       <>
-        <h1 className="pt-28 pb-9">Log In</h1>
+        <h1 className="pb-9">Log In</h1>
 
         <form action="" className="">
             <div className="pb-5">

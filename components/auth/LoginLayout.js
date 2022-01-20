@@ -29,7 +29,7 @@ export default function LoginLayout({ children }) {
                         height={78}
                         // objectFit="cover"
                         />
-                    <div className='block'>
+                    <div className='pt-28 block'>
 
                         {children}
 
