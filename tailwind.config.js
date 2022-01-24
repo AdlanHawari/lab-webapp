@@ -19,8 +19,8 @@ module.exports = {
         "darker10": "#51738B",
         "darker20": "#3B5365",
         "50s": "#F5FBFD",
-        "100s": "#EAF2F4",
-        "200s": "#D3E7EC"
+        "100": "#EAF2F4",
+        "200": "#D3E7EC"
       },
       success: {
         DEFAULT: "#56C389",
@@ -53,8 +53,12 @@ module.exports = {
         "500": "#243E3E",
         "900": "#2A2D2C",
       },
+      sidebar:{
+        DEFAULT:"#EAF2F4",
+        menu: "#D3E7EC",
+        submenu: "#D8E5E9"
+      },
       white: "#FFF",
-      sideBar: "#EAF2F4",
       cardStrokes: "#CED4D4"
     },
     fontFamily: {

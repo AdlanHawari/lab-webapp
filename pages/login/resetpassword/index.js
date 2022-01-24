@@ -1,8 +1,8 @@
 import { useState } from "react";
-import LoginLayout from "../../../components/auth/LoginLayout"
-import Body1 from "../../../components/small/body/Body1"
-import Button from "../../../components/small/button_fixed/Button";
-import Input from "../../../components/small/input/Input";
+import LoginLayout from "/components/auth/LoginLayout"
+import Body1 from "/components/small/typography/Body1"
+import Button from "/components/small/button_fixed/Button";
+import Input from "/components/small/input/Input";
 
 export default function ResetPassPage() {
     const [password, setPassword] = useState('');

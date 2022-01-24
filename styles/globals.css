@@ -17,14 +17,76 @@
 
 @layer components {
     .body1 {
-        @apply font-sans font-normal text-sm text-black-900 
+        @apply font-sans font-normal text-sm
     }
 
     .body2 {
+        @apply font-sans font-semibold text-sm
         
     }
 
     .body3 {
-        
+        @apply font-sans font-semibold text-base
+    }
+
+    .title-1 {
+        @apply font-sans font-semibold text-sm
+    }
+    
+    .title-2-med {
+      @apply font-sans font-medium text-sm
+      
+    }
+
+    .title-2-reg {
+        @apply font-sans font-normal text-sm
+    }
+
+    .title-3-med {
+        @apply font-sans font-medium text-xs
+    }
+
+    .title-3-reg {
+        @apply font-sans font-normal text-xs
+    }
+
+    .title-small {
+        @apply font-sans font-semibold text-xxs
+    }
+
+    .title-3.5 {
+        @apply font-sans font-semibold text-xs
+    }
+
+    .title-5 {
+        @apply font-sans font-semibold text-base
+    }
+
+    .table-1 {
+        @apply font-sans font-normal text-xs
+    }
+
+    .table-2 {
+        @apply font-sans font-semibold text-xs
+    }
+
+    .table-small {
+        @apply font-sans font-normal text-xxxs
+    }
+
+    .caption-reg {
+        @apply font-sans font-normal text-xs
+    }
+
+    .caption-small {
+        @apply font-sans font-normal text-sm italic
+    }
+
+    .button-base {
+        @apply font-sans font-semibold text-xs
+    }
+
+    .button-small {
+        @apply font-sans font-normal text-xxs
     }
 }
