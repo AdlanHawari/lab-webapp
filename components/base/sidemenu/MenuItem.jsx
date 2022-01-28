@@ -19,6 +19,7 @@ export default function MenuItem(props) {
         <Link href={href}>
             <a {...rest} className={classNames(
                 "flex w-48 h-11 py-2.5 pl-3.5 space-x-5 ",
+                // "flex w-48 h-11 py-2.5 space-x-5 ",
                 bgclassName
                 )}
                 onClick={onClick}
@@ -73,7 +74,6 @@ export default function MenuItem(props) {
                     textclassName
                 )}>
                     {children}
-                    {/* {ucup} */}
                 </Title1>
             </a>
         </Link>

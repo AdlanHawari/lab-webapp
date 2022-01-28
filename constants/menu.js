@@ -22,7 +22,19 @@ export const management_menu = [
     {
         id:MENU_ITEM.UJI.id,
         title:MENU_ITEM.UJI.title,
-        path:"/manajemen"+MENU_ITEM.UJI
+        path:"/manajemen"+MENU_ITEM.UJI,
+        submenu:[
+            {
+                id:MENU_ITEM.UJI.submenu.PERMOHONAN.id,
+                title:MENU_ITEM.UJI.submenu.PERMOHONAN.title,
+                path:"/manajemen"+MENU_ITEM.UJI.submenu.PERMOHONAN.path
+            },
+            {
+                id:MENU_ITEM.UJI.submenu.MANAJEMEN.id,
+                title:MENU_ITEM.UJI.submenu.MANAJEMEN.title,
+                path:"/manajemen"+MENU_ITEM.UJI.submenu.MANAJEMEN.path
+            }
+        ]
     },
     {
         id:MENU_ITEM.ARSIP.id,

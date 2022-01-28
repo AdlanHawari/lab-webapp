@@ -1,6 +1,7 @@
 import NotifIcon from '/components/base/NotifIcon'
 import { useTitleContext } from 'context/TitleContext'
 import ProfileDropdown from 'components/small/single_menu/ProfileDropdown';
+import { UserCircleIcon } from '@heroicons/react/solid';
 
 export default function Topbar({children}) {
 
@@ -12,8 +13,8 @@ export default function Topbar({children}) {
             <h1 className='capitalize'>{title}</h1>
             <div className="flex space-x-8 justify-between items-center">
                 <NotifIcon/>
-                {/* <UserCircleIcon className="h-10 w-10 text-grey-500 cursor-pointer" aria-hidden="true"/> */}
                 <ProfileDropdown/>
+                {/* <UserCircleIcon className="bg-primary h-10 w-10 text-grey-500 cursor-pointer" aria-hidden="true"/> */}
             </div>
         </div>
         <div className="pt-5">

@@ -8,23 +8,24 @@ import { accountMenu } from 'constants/accountMenu'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTitleContext } from 'context/TitleContext'
+import { MyLink } from 'components/general/MyLink'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-function MyLink(props) {
-  let { href,
-     children,
-     onClick,
-      ...rest 
-    } = props
-  return (
-    <Link href={href}>
-      <a {...rest} onClick={onClick}>{children}</a>
-    </Link>
-  )
-}
+// function MyLink(props) {
+//   let { href,
+//      children,
+//      onClick,
+//       ...rest 
+//     } = props
+//   return (
+//     <Link href={href}>
+//       <a {...rest} onClick={onClick}>{children}</a>
+//     </Link>
+//   )
+// }
 
 function constructLink(path, direction){
   const text = path.split("/");
@@ -41,7 +42,7 @@ export default function ProfileDropdown() {
 
   return (
     <Menu as="div" className="relative inline-block text-left">
-      <div>
+      <div className='flex items-center'>
         <Menu.Button>
           <UserCircleIcon className="h-10 w-10 text-grey-500 cursor-pointer" aria-hidden="true"/>
         </Menu.Button>

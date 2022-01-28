@@ -7,12 +7,12 @@ export const MENU_ITEM = {
             PERMOHONAN: {
                 id:"permohonanUji",
                 title: "Permohonan Uji",
-                path: "/uji/permohonan-uji"
+                path: "/permohonan-uji"
             },
             MANAJEMEN: {
                 id: "manajemenUji",
                 title: "Manajemen Uji",
-                path: "/uji/manajemen-uji"
+                path: "/manajemen-uji"
             }
         }
     },

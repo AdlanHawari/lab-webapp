@@ -3,8 +3,8 @@ import ProfileSection from "components/base/profilesection/ProfileSection"
 
 export default function ManajemenProfilePage() {
   return(
-      // <ProfileSection/>
-      <div className=""></div>
+      <ProfileSection/>
+      // <div className=""></div>
 
   )
 }
