@@ -89,4 +89,8 @@
     .button-small {
         @apply font-sans font-normal text-xxs
     }
+
+    .big-card {
+        @apply rounded-2xl bg-secondary-100
+    }
 }

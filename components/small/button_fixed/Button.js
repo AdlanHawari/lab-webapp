@@ -56,8 +56,8 @@ export default function Button({
 
     {/* experimental button */}
         <button className= {classNames(
-            className,
             "block w-full py-2.5 rounded-xl text-xs font-semibold",
+            className,
             type=="primary_default" && "text-white bg-primary",
             type=="primary_disabled" && "text-grey-500 bg-grey-400",
             type=="secondary_default" && "border-solid border-2 bg-white text-primary   border-primary",
