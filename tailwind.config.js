@@ -5,6 +5,8 @@ module.exports = {
   ],
   theme: {
     colors: {
+      transparent: 'transparent',
+      current: 'currentColor',
       primary: {
         DEFAULT: "#3BB79F",
         "lighten10": "#DDF2ED",
@@ -59,7 +61,8 @@ module.exports = {
         submenu: "#D8E5E9"
       },
       white: "#FFF",
-      cardStrokes: "#CED4D4"
+      cardStrokes: "#CED4D4",
+      "table-divider":"#E2E8F0"
     },
     fontFamily: {
       'sans': ['Inter', "ui-sans-serif", "system-ui"]
@@ -79,6 +82,8 @@ module.exports = {
     },
   },
   plugins: [
-    require('@tailwindcss/forms'),
+    require('@tailwindcss/forms')({
+      strategy: 'class',
+    }),
   ],
 }

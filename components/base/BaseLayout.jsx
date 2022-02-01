@@ -9,7 +9,7 @@ export default function BaseLayout({children}) {
 
   return (
     <TitleContextProvider>
-        <div className="w-screen h-screen flex">
+        <div className="w-screen min-h-screen flex">
             <div className="block pt-6 pl-5 pr-2.5 bg-sidebar space-y-20">
                 <div className="relative w-36 h-14 mx-auto">
                     <Image src={sip_logo}
