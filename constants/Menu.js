@@ -1,4 +1,4 @@
-import { MENU_ITEM } from "./menuItem"
+import { MENU_ITEM } from "./MenuItemConst"
 
 export const client_menu = [
     {

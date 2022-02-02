@@ -1,6 +1,6 @@
 import { LightningBoltIcon } from "@heroicons/react/outline";
 import Title1 from "components/small/typography/Title1";
-import { client_menu, management_menu, personel_menu } from "constants/menu";
+import { client_menu, management_menu, personel_menu } from "constants/Menu";
 import { useTitleContext } from "context/TitleContext";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -8,7 +8,7 @@ import MenuItem from "components/base/sidemenu/MenuItem";
 import { useRouter } from "next/router";
 import UrlSplitter from "utils/UrlSplitter";
 import DisclosureMenu from "components/small/single_menu/disclosure/DisclosureMenu";
-import { MENU_ITEM } from "constants/menuItem";
+import { MENU_ITEM } from "constants/MenuItemConst";
 
 
 export default function SideMenu() {

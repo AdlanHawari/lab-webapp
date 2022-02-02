@@ -4,7 +4,7 @@ import { Menu, Transition } from '@headlessui/react'
 import { UserCircleIcon } from '@heroicons/react/solid'
 import { ChevronDownIcon } from '@heroicons/react/solid'
 import Body1 from '../typography/Body1'
-import { accountMenu } from 'constants/accountMenu'
+import { accountMenu } from 'constants/AccountMenu'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTitleContext } from 'context/TitleContext'
@@ -41,7 +41,7 @@ export default function ProfileDropdown() {
   
 
   return (
-    <Menu as="div" className="relative inline-block text-left">
+    <Menu as="div" className="relative inline-block text-left z-50">
       <div className='flex items-center'>
         <Menu.Button>
           <UserCircleIcon className="h-10 w-10 text-grey-500 cursor-pointer" aria-hidden="true"/>

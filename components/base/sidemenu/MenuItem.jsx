@@ -2,7 +2,7 @@ import { ArchiveIcon, DocumentTextIcon, LightningBoltIcon, PresentationChartLine
 import classNames from "classnames";
 import Body1 from "components/small/typography/Body1";
 import Title1 from "components/small/typography/Title1";
-import { MENU_ITEM } from "constants/menuItem";
+import { MENU_ITEM } from "constants/MenuItemConst";
 import Link from "next/link";
 
 export default function MenuItem(props) {

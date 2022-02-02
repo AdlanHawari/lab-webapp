@@ -5,7 +5,7 @@ import Button from "components/small/button_fixed/Button";
 import Input from "components/small/input/Input";
 import Body1 from "components/small/typography/Body1";
 import Body2 from "components/small/typography/Body2";
-import { profile } from "constants/profile";
+import { profile } from "constants/Profile";
 import { user } from "constants/test_objects/user";
 import { useEffect, useRef, useState } from "react";
 import MenuItem from "../sidemenu/MenuItem";

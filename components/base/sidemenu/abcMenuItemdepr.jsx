@@ -1,7 +1,7 @@
 import { DocumentTextIcon, LightningBoltIcon } from "@heroicons/react/outline";
 import classNames from "classnames";
 import Title1 from "components/small/typography/Title1";
-import { MENU_ITEM } from "constants/menuItem";
+import { MENU_ITEM } from "constants/MenuItem";
 
 export default function abcMenuItem({
     type,

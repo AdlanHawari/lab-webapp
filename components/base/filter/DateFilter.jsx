@@ -4,10 +4,12 @@ import ReactDatePicker from 'react-datepicker'
 import { format } from 'date-fns'
 import { CalendarIcon, ChevronDownIcon } from '@heroicons/react/outline'
 import classNames from "classnames";
+import Button from 'components/small/button_fixed/Button'
 
 export default function DateFilter() {
 //   const [startDate, setStartDate] = useState(new Date())
   const [startDate, setStartDate] = useState()
+  const [open, setOpen] = useState(false)
 //   const [endDate, setEndDate] = useState(new Date().setMonth(startDate.getMonth() + 1))
 //   const [dateState, setDateState] = useState("");
 
@@ -15,9 +17,9 @@ export default function DateFilter() {
 //     if (startDate > endDate) setStartDate(endDate)
 // }, [endDate])
 
-// useEffect(() => {
-//     if (startDate > endDate) setEndDate(startDate)
-// }, [startDate])
+useEffect(() => {
+    console.log("date: ",startDate? startDate.toString(): "null")
+}, [startDate])
 
   return(
     <ReactDatePicker
@@ -25,11 +27,15 @@ export default function DateFilter() {
         onChange={(date) => setStartDate(date)}
         selectsStart
         startDate={startDate}
+        open={open}
+        onClickOutside={()=>setOpen(false)}
+        onSelect={()=>setOpen(false)}
+        
         // endDate={endDate}
         nextMonthButtonLabel=">"
         previousMonthButtonLabel="<"
         popperClassName="react-datepicker-left"
-        customInput={<DateInput />}
+        customInput={<DateInput open={open} setOpen={setOpen} date={startDate}/>}
         renderCustomHeader={({
             date,
             decreaseMonth,
@@ -73,14 +79,32 @@ export default function DateFilter() {
                 {/* </div> */}
             </div>
         )}
-    />
+    >
+        <div className=" mx-auto w-1/2 py-4">
+            <Button 
+            type="primary_default" 
+            className="bg-error py-1"
+            onClick={() => {
+                setStartDate(null)
+                setOpen(false)
+                }}>
+                Remove Date
+            </Button>
+        </div>
+    </ReactDatePicker>
 
   )
 }
 
-const DateInput = forwardRef(({ value, onClick }, ref) => (
+const DateInput = forwardRef(({open, setOpen,date},{ value, onClick }, ref) => (
     <button
-      onClick={onClick}
+    //   onClick={onClick}
+      onClick={()=>{
+          setOpen(true)
+        //   onClick
+        }
+        }
+      
       ref={ref}
       type="button"
       className='inline-flex justify-start w-48 px-3 py-2 text-sm font-medium text-grey-700 bg-white border border-grey-300 rounded-xl shadow-sm hover:bg-grey-50 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-secondary'
@@ -101,11 +125,15 @@ const DateInput = forwardRef(({ value, onClick }, ref) => (
             <div className={classNames(
                 // "input-med bg-primary border-solid border border-x-0 border-grey-300 pl-1 focus:border-grey-300 focus:ring-0",
                 "input-med text-left w-24",
-                value ? "text-black-500" : "text-grey-500"
+                // value ? "text-black-500" : "text-grey-500"
+                date ? "text-black-500" : "text-grey-500"
             )} 
             >
-                {value ?
+                {/* {value ?
                 format(new Date(value), 'dd/MM/yyyy') 
+                : "DD/MM/YYYY"} */}
+                {date ?
+                format(new Date(date), 'dd/MM/yyyy') 
                 : "DD/MM/YYYY"}
             </div>
             {/* <label htmlFor="" className='bg-secondary border-solid border border-l-0 border-grey-300 rounded rounded-l-none'> */}
