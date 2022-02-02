@@ -6,7 +6,7 @@ export default function ClientLogPage() {
 
   // const [title, setTitle] = useTitleContext();
   // const router = useRouter
-  console.log(clientLogs)
+  // console.log(clientLogs)
   return(
     <LogSection data={clientLogs}>
 
