@@ -63,7 +63,7 @@ export default function ProfileDropdown() {
             <div key={index} className="py-1">
               <Menu.Item>
                   {/* <MyLink href={router.pathname.includes(item.link) ? "" : router.pathname + item.link}> */}
-                  <MyLink href={constructLink(router.pathname,item.link)}
+                  <MyLink href={index>0? item.link : constructLink(router.pathname,item.link)}
                   onClick={()=>setTitle(item.title)}
                   >
                     <Body1 className={classNames(

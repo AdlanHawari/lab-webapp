@@ -13,7 +13,7 @@ import { MENU_ITEM } from "constants/MenuItemConst";
 
 export default function SideMenu() {
   // const [selectedIndex, setSelectedIndex] = useState(0);
-  const [title,setTitle] = useTitleContext();
+  // const [title,setTitle] = useTitleContext();
   const router = useRouter();
   const splittedUrl = UrlSplitter(router.pathname)
   const user_type = splittedUrl[1];
@@ -30,7 +30,7 @@ export default function SideMenu() {
       setMenu(personel_menu)
     }
     // setMenu(client_menu)
-  }, []);
+  }, [user_type]);
 
   
 
@@ -75,7 +75,7 @@ export default function SideMenu() {
                 textclassName={router.pathname==item.path ? "text-black-500" : "text-black-300"}
                 bgclassName={router.pathname==item.path && "bg-sidebar-menu rounded-lg"}
                 iconclassName={router.pathname==item.path ? "text-primary" : "text-black-300"}
-                onClick={()=>setTitle(item.title)}
+                // onClick={()=>setTitle(item.title)}
                 >
                 {item.title}
               </MenuItem>

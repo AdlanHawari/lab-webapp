@@ -5,6 +5,7 @@ import LoginLayout from "/components/auth/LoginLayout"
 import Body1 from "/components/small/typography/Body1";
 import Button from "/components/small/button_fixed/Button";
 import Input from "/components/small/input/Input";
+import { MyLink } from "components/general/MyLink";
 
 export default function LoginPage() {
     const [email, setEmail] = useState('');
@@ -47,12 +48,18 @@ export default function LoginPage() {
         </form>
 
         <div className="flex w-full justify-center">
-          <Link href="/login/forgotpassword">
+          <MyLink href="/login/forgotpassword">
+            <div className="">
+              <Body1 className="text-primary-darken15 cursor-pointer">Lupa Pasword?</Body1>
+            </div>
+
+          </MyLink>
+          {/* <Link href="/login/forgotpassword">
             <div className="">
               <Body1 className="text-primary-darken15 cursor-pointer">Lupa Pasword?</Body1>
             </div>
             
-          </Link>
+          </Link> */}
         
         </div>
 

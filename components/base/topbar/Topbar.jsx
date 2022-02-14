@@ -5,7 +5,7 @@ import { UserCircleIcon } from '@heroicons/react/solid';
 
 export default function Topbar({children}) {
 
-    const [title,setTitle, selectedIndex, setSelectedIndex] = useTitleContext();
+    const [title,setTitle] = useTitleContext();
 
   return(
     <div className="block w-full pt-10 divide-y divide-grey-200 pl-11 pr-10">

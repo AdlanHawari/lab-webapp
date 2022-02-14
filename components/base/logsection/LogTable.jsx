@@ -1,5 +1,7 @@
 import { TrashIcon } from "@heroicons/react/outline"
 import classNames from "classnames"
+import Table1 from "components/small/typography/Table1"
+import Table2 from "components/small/typography/Table2"
 
 export default function LogTable({data}) {
     const tableHead = [
@@ -15,12 +17,13 @@ export default function LogTable({data}) {
         <thead className=" ">
             <tr>
                 {tableHead.map((rowTitle,index)=>(
-                    <th key={index} scope="col" className={classNames(
-                        "w-48 table-2 py-2 px-4 text-black-500",
-                        index == tableHead.length - 1 ? "text-center" : "text-left"
-                    )}
-                    >
-                        {rowTitle}  
+                    <th key={index} scope="col" className="w-48 py-2 px-4">
+                        <Table2 className={classNames(
+                            "text-black-500",
+                            index == tableHead.length - 1 ? "text-center" : "text-left"
+                        )}>
+                            {rowTitle}  
+                        </Table2>
                     </th>
                 ))}
             </tr>
@@ -28,20 +31,31 @@ export default function LogTable({data}) {
         <tbody className="bg-white divide-y divide-table-divider">
             {data.map((item,index)=>(
                 <tr key={index} className="h-16">
-                    <td className="w-48 py-2 px-4 table-1 text-black-500">
-                        {item.date}
+                    <td className="w-48 py-2 px-4">
+                        <Table1 className="text-black-500">
+                            {item.date}
+                        </Table1>
                     </td>
-                    <td className="w-48 py-2 px-4 table-1 text-black-500">
-                        {item.name}
+                    <td className="w-48 py-2 px-4">
+                        <Table1 className="text-black-500">
+                            {item.name}
+                        </Table1>
                     </td>
-                    <td className="w-48 py-2 px-4 table-1 text-black-500">
-                        {item.roles}
+                    <td className="w-48 py-2 px-4 ">
+                        <Table1 className="text-black-500">
+                            {item.roles}
+                        </Table1>
                     </td>
-                    <td className="w-48 py-2 px-4 table-1 text-black-500">
-                        {item.notification_type}
+                    <td className="w-48 py-2 px-4">
+                        <Table1 className="text-black-500">
+                            {item.notification_type}
+                        </Table1>
+                        
                     </td>
-                    <td className="w-48 py-2 px-4 table-1 leading-4 text-black-500">
-                        {item.message}
+                    <td className="w-48 py-2 px-4">
+                        <Table1 className="leading-4 text-black-500">
+                            {item.message}
+                        </Table1>
                     </td>
                     <td scope="col" className="" >
                         <div className="flex items-center justify-center">

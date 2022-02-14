@@ -4,6 +4,7 @@ import LoginLayout from "/components/auth/LoginLayout"
 import Body1 from "/components/small/typography/Body1";
 import Button from "/components/small/button_fixed/Button";
 import Input from "/components/small/input/Input"
+import { MyLink } from "components/general/MyLink";
 
 export default function ForgotPassPage() {
     const [email, setEmail] = useState('');
@@ -40,13 +41,18 @@ export default function ForgotPassPage() {
                     </div>
             }   
 
-        
-            <Link href='/login'>
+            <MyLink href='/login'>
+                <div className="">
+                    <Button type="secondary_default">Kembali ke halaman awal</Button>
+                </div>
+
+            </MyLink>
+            {/* <Link href='/login'>
                 <div className="">
                     <Button type="secondary_default">Kembali ke halaman awal</Button>
                 </div>
                 
-            </Link>
+            </Link> */}
         </>
     )
 }

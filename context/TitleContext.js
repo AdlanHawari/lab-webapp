@@ -7,12 +7,13 @@ const TitleContext = createContext();
 export default function TitleContextProvider({children}) {
 
     
-    const router = useRouter();
-    const splittedUrl = UrlSplitter(router.pathname)
-    const text = splittedUrl[2];
-    const title = text.replace("-"," ")
+    // const router = useRouter();
+    // const splittedUrl = UrlSplitter(router.pathname)
+    // const text = splittedUrl[2];
+    // const title = text.replace("-"," ")
 
-    const [titleState, settitleState] = useState(title);
+    // const [titleState, settitleState] = useState(title);
+    const [titleState, settitleState] = useState('');
 
     const contextValue = useMemo(() => {
 

@@ -5,6 +5,6 @@ export const accountMenu = [
     },
     {
         title:"Logout",
-        link:""
+        link:"/"
     }
 ]
