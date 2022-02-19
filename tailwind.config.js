@@ -7,6 +7,7 @@ module.exports = {
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
+      background: "#F5F9FA",
       primary: {
         DEFAULT: "#3BB79F",
         "lighten10": "#DDF2ED",

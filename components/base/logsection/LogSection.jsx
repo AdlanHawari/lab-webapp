@@ -1,3 +1,5 @@
+import Pagination from 'components/small/pagination/Pagination';
+import { paginator } from 'constants/test_objects/paginator';
 import React from 'react';
 import DateFilter from '../filter/DateFilter';
 import LogTable from './LogTable';
@@ -10,6 +12,7 @@ export default function LogSection({data,children}) {
         <DateFilter/>
       </div>
       <LogTable data={data}/>
+      <Pagination paginator={paginator}/>
     </div>
   )
 }

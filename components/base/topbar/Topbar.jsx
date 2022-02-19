@@ -8,7 +8,7 @@ export default function Topbar({children}) {
     const [title,setTitle] = useTitleContext();
 
   return(
-    <div className="block w-full pt-10 divide-y divide-grey-200 pl-11 pr-10">
+    <div className="block w-full pt-10 divide-y divide-grey-200 pl-11 pr-10 bg-background">
         <div className="flex pb-8 items-center justify-between">
             <h1 className='capitalize'>{title}</h1>
             <div className="flex space-x-8 justify-between items-center">

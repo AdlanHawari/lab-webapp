@@ -3,7 +3,6 @@ import Button from 'components/small/button_fixed/Button'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import login_bg from 'public/loginImage.png'
 
 export default function Home() {
   return (

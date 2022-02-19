@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import login_bg from '../../public/loginImage.png'
-import sip_logo from '../../public/logo.png';
+import login_bg from 'images/loginImage.png'
+import sip_logo from 'images/logo.png';
 
 
 export default function LoginLayout({ children }) {
@@ -11,6 +11,7 @@ export default function LoginLayout({ children }) {
                     alt="Login background image"
                     placeholder="blur"
                     objectFit="cover"
+                    quality={100}
                     />
                 <div className="absolute flex w-auto h-auto top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2">
                     <div className="space-y-10">
@@ -27,6 +28,7 @@ export default function LoginLayout({ children }) {
                         placeholder="blur"
                         width={207}
                         height={78}
+                        quality={100}
                         // objectFit="cover"
                         />
                     <div className='pt-28 block'>
