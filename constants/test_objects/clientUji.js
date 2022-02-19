@@ -26,6 +26,22 @@ export const clientUji = [
             "Bukti Pembayaran"
         ],
         fee: "Rp17,000,000.-"
-    }
+    },
+    {
+        jenis_uji : "Pengukuran",
+        status : "Pengajuan",
+        no_surat : "INV/20211113/MPL/1758954060",
+        nama_alat: "CT-Scanner Stasioner - SMEW CM 789",
+        test_date: "28 Mei 2022",
+        kelengkapan: [
+            "Form Uji ulang Permohonan",
+            "Foto Pesawat CT-Scanner",
+            "NPWP",
+            "Bukti Pembayaran"
+        ],
+        fee: "Rp17,000,000.-"
+    },
+    
+
 
 ]

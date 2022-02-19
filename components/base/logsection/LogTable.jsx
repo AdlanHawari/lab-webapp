@@ -2,25 +2,26 @@ import { TrashIcon } from "@heroicons/react/outline"
 import classNames from "classnames"
 import Table1 from "components/small/typography/Table1"
 import Table2 from "components/small/typography/Table2"
+import { logtableHead } from "constants/table/RowTitle"
 
 export default function LogTable({data}) {
-    const tableHead = [
-        "Tanggal",
-        "Nama User",
-        "Roles",
-        "Tipe Notifikasi",
-        "Pesan",
-        "Pilihan"
-    ]
+    // const tableHead = [
+    //     "Tanggal",
+    //     "Nama User",
+    //     "Roles",
+    //     "Tipe Notifikasi",
+    //     "Pesan",
+    //     "Pilihan"
+    // ]
   return(
     <table className="bg-primary-lighten10 min-w-full shadow-lg rounded-lg">
         <thead className=" ">
             <tr>
-                {tableHead.map((rowTitle,index)=>(
+                {logtableHead.map((rowTitle,index)=>(
                     <th key={index} scope="col" className="w-48 py-2 px-4">
                         <Table2 className={classNames(
                             "text-black-500",
-                            index == tableHead.length - 1 ? "text-center" : "text-left"
+                            index == logtableHead.length - 1 ? "text-center" : "text-left"
                         )}>
                             {rowTitle}  
                         </Table2>
