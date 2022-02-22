@@ -41,7 +41,7 @@ export default function ProfileDropdown() {
   
 
   return (
-    <Menu as="div" className="relative inline-block text-left z-50">
+    <Menu as="div" className="relative inline-block text-left">
       <div className='flex items-center'>
         <Menu.Button>
           <UserCircleIcon className="h-10 w-10 text-grey-500 cursor-pointer" aria-hidden="true"/>

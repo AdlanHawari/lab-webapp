@@ -1,13 +1,15 @@
 import { PlusIcon } from "@heroicons/react/solid";
 import BaseLayout from "components/base/BaseLayout"
 import DateFilter from "components/base/filter/DateFilter";
+import PermohonanUjiModal from "components/big/PermohonanUjiModal";
 import SmallCard from "components/small/small_card/SmallCard";
 import { clientUji } from "constants/test_objects/clientUji";
 import { useTitleContext } from "context/TitleContext";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function ClientUjiPage() {
   const [title, setTitle] = useTitleContext();
+  const [isUjiOpen, setIsUjiOpen] = useState(false);
   // const router = useRouter
   // console.log(clientLogs)
   useEffect(() => {
@@ -18,7 +20,8 @@ export default function ClientUjiPage() {
       <div className="flex flex-col divide-y divide-grey-200 space-y-5">
         <div className="flex justify-between">
           <DateFilter/>
-          <button className="flex items-center space-x-2 bg-primary button-base text-white px-5 py-2 rounded-xl">
+          <button className="flex items-center space-x-2 bg-primary button-base text-white px-5 py-2 rounded-xl"
+          onClick={()=>setIsUjiOpen(true)}>
             <PlusIcon className="h-6 w-6 cursor-pointer" aria-hidden="true"/>
             <p>
               Buat Permohonan Uji
@@ -34,6 +37,10 @@ export default function ClientUjiPage() {
             </li>
           ))}
         </ul>
+
+        {isUjiOpen &&
+          <PermohonanUjiModal isOpen={isUjiOpen} setIsOpen={setIsUjiOpen}/>
+        }
 
     </div>
   )
