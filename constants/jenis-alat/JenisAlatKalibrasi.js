@@ -1,4 +1,4 @@
-export const jenisUji = [
+export const jenisAlatKalibrasi = [
     "Keselamatan Listrik",
     "Perhitungan Ketidakpastian",
     "Anak Timbangan ",

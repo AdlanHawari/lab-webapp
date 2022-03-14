@@ -1,9 +1,10 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/solid'
 import Button from 'components/small/button_fixed/Button'
-import ComboBox from 'components/small/single_menu/ComboBox'
-import JenisUjiDropdown from 'components/small/single_menu/JenisUjiDropdown'
+import CustomComboBox from 'components/small/single_menu/CustomComboBox'
 import Body1 from 'components/small/typography/Body1'
+import { jenisAlatUkes } from 'constants/jenis-alat/JenisAlatUkes'
+import { jenisPekerjaan } from 'constants/JenisPekerjaan'
 import { Fragment } from 'react'
 
 export default function PermohonanUjiModal({isOpen, setIsOpen}) {
@@ -77,16 +78,13 @@ export default function PermohonanUjiModal({isOpen, setIsOpen}) {
                                     <Body1>
                                         Jenis Pekerjaan
                                     </Body1>
-                                    {/* <JenisUjiDropdown/> */}
-                                    <ComboBox/>
-                                    {/* <Body1>
-                                        Jenis mahmud
-                                    </Body1> */}
+                                    <CustomComboBox itemLists={jenisPekerjaan}/>
                                 </li>
-                                <li>
+                                <li className='flex items-center justify-between'>
                                     <Body1>
                                         Jenis Alat
                                     </Body1>
+                                    <CustomComboBox itemLists={jenisAlatUkes}/>
                                 </li>
                                 <li>
                                     <Body1>
