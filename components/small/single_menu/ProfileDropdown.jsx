@@ -38,8 +38,6 @@ export default function ProfileDropdown() {
   const router =  useRouter();
   const [title, setTitle] = useTitleContext();
 
-  
-
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div className='flex items-center'>
