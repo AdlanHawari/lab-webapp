@@ -6,6 +6,7 @@ import Body1 from 'components/small/typography/Body1'
 import { jenisAlatUkes } from 'constants/jenis-alat/JenisAlatUkes'
 import { jenisPekerjaan } from 'constants/JenisPekerjaan'
 import { Fragment } from 'react'
+import FormPermohonanUji from './FormPermohonanUji'
 
 export default function PermohonanUjiModal({isOpen, setIsOpen}) {
     function closeModal() {
@@ -73,7 +74,8 @@ export default function PermohonanUjiModal({isOpen, setIsOpen}) {
                     </div>
                     <div className="flex h-full">
                         <div className="w-4/5 py-6 border-r border-grey-200">
-                            <ul className="block w-full pl-10 pr-32 space-y-3">
+                          <FormPermohonanUji/>
+                            {/* <ul className="block w-full pl-10 pr-32 space-y-3">
                                 <li className='flex items-center justify-between'>
                                     <Body1>
                                         Jenis Pekerjaan
@@ -96,9 +98,19 @@ export default function PermohonanUjiModal({isOpen, setIsOpen}) {
                                         Tipe Alat
                                     </Body1>
                                 </li>
+                                <li>
+                                    <Body1>
+                                        Kuantitas Alat
+                                    </Body1>
+                                </li>
+                                <li>
+                                    <Body1>
+                                        Keterangan Alat
+                                    </Body1>
+                                </li>
 
 
-                            </ul>
+                            </ul> */}
                         </div>
                         <div className="w-1/5 mt-4 space-y-4 px-4" >
                             <Button type="primary_default">
