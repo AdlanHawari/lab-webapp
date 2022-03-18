@@ -37,7 +37,7 @@ import { Fragment, useState, useEffect } from "react";
         
       
   return (
-    <div className="w-72 ">
+    <div className="w-96 ">
       
       <Combobox 
       disabled={disabled}

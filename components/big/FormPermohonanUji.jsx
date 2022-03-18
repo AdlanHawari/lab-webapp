@@ -130,10 +130,11 @@ export default function FormPermohonanUji() {
                         </Body1>
                         <div className="block">
                             <input
+                                className="w-96 border-none focus:ring-0 py-2 px-3 text-sm leading-5 text-gray-900 rounded-lg shadow-md"
                                 id="brand"
                                 name="brand"
                                 type="text"
-                                placeholder="Merk Alat"
+                                placeholder="Isi Merk Alat"
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 value={formik.values.brand}
@@ -151,13 +152,14 @@ export default function FormPermohonanUji() {
                         </Body1>
                         <div className="block">
                             <input
+                                className="w-96 border-none focus:ring-0 py-2 px-3 text-sm leading-5 text-gray-900 rounded-lg shadow-md"
                                 id="name"
                                 name="name"
                                 type="text"
-                                placeholder="Tipe Alat"
+                                placeholder="Isi Nama Alat"
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                value={formik.values.brand}
+                                value={formik.values.name}
                                 />
                             {formik.touched.name && formik.errors.name ? 
                                 <p className="text-error">{formik.errors.name}</p>
@@ -172,10 +174,11 @@ export default function FormPermohonanUji() {
                         </Body1>
                         <div className="block">
                             <input
+                                className="w-96 border-none focus:ring-0 py-2 px-3 text-sm leading-5 text-gray-900 rounded-lg shadow-md"
                                 id="quantity"
                                 name="quantity"
-                                type="text"
-                                placeholder="Kuantitas Alat"
+                                type="number"
+                                placeholder="Isi Kuantitas Alat"
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 value={formik.values.quantity}
@@ -187,16 +190,17 @@ export default function FormPermohonanUji() {
                             }
                         </div>
                     </div>
-                    <div className='flex items-center justify-between'>
+                    <div className='flex items-start justify-between'>
                         <Body1>
-                            Keterangan Alat
+                            Keterangan
                         </Body1>
                         <div className="block">
-                            <input
+                            <textarea
+                                className="w-96 h-36 border-none focus:ring-0 py-2 px-3 text-sm leading-5 text-gray-900 rounded-lg shadow-md"
                                 id="description"
                                 name="description"
-                                type="number"
-                                placeholder="Keterangan Alat"
+                                type="text"
+                                placeholder="Isi Keterangan"
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 value={formik.values.description}

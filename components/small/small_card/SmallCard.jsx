@@ -3,8 +3,11 @@ import Body1 from "../typography/Body1";
 import Body3 from "../typography/Body3";
 import Title1 from "../typography/Title1";
 import Title2Med from "../typography/Title2Med";
+import { useState } from "react";
+import PermohonanUjiModal from "components/big/PermohonanUjiModal";
 
 export default function SmallCard({data}) {
+    const [isDetailOpen, setIsDetailOpen] = useState(false)
   return (
     <div className="block w-full border border-cardStrokes rounded-2xl p-5 space-y-5 bg-white">
         <div className="flex items-center space-x-6 divide-x divide-x-black-400 ">
@@ -93,10 +96,15 @@ export default function SmallCard({data}) {
 
         </div>
         <div className="flex justify-end">
-            <Button type="primary_default" className="w-auto px-5 py-0.5">
+            <Button type="primary_default" className="w-auto px-5 py-0.5"
+            onClick={()=>setIsDetailOpen(true)}>
                 Lihat Detail
             </Button>
         </div>
+
+        {isDetailOpen &&
+          <PermohonanUjiModal isOpen={isDetailOpen} setIsOpen={setIsDetailOpen}/>
+        }
 
     </div>
   )
