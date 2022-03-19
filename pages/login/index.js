@@ -41,7 +41,7 @@ export default function LoginPage() {
             {/* <Button disabled={false} primary={true} neutral={false}>Log In</Button> */}
 
             <div className="py-8">
-              <Button disabled={false} type={"primary_default"}>Log In</Button>
+              <Button disabled={false} buttonStyle={"primary_default"}>Log In</Button>
             </div>
 
             {/* <button className="block w-full rounded text-white font-semibold bg-primary">Login</button> */}

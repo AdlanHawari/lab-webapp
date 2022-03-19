@@ -19,22 +19,22 @@ export default function Home() {
         </h2>
         <div className="grid grid-flow-row gap-y-6 w-96">
           <MyLink href="/login">
-            <Button type="primary_default" className="hover:bg-primary-darken20">
+            <Button buttonStyle="primary_default" className="hover:bg-primary-darken20">
               Login
             </Button>
           </MyLink>
           <MyLink href="/client/log">
-            <Button type="secondary_neutral" className="hover:bg-grey-400 hover:text-white">
+            <Button buttonStyle="secondary_neutral" className="hover:bg-grey-400 hover:text-white">
               Client
             </Button>
           </MyLink>
           <MyLink href="/manajemen/log">
-            <Button type="secondary_default" className="hover:bg-primary-darken20 hover:text-white">
+            <Button buttonStyle="secondary_default" className="hover:bg-primary-darken20 hover:text-white">
               Manajemen
             </Button>
           </MyLink>
           <MyLink href="/personel/log">
-            <Button type="secondary_disabled" className="bg-secondary text-white hover:bg-secondary-darker20">
+            <Button buttonStyle="secondary_disabled" className="bg-secondary text-white hover:bg-secondary-darker20">
               Personel
             </Button>
           </MyLink>

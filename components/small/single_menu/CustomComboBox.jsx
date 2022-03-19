@@ -17,7 +17,7 @@ import { Fragment, useState, useEffect } from "react";
       disabled
     } = props
 
-    const { values, setFieldValue } = useFormikContext();
+    // const { values, setFieldValue } = useFormikContext();
     // const [selected, setSelected] = useState()
     const [query, setQuery] = useState('')
   
@@ -31,21 +31,33 @@ import { Fragment, useState, useEffect } from "react";
             .includes(query.toLowerCase().replace(/\s+/g, ''))
         )
 
-        useEffect(() => {
-          setFieldValue(id,selected)
-        }, [selected])
+        // useEffect(() => {
+        //   setFieldValue(id,selected)
+        // }, [selected])
         
       
   return (
+    
     <div className="w-96 ">
       
       <Combobox 
       disabled={disabled}
       value={selected} 
-      onChange={
-        setSelected
+      // value={values.id} 
+      onChange={ value => {
+        // console.log("value", value)
+        // console.log("id", id)
+        // setFieldValue(id,value)
+        setSelected(id,value)
+      }
+        // setSelected
+        // setSelected
         // onChange
        }>
+         
+
+         
+         
         <div className="relative">
           <div className="relative w-full text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-primary focus-visible:ring-offset-2 sm:text-sm overflow-hidden">
               <Combobox.Input
@@ -120,7 +132,7 @@ import { Fragment, useState, useEffect } from "react";
 
           </Transition>
         </div>
-        {/* <Combobox.Input/> */}
+         
       </Combobox>
 
     </div>

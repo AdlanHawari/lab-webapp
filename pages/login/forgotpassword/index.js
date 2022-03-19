@@ -29,7 +29,7 @@ export default function ForgotPassPage() {
 
                             <Input  type="email" placeholder="Masukkan email anda" id="email" state={email} setState={setEmail}/>
 
-                            <Button type="primary_default"
+                            <Button buttonStyle="primary_default"
                             disabled={false}
                             onClick={(e)=>setreqSent(!reqSent)}
                             >Ubah Password</Button>
@@ -43,7 +43,7 @@ export default function ForgotPassPage() {
 
             <MyLink href='/login'>
                 <div className="">
-                    <Button type="secondary_default">Kembali ke halaman awal</Button>
+                    <Button buttonStyle="secondary_default">Kembali ke halaman awal</Button>
                 </div>
 
             </MyLink>

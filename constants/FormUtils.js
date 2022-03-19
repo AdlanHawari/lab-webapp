@@ -1,0 +1,1 @@
+export const form_permohonan_uji_id = "PermohonanUjiForm";

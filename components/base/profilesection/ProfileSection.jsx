@@ -122,7 +122,7 @@ export default function ProfileSection() {
                       > */}
                     </div>
                     <div className="flex">
-                      <Button type="primary_default" className="px-5" 
+                      <Button buttonStyle="primary_default" className="px-5" 
                       // onClick={
                       //   () => { setChange(!change)}
                       // }

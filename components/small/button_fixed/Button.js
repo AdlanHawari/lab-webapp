@@ -3,9 +3,11 @@ import classNames from "classnames";
 // export default function Button({disabled, primary, neutral, children}) {
 export default function Button({
     className,
+    buttonStyle,
     type,
     disabled,
     onClick,
+    form,
     children
     }) {
   return (
@@ -58,21 +60,19 @@ export default function Button({
         <button className= {classNames(
             "block w-full py-2.5 rounded-xl text-xs font-semibold",
             className,
-            type=="primary_default" && "text-white bg-primary",
-            type=="primary_disabled" && "text-grey-500 bg-grey-400",
-            type=="secondary_default" && "border-solid border-2 bg-white text-primary   border-primary",
-            type=="secondary_disabled" && "border-solid border-2 bg-white text-grey-300   border-grey-300",
-            type=="secondary_neutral" && "border-solid border-2 bg-white text-grey-500   border-grey-500"
-            // !primary  && neutral && "text-grey-500 border-grey-500",
-            // primary ? "" : "border-solid border-2 bg-white",
-            // primary && !disabled ? "text-white bg-primary" : "text-grey-500 bg-grey-400",
-            // !primary && !neutral && !disabled ? "text-primary border-primary" : "text-grey-300 border-grey-300",
+            buttonStyle=="primary_default" && "text-white bg-primary",
+            buttonStyle=="primary_disabled" && "text-grey-500 bg-grey-400",
+            buttonStyle=="secondary_default" && "border-solid border-2 bg-white text-primary   border-primary",
+            buttonStyle=="secondary_disabled" && "border-solid border-2 bg-white text-grey-300   border-grey-300",
+            buttonStyle=="secondary_neutral" && "border-solid border-2 bg-white text-grey-500   border-grey-500"
             
         ) 
 
         }
         disabled={disabled}
         onClick={onClick}
+        type={type}
+        form={form}
         >
             {children}
         </button>

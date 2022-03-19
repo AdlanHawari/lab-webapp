@@ -2,12 +2,12 @@ import CustomComboBox from "components/small/single_menu/CustomComboBox";
 import Body1 from "components/small/typography/Body1";
 import { jenisAlatUkes } from "constants/jenis-alat/JenisAlatUkes";
 import { jenisPekerjaan } from "constants/JenisPekerjaan";
-import { Form, Formik, useFormik, useFormikContext } from "formik"
+import { ErrorMessage, Field, Form, Formik, useFormik, useFormikContext } from "formik"
 import * as Yup from 'yup'
 import { useState, useEffect } from "react";
 import { jenisAlatKalibrasi } from "constants/jenis-alat/JenisAlatKalibrasi";
 
-export default function FormPermohonanUji() {
+export default function FormPermohonanUji({id}) {
     const [test_typeSelected, setTest_TypeSelected] = useState()
     const [typeSelected, setTypeSelected] = useState()
     // const formik = useFormik({
@@ -56,7 +56,7 @@ export default function FormPermohonanUji() {
         type: Yup.string().required("Required"),
         brand: Yup.string().required("Required"),
         name: Yup.string().required("Required"),
-        quantity: Yup.number().min(1,"Minimal 1").required("Required"),
+        quantity: Yup.number().min(1,"Minimal 1").required("Required").positive().integer(),
     })}
     onSubmit={ (values) => {
         console.log(values);
@@ -65,7 +65,7 @@ export default function FormPermohonanUji() {
     {/* <form onSubmit={formik.handleSubmit}> */}
     { 
     formik =>{
-        return  <Form>
+        return  <Form id={id}>
                 <div className="block w-full pl-10 pr-32 space-y-3">
                     <div className='flex items-center justify-between'>
                         <Body1>
@@ -73,8 +73,11 @@ export default function FormPermohonanUji() {
                         </Body1>
                         <div className="block">
                             <CustomComboBox 
-                            selected={test_typeSelected}
-                            setSelected={setTest_TypeSelected}
+                            // selected={test_typeSelected}
+                            // setSelected={setTest_TypeSelected}
+                            selected={formik.values.test_type}
+                            setSelected={formik.setFieldValue}
+
                             id="test_type"
                             name="test_type"
                             type="text"
@@ -84,12 +87,12 @@ export default function FormPermohonanUji() {
                             // value={formik.values.test_type}
                             placeholder="Pilih Jenis Uji" 
                             itemLists={jenisPekerjaan}/>
-                            
-                            {formik.touched.test_type && formik.errors.test_type ? 
+                            <ErrorMessage name="test_type" component="p" className="text-error"/>
+                            {/* {formik.touched.test_type && formik.errors.test_type ? 
                                 <p className="text-error">{formik.errors.test_type}</p>
                                 :
                                 null
-                            }
+                            } */}
                         </div>
                     </div>
                     <div className='flex items-center justify-between'>
@@ -100,28 +103,30 @@ export default function FormPermohonanUji() {
                         <div className="block">
 
                             <CustomComboBox 
-                                selected={typeSelected}
-                                setSelected={setTypeSelected}
+                                // selected={typeSelected}
+                                // setSelected={setTypeSelected}
+                                selected={formik.values.type}
+                                setSelected={formik.setFieldValue}
                                 id="type"
                                 name="type"
                                 type="text"
-                                disabled={test_typeSelected?false:true}
+                                disabled={formik.values.test_type?false:true}
                                 // onChange={formik.handleChange}
                                 // onChange={(e)=>{formik.setFieldValue('test_type',"mahmud")}}
                                 onBlur={formik.handleBlur}
                                 // value={formik.values.test_type}
                                 placeholder="Pilih Jenis Alat" 
-                                itemLists={test_typeSelected == jenisPekerjaan[0] ?
+                                itemLists={formik.values.test_type == jenisPekerjaan[0] ?
                                     jenisAlatUkes
                                     :
                                     jenisAlatKalibrasi
                                 }/>
-                                
-                                {formik.touched.type && formik.errors.type ? 
+                                <ErrorMessage name="type" component="p" className="text-error"/>
+                                {/* {formik.touched.type && formik.errors.type ? 
                                     <p className="text-error">{formik.errors.type}</p>
                                     :
                                     null
-                                }
+                                } */}
                         </div>
                     </div>
                     <div className='flex items-center justify-between'>
@@ -129,21 +134,14 @@ export default function FormPermohonanUji() {
                             Merk Alat
                         </Body1>
                         <div className="block">
-                            <input
+                            <Field
                                 className="w-96 border-none focus:ring-0 py-2 px-3 text-sm leading-5 text-gray-900 rounded-lg shadow-md"
                                 id="brand"
                                 name="brand"
                                 type="text"
                                 placeholder="Isi Merk Alat"
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.brand}
                                 />
-                            {formik.touched.brand && formik.errors.brand ? 
-                                <p className="text-error">{formik.errors.brand}</p>
-                                :
-                                null
-                            }
+                            <ErrorMessage name="brand" component="p" className="text-error"/>
                         </div>
                     </div>
                     <div className='flex items-center justify-between'>
@@ -151,21 +149,14 @@ export default function FormPermohonanUji() {
                             Tipe Alat
                         </Body1>
                         <div className="block">
-                            <input
+                            <Field
                                 className="w-96 border-none focus:ring-0 py-2 px-3 text-sm leading-5 text-gray-900 rounded-lg shadow-md"
                                 id="name"
                                 name="name"
                                 type="text"
                                 placeholder="Isi Nama Alat"
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.name}
                                 />
-                            {formik.touched.name && formik.errors.name ? 
-                                <p className="text-error">{formik.errors.name}</p>
-                                :
-                                null
-                            }
+                            <ErrorMessage name="name" component="p" className="text-error"/>
                         </div>
                     </div>
                     <div className='flex items-center justify-between'>
@@ -173,21 +164,14 @@ export default function FormPermohonanUji() {
                             Kuantitas Alat
                         </Body1>
                         <div className="block">
-                            <input
+                            <Field
                                 className="w-96 border-none focus:ring-0 py-2 px-3 text-sm leading-5 text-gray-900 rounded-lg shadow-md"
                                 id="quantity"
                                 name="quantity"
                                 type="number"
                                 placeholder="Isi Kuantitas Alat"
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.quantity}
                                 />
-                            {formik.touched.quantity && formik.errors.quantity ? 
-                                <p className="text-error">{formik.errors.quantity}</p>
-                                :
-                                null
-                            }
+                            <ErrorMessage name="quantity" component="p" className="text-error"/>
                         </div>
                     </div>
                     <div className='flex items-start justify-between'>
@@ -195,37 +179,17 @@ export default function FormPermohonanUji() {
                             Keterangan
                         </Body1>
                         <div className="block">
-                            <textarea
+                            <Field as="textarea"
                                 className="w-96 h-36 border-none focus:ring-0 py-2 px-3 text-sm leading-5 text-gray-900 rounded-lg shadow-md"
                                 id="description"
                                 name="description"
                                 type="text"
                                 placeholder="Isi Keterangan"
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.description}
                                 />
-                           
                         </div>
                     </div>
-
-
                 </div>
-                {/* <input
-                id="test_type"
-                name="test_type"
-                type="text"
-                placeholder="Jenis Uji"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.test_type}
-                />
-                {formik.touched.test_type && formik.errors.test_type ? 
-                <p>{formik.errors.test_type}</p>
-                :
-                null
-                } */}
-            {/* </form> */}
+                
         </Form>
     }}
     </Formik>

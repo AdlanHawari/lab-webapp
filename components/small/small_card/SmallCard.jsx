@@ -4,7 +4,7 @@ import Body3 from "../typography/Body3";
 import Title1 from "../typography/Title1";
 import Title2Med from "../typography/Title2Med";
 import { useState } from "react";
-import PermohonanUjiModal from "components/big/PermohonanUjiModal";
+import DetailUjiModal from "components/big/DetailUjiModal";
 
 export default function SmallCard({data}) {
     const [isDetailOpen, setIsDetailOpen] = useState(false)
@@ -96,14 +96,14 @@ export default function SmallCard({data}) {
 
         </div>
         <div className="flex justify-end">
-            <Button type="primary_default" className="w-auto px-5 py-0.5"
+            <Button buttonStyle="primary_default" className="w-auto px-5 py-0.5"
             onClick={()=>setIsDetailOpen(true)}>
                 Lihat Detail
             </Button>
         </div>
 
         {isDetailOpen &&
-          <PermohonanUjiModal isOpen={isDetailOpen} setIsOpen={setIsDetailOpen}/>
+          <DetailUjiModal isOpen={isDetailOpen} setIsOpen={setIsDetailOpen}/>
         }
 
     </div>

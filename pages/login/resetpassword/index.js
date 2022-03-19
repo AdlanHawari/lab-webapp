@@ -21,7 +21,7 @@ export default function ResetPassPage() {
 
             </div>
             
-            <Button type="primary_default"
+            <Button buttonStyle="primary_default"
             disabled={false}
             onClick={(e)=>setreqSent(!reqSent)}
             >Ubah Password</Button>
