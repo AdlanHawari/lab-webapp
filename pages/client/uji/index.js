@@ -22,7 +22,9 @@ export default function ClientUjiPage() {
         <div className="block space-y-6">
 
           <div className="flex justify-between">
-            <DateFilter/>
+            <div className="">
+              <DateFilter/>
+            </div>
             <button className="flex items-center space-x-2 bg-primary button-base text-white px-5 py-2 rounded-xl"
             onClick={()=>setIsUjiOpen(true)}>
               <PlusIcon className="h-6 w-6 cursor-pointer" aria-hidden="true"/>

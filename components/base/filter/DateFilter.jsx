@@ -8,34 +8,52 @@ import Button from 'components/small/button_fixed/Button'
 
 export default function DateFilter() {
 //   const [startDate, setStartDate] = useState(new Date())
-  const [startDate, setStartDate] = useState()
+//   const [startDate, setStartDate] = useState()
   const [open, setOpen] = useState(false)
-//   const [endDate, setEndDate] = useState(new Date().setMonth(startDate.getMonth() + 1))
+//   const [endDate, setEndDate] = useState()
+const [dateRange, setDateRange] = useState([null, null]);
+  const [startDate, endDate] = dateRange;
 //   const [dateState, setDateState] = useState("");
 
-//   useEffect(() => {
-//     if (startDate > endDate) setStartDate(endDate)
-// }, [endDate])
-
 useEffect(() => {
-    console.log("date: ",startDate? startDate.toString(): "null")
-}, [startDate])
+    console.log("end: ",endDate)
+    if(open && endDate){
+        setOpen(false)
+    }
+}, [endDate])
+// useEffect(() => {
+//     console.log("date: ",startDate? startDate.toString(): "null")
+// }, [startDate])
+//  const dateFilled = (update) => {
+//      if(open && update[1]){
+
+//      }
+//  }
 
   return(
     <ReactDatePicker
-        selected={startDate}
-        onChange={(date) => setStartDate(date)}
-        selectsStart
+        // selected={startDate}
+        selectsRange={true}
+        // onChange={(date) => setStartDate(date)}
+        onChange={(update) => {
+            setDateRange(update);
+            // console.log("update",update)
+            
+            
+          }}
+        // selectsStart
+        
         startDate={startDate}
         open={open}
         onClickOutside={()=>setOpen(false)}
-        onSelect={()=>setOpen(false)}
+        // onSelect={()=>setOpen(false)}
+        on
         
-        // endDate={endDate}
+        endDate={endDate}
         nextMonthButtonLabel=">"
         previousMonthButtonLabel="<"
         popperClassName="react-datepicker-left"
-        customInput={<DateInput open={open} setOpen={setOpen} date={startDate}/>}
+        customInput={<DateInput open={open} setOpen={setOpen} startDate={startDate} endDate={endDate}/>}
         renderCustomHeader={({
             date,
             decreaseMonth,
@@ -82,10 +100,11 @@ useEffect(() => {
     >
         <div className=" mx-auto w-1/2 py-4">
             <Button 
-            type="primary_default" 
+            buttonStyle="primary_default" 
             className="bg-error py-1"
             onClick={() => {
-                setStartDate(null)
+                // setStartDate(null)
+                setDateRange([null,null])
                 setOpen(false)
                 }}>
                 Remove Date
@@ -96,7 +115,7 @@ useEffect(() => {
   )
 }
 
-const DateInput = forwardRef(({open, setOpen,date},{ value, onClick }, ref) => (
+const DateInput = forwardRef(({open, setOpen,startDate, endDate},{ value, onClick }, ref) => (
     <button
     //   onClick={onClick}
       onClick={()=>{
@@ -107,7 +126,7 @@ const DateInput = forwardRef(({open, setOpen,date},{ value, onClick }, ref) => (
       
       ref={ref}
       type="button"
-      className='inline-flex justify-start w-48 px-3 py-2 text-sm font-medium text-grey-700 bg-white border border-grey-300 rounded-xl shadow-sm hover:bg-grey-50 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-secondary'
+      className='inline-flex justify-start w-72 px-3 py-2 text-sm font-medium text-grey-700 bg-white border border-grey-300 rounded-xl shadow-sm hover:bg-grey-50 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-secondary'
         >
         {/* {format(new Date(value), 'dd MMMM yyyy')} */}
         <div className="flex w-full items-center justify-between">
@@ -124,17 +143,19 @@ const DateInput = forwardRef(({open, setOpen,date},{ value, onClick }, ref) => (
                 onClick={onClick}/> */}
             <div className={classNames(
                 // "input-med bg-primary border-solid border border-x-0 border-grey-300 pl-1 focus:border-grey-300 focus:ring-0",
-                "input-med text-left w-24",
+                "input-med text-left w-full pl-4",
                 // value ? "text-black-500" : "text-grey-500"
-                date ? "text-black-500" : "text-grey-500"
+                startDate && endDate ? "text-black-500" : "text-grey-500"
             )} 
             >
                 {/* {value ?
                 format(new Date(value), 'dd/MM/yyyy') 
                 : "DD/MM/YYYY"} */}
-                {date ?
-                format(new Date(date), 'dd/MM/yyyy') 
-                : "DD/MM/YYYY"}
+                {startDate && endDate ?        
+                format(new Date(startDate), 'dd/MM/yyyy') + " - " + format(new Date(endDate), 'dd/MM/yyyy')
+                : "DD/MM/YYYY - DD/MM/YYYY"
+                }
+                
             </div>
             {/* <label htmlFor="" className='bg-secondary border-solid border border-l-0 border-grey-300 rounded rounded-l-none'> */}
             {/* <label htmlFor="" className=''> */}
