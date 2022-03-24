@@ -80,6 +80,13 @@ module.exports = {
       '7xl': '72px'
     },
     extend: {
+      height: {
+        'detailModal': '46rem',
+        'innerDetailModal': '36rem'
+      },
+      maxHeight: {
+        'innerDetailModal': '36rem'
+      }
     },
   },
   plugins: [

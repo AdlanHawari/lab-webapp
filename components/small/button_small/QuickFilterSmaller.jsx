@@ -1,10 +1,10 @@
 import classNames from 'classnames'
 import React from 'react'
 
-export default function QuickFilterButton({className, children}) {
+export default function QuickFilterSmaller({className, children}) {
   return (
     <button className= {classNames(
-        "block p-2.5  rounded-md border border-grey-300 button-small leading-normal ",
+        "block py-0.5 px-2.5 rounded-md border border-grey-300 button-small leading-normal ",
         className
     )}
     >
