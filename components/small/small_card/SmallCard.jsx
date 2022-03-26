@@ -6,6 +6,7 @@ import Title2Med from "../typography/Title2Med";
 import { useState } from "react";
 import DetailUjiModal from "components/big/DetailUjiModal";
 
+
 export default function SmallCard({data}) {
     const [isDetailOpen, setIsDetailOpen] = useState(false)
   return (

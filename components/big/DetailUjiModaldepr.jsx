@@ -128,7 +128,7 @@ export default function PermohonanDetailUjiModalUjiModal({isOpen, setIsOpen}) {
                         </div>
                     </div>
                     <div className="flex h-full">
-                        <div className="relative h-full bg-primary w-4/5 py-6 border-r border-grey-200">
+                        <div className="relative h-full bg-secondary w-4/5 py-6 border-r border-grey-200">
                             {/* parent section */}
                             
                             <div className="absolute max-h-detailModal overflow-auto divide-y divide-grey-200 px-11">
