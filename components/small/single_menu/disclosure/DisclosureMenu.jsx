@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import { MyLink } from 'components/general/MyLink'
 import Title1 from 'components/small/typography/Title1'
 import Title2Med from 'components/small/typography/Title2Med'
-import { useTitleContext } from 'context/TitleContext'
+import { useTitleContext } from 'hooks/TitleContext'
 import { useEffect } from 'react'
 
 export default function DisclosureMenu({iconclassName,
