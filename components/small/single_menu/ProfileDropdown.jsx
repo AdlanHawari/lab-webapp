@@ -7,7 +7,7 @@ import Body1 from '../typography/Body1'
 import { accountMenu } from 'constants/AccountMenu'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useTitleContext } from 'context/TitleContext'
+import { useTitleContext } from 'hooks/TitleContext'
 import { MyLink } from 'components/general/MyLink'
 
 function classNames(...classes) {

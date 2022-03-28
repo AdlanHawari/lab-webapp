@@ -1,5 +1,5 @@
 import NotifIcon from '/components/base/NotifIcon'
-import { useTitleContext } from 'context/TitleContext'
+import { useTitleContext } from 'hooks/TitleContext'
 import ProfileDropdown from 'components/small/single_menu/ProfileDropdown';
 import { UserCircleIcon } from '@heroicons/react/solid';
 

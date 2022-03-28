@@ -1,8 +1,6 @@
 import { LightningBoltIcon } from "@heroicons/react/outline";
 import Title1 from "components/small/typography/Title1";
 import { client_menu, management_menu, personel_menu } from "constants/Menu";
-import { useTitleContext } from "context/TitleContext";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import MenuItem from "components/base/sidemenu/MenuItem";
 import { useRouter } from "next/router";
