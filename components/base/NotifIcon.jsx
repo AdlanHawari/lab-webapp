@@ -1,6 +1,6 @@
 import { BellIcon } from '@heroicons/react/solid'
 import { MyLink } from 'components/general/MyLink'
-import { useTitleContext } from 'context/TitleContext';
+import { useTitleContext } from 'hooks/TitleContext';
 import { useRouter } from 'next/router'
 import constructLink from 'utils/ConstructLink'
 

@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import sip_logo from 'images/logo.png'
 import SideMenu from './sidemenu/SideMenu'
-import TitleContextProvider from 'context/TitleContext'
+import TitleContextProvider from 'hooks/TitleContext'
 import Topbar from 'components/base/topbar/Topbar'
 
 export default function BaseLayout({children}) {

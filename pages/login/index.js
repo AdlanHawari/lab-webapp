@@ -8,8 +8,21 @@ import Input from "/components/small/input/Input";
 import { MyLink } from "components/general/MyLink";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from 'yup'
+import handleFormData from "utils/HandleFormData";
+import { useAuth } from "hooks/useAuth";
 
 export default function LoginPage() {
+  const auth = useAuth()
+
+  function handleLogin(formData){
+    const res = auth.login(formData);
+      if(!res){
+        console.log(res)
+        return res
+      }
+      
+
+  }
     
   return(
     <>
@@ -20,11 +33,19 @@ export default function LoginPage() {
         password: "",
     }}
     validationSchema={ Yup.object({
-        email: Yup.string().email("Email tidak valid").required("Required"),
+        // email: Yup.string().email("Email tidak valid").required("Required"),
+        email: Yup.string().required("Required"),
         password: Yup.string().required("Required"),
     })}
     onSubmit={ (values) => {
-        console.log(values);
+
+      let formData = handleFormData(values)
+      //log the value
+      for (let property of formData.entries()) {
+        console.log(property[0], property[1]);
+      }
+      const data = handleLogin(formData)
+
     }}>
         {/* {formik=>{return  */}
         <Form id="login_form">
@@ -33,7 +54,8 @@ export default function LoginPage() {
                 className="form-input w-full p-2.5 rounded-xl text-xs  border-solid border-2 border-grey-300"
                 id="email"
                 name="email"
-                type="email"
+                // type="email"
+                type="text"
                 placeholder="Email"
                 />
             <ErrorMessage name="email" component="p" className="text-error"/>

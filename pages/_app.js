@@ -1,3 +1,4 @@
+import { AuthProvider } from 'hooks/useAuth'
 import Head from 'next/head'
 import '../styles/globals.css'
 
@@ -7,8 +8,11 @@ function MyApp({ Component, pageProps }) {
 
   return getLayout(
     // <TitleContextProvider>
+    <AuthProvider>
 
-    <Component {...pageProps} /> 
+      <Component {...pageProps} /> 
+    </AuthProvider>
+
     // </TitleContextProvider>
   )
 
