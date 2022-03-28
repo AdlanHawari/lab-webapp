@@ -1,7 +1,7 @@
 import BaseLayout from 'components/base/BaseLayout';
 import LogSection from 'components/base/logsection/LogSection';
 import { clientLogs } from 'constants/test_objects/clientLog';
-import { useTitleContext } from 'context/TitleContext';
+import { useTitleContext } from "hooks/TitleContext";
 import { useEffect } from 'react';
 
 export default function ManajemenLogPage() {

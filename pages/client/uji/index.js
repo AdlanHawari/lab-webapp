@@ -5,7 +5,7 @@ import StatusFilter from "components/base/filter/StatusFilter";
 import PermohonanUjiModal from "components/big/PermohonanUjiModal";
 import SmallCard from "components/small/small_card/SmallCard";
 import { clientUji } from "constants/test_objects/clientUji";
-import { useTitleContext } from "context/TitleContext";
+import { useTitleContext } from "hooks/TitleContext";
 import { useEffect, useState } from "react";
 
 export default function ClientUjiPage() {

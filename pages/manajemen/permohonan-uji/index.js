@@ -1,5 +1,5 @@
 import BaseLayout from 'components/base/BaseLayout';
-import { useTitleContext } from 'context/TitleContext';
+import { useTitleContext } from "hooks/TitleContext";
 import { useEffect } from 'react';
 
 export default function ManajemenPermohonanUjiPage() {

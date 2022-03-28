@@ -17,6 +17,9 @@ function useProvideAuth(){
     async function login(formData){
         var requestOptions = {
             method: 'POST',
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            },
             body: formData,
             redirect: 'follow'
           };

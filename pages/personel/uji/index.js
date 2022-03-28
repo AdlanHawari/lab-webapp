@@ -4,7 +4,7 @@ import DateFilter from "components/base/filter/DateFilter";
 import ManajemenujiTable from "components/base/manajemenuji/ManajemenujiTable";
 import Table2 from "components/small/typography/Table2";
 import { manajemenUjiData } from "constants/test_objects/manajemenUji";
-import { useTitleContext } from "context/TitleContext";
+import { useTitleContext } from "hooks/TitleContext";
 import { useEffect } from "react";
 
 export default function PersonelUjiPage() {
