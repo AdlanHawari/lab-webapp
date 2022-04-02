@@ -2,7 +2,7 @@ import { PlusIcon } from "@heroicons/react/solid";
 import BaseLayout from "components/base/BaseLayout"
 import DateFilter from "components/base/filter/DateFilter";
 import StatusFilter from "components/base/filter/StatusFilter";
-import PermohonanUjiModal from "components/big/PermohonanUjiModal";
+import PermohonanUjiModal from "components/big/client/PermohonanUjiModal";
 import SmallCard from "components/small/small_card/SmallCard";
 import { clientUji } from "constants/test_objects/clientUji";
 import { useTitleContext } from "hooks/TitleContext";

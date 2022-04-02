@@ -3,9 +3,13 @@ import ButtonSmall from "components/small/button_small/ButtonSmall";
 import Table1 from "components/small/typography/Table1";
 import Table2 from "components/small/typography/Table2";
 import { manajemenUjiTableHead } from "constants/table/RowTitle";
+import DetailUjiModalPersonel from "components/big/personel/DetailUjiModalPersonel";
+import {useState} from 'react';
 
 export default function ManajemenujiTable({data}) {
+    const [isDetailOpen, setIsDetailOpen] = useState(false)
   return (
+      <>
     <table className="bg-primary-lighten10 min-w-full shadow-lg rounded-lg">
         <thead className="">
           <tr>
@@ -86,7 +90,8 @@ export default function ManajemenujiTable({data}) {
                         </Table1>
                     </td>
                     <td className="">
-                        <ButtonSmall>
+                        <ButtonSmall
+                        onClick={()=>setIsDetailOpen(true)}>
                             Lihat Detail
                         </ButtonSmall>
                     </td>
@@ -96,5 +101,10 @@ export default function ManajemenujiTable({data}) {
         </tbody>
 
       </table>
+      {isDetailOpen &&
+        <DetailUjiModalPersonel isOpen={isDetailOpen} setIsOpen={setIsDetailOpen}/>
+      }
+
+      </>
   )
 }
