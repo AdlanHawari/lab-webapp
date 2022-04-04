@@ -4,6 +4,7 @@ import DateFilter from "components/base/filter/DateFilter";
 import StatusFilter from "components/base/filter/StatusFilter";
 import PermohonanUjiModal from "components/big/client/PermohonanUjiModal";
 import SmallCard from "components/small/small_card/SmallCard";
+import { clientUjiStatus } from "constants/filter-status/ClientUjiStatus";
 import { clientUji } from "constants/test_objects/clientUji";
 import { useTitleContext } from "hooks/TitleContext";
 import { useEffect, useState } from "react";
@@ -33,7 +34,7 @@ export default function ClientUjiPage() {
               </p>
             </button>
           </div>
-          <StatusFilter/>
+          <StatusFilter filter={clientUjiStatus}/>
         </div>
 
         <ul className="pt-5 space-y-5">

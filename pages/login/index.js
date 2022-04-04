@@ -15,10 +15,23 @@ export default function LoginPage() {
   const auth = useAuth()
 
   function handleLogin(formData){
+    // var requestOptions = {
+    //   method: 'POST',
+    //   body: formData,
+    //   redirect: 'follow'
+    // };
+
+  // fetch("http://api.play1.musagreen.com/login", requestOptions)
+  // .then(response => response.text())
+  // .then(result => console.log(result))
+  // .catch(error => console.log('error', error));
     const res = auth.login(formData);
       if(!res){
         console.log(res)
         return res
+      }
+      else{
+        console.log("final", res)
       }
       
 
@@ -29,12 +42,13 @@ export default function LoginPage() {
       <h1 className="pb-9">Log In</h1>
       <Formik
       initialValues= {{
-        email: "",
+        // email: "",
+        username: "",
         password: "",
     }}
     validationSchema={ Yup.object({
         // email: Yup.string().email("Email tidak valid").required("Required"),
-        email: Yup.string().required("Required"),
+        username: Yup.string().required("Required"),
         password: Yup.string().required("Required"),
     })}
     onSubmit={ (values) => {
@@ -45,6 +59,7 @@ export default function LoginPage() {
         console.log(property[0], property[1]);
       }
       const data = handleLogin(formData)
+      console.log("data",data)
 
     }}>
         {/* {formik=>{return  */}
@@ -52,20 +67,24 @@ export default function LoginPage() {
           <div className="pb-5">
             <Field
                 className="form-input w-full p-2.5 rounded-xl text-xs  border-solid border-2 border-grey-300"
-                id="email"
-                name="email"
+                // id="email"
+                id="username"
+                // name="email"
+                name="username"
                 // type="email"
                 type="text"
                 placeholder="Email"
                 />
-            <ErrorMessage name="email" component="p" className="text-error"/>
+            {/* <ErrorMessage name="email" component="p" className="text-error"/> */}
+            <ErrorMessage name="username" component="p" className="text-error"/>
           </div>
           <div>
           <Field
                 className="form-input w-full p-2.5 rounded-xl text-xs  border-solid border-2 border-grey-300"
                 id="password"
                 name="password"
-                type="password"
+                // type="password"
+                type="text"
                 placeholder="Password"
                 />
             <ErrorMessage name="password" component="p" className="text-error"/>

@@ -4,7 +4,7 @@ import Body3 from "../typography/Body3";
 import Title1 from "../typography/Title1";
 import Title2Med from "../typography/Title2Med";
 import { useState } from "react";
-import DetailUjiModal from "components/big/DetailUjiModal";
+import DetailUjiModal from "components/big/client/DetailUjiModal";
 
 
 export default function SmallCard({data}) {

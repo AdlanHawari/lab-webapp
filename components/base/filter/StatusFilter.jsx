@@ -1,16 +1,29 @@
+import classNames from 'classnames'
 import QuickFilterButton from 'components/small/button_small/QuickFilterButton'
 import Title1 from 'components/small/typography/Title1'
 import TitleSmall from 'components/small/typography/TitleSmall'
 import React from 'react'
 
-export default function StatusFilter() {
+export default function StatusFilter({filter, space, titleSpace}) {
   return (
-    <div className='flex items-center space-x-3'>
+    <div className={classNames('flex items-center ',
+    titleSpace ? titleSpace : "space-x-3"
+    )}>
         <Title1>
             Status
         </Title1>
-        <div className="flex space-x-1">
-            <QuickFilterButton className="bg-primary-lighten10 border-primary-darken10">
+        <div className={classNames("flex",
+        space ? space : "space-x-1"
+        )}>
+            {filter.map((item,index)=>(
+                <QuickFilterButton key={index} className="bg-primary-lighten10 border-primary-darken10">
+                    <TitleSmall className="text-primary-darken10">
+                        {item}
+                    </TitleSmall>
+                </QuickFilterButton>
+
+            ))}
+            {/* <QuickFilterButton className="bg-primary-lighten10 border-primary-darken10">
                 <TitleSmall className="text-primary-darken10">
                     Semua
                 </TitleSmall>
@@ -64,7 +77,7 @@ export default function StatusFilter() {
                 <TitleSmall className="text-grey-700">
                     Batal
                 </TitleSmall>
-            </QuickFilterButton>
+            </QuickFilterButton> */}
         </div>
     </div>
   )
