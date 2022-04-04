@@ -1,4 +1,5 @@
 import BaseLayout from 'components/base/BaseLayout';
+import DisclosurePekerja from 'components/small/single_menu/disclosure/DisclosurePekerja';
 import Title1 from 'components/small/typography/Title1';
 import Title2Med from 'components/small/typography/Title2Med';
 import { summary } from 'constants/ManajemenSummary';
@@ -16,7 +17,7 @@ export default function ManajemenSummaryPage() {
 
   return(
     <div className="flex justify-between space-x-7">
-        <ul className="grid grid-flow-row grid-cols-2 w-full gap-9">
+        <ul className="grid grid-flow-row grid-cols-2 w-full h-full gap-9">
           {summary.map((item,index) => (
 
             <li key={index} className='bg-white rounded-2xl border border-grey-300 h-40 shadow'>
@@ -39,12 +40,16 @@ export default function ManajemenSummaryPage() {
             <h3>Status Pekerja</h3>
             <Title1 className="text-primary">Lihat Semua</Title1>
           </div>
-          <div className="block py-4">
+          <div className="block py-4 space-y-1">
             <Title2Med>Active</Title2Med>
+            <DisclosurePekerja bgButton="bg-primary"/>
+            <DisclosurePekerja bgButton="bg-primary"/>
 
           </div>
-          <div className="block py-4">
+          <div className="block py-4 space-y-1">
             <Title2Med>Standby</Title2Med>
+            <DisclosurePekerja bgButton="bg-secondary"/>
+            <DisclosurePekerja bgButton="bg-secondary"/>
             
           </div>
             

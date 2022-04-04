@@ -14,27 +14,9 @@ import { useAuth } from "hooks/useAuth";
 export default function LoginPage() {
   const auth = useAuth()
 
-  function handleLogin(formData){
-    // var requestOptions = {
-    //   method: 'POST',
-    //   body: formData,
-    //   redirect: 'follow'
-    // };
-
-  // fetch("http://api.play1.musagreen.com/login", requestOptions)
-  // .then(response => response.text())
-  // .then(result => console.log(result))
-  // .catch(error => console.log('error', error));
-    const res = auth.login(formData);
-      if(!res){
-        console.log(res)
-        return res
-      }
-      else{
-        console.log("final", res)
-      }
-      
-
+   async function handleLogin(formData){
+    const res =  await auth.login(formData);
+    return res
   }
     
   return(
@@ -51,15 +33,23 @@ export default function LoginPage() {
         username: Yup.string().required("Required"),
         password: Yup.string().required("Required"),
     })}
-    onSubmit={ (values) => {
+    onSubmit={ async (values) => {
 
       let formData = handleFormData(values)
       //log the value
       for (let property of formData.entries()) {
         console.log(property[0], property[1]);
       }
-      const data = handleLogin(formData)
-      console.log("data",data)
+      const response = await handleLogin(formData)
+      // console.log("data", response)
+      
+      if(response.http_code == 200){
+        const data = response.data
+        // a = JSON.stringify(data)
+        console.log("token",data.token)
+        console.log("role",data.user.role.name)
+        
+      }
 
     }}>
         {/* {formik=>{return  */}
