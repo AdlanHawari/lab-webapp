@@ -8,13 +8,14 @@ import {useState} from 'react';
 
 export default function ManajemenujiTable({data}) {
     const [isDetailOpen, setIsDetailOpen] = useState(false)
+    const [selected, setSelected] = useState()
   return (
       <>
     <table className="bg-primary-lighten10 min-w-full shadow-lg rounded-lg">
         <thead className="">
           <tr>
             {manajemenUjiTableHead.map((rowTitle,index)=>(
-              <th key={index} scope="col" className="py-2 px-4 align-top">
+              <th key={index} scope="col" className="w-24 py-2 px-4 align-top">
                 <Table2 className="text-black-500 text-left leading-normal">
                     {rowTitle}  
                 </Table2>
@@ -28,7 +29,12 @@ export default function ManajemenujiTable({data}) {
         </thead>
         <tbody className="bg-white divide-y divide-table-divider">
             {data.map((item,index)=>(
-                <tr key={index} className="">
+                <tr key={index} className={
+                    selected == index &&
+                    "bg-warning-light"
+                }
+                onClick={()=>setSelected(index)}
+                >
                      <td className="max-w-24 p-4">
                         <Table1 className="text-black-500 leading-normal">
                             {item.nama_instansi}

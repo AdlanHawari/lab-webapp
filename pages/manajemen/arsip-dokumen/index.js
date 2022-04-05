@@ -1,4 +1,7 @@
 import BaseLayout from 'components/base/BaseLayout';
+import DateFilter from 'components/base/filter/DateFilter';
+import ArsipTable from 'components/base/table/ArsipTable';
+import { arsipData } from 'constants/test_objects/arsipDokumen';
 import { useTitleContext } from "hooks/TitleContext";
 import { useEffect } from 'react';
 
@@ -10,9 +13,13 @@ export default function ManajemenArsipPage() {
     setTitle('Arsip Dokumen')
   })
   return(
-    <div className="">
-        Manajemen Arsip
-    </div>
+    <div className="block space-y-7">
+
+      <div className="flex">
+          <DateFilter/>
+      </div>
+      <ArsipTable data={arsipData}/>
+  </div>
   )
 }
 

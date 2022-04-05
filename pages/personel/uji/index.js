@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import BaseLayout from "components/base/BaseLayout"
 import DateFilter from "components/base/filter/DateFilter";
-import ManajemenujiTable from "components/base/manajemenuji/ManajemenujiTable";
+import ManajemenujiTable from "components/base/table/ManajemenujiTable";
 import Table2 from "components/small/typography/Table2";
 import { manajemenUjiData } from "constants/test_objects/manajemenUji";
 import { useTitleContext } from "hooks/TitleContext";
@@ -17,9 +17,9 @@ export default function PersonelUjiPage() {
 
   return(
     <div className="flex flex-col space-y-5">
-    <div className="">
-      <DateFilter/>
-    </div>
+      <div className="">
+        <DateFilter/>
+      </div>
 
     {/* table */}
     <div className="pt-5 space-y-5">
