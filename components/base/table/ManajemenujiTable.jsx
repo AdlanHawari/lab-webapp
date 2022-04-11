@@ -5,6 +5,8 @@ import Table2 from "components/small/typography/Table2";
 import { manajemenUjiTableHead } from "constants/table/RowTitle";
 import DetailUjiModalPersonel from "components/big/personel/DetailUjiModalPersonel";
 import {useState} from 'react';
+import DetailModal from "components/big/DetailModal";
+import { manajemenUjiStatus, permohonanUjiStatus } from "constants/filter-status/ManajemenUjiStatus";
 
 export default function ManajemenujiTable({data}) {
     const [isDetailOpen, setIsDetailOpen] = useState(false)
@@ -12,7 +14,7 @@ export default function ManajemenujiTable({data}) {
   return (
       <>
     <table className="bg-primary-lighten10 min-w-full shadow-lg rounded-lg">
-        <thead className="">
+        <thead >
           <tr>
             {manajemenUjiTableHead.map((rowTitle,index)=>(
               <th key={index} scope="col" className="w-24 py-2 px-4 align-top">
@@ -108,7 +110,17 @@ export default function ManajemenujiTable({data}) {
 
       </table>
       {isDetailOpen &&
-        <DetailUjiModalPersonel isOpen={isDetailOpen} setIsOpen={setIsDetailOpen}/>
+        // <DetailUjiModalPersonel isOpen={isDetailOpen} setIsOpen={setIsDetailOpen}/>
+        <DetailModal 
+          title="Detail Uji" 
+          isOpen={isDetailOpen} 
+          setIsOpen={setIsDetailOpen}
+          status={permohonanUjiStatus}
+          current_status={2}
+        //   status={manajemenUjiStatus}
+          >
+
+          </DetailModal>
       }
 
       </>

@@ -2,9 +2,13 @@ import { PlusIcon } from "@heroicons/react/solid";
 import BaseLayout from "components/base/BaseLayout"
 import DateFilter from "components/base/filter/DateFilter";
 import StatusFilter from "components/base/filter/StatusFilter";
+import FormPermohonanUji from "components/big/client/FormPermohonanUji";
 import PermohonanUjiModal from "components/big/client/PermohonanUjiModal";
+import FormModal from "components/big/FormModal";
+import Button from "components/small/button_fixed/Button";
 import SmallCard from "components/small/small_card/SmallCard";
 import { clientUjiStatus } from "constants/filter-status/ClientUjiStatus";
+import { form_permohonan_uji_id } from "constants/FormUtils";
 import { clientUji } from "constants/test_objects/clientUji";
 import { useTitleContext } from "hooks/TitleContext";
 import { useEffect, useState } from "react";
@@ -47,7 +51,26 @@ export default function ClientUjiPage() {
         </ul>
 
         {isUjiOpen &&
-          <PermohonanUjiModal isOpen={isUjiOpen} setIsOpen={setIsUjiOpen}/>
+          // <PermohonanUjiModal isOpen={isUjiOpen} setIsOpen={setIsUjiOpen}/>
+          <FormModal 
+          title="Permohonan Uji"
+          bgColor="primary"
+          isOpen={isUjiOpen}
+          setIsOpen={setIsUjiOpen}
+          
+          buttonSide={
+       
+
+              <>
+                <Button className="bg-primary" buttonStyle="primary_default" type="submit" form={form_permohonan_uji_id}>
+                Buat Permohonan Uji
+                </Button>
+              </>
+            
+          }
+      >
+            <FormPermohonanUji id={form_permohonan_uji_id}/>
+          </FormModal>
         }
 
     </div>

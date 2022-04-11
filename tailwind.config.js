@@ -85,7 +85,8 @@ module.exports = {
         'innerDetailModal': '36rem'
       },
       maxHeight: {
-        'innerDetailModal': '36rem'
+        'innerDetailModal': '36rem',
+        'innerFormModal': '44rem'
       }
     },
   },
@@ -93,5 +94,6 @@ module.exports = {
     require('@tailwindcss/forms')({
       strategy: 'class',
     }),
+    require('@tailwindcss/typography'),
   ],
 }

@@ -6,63 +6,43 @@ import { ErrorMessage, Field, Form, Formik, useFormik, useFormikContext } from "
 import * as Yup from 'yup'
 import { useState, useEffect } from "react";
 import { jenisAlatKalibrasi } from "constants/jenis-alat/JenisAlatKalibrasi";
+import ValidationMessage from "components/small/validation_form/ValidationMessage";
 
-export default function FormPermohonanUji({id}) {
+export default function FormCreateUser({id}) {
     const [test_typeSelected, setTest_TypeSelected] = useState()
     const [typeSelected, setTypeSelected] = useState()
-    // const formik = useFormik({
-    //     initialValues: {
-    //         test_type: "",
-    //         brand: "",
-    //         name: "",
-    //         type: "",
-    //         quantity: null,
-    //         description: ""
-    //     },
-    //     validationSchema: Yup.object({
-    //         test_type: Yup.string().required("Required"),
-    //         brand: Yup.string().required("Required"),
-    //         name: Yup.string().required("Required"),
-    //         type: Yup.string().required("Required"),
-    //         quantity: Yup.number().min(1,"Minimal 1").required(),
-    //         // description: Yup.string(),
-    //     }),
-    //     onSubmit: (values) => {
-    //         console.log(values);
-    //     }
-    // })const AutoSubmitToken = () => {
-   // Grab values and submitForm from context
-//    const { values, setFieldValue } = useFormikContext();
-//    useEffect(() => {
-//      // Submit the form imperatively as an effect as soon as form values.token are 6 digits long
-     
-    //  console.log('uji',selected)
-//     //  console.log('value test_type',values.test_type)
-    // }, []);
+    
     
     return (
     <Formik
     
     initialValues= {{
-        test_type: "",
-        type: "",
-        brand: "",
         name: "",
-        quantity: null,
-        description: ""
+        role_id: "",
+        email: "",
+        position: "",
+        instance: "",
+        phone_number: "",
+        password: "",
+        password_confirmation: "",
     }}
     validationSchema={ Yup.object({
-        test_type: Yup.string().required("Required"),
-        type: Yup.string().required("Required"),
-        brand: Yup.string().required("Required"),
         name: Yup.string().required("Required"),
-        quantity: Yup
-                    .number("nomor")
-                    .min(1,"Minimal 1")
-                    .required("Required")
-                    .positive("oi")
-                    .integer("wew")
-                    .typeError('Required'),
+        role_id: Yup.string().required("Required"),
+        email: Yup.string().required("Required"),
+        position: Yup.string().required("Required"),
+        instance: Yup.string().required("Required"),
+        phone_number: Yup.string().required("Required"),
+        password: Yup.string().required("Required"),
+        password_confirmation: Yup.string()
+        .oneOf([Yup.ref('password'), null], 'Passwords must match'),
+        // quantity: Yup
+        //             .number("nomor")
+        //             .min(1,"Minimal 1")
+        //             .required("Required")
+        //             .positive("oi")
+        //             .integer("wew")
+        //             .typeError('Required'),
     })}
     onSubmit={ (values) => {
         console.log(values);
@@ -74,8 +54,8 @@ export default function FormPermohonanUji({id}) {
         return  <Form id={id}>
                 <div className="block w-full pl-10 pr-32 space-y-3">
                     <div className='flex items-center justify-between'>
-                        <Body1>
-                            Jenis Pekerjaan
+                        <Body1 className="text-black-400">
+                            Nama User
                         </Body1>
                         <div className="block">
                             <CustomComboBox 
@@ -102,8 +82,8 @@ export default function FormPermohonanUji({id}) {
                         </div>
                     </div>
                     <div className='flex items-center justify-between'>
-                        <Body1>
-                            Jenis Alat
+                        <Body1 className="text-black-400">
+                            Role
                         </Body1>
                         {/* <CustomComboBox itemLists={jenisAlatUkes}/> */}
                         <div className="block">
@@ -136,23 +116,24 @@ export default function FormPermohonanUji({id}) {
                         </div>
                     </div>
                     <div className='flex items-center justify-between'>
-                        <Body1>
-                            Merk Alat
+                        <Body1 className="text-black-400">
+                            Jabatan
                         </Body1>
                         <div className="block">
                             <Field
                                 className="w-96 border-none focus:ring-0 py-2 px-3 text-sm leading-5 text-gray-900 rounded-lg shadow-md"
-                                id="brand"
-                                name="brand"
+                                id="position"
+                                name="position"
                                 type="text"
-                                placeholder="Isi Merk Alat"
+                                placeholder="Isi Jabatan"
                                 />
-                            <ErrorMessage name="brand" component="p" className="text-error"/>
+                            {/* <ErrorMessage name="position" component="p" className="text-error"/> */}
+                            <ErrorMessage name="position" component={ValidationMessage}/>
                         </div>
                     </div>
                     <div className='flex items-center justify-between'>
-                        <Body1>
-                            Tipe Alat
+                        <Body1 className="text-black-400">
+                            Instansi
                         </Body1>
                         <div className="block">
                             <Field
@@ -166,8 +147,8 @@ export default function FormPermohonanUji({id}) {
                         </div>
                     </div>
                     <div className='flex items-center justify-between'>
-                        <Body1>
-                            Kuantitas Alat
+                        <Body1 className="text-black-400">
+                            Email
                         </Body1>
                         <div className="block">
                             <Field
@@ -175,22 +156,53 @@ export default function FormPermohonanUji({id}) {
                                 id="quantity"
                                 name="quantity"
                                 type="number"
-                                placeholder="Isi Kuantitas Alat"
+                                placeholder="Isi Email"
                                 />
                             <ErrorMessage name="quantity" component="p" className="text-error"/>
                         </div>
                     </div>
                     <div className='flex items-start justify-between'>
                         <Body1>
-                            Keterangan
+                            No.Hp
                         </Body1>
                         <div className="block">
-                            <Field as="textarea"
-                                className="w-96 h-36 border-none focus:ring-0 py-2 px-3 text-sm leading-5 text-gray-900 rounded-lg shadow-md"
-                                id="description"
-                                name="description"
+                            <Field
+                                className="w-96 border-none focus:ring-0 py-2 px-3 text-sm leading-5 text-gray-900 rounded-lg shadow-md"
+                                id="phone_number"
+                                name="phone_number"
                                 type="text"
-                                placeholder="Isi Keterangan"
+                                placeholder="Isi Nomor Handphone"
+                                />
+                        </div>
+                    </div>
+                    <div className='flex items-start justify-between'>
+                        <Body1 className="text-black-400">
+                            Password
+                        </Body1>
+                        <div className="block">
+                            <Field
+                                className="w-96 border-none focus:ring-0 py-2 px-3 text-sm leading-5 text-gray-900 rounded-lg shadow-md"
+                                id="password"
+                                name="password"
+                                type="text"
+                                placeholder="Isi Password"
+                                />
+                        </div>
+                    </div>
+                    <div className="caption-small text-black-300">
+                        Password terdiri atas minimal 8 karakter dengan satu huruf kapital dan satu angka
+                    </div>
+                    <div className='flex items-start justify-between'>
+                        <Body1 className="text-black-400">
+                            Konfirmasi Password
+                        </Body1>
+                        <div className="block">
+                            <Field
+                                className="w-96 border-none focus:ring-0 py-2 px-3 text-sm leading-5 text-gray-900 rounded-lg shadow-md"
+                                id="password_confirmation"
+                                name="password_confirmation"
+                                type="password"
+                                placeholder="Konfirmasi Password"
                                 />
                         </div>
                     </div>
@@ -201,3 +213,4 @@ export default function FormPermohonanUji({id}) {
     </Formik>
   )
 }
+

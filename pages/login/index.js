@@ -10,9 +10,16 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from 'yup'
 import handleFormData from "utils/HandleFormData";
 import { useAuth } from "hooks/useAuth";
+import Body2 from "components/small/typography/Body2";
+import ValidationMessage from "components/small/validation_form/ValidationMessage";
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCoffee, faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 export default function LoginPage() {
   const auth = useAuth()
+  const [submitState, setSubmitState] = useState(false)
+  
 
    async function handleLogin(formData){
     const res =  await auth.login(formData);
@@ -30,11 +37,12 @@ export default function LoginPage() {
     }}
     validationSchema={ Yup.object({
         // email: Yup.string().email("Email tidak valid").required("Required"),
-        username: Yup.string().required("Required"),
-        password: Yup.string().required("Required"),
+        username: Yup.string().email("Invalid Email").required("Fill in your email"),
+        password: Yup.string().required("Password can't be empty"),
     })}
     onSubmit={ async (values) => {
 
+      setSubmitState(true)
       let formData = handleFormData(values)
       //log the value
       for (let property of formData.entries()) {
@@ -49,7 +57,9 @@ export default function LoginPage() {
         console.log("token",data.token)
         console.log("role",data.user.role.name)
         
+        
       }
+      setSubmitState(false)
 
     }}>
         {/* {formik=>{return  */}
@@ -66,7 +76,8 @@ export default function LoginPage() {
                 placeholder="Email"
                 />
             {/* <ErrorMessage name="email" component="p" className="text-error"/> */}
-            <ErrorMessage name="username" component="p" className="text-error"/>
+            {/* <ErrorMessage name="username" component="p" className="text-error"/> */}
+            <ErrorMessage name="username" component={ValidationMessage}/>
           </div>
           <div>
           <Field
@@ -77,10 +88,24 @@ export default function LoginPage() {
                 type="text"
                 placeholder="Password"
                 />
-            <ErrorMessage name="password" component="p" className="text-error"/>
+            <ErrorMessage name="password" component={ValidationMessage}/>
+              {/* {msg => 
+                <div className="flex rounded-sm bg-error-light p-2 mt-1">
+                  <Body1 className="text-error-dark">
+                    {msg}
+                  </Body1>
+                </div>
+              } */}
           </div>
           <div className="py-8">
-            <Button type="submit" disabled={false} buttonStyle={"primary_default"}>Log In</Button>
+            <Button type="submit" disabled={submitState? true:false} buttonStyle={submitState?"primary_disabled":"primary_default"}>
+              { submitState &&
+                <FontAwesomeIcon icon={faSpinner} className="animate-spin"/>
+              }
+                {/* <FontAwesomeIcon icon="fa-solid fa-spinner-third"/> */}
+                
+              Log In
+              </Button>
           </div>
           <div className="flex w-full justify-center">
             <MyLink href="/login/forgotpassword">

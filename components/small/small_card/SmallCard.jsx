@@ -4,7 +4,9 @@ import Body3 from "../typography/Body3";
 import Title1 from "../typography/Title1";
 import Title2Med from "../typography/Title2Med";
 import { useState } from "react";
-import DetailUjiModal from "components/big/client/DetailUjiModal";
+import DetailModal from "components/big/DetailModal";
+import { clientUjiStatus } from "constants/filter-status/ClientUjiStatus";
+import { manajemenUjiStatus } from "constants/filter-status/ManajemenUjiStatus";
 
 
 export default function SmallCard({data}) {
@@ -104,7 +106,17 @@ export default function SmallCard({data}) {
         </div>
 
         {isDetailOpen &&
-          <DetailUjiModal isOpen={isDetailOpen} setIsOpen={setIsDetailOpen}/>
+        //   <DetailUjiModal isOpen={isDetailOpen} setIsOpen={setIsDetailOpen}/>
+          <DetailModal 
+          title="Detail Uji" 
+          isOpen={isDetailOpen} 
+          setIsOpen={setIsDetailOpen}
+          status={clientUjiStatus}
+          current_status={2}
+        //   status={manajemenUjiStatus}
+          >
+
+          </DetailModal>
         }
 
     </div>

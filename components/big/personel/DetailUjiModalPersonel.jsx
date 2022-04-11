@@ -9,7 +9,6 @@ import Body3 from "components/small/typography/Body3"
 import CaptionReg from "components/small/typography/CaptionReg"
 import TitleSmall from "components/small/typography/TitleSmall"
 import {Fragment} from 'react'
-import FormPraUji from "./FormPraUji"
 
 export default function DetailUjiModalPersonel({isOpen, setIsOpen}) {
     function closeModal() {
@@ -202,7 +201,7 @@ export default function DetailUjiModalPersonel({isOpen, setIsOpen}) {
                                           </div>
                                           <div className="">
 
-                                            <FormPraUji/>
+                                            {/* <FormPraUji/> */}
                                           </div>
                                         </div>
                                     {/* end of section 2 */}

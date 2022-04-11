@@ -1,11 +1,14 @@
 import classNames from 'classnames'
+import DetailModal from 'components/big/DetailModal'
 import ButtonSmall from 'components/small/button_small/ButtonSmall'
 import Table1 from 'components/small/typography/Table1'
 import Table2 from 'components/small/typography/Table2'
+import { permohonanUjiStatus } from 'constants/filter-status/ManajemenUjiStatus'
 import { permohonanUjiTableHead } from 'constants/table/RowTitle'
-import React from 'react'
+import {useState} from 'react'
 
 export default function PermohonanUjiTable({data}) {
+    const [isDetailOpen, setIsDetailOpen] = useState(false)
   return (
     <>
         <table className='bg-primary-lighten10 min-w-full shadow-lg rounded-lg'>
@@ -80,6 +83,19 @@ export default function PermohonanUjiTable({data}) {
 
             </tbody>
         </table>
+        {isDetailOpen &&
+        // <DetailUjiModalPersonel isOpen={isDetailOpen} setIsOpen={setIsDetailOpen}/>
+        <DetailModal 
+          title="Detail Permohonan" 
+          isOpen={isDetailOpen} 
+          setIsOpen={setIsDetailOpen}
+          status={permohonanUjiStatus}
+          current_status={2}
+        //   status={manajemenUjiStatus}
+          >
+
+          </DetailModal>
+      }
     </>
   )
 }

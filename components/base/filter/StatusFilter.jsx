@@ -4,7 +4,7 @@ import Title1 from 'components/small/typography/Title1'
 import TitleSmall from 'components/small/typography/TitleSmall'
 import React from 'react'
 
-export default function StatusFilter({filter, space, titleSpace}) {
+export default function StatusFilter({filter, space,onClick, titleSpace}) {
   return (
     <div className={classNames('flex items-center ',
     titleSpace ? titleSpace : "space-x-3"
@@ -16,7 +16,8 @@ export default function StatusFilter({filter, space, titleSpace}) {
         space ? space : "space-x-1"
         )}>
             {filter.map((item,index)=>(
-                <QuickFilterButton key={index} className="bg-primary-lighten10 border-primary-darken10">
+                <QuickFilterButton key={index} className="bg-primary-lighten10 border-primary-darken10"
+                onClick={onClick}>
                     <TitleSmall className="text-primary-darken10">
                         {item}
                     </TitleSmall>

@@ -9,7 +9,7 @@ import Title2Med from 'components/small/typography/Title2Med'
 import { useTitleContext } from 'hooks/TitleContext'
 import { useEffect } from 'react'
 
-export default function FormPraUji() {
+export default function SectionFormPraUji() {
 
 
   return (

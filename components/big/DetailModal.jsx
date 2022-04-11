@@ -9,8 +9,14 @@ import Body3 from "components/small/typography/Body3"
 import CaptionReg from "components/small/typography/CaptionReg"
 import TitleSmall from "components/small/typography/TitleSmall"
 import {Fragment} from 'react'
+import Section1 from "./detail-section/Section1"
+import Section2 from "./detail-section/Section2"
+import SectionFee from "./detail-section/SectionFee"
+import SectionFormPraUji from "./detail-section/SectionFormPraUji"
+import SectionPaymentStep from "./detail-section/SectionPaymentStep"
+import SectionSchedule from "./detail-section/SectionSchedule"
 
-export default function DetailUjiModal({isOpen, setIsOpen}) {
+export default function DetailModal({status, current_status, title, isOpen, setIsOpen}) {
     function closeModal() {
         setIsOpen(false)
       }
@@ -61,14 +67,30 @@ export default function DetailUjiModal({isOpen, setIsOpen}) {
                                     as="h2"
                                     className="leading-6 text-black-500"
                                     >
-                                    Detail Uji
+                                    {title}
                                     </Dialog.Title>
                                     <button onClick={closeModal}>
                                         <XIcon className="h-6 w-6 text-black-900 cursor-pointer" aria-hidden="true"/>
                                     </button>
                                 </div>
-                                <div className="flex items-center">
-                                    <QuickFilterButton>
+                                <ul className="flex items-center">
+                                    {status.map((item,index)=>(
+                                         index>0 && index<status.length-1 &&
+
+                                            <li key={index} className="flex items-center">
+                                                <QuickFilterButton className={index == current_status ? "bg-primary-lighten10 border-primary-darken10" : "bg-grey-50"}>
+                                                    <TitleSmall className={index == current_status ? "text-primary-darken10" : "text-grey-700"}>
+                                                        {item}
+                                                    </TitleSmall>
+                                                </QuickFilterButton>
+                                                {index<status.length-2 &&
+
+                                                <ChevronRightIcon className="h-6 w-6 text-grey-500" aria-hidden="true"/>     
+                                                }
+                                            </li>
+                                        
+                                    ))}
+                                    {/* <QuickFilterButton>
                                         <TitleSmall className="text-grey-700">
                                             Pengajuan
                                         </TitleSmall>
@@ -120,14 +142,15 @@ export default function DetailUjiModal({isOpen, setIsOpen}) {
                                         <TitleSmall className="text-grey-700">
                                             Selesai
                                         </TitleSmall>
-                                    </QuickFilterButton>        
-                                </div>
+                                    </QuickFilterButton>         */}
+                                </ul>
                             </div>
                             <div className="flex h-innerDetailModal">
                                 <div className="relative h-full w-4/5 py-6 border-r border-grey-200">
-                                    <div className="absolute max-h-innerDetailModal overflow-auto divide-y divide-grey-200 px-11">
+                                    <div className="absolute max-h-innerDetailModal overflow-auto divide-y divide-grey-200 px-11 pb-20">
                                         {/* section 1 */}
-                                        <div className="grid grid-cols-2 gap-y-3 py-3">
+                                        <Section1/>
+                                        {/* <div className="grid grid-cols-2 gap-y-3 py-3">
                                             
                                             <Body1 className="text-black-400">
                                                 Nomor Surat Penawaran
@@ -178,10 +201,11 @@ export default function DetailUjiModal({isOpen, setIsOpen}) {
                                             </Body2>
                                             
                                             
-                                        </div>
+                                        </div> */}
                                     {/* end of section 1 */}
                                     {/* section 2 */}
-                                        <div className="grid grid-cols-2 gap-y-3 py-3">
+                                    <Section2/>
+                                        {/* <div className="grid grid-cols-2 gap-y-3 py-3">
                                                 
                                             <Body1 className="text-black-400">
                                                 Jenis Alat
@@ -221,10 +245,16 @@ export default function DetailUjiModal({isOpen, setIsOpen}) {
                                                     <li>Alat B - Kesesuaian - 25 Buah</li>
                                                 </ul>
                                             </Body2>
-                                        </div>
+                                        </div> */}
                                     {/* end of section 2 */}
+
+                                    <SectionFormPraUji/>
                                     {/* section 3 */}
-                                    <div className="pb-20">
+                                    {current_status>1 &&
+
+                                        <SectionFee/>
+                                    }
+                                    {/* <div className="pb-20">
 
                                     
                                         <h3>
@@ -260,8 +290,11 @@ export default function DetailUjiModal({isOpen, setIsOpen}) {
                                                 Rp14.300.000
                                             </Body3>
                                         </div>
-                                    </div>
+                                    </div> */}
                                     {/* end of section 3 */}
+
+
+                                    <SectionSchedule/>
 
 
                                     </div>
