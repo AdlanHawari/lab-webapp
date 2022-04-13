@@ -7,6 +7,7 @@ import PermohonanUjiModal from "components/big/client/PermohonanUjiModal";
 import FormModal from "components/big/FormModal";
 import Button from "components/small/button_fixed/Button";
 import SmallCard from "components/small/small_card/SmallCard";
+import SmallCardSkeleton from "components/small/small_card/SmallCardSkeleton";
 import { clientUjiStatus } from "constants/filter-status/ClientUjiStatus";
 import { form_permohonan_uji_id } from "constants/FormUtils";
 import { clientUji } from "constants/test_objects/clientUji";
@@ -42,13 +43,19 @@ export default function ClientUjiPage() {
         </div>
 
         <ul className="pt-5 space-y-5">
-          {/* content */}
+          {/* <SmallCardSkeleton/> */}
+
           {clientUji.map((item,index)=>(
             <li key={index}>
               <SmallCard data={item}/>
+              
             </li>
           ))}
-        </ul>
+         
+        </ul> 
+        
+
+        
 
         {isUjiOpen &&
           // <PermohonanUjiModal isOpen={isUjiOpen} setIsOpen={setIsUjiOpen}/>

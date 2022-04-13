@@ -27,13 +27,17 @@ function useProvideAuth(){
               const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, requestOptions)
             //   console.log("req", req)
               const res = await req.json()
-            //   console.log("res", res)
+              console.log("res", res)
               return res
 
           }catch(e){
               console.log("error",e)
             return e
           }
+    }
+
+    async function isLoggedIn(){
+
     }
 
     return {

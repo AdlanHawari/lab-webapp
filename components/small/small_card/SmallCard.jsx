@@ -13,12 +13,14 @@ export default function SmallCard({data}) {
     const [isDetailOpen, setIsDetailOpen] = useState(false)
   return (
     <div className="block w-full border border-cardStrokes rounded-2xl p-5 space-y-5 bg-white">
+        
         <div className="flex items-center space-x-6 divide-x divide-x-black-400 ">
             <div className="flex items-center space-x-6">
 
                 <div className="title-5 text-black-400">
                     {data.jenis_uji}
                 </div>
+
                 <div className="border border-primary-darken10 rounded-lg bg-primary-lighten10 px-2">
                     <Title1 className="text-primary-darken10">
                         {data.status}
@@ -29,6 +31,8 @@ export default function SmallCard({data}) {
                 {data.no_surat}
             </Title2Med>
         </div>
+
+        
 
         <h3 className="text-black-500">
             {data.nama_alat}
@@ -118,7 +122,7 @@ export default function SmallCard({data}) {
 
           </DetailModal>
         }
-
+    
     </div>
   )
 }

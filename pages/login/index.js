@@ -15,10 +15,13 @@ import ValidationMessage from "components/small/validation_form/ValidationMessag
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCoffee, faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { useRouter } from "next/router";
 
 export default function LoginPage() {
   const auth = useAuth()
   const [submitState, setSubmitState] = useState(false)
+  const [errorUser, setErrorUser] = useState(false)
+  const router = useRouter()
   
 
    async function handleLogin(formData){
@@ -52,10 +55,27 @@ export default function LoginPage() {
       // console.log("data", response)
       
       if(response.http_code == 200){
+        if (errorUser) {
+          setErrorUser(false)
+        }
         const data = response.data
         // a = JSON.stringify(data)
         console.log("token",data.token)
         console.log("role",data.user.role.name)
+
+        localStorage.setItem('jwt_user', data.token)
+        router.push("/login/welcomeSU")
+        
+        
+        
+      }
+
+      if(response.http_code == 422){
+        const data = response.data
+        setErrorUser(true)
+        // a = JSON.stringify(data)
+        // console.log("token",data.token)
+        // console.log("role",data.user.role.name)
         
         
       }
@@ -64,6 +84,11 @@ export default function LoginPage() {
     }}>
         {/* {formik=>{return  */}
         <Form id="login_form">
+          {errorUser &&
+            <ValidationMessage className="mb-4">
+            Data user tidak ditemukan
+            </ValidationMessage>
+          }
           <div className="pb-5">
             <Field
                 className="form-input w-full p-2.5 rounded-xl text-xs  border-solid border-2 border-grey-300"
@@ -85,7 +110,7 @@ export default function LoginPage() {
                 id="password"
                 name="password"
                 // type="password"
-                type="text"
+                type="password"
                 placeholder="Password"
                 />
             <ErrorMessage name="password" component={ValidationMessage}/>
