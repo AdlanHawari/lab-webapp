@@ -1,6 +1,8 @@
 import { data } from 'autoprefixer'
 import { MyLink } from 'components/general/MyLink'
 import Button from 'components/small/button_fixed/Button'
+import { ACCESS_CODE } from 'constants/Access_Code'
+import { useAuth } from 'hooks/useAuth'
 import useUser from 'hooks/useUser'
 import Head from 'next/head'
 import Image from 'next/image'
@@ -11,13 +13,28 @@ import {useEffect, useState} from 'react'
 export default function Home() {
 
   const { user, loading,error, mutate } = useUser()
+  const auth = useAuth()
   const router = useRouter()
   const [role, setRole] = useState("")
-  
+
+  async function wewe(){
+    const a = await auth.isLoggedIn('/get-profile')
+    console.log(a)
+    return a
+  }
+
+
   useEffect(() => {
     if(user){
       // setRole(user.role.name)
       console.log(user)
+      console.log(user.data.role.access_code)
+      const role = user.data.role.access_code
+
+      if(role == ACCESS_CODE.SU){
+        router.push("/login/welcomeSU")
+      }
+
     }
 
   }, [user])
@@ -28,9 +45,9 @@ export default function Home() {
       {loading &&
         <h1>LOADING</h1>
       }
-      {user &&
+      {/* {user &&
        <h1>{user.message[0]}</h1>
-      }
+      } */}
       
 
     </div>

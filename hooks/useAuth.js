@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {useContext, createContext} from 'react';
 
 const authContext = createContext();
@@ -41,17 +42,36 @@ function useProvideAuth(){
 
         const token = localStorage.getItem(`${process.env.NEXT_PUBLIC_LOCAL_TOKEN_KEY}`)
         // const token = localStorage.getItem("jwt_user")
-        var requestOptions = {
-            method: 'GET',
-            // mode: '*cors',
+        // var requestOptions = {
+        //     method: 'GET',
+        //     mode: 'cors',
+        //     headers: {
+        //         'Authorization': `Bearer ${token}`,
+        //         // 'Content-Type': 'application/json'
+        //     },
+        //     // redirect: 'follow'
+        //   };
+          var requestOptions = {
+            method:'GET'  ,
             headers: {
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${token}`,
+                // 'Content-Type': 'application/json'
             },
             redirect: 'follow'
           };
 
         const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, requestOptions)
+        // const req = await fetch(`http://localhost:3000`, requestOptions)
         const res = await req.json()
+        
+        // const res = await axios.get('http://api.play1.musagreen.com/get-profile', {
+        //     // headers:{
+        //     //     'Authorization': `Bearer ${token}`
+        //     // }
+        // })
+        console.log('response', res)
+
+
         if(res.http_code == 200 || res.http_code == 401){
             const data = res.data
             const message = res.message
