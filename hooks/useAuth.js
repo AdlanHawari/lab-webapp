@@ -81,11 +81,13 @@ function useProvideAuth(){
             }
         }
 
-        if(response.http_code == 401){
+        if(response.http_code == 422){
             error = new Error(res.message)
             error.status = res.status_code
             error.info = res
             throw error
+            // return error
+            
 
         }
 

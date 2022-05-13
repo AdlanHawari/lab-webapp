@@ -17,11 +17,11 @@ export default function Home() {
   const router = useRouter()
   const [role, setRole] = useState("")
 
-  async function wewe(){
-    const a = await auth.isLoggedIn('/get-profile')
-    console.log(a)
-    return a
-  }
+  // async function wewe(){
+  //   const a = await auth.isLoggedIn('/get-profile')
+  //   console.log("index", a)
+  //   return a
+  // }
 
 
   useEffect(() => {
@@ -35,6 +35,10 @@ export default function Home() {
         router.push("/login/welcomeSU")
       }
 
+    }
+    if(error){
+      // console.log("index error", error)
+      router.push("/login")
     }
 
   }, [user])
