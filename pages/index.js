@@ -29,12 +29,14 @@ export default function Home() {
   useEffect(() => {
     if(user){
       // setRole(user.role.name)
-      console.log(user)
-      console.log(user.data.role.access_code)
-      const role = user.data.role.access_code
+      // console.log(user)
+      // console.log(user.data.role.access_code)
+      // const role = user.data?.role.access_code
+      if(user.data){
 
-      if(role == ACCESS_CODE.SU){
-        router.push("/login/welcomeSU")
+        if(user.data.role.access_code == ACCESS_CODE.SU){
+          router.push("/login/welcomeSU")
+        }
       }
 
     }
