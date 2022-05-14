@@ -22,6 +22,8 @@ export default function Home() {
   //   console.log("index", a)
   //   return a
   // }
+  console.log(user)
+  console.log(error)
 
 
   useEffect(() => {
@@ -36,10 +38,13 @@ export default function Home() {
       }
 
     }
-    if(error){
-      // console.log("index error", error)
+    else{
       router.push("/login")
     }
+    // if(error){
+    //   console.log("index error")
+    //   router.replace("/login")
+    // }
 
   }, [user])
   

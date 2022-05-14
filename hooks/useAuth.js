@@ -81,13 +81,20 @@ function useProvideAuth(){
             }
         }
 
-        if(response.http_code == 422){
+        // if(response.http_code == 422){
+        //     error = new Error(res.message)
+        //     error.status = res.status_code
+        //     error.info = res
+        //     console.log("the error", error)
+        //     throw error
+        //     // return error
+        // }
+        else{
             error = new Error(res.message)
             error.status = res.status_code
             error.info = res
+            console.log("the error", error)
             throw error
-            // return error
-            
 
         }
 
