@@ -22,8 +22,8 @@ export default function Home() {
   //   console.log("index", a)
   //   return a
   // }
-  console.log(user)
-  console.log(error)
+  // console.log(user)
+  // console.log(error)
 
 
   useEffect(() => {
@@ -32,6 +32,7 @@ export default function Home() {
       // console.log(user)
       // console.log(user.data.role.access_code)
       // const role = user.data?.role.access_code
+      // console.log("user ni")
       if(user.data){
 
         if(user.data.role.access_code == ACCESS_CODE.SU){
@@ -40,13 +41,14 @@ export default function Home() {
       }
 
     }
-    else{
-      router.push("/login")
-    }
-    // if(error){
-    //   console.log("index error")
-    //   router.replace("/login")
+    // else{
+    //   router.push("/login")
     // }
+    if(error){
+      console.log("index error")
+      // console.log(error.status)
+      router.replace("/login")
+    }
 
   }, [user])
   
@@ -56,8 +58,8 @@ export default function Home() {
       {loading &&
         <h1>LOADING</h1>
       }
-      {/* {user &&
-       <h1>{user.message[0]}</h1>
+      {/* {error &&
+       <h1>ini error</h1>
       } */}
       
 
