@@ -48,9 +48,17 @@ export default function Home() {
       console.log("index error")
       // console.log(error.status)
       router.replace("/login")
+      // mutate()
     }
 
   }, [user])
+
+  useEffect(() => {
+    if(error){
+      router.replace("/login")
+    }
+  })
+  
   
 
   return (
