@@ -38,6 +38,12 @@ export default function Home() {
         if(user.data.role.access_code == ACCESS_CODE.SU){
           router.push("/login/welcomeSU")
         }
+        if(user.data.role.access_code == ACCESS_CODE.CLIENT){
+          router.push("/client/log")
+        }
+        if(user.data.role.access_code == ACCESS_CODE.PERSONEL){
+          router.push("/personel/log")
+        }
       }
 
     }
