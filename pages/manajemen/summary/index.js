@@ -3,13 +3,15 @@ import DisclosurePekerja from 'components/small/single_menu/disclosure/Disclosur
 import Title1 from 'components/small/typography/Title1';
 import Title2Med from 'components/small/typography/Title2Med';
 import { summary } from 'constants/ManajemenSummary';
+import { subMenu } from 'constants/SubmenuManajemenUji';
 import { useTitleContext } from "hooks/TitleContext";
+import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 export default function ManajemenSummaryPage() {
 
-  const [title, setTitle] = useTitleContext();
-  // const router = useRouter
+  const [title,setTitle,subTitle,setSubtitle] = useTitleContext();
+  const router = useRouter()
   // console.log(clientLogs)
   useEffect(() => {
     setTitle('Summary')
@@ -38,7 +40,12 @@ export default function ManajemenSummaryPage() {
           
           <div className="flex justify-between pb-4">
             <h3>Status Pekerja</h3>
-            <Title1 className="text-primary">Lihat Semua</Title1>
+            <button onClick={()=>{
+              setSubtitle(subMenu.PENGUJI)
+              router.push("/manajemen/manajemen-uji"
+            )}}>
+              <Title1 className="text-primary">Lihat Semua</Title1>
+            </button>
           </div>
           <div className="block py-4 space-y-1">
             <Title2Med>Active</Title2Med>
