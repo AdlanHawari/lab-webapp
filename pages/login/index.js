@@ -22,6 +22,7 @@ export default function LoginPage() {
   const [submitState, setSubmitState] = useState(false)
   const [errorUser, setErrorUser] = useState(false)
   const router = useRouter()
+  const [showPass, setShowPass] = useState(false)
   
 
    async function handleLogin(formData){
@@ -110,7 +111,7 @@ export default function LoginPage() {
                 id="password"
                 name="password"
                 // type="password"
-                type="password"
+                type={showPass?"text":"password"}
                 placeholder="Password"
                 />
             <ErrorMessage name="password" component={ValidationMessage}/>
@@ -121,6 +122,18 @@ export default function LoginPage() {
                   </Body1>
                 </div>
               } */}
+
+              <div className="flex items-center pt-4 space-x-2">
+                <input
+                type="checkbox"
+                onChange={()=> setShowPass(prevState => {
+                  return !prevState
+                })}
+                />
+                <p className="text-sm ">
+                  Show Password
+                </p>
+              </div>
           </div>
           <div className="py-8">
             <Button type="submit" disabled={submitState? true:false} buttonStyle={submitState?"primary_disabled":"primary_default"}>
