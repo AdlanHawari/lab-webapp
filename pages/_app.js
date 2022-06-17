@@ -10,7 +10,8 @@ function MyApp({ Component, pageProps }) {
     // <TitleContextProvider>
     <AuthProvider>
 
-      <Component {...pageProps} /> 
+
+        <Component {...pageProps} />
     </AuthProvider>
 
     // </TitleContextProvider>

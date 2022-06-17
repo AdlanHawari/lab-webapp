@@ -6,6 +6,8 @@ import { ErrorMessage, Field, Form, Formik, useFormik, useFormikContext } from "
 import * as Yup from 'yup'
 import { useState, useEffect } from "react";
 import { jenisAlatKalibrasi } from "constants/jenis-alat/JenisAlatKalibrasi";
+import FormPermohononanUjiValidationSchema from "helper/yup/FormPermohonanUjiValidationSchema";
+import ValidationMessage from "components/small/validation_form/ValidationMessage";
 
 export default function FormPermohonanUji({id}) {
     const [test_typeSelected, setTest_TypeSelected] = useState()
@@ -51,19 +53,7 @@ export default function FormPermohonanUji({id}) {
         quantity: null,
         description: ""
     }}
-    validationSchema={ Yup.object({
-        test_type: Yup.string().required("Required"),
-        type: Yup.string().required("Required"),
-        brand: Yup.string().required("Required"),
-        name: Yup.string().required("Required"),
-        quantity: Yup
-                    .number("nomor")
-                    .min(1,"Minimal 1")
-                    .required("Required")
-                    .positive("oi")
-                    .integer("wew")
-                    .typeError('Required'),
-    })}
+    validationSchema={ FormPermohononanUjiValidationSchema(Yup)}
     onSubmit={ (values) => {
         console.log(values);
     }}
@@ -93,7 +83,8 @@ export default function FormPermohonanUji({id}) {
                             // value={formik.values.test_type}
                             placeholder="Pilih Jenis Uji" 
                             itemLists={jenisPekerjaan}/>
-                            <ErrorMessage name="test_type" component="p" className="text-error"/>
+                            <ErrorMessage name="test_type" component={ValidationMessage}/>
+                            {/* <ErrorMessage name="test_type" component="p" className="text-error"/> */}
                             {/* {formik.touched.test_type && formik.errors.test_type ? 
                                 <p className="text-error">{formik.errors.test_type}</p>
                                 :

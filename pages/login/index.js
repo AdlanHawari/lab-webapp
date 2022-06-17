@@ -123,14 +123,14 @@ export default function LoginPage() {
                 </div>
               } */}
 
-              <div className="flex items-center pt-4 space-x-2">
+              <div className="flex items-center pt-4 pl-2 space-x-2">
                 <input
                 type="checkbox"
                 onChange={()=> setShowPass(prevState => {
                   return !prevState
                 })}
                 />
-                <p className="text-sm ">
+                <p className="text-sm text-grey-700 ">
                   Show Password
                 </p>
               </div>

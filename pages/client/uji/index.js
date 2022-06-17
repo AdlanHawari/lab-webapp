@@ -11,17 +11,63 @@ import SmallCardSkeleton from "components/small/small_card/SmallCardSkeleton";
 import { clientUjiStatus } from "constants/filter-status/ClientUjiStatus";
 import { form_permohonan_uji_id } from "constants/FormUtils";
 import { clientUji } from "constants/test_objects/clientUji";
+import usePermohonanUji from "hooks/fetcher/usePermohonanUji";
 import { useTitleContext } from "hooks/TitleContext";
 import { useEffect, useState } from "react";
 
 export default function ClientUjiPage() {
+
+
   const [title, setTitle] = useTitleContext();
   const [isUjiOpen, setIsUjiOpen] = useState(false);
+  const { loading,
+    error,
+    data,
+    mutate,} = usePermohonanUji()
   // const router = useRouter
   // console.log(clientLogs)
   useEffect(() => {
-    setTitle('Uji')
+    setTitle('Uji');
+    
+    
+    // getUji();
   })
+
+  useEffect(() => {
+    // if(!data){
+    //   mutate()
+    // }
+    if(data){
+
+      console.log("isinya",data)
+    }
+
+  },[data])
+  
+
+
+  // async function getUji(){
+  //   const token = localStorage.getItem(`${process.env.NEXT_PUBLIC_LOCAL_TOKEN_KEY}`)
+
+
+  //   const url = "/get-test-application?limit=10"
+  //       var requestOptions = {
+  //           method: 'GET',
+  //           headers: {
+  //               'Authorization': `Bearer ${token}`,
+  //           },
+  //           redirect: 'follow'
+  //       };
+
+  //       const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, requestOptions)
+
+  //       const res = await req.json()
+
+  //       console.log('response', res)
+  // }
+
+  
+
   return(
     // <div className="flex flex-col divide-y divide-grey-200 space-y-5">
       <div className="flex flex-col divide-y divide-grey-200 space-y-5">
@@ -51,6 +97,7 @@ export default function ClientUjiPage() {
               
             </li>
           ))}
+
          
         </ul> 
         

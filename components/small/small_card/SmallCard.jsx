@@ -18,17 +18,17 @@ export default function SmallCard({data}) {
             <div className="flex items-center space-x-6">
 
                 <div className="title-5 text-black-400">
-                    {data.jenis_uji}
+                    {data.test_type}
                 </div>
 
                 <div className="border border-primary-darken10 rounded-lg bg-primary-lighten10 px-2">
                     <Title1 className="text-primary-darken10">
-                        {data.status}
+                        {data.status_detail.value}
                     </Title1>
                 </div>
             </div>
             <Title2Med className="text-black-400 pl-6">
-                {data.no_surat}
+                {data.quotation_no}
             </Title2Med>
         </div>
 
@@ -97,7 +97,7 @@ export default function SmallCard({data}) {
                 <Body3 className="text-primary-darken10">
 
                     {/* Rp 2,000,000.- */}
-                    {data.fee}
+                    {data.total_cost}
                 </Body3>
             </div>
 
@@ -126,3 +126,5 @@ export default function SmallCard({data}) {
     </div>
   )
 }
+
+
