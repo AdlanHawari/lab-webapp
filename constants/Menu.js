@@ -42,9 +42,26 @@ export const management_menu = [
         path:"/manajemen"+MENU_ITEM.ARSIP.path
     },
     {
-        id:MENU_ITEM.MANAJEMEN.id,
-        title:MENU_ITEM.MANAJEMEN.title,
-        path:"/manajemen"+MENU_ITEM.MANAJEMEN.path
+        id:MENU_ITEM.MANAJEMEN_USER.id,
+        title:MENU_ITEM.MANAJEMEN_USER.title,
+        path:"/manajemen"+MENU_ITEM.MANAJEMEN_USER.path
+    },
+    {
+        id:MENU_ITEM.MANAJEMEN_ALAT_UKUR.id,
+        title:MENU_ITEM.MANAJEMEN_ALAT_UKUR.title,
+        path:"/manajemen"+MENU_ITEM.MANAJEMEN_ALAT_UKUR.path,
+        submenu: [
+            {
+                id: MENU_ITEM.MANAJEMEN_ALAT_UKUR.submenu.DASHBOARD.id,
+                title: MENU_ITEM.MANAJEMEN_ALAT_UKUR.submenu.DASHBOARD.title,
+                path: "/manajemen"+MENU_ITEM.MANAJEMEN_ALAT_UKUR.submenu.DASHBOARD.path
+            },
+            {
+                id: MENU_ITEM.MANAJEMEN_ALAT_UKUR.submenu.LOG.id,
+                title: MENU_ITEM.MANAJEMEN_ALAT_UKUR.submenu.LOG.title,
+                path: "/manajemen"+MENU_ITEM.MANAJEMEN_ALAT_UKUR.submenu.LOG.path
+            }
+        ]
     },
     {
         id:MENU_ITEM.LOG.id,

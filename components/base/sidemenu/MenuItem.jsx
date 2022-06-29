@@ -59,7 +59,16 @@ export default function MenuItem(props) {
                 aria-hidden="true"/>
             }
 
-            {type == MENU_ITEM.MANAJEMEN.id &&
+            {type == MENU_ITEM.MANAJEMEN_USER.id &&
+                            
+                <UserGroupIcon className={classNames(
+                    "w-8",
+                    iconclassName
+                )}
+                aria-hidden="true"/>
+            }
+
+            {type == MENU_ITEM.MANAJEMEN_ALAT_UKUR.id &&
                             
                 <UserGroupIcon className={classNames(
                     "w-8",

@@ -29,11 +29,21 @@ async function getPermohonanUji(url){
             message
         }
     }
+
+    if(response.http_code == 422){
+        error = new Error(res.message)
+        error.status = res.status_code
+        error.info = res
+        // console.log("the error", error)
+        // console.log("wedew")
+        throw error
+        // return error
+    }
 }
 
 export default function usePermohonanUji(){
     
-    const {data, mutate, error} = useSWR("/get-test-application?limit=10", getPermohonanUji)
+    const {data, mutate, error} = useSWR("/get-test-application?limit=10,page=1", getPermohonanUji)
 
     const loading = !data && !error;
     return {

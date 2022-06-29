@@ -13,6 +13,7 @@ import { form_permohonan_uji_id } from "constants/FormUtils";
 import { clientUji } from "constants/test_objects/clientUji";
 import usePermohonanUji from "hooks/fetcher/usePermohonanUji";
 import { useTitleContext } from "hooks/TitleContext";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function ClientUjiPage() {
@@ -20,6 +21,8 @@ export default function ClientUjiPage() {
 
   const [title, setTitle] = useTitleContext();
   const [isUjiOpen, setIsUjiOpen] = useState(false);
+
+  const router = useRouter()
   const { loading,
     error,
     data,
@@ -42,7 +45,14 @@ export default function ClientUjiPage() {
       console.log("isinya",data)
     }
 
-  },[data])
+    if(error){
+      console.log("error",error)
+      mutate(null)
+      router.replace("/login")
+      // mutate()
+    }
+
+  },[data, error])
   
 
 
@@ -91,12 +101,19 @@ export default function ClientUjiPage() {
         <ul className="pt-5 space-y-5">
           {/* <SmallCardSkeleton/> */}
 
-          {clientUji.map((item,index)=>(
+          {/* {clientUji.map((item,index)=>(
             <li key={index}>
               <SmallCard data={item}/>
               
             </li>
-          ))}
+          ))} */}
+          {data?.data.map((item,index)=>(
+            <li key={index}>
+              <SmallCard data={item}/>
+            </li>
+          ))
+
+          }
 
          
         </ul> 

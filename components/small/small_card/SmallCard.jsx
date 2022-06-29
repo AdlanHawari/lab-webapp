@@ -35,7 +35,8 @@ export default function SmallCard({data}) {
         
 
         <h3 className="text-black-500">
-            {data.nama_alat}
+            {data.TestApplicationTool[0]?.Tool.name} {data.TestApplicationTool[0]?.Tool.brand} - {data.TestApplicationTool[0]?.Tool.type}
+            {/* Nama alat */}
         </h3>
 
         <div className="flex">
@@ -46,7 +47,8 @@ export default function SmallCard({data}) {
                     </Body1>
                     <Body3 className="text-black-500">
                         {/* 13 November 2021 */}
-                        {data.test_date}
+                        {/* {data.test_date} */}
+                        Tanggal
                     </Body3>
 
                 </div>
@@ -56,34 +58,14 @@ export default function SmallCard({data}) {
                         
                     </Body1>
                     <ul>
-                        {data.kelengkapan.map((item,index)=>(
+                        {/* {data.kelengkapan.map((item,index)=>(
                             <li key={index}>
                                 <Body3 className="text-black-500">
                                     {item}
                                 </Body3>
                             </li>
 
-                        ))}
-                        {/* <li>
-                            <Body3 className="text-black-500">
-                                Form Uji Ulang Permohonan
-                            </Body3>
-                        </li>
-                        <li>
-                            <Body3 className="text-black-500">
-                                Foto Pesawat X-Ray
-                            </Body3>
-                        </li>
-                        <li>
-                            <Body3 className="text-black-500">
-                                NPWP
-                            </Body3>
-                        </li>
-                        <li>
-                            <Body3 className="text-black-500">
-                                Bukti Pembayaran
-                            </Body3>
-                        </li> */}
+                        ))} */}
                     </ul>
 
                 </div>

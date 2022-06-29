@@ -33,9 +33,28 @@ export const MENU_ITEM = {
         path: "/arsip-dokumen"
 
     }, 
-    MANAJEMEN: {
-        id: "manajemen",
+    MANAJEMEN_USER: {
+        id: "manajemenUser",
         title: "Manajemen User",
         path: "/manajemen-user" 
-    } 
+    },
+     
+    MANAJEMEN_ALAT_UKUR: {
+        id: "manajemenAlatUkur",
+        title: "Manajemen Alat Ukur",
+        path: "/manajemen-alat-ukur",
+        submenu: {
+            DASHBOARD: {
+                id: "dashboard",
+                title: "Dashboard",
+                path: "/dashboard-alat-ukur"
+            },
+            LOG: {
+                id: "logAlatUkur",
+                title: "Log Alat Ukur",
+                path: "/log-alat-ukur"
+            }
+        } 
+    },
+
 }
