@@ -1,5 +1,8 @@
 export const ACCESS_CODE = {
-    SU : "MNG-SU",
-    CLIENT: "CLT-USR",
-    PERSONEL: "PSN-USR"
+    ADMIN : "ADM-SUP",
+    CLIENT: "USR-CLI",
+    PERSONNEL: "USR-PER",
+    MANAGEMENT_UJI: "MNG-UJI",
+    MANAGEMENT_KAL: "MNG-KAL",
+    KEPALA_LAB: "HED-LAB"
 }

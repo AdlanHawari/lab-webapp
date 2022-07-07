@@ -16,6 +16,7 @@ import ValidationMessage from "components/small/validation_form/ValidationMessag
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCoffee, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from "next/router";
+import { ACCESS_CODE } from "constants/Access_Code";
 
 export default function LoginPage() {
   const auth = useAuth()
@@ -35,13 +36,13 @@ export default function LoginPage() {
       <h1 className="pb-9">Log In</h1>
       <Formik
       initialValues= {{
-        // email: "",
-        username: "",
+        email: "",
+        // username: "",
         password: "",
     }}
     validationSchema={ Yup.object({
-        // email: Yup.string().email("Email tidak valid").required("Required"),
-        username: Yup.string().email("Invalid Email").required("Fill in your email"),
+        email: Yup.string().email("Email tidak valid").required("Required"),
+        // username: Yup.string().email("Invalid Email").required("Fill in your email"),
         password: Yup.string().required("Password can't be empty"),
     })}
     onSubmit={ async (values) => {
@@ -55,23 +56,47 @@ export default function LoginPage() {
       const response = await handleLogin(formData)
       // console.log("data", response)
       
-      if(response.http_code == 200){
+      if(response.header.response_code == 200){
         if (errorUser) {
           setErrorUser(false)
         }
         const data = response.data
+        const code = data.user.role.access_code
+        // console.log("response:", response)
+        console.log("data:", data)
+        console.log("code:", code)
         // a = JSON.stringify(data)
-        console.log("token",data.token)
-        console.log("role",data.user.role.name)
+        // console.log("token",data.token)
+        // console.log("role",data.user.role.access_code)
 
         localStorage.setItem('jwt_user', data.token)
-        router.push("/login/welcomeSU")
+
+        // role detector
+        if(code == ACCESS_CODE.ADMIN){
+          router.push("/login/welcomeSU")
+        }
+        if(code == ACCESS_CODE.CLIENT){
+          router.push("/client/log")
+        }
+        if(code == ACCESS_CODE.PERSONNEL){
+          router.push("/personel/log")
+        }
+
+        if(code == ACCESS_CODE.KEPALA_LAB){
+          router.push("/manajemen/log")
+        }
+        if(code == ACCESS_CODE.MANAGEMENT_KAL){
+          router.push("/manajemen/log")
+        }
+        if(code == ACCESS_CODE.MANAGEMENT_UJI){
+          router.push("/manajemen/log")
+        }
         
         
         
       }
 
-      if(response.http_code == 422){
+      if(response.header.response_code == 422){
         const data = response.data
         setErrorUser(true)
         // a = JSON.stringify(data)
@@ -93,17 +118,17 @@ export default function LoginPage() {
           <div className="pb-5">
             <Field
                 className="form-input w-full p-2.5 rounded-xl text-xs  border-solid border-2 border-grey-300"
-                // id="email"
-                id="username"
-                // name="email"
-                name="username"
+                id="email"
+                // id="username"
+                name="email"
+                // name="username"
                 // type="email"
                 type="text"
                 placeholder="Email"
                 />
             {/* <ErrorMessage name="email" component="p" className="text-error"/> */}
             {/* <ErrorMessage name="username" component="p" className="text-error"/> */}
-            <ErrorMessage name="username" component={ValidationMessage}/>
+            <ErrorMessage name="email" component={ValidationMessage}/>
           </div>
           <div>
           <Field
