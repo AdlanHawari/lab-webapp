@@ -25,7 +25,7 @@ function useProvideAuth(){
             redirect: 'follow'
           };
           try{
-              const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, requestOptions)
+              const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/v1/login`, requestOptions)
             //   console.log("req", req)
               const res = await req.json()
               console.log("res", res)

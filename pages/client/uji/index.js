@@ -101,19 +101,19 @@ export default function ClientUjiPage() {
         <ul className="pt-5 space-y-5">
           {/* <SmallCardSkeleton/> */}
 
-          {/* {clientUji.map((item,index)=>(
+          {clientUji.map((item,index)=>(
             <li key={index}>
               <SmallCard data={item}/>
               
             </li>
-          ))} */}
-          {data?.data.map((item,index)=>(
+          ))}
+          {/* {data?.data.map((item,index)=>(
             <li key={index}>
               <SmallCard data={item}/>
             </li>
           ))
 
-          }
+          } */}
 
          
         </ul> 
