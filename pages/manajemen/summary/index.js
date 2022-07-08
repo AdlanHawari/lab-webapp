@@ -1,19 +1,22 @@
 import BaseLayout from 'components/base/BaseLayout';
 import DateFilter from 'components/base/filter/DateFilter';
 import Button from 'components/small/button_fixed/Button';
+import CustomComboBox from 'components/small/single_menu/CustomComboBox';
 import DisclosurePekerja from 'components/small/single_menu/disclosure/DisclosurePekerja';
 import Title1 from 'components/small/typography/Title1';
 import Title2Med from 'components/small/typography/Title2Med';
+import { jenisPekerjaan } from 'constants/JenisPekerjaan';
 import { summary } from 'constants/ManajemenSummary';
 import { subMenu } from 'constants/SubmenuManajemenUji';
 import { useTitleContext } from "hooks/TitleContext";
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function ManajemenSummaryPage() {
 
   const [title,setTitle,subTitle,setSubtitle] = useTitleContext();
   const router = useRouter()
+  const [pekerjaan, setPekerjaan] = useState('')
   // console.log(clientLogs)
   useEffect(() => {
     setTitle('Summary')
@@ -22,9 +25,32 @@ export default function ManajemenSummaryPage() {
   return(
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <div className="w-48">
-          <DateFilter/>
+
+        <div className='w-full flex items-center space-x-4'>
+          
+          <div className="">
+            <DateFilter/>
+          </div>
+
+          <div>
+            <input
+            className=" inline-flex justify-start w-72 px-3 py-2 text-sm font-medium text-grey-700 bg-white border border-grey-300 rounded-xl shadow-sm hover:bg-grey-50 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-secondary"
+            id="brand"
+            name="brand"
+            type="text"
+            placeholder="Nama PT"/>
+          </div>
+
+          <div className=''>
+            <input
+            className=" inline-flex justify-start w-72 px-3 py-2 text-sm font-medium text-grey-700 bg-white border border-grey-300 rounded-xl shadow-sm hover:bg-grey-50 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-secondary"
+            id="brand"
+            name="brand"
+            type="text"
+            placeholder="Nama PT"/>
+          </div>
         </div>
+
 
         <div className="w-[7.5rem]">
           <Button buttonStyle="primary_default" className="w-full px-5 py-0.5">

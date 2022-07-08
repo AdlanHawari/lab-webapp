@@ -35,8 +35,8 @@ export default function SmallCard({data}) {
         
 
         <h3 className="text-black-500">
-            {data.TestApplicationTool[0]?.Tool.name} {data.TestApplicationTool[0]?.Tool.brand} - {data.TestApplicationTool[0]?.Tool.type}
-            {/* Nama alat */}
+            {/* {data.TestApplicationTool[0]?.Tool.name} {data.TestApplicationTool[0]?.Tool.brand} - {data.TestApplicationTool[0]?.Tool.type} */}
+            Nama alat
         </h3>
 
         <div className="flex">

@@ -36,23 +36,23 @@ export default function ClientUjiPage() {
     // getUji();
   })
 
-  useEffect(() => {
-    // if(!data){
-    //   mutate()
-    // }
-    if(data){
+  // useEffect(() => {
+  //   // if(!data){
+  //   //   mutate()
+  //   // }
+  //   if(data){
 
-      console.log("isinya",data)
-    }
+  //     console.log("isinya",data)
+  //   }
 
-    if(error){
-      console.log("error",error)
-      mutate(null)
-      router.replace("/login")
-      // mutate()
-    }
+  //   if(error){
+  //     console.log("error",error)
+  //     mutate(null)
+  //     router.replace("/login")
+  //     // mutate()
+  //   }
 
-  },[data, error])
+  // },[data, error])
   
 
 
