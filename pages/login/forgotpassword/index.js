@@ -5,9 +5,21 @@ import Body1 from "/components/small/typography/Body1";
 import Button from "/components/small/button_fixed/Button";
 import Input from "/components/small/input/Input"
 import { MyLink } from "components/general/MyLink";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import * as Yup from 'yup'
+import ForgetPassValidationSchema from 'helper/yup/ForgetPassValidationSchema'
+import handleFormData from "utils/HandleFormData";
+import { useAuth } from "hooks/useAuth";
+import ValidationMessage from "components/small/validation_form/ValidationMessage";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 export default function ForgotPassPage() {
-    const [email, setEmail] = useState('');
+    // const [email, setEmail] = useState('');
+    const auth = useAuth()
+    const [submitState, setSubmitState] = useState(false)
+    const [errorMsg, setErrorMsg] = useState('')
+
     const [reqSent, setreqSent] = useState(false);
 
     return (
@@ -25,15 +37,75 @@ export default function ForgotPassPage() {
             {!reqSent ?
                     <div className="">
 
-                        <form className="pt-11 pb-3 block space-y-20" action="">
+                        {/* <form className="pt-11 pb-3 block space-y-20" action="">
 
                             <Input  type="email" placeholder="Masukkan email anda" id="email" state={email} setState={setEmail}/>
+                            
 
                             <Button buttonStyle="primary_default"
                             disabled={false}
                             onClick={(e)=>setreqSent(!reqSent)}
                             >Ubah Password</Button>
-                        </form>
+                        </form> */}
+
+                        <Formik
+                        initialValues={{
+                            email: ""
+                        }}
+                        validationSchema={ ForgetPassValidationSchema(Yup)}
+                        onSubmit={ async (values)=> {
+                            
+                            setSubmitState(true)
+                            let formData = handleFormData(values)
+
+                            const response = await auth.forgetPass(formData)
+                            if(response.header.response_code==200){
+                                setreqSent(true)
+                                setSubmitState(false)
+                                setErrorMsg('')
+                            }
+                            if(response.header.response_code==404){
+                                // setreqSent(true)
+                                setErrorMsg('Email tidak terdaftar')
+                                setSubmitState(false)
+                            }
+
+                            }}
+                        
+                        >
+                            <Form className="pt-11 pb-3 block space-y-20">
+                                <div>
+                                    {errorMsg &&
+                                        <ValidationMessage className="mb-4">
+                                            {errorMsg}
+                                        </ValidationMessage>
+                                    }
+                                    <Field
+                                        className="form-input w-full p-2.5 rounded-xl text-xs  border-solid border-2 border-grey-300"
+                                        id="email"
+                                        name="email"
+                                        type="email"
+                                        placeholder="Masukkan email anda"
+                                    />
+
+                                    <ErrorMessage name="email" component={ValidationMessage}/>
+                                    
+                                </div>
+
+                                <Button 
+                                type="submit" 
+                                disabled={submitState? true:false}
+                                buttonStyle={submitState?"primary_disabled":"primary_default"}
+                                >
+                                    { submitState &&
+                                    <FontAwesomeIcon icon={faSpinner} className="animate-spin"/>
+                                    
+                                    }
+                                Ubah Password
+                                </Button>
+                            </Form>
+
+                        </Formik>
                     </div>
                     :
                     <div className="pt-11 pb-40">

@@ -171,7 +171,7 @@ export default function FormPermohonanUji({id}) {
                             <ErrorMessage name="quantity" component="p" className="text-error"/>
                         </div>
                     </div>
-                    <div className='flex items-start justify-between'>
+                    {/* <div className='flex items-start justify-between'>
                         <Body1>
                             Keterangan
                         </Body1>
@@ -184,7 +184,7 @@ export default function FormPermohonanUji({id}) {
                                 placeholder="Isi Keterangan"
                                 />
                         </div>
-                    </div>
+                    </div> */}
                 </div>
                 
         </Form>

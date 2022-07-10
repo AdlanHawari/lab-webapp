@@ -25,7 +25,7 @@ function useProvideAuth(){
             redirect: 'follow'
           };
           try{
-              const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/v1/login`, requestOptions)
+              const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, requestOptions)
             //   console.log("req", req)
               const res = await req.json()
               console.log("res", res)
@@ -35,6 +35,51 @@ function useProvideAuth(){
               console.log("error",e)
             return e
           }
+    }
+
+    async function forgetPass(formData){
+        var requestOptions = {
+            method: 'POST',
+            // headers: {
+            //     'Content-Type': 'multipart/form-data'
+            // },
+            body: formData,
+            redirect: 'follow'
+          };
+          try{
+              const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/password/forget`, requestOptions)
+            //   console.log("req", req)
+              const res = await req.json()
+              console.log("res", res)
+              return res
+
+          }catch(e){
+              console.log("error",e)
+            return e
+          }
+    }
+
+    async function changePass(formData, uuid){
+        var requestOptions = {
+            method: 'PUT',
+            // headers: {
+            //     'Content-Type': 'multipart/form-data'
+            // },
+            body: formData,
+            redirect: 'follow'
+          };
+        
+          try{
+            const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/password/update/${uuid}`, requestOptions)
+          //   console.log("req", req)
+            const res = await req.json()
+            console.log("res", res)
+            return res
+
+        }catch(e){
+            console.log("error",e)
+          return e
+        }
     }
 
     async function isLoggedIn(url){
@@ -113,6 +158,8 @@ function useProvideAuth(){
 
     return {
         login,
+        forgetPass,
+        changePass,
         isLoggedIn
     }
 }

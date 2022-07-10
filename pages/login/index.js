@@ -21,6 +21,7 @@ export default function LoginPage() {
   const auth = useAuth()
   const [submitState, setSubmitState] = useState(false)
   const [errorUser, setErrorUser] = useState(false)
+  const [errorMsg, setErrorMsg] = useState('')
   const router = useRouter()
   const [showPass, setShowPass] = useState(false)
   
@@ -58,6 +59,7 @@ export default function LoginPage() {
       if(response.header.response_code == 200){
         if (errorUser) {
           setErrorUser(false)
+          setErrorMsg('')
         }
         const data = response.data
         const code = data.user.role.access_code
@@ -96,8 +98,9 @@ export default function LoginPage() {
       }
 
       if(response.header.response_code == 422){
-        const data = response.data
+        // const data = response.data
         setErrorUser(true)
+        setErrorMsg(response.error)
         // a = JSON.stringify(data)
         // console.log("token",data.token)
         // console.log("role",data.user.role.name)
@@ -111,7 +114,7 @@ export default function LoginPage() {
         <Form id="login_form">
           {errorUser &&
             <ValidationMessage className="mb-4">
-            Data user tidak ditemukan
+              {errorMsg}
             </ValidationMessage>
           }
           <div className="pb-5">
@@ -121,8 +124,8 @@ export default function LoginPage() {
                 // id="username"
                 name="email"
                 // name="username"
-                // type="email"
-                type="text"
+                type="email"
+                // type="text"
                 placeholder="Email"
                 />
             {/* <ErrorMessage name="email" component="p" className="text-error"/> */}
