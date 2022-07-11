@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import handleFormData from "utils/HandleFormData";
+import { MyLink } from "components/general/MyLink";
 
 export default function ResetPassPage() {
     const [password, setPassword] = useState('');
@@ -27,7 +28,11 @@ export default function ResetPassPage() {
     return (
         <>
         <h1 className="pb-3.5">Ubah Password</h1>
+        {!reqSent ?
         <Body1>Ubah password anda. Gunakan minimal 8 karakter, 1 huruf kapital dan 1 angka.</Body1>
+        :
+        <Body1>Password berhasil diubah</Body1>
+        }
 
         {/* <form className="pt-11 pb-3 block space-y-8" action="">
 
@@ -42,9 +47,10 @@ export default function ResetPassPage() {
             onClick={(e)=>setreqSent(!reqSent)}
             >Ubah Password</Button>
         </form> */}
+        {!reqSent ?
         <Formik
         initialValues={{
-            password: "",
+            new_password: "",
             confirmPassword: ""
         }}
         validationSchema= {ChangePassValidationSchema(Yup)}
@@ -52,19 +58,24 @@ export default function ResetPassPage() {
 
             setSubmitState(true)
             let formData = handleFormData(values)
+            console.log(values)
             let uuid_pass
             if(uuid){
                 uuid_pass = uuid
             }
 
             const response = await auth.changePass(formData, uuid_pass)
+            
+            console.log(response)
+
             if(response.header.response_code==200){
                 setSubmitState(false)
                 setErrorMsg('')
+                setreqSent(true)
             }
             if(response.header.response_code==404){
                 // setreqSent(true)
-                setErrorMsg('Error')
+                setErrorMsg(response.status)
                 setSubmitState(false)
             }
         }}
@@ -80,8 +91,8 @@ export default function ResetPassPage() {
 
                     <Field
                     className="form-input w-full p-2.5 rounded-xl text-xs  border-solid border-2 border-grey-300"
-                    id="password"
-                    name="password"
+                    id="new_password"
+                    name="new_password"
                     type="password"
                     placeholder="Masukkan password anda"
                     />
@@ -116,6 +127,15 @@ export default function ResetPassPage() {
             </Form>
         </Formik>
         
+        :
+        <div className="pt-10">
+            <MyLink href='/login'>
+                <p className="underline text-sm text-primary hover:text-secondary">
+                Kembali ke halaman login
+                </p>
+            </MyLink>
+        </div>
+        }
             
         </>
     )

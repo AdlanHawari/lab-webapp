@@ -1,7 +1,7 @@
 function ChangePassValidationSchema(yup){
     return(
         yup.object({
-            password: yup
+            new_password: yup
             .string()
             .required("Masukkan password baru")
             .matches(
@@ -10,7 +10,8 @@ function ChangePassValidationSchema(yup){
               ),
             confirmPassword: yup
             .string()
-            .oneOf([yup.ref('password'), null], 'Password tidak sama')
+            .oneOf([yup.ref('new_password'), null], 'Password tidak sama')
+            .required("Password tidak sama")
         })
 
     )

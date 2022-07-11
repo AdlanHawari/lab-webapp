@@ -43,7 +43,7 @@ async function getPermohonanUji(url){
 
 export default function usePermohonanUji(){
     
-    const {data, mutate, error} = useSWR("/get-test-application?limit=10,page=1", getPermohonanUji)
+    const {data, mutate, error} = useSWR("/test-applications?assigned=false", getPermohonanUji)
 
     const loading = !data && !error;
     return {

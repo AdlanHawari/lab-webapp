@@ -59,6 +59,7 @@ function useProvideAuth(){
           }
     }
 
+
     async function changePass(formData, uuid){
         var requestOptions = {
             method: 'PUT',
@@ -70,7 +71,7 @@ function useProvideAuth(){
           };
         
           try{
-            const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/password/update/${uuid}`, requestOptions)
+            const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/password/${uuid}`, requestOptions)
           //   console.log("req", req)
             const res = await req.json()
             console.log("res", res)
