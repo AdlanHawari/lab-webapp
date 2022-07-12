@@ -1,5 +1,4 @@
 import FormData from "form-data";
-import { useAuth } from "hooks/useAuth"
 
 export default function test() {
     // const auth = useAuth();

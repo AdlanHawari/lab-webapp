@@ -7,12 +7,13 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import ChangePassValidationSchema from "helper/yup/ChangePassValidationSchema";
 import * as Yup from 'yup'
 import ValidationMessage from "components/small/validation_form/ValidationMessage";
-import { useAuth } from "hooks/useAuth";
+
 import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import handleFormData from "utils/HandleFormData";
 import { MyLink } from "components/general/MyLink";
+import { useAuth } from "hooks/fetcher/auth/useAuth";
 
 export default function ResetPassPage() {
     const [password, setPassword] = useState('');

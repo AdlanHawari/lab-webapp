@@ -9,10 +9,10 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from 'yup'
 import ForgetPassValidationSchema from 'helper/yup/ForgetPassValidationSchema'
 import handleFormData from "utils/HandleFormData";
-import { useAuth } from "hooks/useAuth";
 import ValidationMessage from "components/small/validation_form/ValidationMessage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { useAuth } from "hooks/fetcher/auth/useAuth";
 
 export default function ForgotPassPage() {
     // const [email, setEmail] = useState('');
