@@ -1,4 +1,4 @@
-import { AuthProvider } from 'hooks/useAuth'
+import { AuthProvider } from 'hooks/fetcher/auth/useAuth'
 import Head from 'next/head'
 import '../styles/globals.css'
 

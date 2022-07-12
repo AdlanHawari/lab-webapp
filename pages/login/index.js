@@ -9,13 +9,13 @@ import { MyLink } from "components/general/MyLink";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from 'yup'
 import handleFormData from "utils/HandleFormData";
-import { useAuth } from "hooks/useAuth";
 import Body2 from "components/small/typography/Body2";
 import ValidationMessage from "components/small/validation_form/ValidationMessage";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from "next/router";
 import { ACCESS_CODE } from "constants/Access_Code";
+import { useAuth } from "hooks/fetcher/auth/useAuth";
 
 export default function LoginPage() {
   const auth = useAuth()
@@ -97,7 +97,7 @@ export default function LoginPage() {
         
       }
 
-      if(response.header.response_code == 422){
+      if(response.header.response_code == 401){
         // const data = response.data
         setErrorUser(true)
         setErrorMsg(response.error)

@@ -23,7 +23,7 @@ export default function SmallCard({data}) {
 
                 <div className="border border-primary-darken10 rounded-lg bg-primary-lighten10 px-2">
                     <Title1 className="text-primary-darken10">
-                        {data.status_detail.value}
+                        {data.status_detail.client_value}
                     </Title1>
                 </div>
             </div>
@@ -37,6 +37,7 @@ export default function SmallCard({data}) {
         <h3 className="text-black-500">
             {/* {data.TestApplicationTool[0]?.Tool.name} {data.TestApplicationTool[0]?.Tool.brand} - {data.TestApplicationTool[0]?.Tool.type} */}
             Nama alat
+            
         </h3>
 
         <div className="flex">

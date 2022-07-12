@@ -1,4 +1,4 @@
-export const user = [
+export const userDummy = [
     {
         type: "name",
         data: "Rizky Aulia"

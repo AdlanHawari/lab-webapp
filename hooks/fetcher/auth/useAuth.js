@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {useContext, createContext} from 'react';
+import GetToken from 'utils/GetToken';
 
 const authContext = createContext();
 
@@ -86,17 +87,7 @@ function useProvideAuth(){
     async function isLoggedIn(url){
         let error
 
-        const token = localStorage.getItem(`${process.env.NEXT_PUBLIC_LOCAL_TOKEN_KEY}`)
-        // const token = localStorage.getItem("jwt_user")
-        // var requestOptions = {
-        //     method: 'GET',
-        //     mode: 'cors',
-        //     headers: {
-        //         'Authorization': `Bearer ${token}`,
-        //         // 'Content-Type': 'application/json'
-        //     },
-        //     // redirect: 'follow'
-        //   };
+        const token = GetToken()
           var requestOptions = {
             method:'GET'  ,
             headers: {
@@ -107,53 +98,32 @@ function useProvideAuth(){
           };
 
         const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, requestOptions)
-        // const req = await fetch(`http://localhost:3000`, requestOptions)
         const res = await req.json()
-        
-        // const res = await axios.get('http://api.play1.musagreen.com/get-profile', {
-        //     // headers:{
-        //     //     'Authorization': `Bearer ${token}`
-        //     // }
-        // })
         console.log('response', res)
 
 
-        if(res.http_code == 200){
+        if(res.header.response_code == 200){
             const data = res.data
-            const message = res.message
+            const header = res.header
             return {
                 data,
-                message
+                header
             }
         }
 
-        if(response.http_code == 401){
+        if(res.header.response_code == 401){
             error = new Error(res.message)
             error.status = res.status_code
             error.info = res
-            // console.log("the error", error)
-            // console.log("wedew")
             throw error
-            // return error
         }
 
-        if(response.http_code == 422){
+        if(res.header.response_code == 422){
             error = new Error(res.message)
             error.status = res.status_code
             error.info = res
-            // console.log("the error", error)
-            // console.log("wedew")
             throw error
-            // return error
         }
-        // else{
-        //     error = new Error(res.message)
-        //     error.status = res.status_code
-        //     error.info = res
-        //     console.log("the error", error)
-        //     throw error
-
-        // }
 
     }
 

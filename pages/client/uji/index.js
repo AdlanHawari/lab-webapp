@@ -11,6 +11,8 @@ import SmallCardSkeleton from "components/small/small_card/SmallCardSkeleton";
 import { clientUjiStatus } from "constants/filter-status/ClientUjiStatus";
 import { form_permohonan_uji_id } from "constants/FormUtils";
 import { clientUji } from "constants/test_objects/clientUji";
+import { useAuth } from "hooks/fetcher/auth/useAuth";
+import { ClientProvider } from "hooks/fetcher/useClient";
 import usePermohonanUji from "hooks/fetcher/usePermohonanUji";
 import { useTitleContext } from "hooks/TitleContext";
 import { useRouter } from "next/router";
@@ -21,38 +23,38 @@ export default function ClientUjiPage() {
 
   const [title, setTitle] = useTitleContext();
   const [isUjiOpen, setIsUjiOpen] = useState(false);
+  
 
   const router = useRouter()
   const { loading,
     error,
     data,
-    mutate,} = usePermohonanUji()
+    mutate} = usePermohonanUji()
   // const router = useRouter
   // console.log(clientLogs)
   useEffect(() => {
     setTitle('Uji');
+    if(!data && !error){
+      mutate()
+    }
     
     
     // getUji();
   })
 
-  // useEffect(() => {
-  //   // if(!data){
-  //   //   mutate()
-  //   // }
-  //   if(data){
+  
 
-  //     console.log("isinya",data)
-  //   }
+  useEffect(() => {
+    
+    if(error){
+      console.log("error",error)
+      console.log("data pas error",data)
+      mutate(null)
+      router.replace("/")
+      // mutate()
+    }
 
-  //   if(error){
-  //     console.log("error",error)
-  //     mutate(null)
-  //     router.replace("/login")
-  //     // mutate()
-  //   }
-
-  // },[data, error])
+  },[data, error])
   
 
 
@@ -80,6 +82,9 @@ export default function ClientUjiPage() {
 
   return(
     // <div className="flex flex-col divide-y divide-grey-200 space-y-5">
+      <ClientProvider>
+
+      
       <div className="flex flex-col divide-y divide-grey-200 space-y-5">
         <div className="block space-y-6">
 
@@ -101,19 +106,46 @@ export default function ClientUjiPage() {
         <ul className="pt-5 space-y-5">
           {/* <SmallCardSkeleton/> */}
 
-          {clientUji.map((item,index)=>(
+          {/* {clientUji.map((item,index)=>(
             <li key={index}>
               <SmallCard data={item}/>
               
             </li>
-          ))}
-          {/* {data?.data.map((item,index)=>(
+          ))} */}
+          
+          {/* {!data.data.length>0?
+          <div className="relative w-full h-96 ">
+            <div className="absolute top-1/2 transform -translate-y-1/2 left-1/2 -translate-x-1/2">
+            
+              <h1>Anda belum memiliki daftar pengajuan</h1>
+            </div>
+          </div>
+          :
+          data.data.map((item,index)=>(
             <li key={index}>
               <SmallCard data={item}/>
             </li>
-          ))
+          ))} */}
 
-          } */}
+          {loading &&
+          <h1>loading</h1>
+          }
+          {
+            data &&
+            data.data.length>0?
+
+            data.data.map((item,index)=>(
+              <li key={index}>
+                <SmallCard data={item}/>
+              </li>
+            ))
+            :
+            <div className="relative w-full h-96 ">
+              <div className="absolute top-1/2 transform -translate-y-1/2 left-1/2 -translate-x-1/2">
+                <h1>Anda belum memiliki daftar pengajuan</h1>
+              </div>
+            </div>
+          }
 
          
         </ul> 
@@ -145,6 +177,7 @@ export default function ClientUjiPage() {
         }
 
     </div>
+    </ClientProvider>
   )
 }
 

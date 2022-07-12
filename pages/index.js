@@ -2,8 +2,8 @@ import { data } from 'autoprefixer'
 import { MyLink } from 'components/general/MyLink'
 import Button from 'components/small/button_fixed/Button'
 import { ACCESS_CODE } from 'constants/Access_Code'
-import { useAuth } from 'hooks/useAuth'
-import useUser from 'hooks/useUser'
+import { useAuth } from 'hooks/fetcher/auth/useAuth'
+import useUser from 'hooks/fetcher/auth/useUser'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -29,19 +29,19 @@ export default function Home() {
   useEffect(() => {
     if(user){
       // setRole(user.role.name)
-      // console.log(user)
+      console.log("user", user)
       // console.log(user.data.role.access_code)
       // const role = user.data?.role.access_code
-      // console.log("user ni")
+      console.log("user ni")
       if(user.data){
 
-        if(user.data.role.access_code == ACCESS_CODE.SU){
+        if(user.data.role.access_code == ACCESS_CODE.ADMIN){
           router.push("/login/welcomeSU")
         }
         if(user.data.role.access_code == ACCESS_CODE.CLIENT){
           router.push("/client/log")
         }
-        if(user.data.role.access_code == ACCESS_CODE.PERSONEL){
+        if(user.data.role.access_code == ACCESS_CODE.PERSONNEL){
           router.push("/personel/log")
         }
       }
@@ -51,19 +51,20 @@ export default function Home() {
     //   router.push("/login")
     // }
     if(error){
-      console.log("index error")
+      console.log(user)
+      // console.log("index error")
       // console.log(error.status)
       router.replace("/login")
       // mutate()
     }
 
-  }, [user])
+  }, [user,error])
 
-  useEffect(() => {
-    if(error){
-      router.replace("/login")
-    }
-  })
+  // useEffect(() => {
+  //   if(error){
+  //     router.replace("/login")
+  //   }
+  // })
   
   
 

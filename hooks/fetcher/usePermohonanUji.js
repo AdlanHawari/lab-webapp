@@ -19,20 +19,21 @@ async function getPermohonanUji(url){
         // const req = await fetch(`http://localhost:3000`, requestOptions)
     const res = await req.json()
         
-    console.log('usepermohonanuju', res)
+    // console.log('usepermohonanuji', res)
 
-    if(res.http_code == 200){
+    if(res.header.response_code == 200){
+        // console.log("200")
         const data = res.data
-        const message = res.message
+        const header = res.header
         return {
-            data,
-            message
+            header,
+            data
         }
     }
 
-    if(response.http_code == 422){
-        error = new Error(res.message)
-        error.status = res.status_code
+    if(res.header.response_code == 401){
+        error = new Error(res.error)
+        error.status = res.header.response_code
         error.info = res
         // console.log("the error", error)
         // console.log("wedew")
@@ -43,7 +44,8 @@ async function getPermohonanUji(url){
 
 export default function usePermohonanUji(){
     
-    const {data, mutate, error} = useSWR("/test-applications?assigned=false", getPermohonanUji)
+    // const {data, mutate, error} = useSWR("/test-applications", getPermohonanUji)
+    const {data, mutate, error} = useSWR("/test-applications", getPermohonanUji)
 
     const loading = !data && !error;
     return {
