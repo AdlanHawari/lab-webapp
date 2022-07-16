@@ -145,7 +145,7 @@ const DateInput = forwardRef(({open, setOpen,startDate, endDate},{ value, onClic
             )} 
             >
                 {startDate && endDate ?        
-                DateFormatter(startDate) + " - " + DateFormatter(startDate)
+                DateFormatter(startDate) + " - " + DateFormatter(endDate)
                 : "DD/MM/YYYY - DD/MM/YYYY"
                 }
                 

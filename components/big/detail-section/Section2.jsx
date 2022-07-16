@@ -2,9 +2,12 @@ import Body1 from 'components/small/typography/Body1'
 import Body2 from 'components/small/typography/Body2'
 import React from 'react'
 
-export default function Section2() {
+export default function Section2({data}) {
   return (
-    <div className="grid grid-cols-2 gap-y-3 py-3">
+    <>
+    { data.tools.map((item,index)=>(
+
+    <div key={index} className="grid grid-cols-2 gap-y-3 py-3">
                                                 
         <Body1 className="text-black-400">
             Jenis Alat
@@ -45,5 +48,9 @@ export default function Section2() {
             </ul>
         </Body2>
     </div>
+    ))
+    
+    }
+    </>
   )
 }

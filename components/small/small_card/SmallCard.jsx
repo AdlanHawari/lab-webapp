@@ -100,7 +100,8 @@ export default function SmallCard({data}) {
           isOpen={isDetailOpen} 
           setIsOpen={setIsDetailOpen}
           status={clientUjiStatus}
-          current_status={2}
+          current_status={data.status}
+          data={data}
         //   status={manajemenUjiStatus}
           >
 

@@ -16,7 +16,7 @@ import SectionFormPraUji from "./detail-section/SectionFormPraUji"
 import SectionPaymentStep from "./detail-section/SectionPaymentStep"
 import SectionSchedule from "./detail-section/SectionSchedule"
 
-export default function DetailModal({status, current_status, title, isOpen, setIsOpen}) {
+export default function DetailModal({status, current_status, title, isOpen, setIsOpen, data}) {
     function closeModal() {
         setIsOpen(false)
       }
@@ -78,9 +78,9 @@ export default function DetailModal({status, current_status, title, isOpen, setI
                                          index>0 && index<status.length-1 &&
 
                                             <li key={index} className="flex items-center">
-                                                <QuickFilterButton className={index == current_status ? "bg-primary-lighten10 border-primary-darken10" : "bg-grey-50"}>
-                                                    <TitleSmall className={index == current_status ? "text-primary-darken10" : "text-grey-700"}>
-                                                        {item}
+                                                <QuickFilterButton className={item.status == current_status ? "bg-primary-lighten10 border-primary-darken10" : "bg-grey-50"}>
+                                                    <TitleSmall className={item.status == current_status ? "text-primary-darken10" : "text-grey-700"}>
+                                                        {item.title}
                                                     </TitleSmall>
                                                 </QuickFilterButton>
                                                 {index<status.length-2 &&
@@ -90,211 +90,27 @@ export default function DetailModal({status, current_status, title, isOpen, setI
                                             </li>
                                         
                                     ))}
-                                    {/* <QuickFilterButton>
-                                        <TitleSmall className="text-grey-700">
-                                            Pengajuan
-                                        </TitleSmall>
-                                    </QuickFilterButton>
-                                    <ChevronRightIcon className="h-6 w-6 text-grey-500" aria-hidden="true"/>
-                                    <QuickFilterButton>
-                                        <TitleSmall className="text-grey-700">
-                                            Konfirmasi Penawaran
-                                        </TitleSmall>
-                                    </QuickFilterButton>
-                                    <ChevronRightIcon className="h-6 w-6 text-grey-500" aria-hidden="true"/>
-                                    <QuickFilterButton>
-                                        <TitleSmall className="text-grey-700">
-                                            Kaji Ulang Pengajuan
-                                        </TitleSmall>
-                                    </QuickFilterButton>
-                                    <ChevronRightIcon className="h-6 w-6 text-grey-500" aria-hidden="true"/>
-                                    <QuickFilterButton>
-                                        <TitleSmall className="text-grey-700">
-                                            Menunggu Konfirmasi
-                                        </TitleSmall>
-                                    </QuickFilterButton>
-                                    <ChevronRightIcon className="h-6 w-6 text-grey-500" aria-hidden="true"/>
-                                    <QuickFilterButton>
-                                        <TitleSmall className="text-grey-700">
-                                            Menuggu Jadwal
-                                        </TitleSmall>
-                                    </QuickFilterButton>
-                                    <ChevronRightIcon className="h-6 w-6 text-grey-500" aria-hidden="true"/>
-                                    <QuickFilterButton>
-                                        <TitleSmall className="text-grey-700">
-                                            Dijadwalkan
-                                        </TitleSmall>
-                                    </QuickFilterButton>
-                                    <ChevronRightIcon className="h-6 w-6 text-grey-500" aria-hidden="true"/>
-                                    <QuickFilterButton>
-                                        <TitleSmall className="text-grey-700">
-                                            Dalam Pengolahan
-                                        </TitleSmall>
-                                    </QuickFilterButton>
-                                    <ChevronRightIcon className="h-6 w-6 text-grey-500" aria-hidden="true"/>
-                                    <QuickFilterButton>
-                                        <TitleSmall className="text-grey-700">
-                                            Submit Balis
-                                        </TitleSmall>
-                                    </QuickFilterButton>
-                                    <ChevronRightIcon className="h-6 w-6 text-grey-500" aria-hidden="true"/>
-                                    <QuickFilterButton>
-                                        <TitleSmall className="text-grey-700">
-                                            Selesai
-                                        </TitleSmall>
-                                    </QuickFilterButton>         */}
+                                    
                                 </ul>
                             </div>
                             <div className="flex h-innerDetailModal">
                                 <div className="relative h-full w-4/5 py-6 border-r border-grey-200">
-                                    <div className="absolute max-h-innerDetailModal overflow-auto divide-y divide-grey-200 px-11 pb-20">
+                                    <div className="absolute max-h-innerDetailModal overflow-auto divide-y divide-grey-200 px-11 pb-20 w-full">
                                         {/* section 1 */}
-                                        <Section1/>
-                                        {/* <div className="grid grid-cols-2 gap-y-3 py-3">
-                                            
-                                            <Body1 className="text-black-400">
-                                                Nomor Surat Penawaran
-                                            </Body1>
-                                            <Body1 className="text-black-400">
-                                            </Body1>
-                                            <Body1 className="text-black-400">
-                                                Tanggal Permohonan
-                                            </Body1>
-                                            <Body2 className="text-black-500">
-                                                13 Juni 2021
-                                            </Body2>
+                                        <Section1 data={data}/>
                                         
+                                        <Section2 data={data}/>
                                         
-                                            <Body1 className="text-black-400">
-                                                Nama Instansi
-                                            </Body1>
-                                            <Body2 className="text-black-500">
-                                                RSU Aisyah Purworejo
-                                            </Body2>
-                                        
-                                        
-                                            <Body1 className="text-black-400">
-                                                Alamat Instansi
-                                            </Body1>
-                                            <Body2 className="text-black-500">
-                                            Jl. Mayjen Sutoyo No.113, Rw. VI, Sindurjan, Kec. Purworejo, Kabupaten Purworejo, Jawa Tengah 54113
-                                            </Body2>
-                                        
-                                        
-                                            <Body1 className="text-black-400">
-                                                Status
-                                            </Body1>
-                                            <div className="">
-                                                <QuickFilterSmaller className="bg-primary-lighten10 border-primary-darken10 text-primary-darken10">
-                                                    <Body2>
-                                                        Pengajuan
-                                                    </Body2>
-                                                </QuickFilterSmaller>
-                                            </div>
-                                        
-                                        
-                                            <Body1 className="text-black-400">
-                                                Jenis Uji
-                                            </Body1>
-                                            <Body2 className="text-black-500">
-                                                Uji Kesesuaian
-                                            </Body2>
-                                            
-                                            
-                                        </div> */}
-                                    {/* end of section 1 */}
-                                    {/* section 2 */}
-                                    <Section2/>
-                                        {/* <div className="grid grid-cols-2 gap-y-3 py-3">
-                                                
-                                            <Body1 className="text-black-400">
-                                                Jenis Alat
-                                            </Body1>
-                                            <Body2 className="text-black-500">
-                                                Radiografi Umum
-                                            </Body2>
-                                            <Body1 className="text-black-400">
-                                                Merk Alat
-                                            </Body1>
-                                            <Body2 className="text-black-500">
-                                                Yangzou
-                                            </Body2>
-                                            <Body1 className="text-black-400">
-                                                Tipe Alat
-                                            </Body1>
-                                            <Body2 className="text-black-500">
-                                                Type YZ 100C
-                                            </Body2>
-                                        
-                                        
-                                            <Body1 className="text-black-400">
-                                                Kuantitas
-                                            </Body1>
-                                            <Body2 className="text-black-500">
-                                                5
-                                            </Body2>
-                                        
-                                        
-                                            <Body1 className="text-black-400">
-                                                Keterangan
-                                            </Body1>
-                                            <Body2 className="text-black-500">
-                                                Tambahan Alat:
-                                                <ul className="list-disc list-inside">
-                                                    <li>Alat A - Kesesuaian 10 buah</li>
-                                                    <li>Alat B - Kesesuaian - 25 Buah</li>
-                                                </ul>
-                                            </Body2>
-                                        </div> */}
-                                    {/* end of section 2 */}
 
-                                    <SectionFormPraUji/>
+                                        <SectionFormPraUji/>
                                     {/* section 3 */}
-                                    {current_status>1 &&
+                                        {current_status>1 &&
 
-                                        <SectionFee/>
-                                    }
-                                    {/* <div className="pb-20">
-
-                                    
-                                        <h3>
-                                            Biaya
-                                        </h3> 
-                                        <div className="grid grid-cols-2 gap-y-3 py-3">
-                                            
-                                            <Body1 className="text-black-400">
-                                                Biaya Uji Kesesuaian<br/>
-                                                <CaptionReg className="italic">
-                                                    (Termasuk Biaya Setting + Akomodasi)
-                                                </CaptionReg>
-                                            </Body1>
-                                            <Body2 className="text-black-500">
-                                                Rp13.000.000
-                                            </Body2>
-                                            <Body1 className="text-black-400">
-                                                PPN 10%
-                                            </Body1>
-                                            <Body2 className="text-black-500">
-                                                Rp1.300.000
-                                            </Body2>
-                                            <Body2 className="text-black-400">
-                                                Total
-                                            </Body2>
-                                            <Body3 className="text-black-500">
-                                                Rp14.300.000
-                                            </Body3>
-                                            <Body2 className="text-black-400">
-                                                Status
-                                            </Body2>
-                                            <Body3 className="text-black-500">
-                                                Rp14.300.000
-                                            </Body3>
-                                        </div>
-                                    </div> */}
-                                    {/* end of section 3 */}
+                                            <SectionFee/>
+                                        }
 
 
-                                    <SectionSchedule/>
+                                        <SectionSchedule/>
 
 
                                     </div>

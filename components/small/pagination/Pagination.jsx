@@ -43,7 +43,6 @@ export default function Pagination() {
               <button type="button" 
               onClick={()=>setCurrentPage(item)}
               disabled={item!=lastPage? false:true}>
-
                 {item}
               </button>
             </li>

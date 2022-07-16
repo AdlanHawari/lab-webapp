@@ -1,3 +1,5 @@
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { PlusIcon } from "@heroicons/react/solid";
 import BaseLayout from "components/base/BaseLayout"
 import DateFilter from "components/base/filter/DateFilter";
@@ -30,6 +32,9 @@ export default function ClientUjiPage() {
   const {currentPage, setLastPage} = usePageContext();
   const {statusFilter} = useStatusFilterContext();
   const {startDateFilter, endDateFilter} =  useDateFilterUjiContext();
+  const [submitState, setSubmitState] = useState(false)
+  const [reqSent, setreqSent] = useState(false);
+   const [errorMsg, setErrorMsg] = useState("")
 
   const router = useRouter()
   const { loading,
@@ -53,6 +58,15 @@ export default function ClientUjiPage() {
     
     // getUji();
   })
+
+  // useEffect(()=> {
+  //   console.log("reqsent", reqSent)
+  //   if(reqSent){
+      
+  //     setIsUjiOpen(false)
+  //     // mutate()
+  //   }
+  // }, [reqSent])
 
   
 
@@ -152,16 +166,28 @@ export default function ClientUjiPage() {
               <>
                 <Button 
                 className="bg-primary" 
-                buttonStyle="primary_default" 
+                buttonStyle={submitState?"primary_disabled":"primary_default"}
                 type="submit" 
+                disabled={submitState? true:false}
                 form={form_permohonan_uji_id}>
-                Buat Permohonan Uji
+                  { submitState &&
+                    <FontAwesomeIcon icon={faSpinner} className="animate-spin"/>
+                  }
+                  Buat Permohonan Uji
                 </Button>
               </>
             
           }
       >
-            <FormPermohonanUji id={form_permohonan_uji_id}/>
+            <FormPermohonanUji id={form_permohonan_uji_id} 
+            submitState={submitState}
+            setSubmitState={setSubmitState}
+            reqSent={reqSent}
+            setreqSent={setreqSent}
+            errorMsg={errorMsg} 
+            setErrorMsg={setErrorMsg}
+            setIsUjiOpen={setIsUjiOpen}
+            />
           </FormModal>
         }
 

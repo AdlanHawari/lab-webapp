@@ -14,13 +14,22 @@ import { useClient } from "hooks/fetcher/useClient";
 import handleFormData from "utils/HandleFormData";
 import { XIcon } from "@heroicons/react/solid";
 
-export default function FormPermohonanUji({id}) {
+export default function FormPermohonanUji({
+    id,
+    submitState,
+    setSubmitState,
+    reqSent,
+    setreqSent,
+    errorMsg,
+    setErrorMsg,
+    setIsUjiOpen
+    }) {
     const [test_typeSelected, setTest_TypeSelected] = useState()
     const [typeSelected, setTypeSelected] = useState()
     
     const client = useClient()
-    const [submitState, setSubmitState] = useState(false)
-    const [reqSent, setreqSent] = useState(false);
+    // const [submitState, setSubmitState] = useState(false)
+    // const [reqSent, setreqSent] = useState(false);
 
     function rearrangeObject(obj){
         let result = {
@@ -236,6 +245,8 @@ export default function FormPermohonanUji({id}) {
                 setreqSent(true)
                 setSubmitState(false)
                 setErrorMsg('')
+                console.log("submit sent")
+                setIsUjiOpen(false)
             }
             else{
                 setErrorMsg('Terjadi kesalahan')
