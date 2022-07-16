@@ -5,7 +5,6 @@ export default function useUser(){
 
     const auth = useAuth()
     
-    // const {data, mutate, error} = useSWR("/login",process.env.NEXT_PUBLIC_API);
     const {data, mutate, error} = useSWR("/users/profile",auth.isLoggedIn);
     
     const loading = !data && !error;

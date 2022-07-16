@@ -36,7 +36,8 @@ export default function SmallCard({data}) {
 
         <h3 className="text-black-500">
             {/* {data.TestApplicationTool[0]?.Tool.name} {data.TestApplicationTool[0]?.Tool.brand} - {data.TestApplicationTool[0]?.Tool.type} */}
-            Nama alat
+            {/* Nama alat */}
+            {data.tools[0].name} - {data.tools[0].brand} {data.tools[0].type}
             
         </h3>
 

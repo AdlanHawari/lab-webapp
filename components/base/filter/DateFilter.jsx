@@ -5,6 +5,8 @@ import { format } from 'date-fns'
 import { CalendarIcon, ChevronDownIcon } from '@heroicons/react/outline'
 import classNames from "classnames";
 import Button from 'components/small/button_fixed/Button'
+import { useDateFilterUjiContext } from 'hooks/context/filter-date/DateFilterUjiContext'
+import DateFormatter from 'utils/DateFormatter'
 
 export default function DateFilter() {
 //   const [startDate, setStartDate] = useState(new Date())
@@ -14,11 +16,15 @@ export default function DateFilter() {
 const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
 //   const [dateState, setDateState] = useState("");
+const {setStartDateFilter, setEndDateFilter}    = useDateFilterUjiContext();
 
 useEffect(() => {
     console.log("end: ",endDate)
     if(open && endDate){
         setOpen(false)
+        // console.log("start", DateFormatter(startDate))
+        setStartDateFilter(DateFormatter(startDate))
+        setEndDateFilter(DateFormatter(endDate))
     }
 }, [endDate])
 // useEffect(() => {
@@ -128,19 +134,9 @@ const DateInput = forwardRef(({open, setOpen,startDate, endDate},{ value, onClic
       type="button"
       className='inline-flex justify-start w-72 px-3 py-2 text-sm font-medium text-grey-700 bg-white border border-grey-300 rounded-xl shadow-sm hover:bg-grey-50 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-secondary'
         >
-        {/* {format(new Date(value), 'dd MMMM yyyy')} */}
         <div className="flex w-full items-center justify-between">
-            {/* <label htmlFor="" className='border-solid border border-r-0 border-grey-300 rounded rounded-r-none px-2.5'> */}
-            {/* <label htmlFor="" className=''> */}
                 <CalendarIcon className="h-full w-6 text-black-500 " aria-hidden="true"/>
-            {/* </label> */}
-            {/* <input readOnly type="text" value={value ?
-            format(new Date(value), 'dd/MM/yyyy') 
-            : ""
-            }
-                placeholder='DD/MM/YYYY' className=""
-                ref={ref}
-                onClick={onClick}/> */}
+           
             <div className={classNames(
                 // "input-med bg-primary border-solid border border-x-0 border-grey-300 pl-1 focus:border-grey-300 focus:ring-0",
                 "input-med text-left w-full pl-4",
@@ -148,37 +144,16 @@ const DateInput = forwardRef(({open, setOpen,startDate, endDate},{ value, onClic
                 startDate && endDate ? "text-black-500" : "text-grey-500"
             )} 
             >
-                {/* {value ?
-                format(new Date(value), 'dd/MM/yyyy') 
-                : "DD/MM/YYYY"} */}
                 {startDate && endDate ?        
-                format(new Date(startDate), 'dd/MM/yyyy') + " - " + format(new Date(endDate), 'dd/MM/yyyy')
+                DateFormatter(startDate) + " - " + DateFormatter(startDate)
                 : "DD/MM/YYYY - DD/MM/YYYY"
                 }
                 
             </div>
-            {/* <label htmlFor="" className='bg-secondary border-solid border border-l-0 border-grey-300 rounded rounded-l-none'> */}
-            {/* <label htmlFor="" className=''> */}
                 <ChevronDownIcon className="h-full w-4 text-black-500 " aria-hidden="true"/>
-            {/* </label> */}
+            
         </div>
     </button>
-    // <div className="relative">
-    //     <div className="absolute inset-y-0 left-0 pl-4">
-    //         <CalendarIcon className="h-full w-6 text-grey-500 cursor-pointer" aria-hidden="true"/>
-    //     </div>
-    //     <input type="password" placeholder='wewe' className="form-input w-80 rounded-xl text-xs border-solid border-2 border-grey-300"/>
-    //     <div className="absolute inset-y-0 right-0 pr-4">
-    //         <ChevronDownIcon className="h-full w-6 text-grey-500 cursor-pointer" aria-hidden="true"/>
-    //     </div>
-    // </div>
-//    <button
-//       onClick={onClick}
-//       ref={ref}
-//       type="button"
-//       className='inline-flex justify-start w-full px-3 py-2 text-sm font-medium text-grey-700 bg-white border border-grey-300 rounded shadow-sm hover:bg-grey-50 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-secondary'
-//     >
-//       {format(new Date(value), 'dd MMMM yyyy')}
-//   </button>
+    
 ))
 DateInput.displayName = 'DateInput';

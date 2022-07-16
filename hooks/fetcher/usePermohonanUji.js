@@ -1,7 +1,8 @@
 import useSWR from "swr"
 
 
-async function getPermohonanUji(url){
+async function getPermohonanUji(
+    url){
     let error
 
     const token = localStorage.getItem(`${process.env.NEXT_PUBLIC_LOCAL_TOKEN_KEY}`)
@@ -42,10 +43,21 @@ async function getPermohonanUji(url){
     }
 }
 
-export default function usePermohonanUji(){
+export default function usePermohonanUji(
+    start_date,
+    end_date,
+    page,
+    status_filter
+
+){
+    if(!status_filter){
+        status_filter=""
+    }
     
     // const {data, mutate, error} = useSWR("/test-applications", getPermohonanUji)
-    const {data, mutate, error} = useSWR("/test-applications", getPermohonanUji)
+    const {data, mutate, error} = useSWR(
+        `/test-applications?start_date=${start_date}&end_date=${end_date}&page=${page}&status=${status_filter}`, 
+        getPermohonanUji)
 
     const loading = !data && !error;
     return {

@@ -12,6 +12,7 @@ import Button from "components/small/button_fixed/Button";
 import { permohonanUjiInitVal, tool_details } from "helper/initial-formik-values/PermohonanUjiInitValues";
 import { useClient } from "hooks/fetcher/useClient";
 import handleFormData from "utils/HandleFormData";
+import { XIcon } from "@heroicons/react/solid";
 
 export default function FormPermohonanUji({id}) {
     const [test_typeSelected, setTest_TypeSelected] = useState()
@@ -272,93 +273,110 @@ export default function FormPermohonanUji({id}) {
 
                     <FieldArray name="tools">
                         {({ insert, remove, push }) => (
-                            <div>
+                            <div className="space-y-4">
                                 {formik.values.tools.length > 0 && 
                                     formik.values.tools.map((tool, index) => (
-                                        <div key={index} className="space-y-3">
-                                            <div className='flex items-center justify-between'>
-                                                <Body1>
-                                                    Jenis Alat
-                                                </Body1>
-                                                <div className="block">
-
-                                                    <CustomComboBox
-                                                        // selected={formik.values.type}
-                                                        selected={tool.type}
-                                                        setSelected={formik.setFieldValue}
-                                                        id={`tools.${index}.type`}
-                                                        name={`tools.${index}.type`}
-                                                        type="text"
-                                                        disabled={formik.values.test_type?false:true}
-                                                        // onChange={formik.handleChange}
-                                                        // onChange={(e)=>{formik.setFieldValue('test_type',"mahmud")}}
-                                                        onBlur={formik.handleBlur}
-                                                        // value={formik.values.test_type}
-                                                        placeholder="Pilih Jenis Alat" 
-                                                        itemLists={formik.values.test_type == jenisPekerjaan[0] ?
-                                                            jenisAlatUkes
-                                                            :
-                                                            jenisAlatKalibrasi
-                                                        }/>
-                                                        <ErrorMessage name={`tools.${index}.type`} component={ValidationMessage}/>
-                                                        {/* {formik.touched.type && formik.errors.type ? 
-                                                            <p className="text-error">{formik.errors.type}</p>
-                                                            :
-                                                            null
-                                                        } */}
-                                                </div>
+                                        <div key={index} className=" pb-4 border border-grey-300 rounded-xl ">
+                                            <div className="flex justify-end">
+                                                {index>0 &&
+                                                <button 
+                                                className="flex w-8 h-8 items-center justify-center py-2 px-2 bg-error hover:bg-error-dark rounded-lg"
+                                                type="button"
+                                                onClick={()=> remove(index)}>
+                                                    <XIcon className="w-4 h-5 text-white " aria-hidden="true"/>
+                                                </button>
+                                                }
 
                                             </div>
-                                            
-                                            <div className='flex items-center justify-between'>
-                                                <Body1>
-                                                    Merk Alat
-                                                </Body1>
+
+                                            <div className="space-y-3 px-4 py-4">
+
+                                                <div className='flex items-center justify-between'>
+                                                    <Body1>
+                                                        Jenis Alat
+                                                    </Body1>
+                                                    <div className="block">
+
+                                                        <CustomComboBox
+                                                            // selected={formik.values.type}
+                                                            selected={tool.type}
+                                                            setSelected={formik.setFieldValue}
+                                                            id={`tools.${index}.type`}
+                                                            name={`tools.${index}.type`}
+                                                            type="text"
+                                                            disabled={formik.values.test_type?false:true}
+                                                            // onChange={formik.handleChange}
+                                                            // onChange={(e)=>{formik.setFieldValue('test_type',"mahmud")}}
+                                                            onBlur={formik.handleBlur}
+                                                            // value={formik.values.test_type}
+                                                            placeholder="Pilih Jenis Alat" 
+                                                            itemLists={formik.values.test_type == jenisPekerjaan[0] ?
+                                                                jenisAlatUkes
+                                                                :
+                                                                jenisAlatKalibrasi
+                                                            }/>
+                                                            <ErrorMessage name={`tools.${index}.type`} component={ValidationMessage}/>
+                                                            {/* {formik.touched.type && formik.errors.type ? 
+                                                                <p className="text-error">{formik.errors.type}</p>
+                                                                :
+                                                                null
+                                                            } */}
+                                                    </div>
+
+                                                </div>
+                                                
+                                                <div className='flex items-center justify-between'>
+                                                    <Body1>
+                                                        Merk Alat
+                                                    </Body1>
+                                                        <div className="block">
+                                                            <Field
+                                                            className="w-96 border-none focus:ring-0 py-2 px-3 text-sm leading-5 text-gray-900 rounded-lg shadow-md"
+                                                            id={`tools.${index}.brand`}
+                                                            name={`tools.${index}.brand`}
+                                                            type="text"
+                                                            placeholder="Isi Merk Alat"
+                                                            />
+                                                        <ErrorMessage name={`tools.${index}.brand`} component={ValidationMessage}/>
+                                                    </div>
+                                                </div>
+
+
+                                                <div className='flex items-center justify-between'>
+                                                    <Body1>
+                                                        Tipe Alat
+                                                    </Body1>
                                                     <div className="block">
                                                         <Field
-                                                        className="w-96 border-none focus:ring-0 py-2 px-3 text-sm leading-5 text-gray-900 rounded-lg shadow-md"
-                                                        id={`tools.${index}.brand`}
-                                                        name={`tools.${index}.brand`}
-                                                        type="text"
-                                                        placeholder="Isi Merk Alat"
-                                                        />
-                                                    <ErrorMessage name={`tools.${index}.brand`} component={ValidationMessage}/>
+                                                            className="w-96 border-none focus:ring-0 py-2 px-3 text-sm leading-5 text-gray-900 rounded-lg shadow-md"
+                                                            id={`tools.${index}.tool_name`}
+                                                            name={`tools.${index}.tool_name`}
+                                                            type="text"
+                                                            placeholder="Isi Nama Alat"
+                                                            />
+                                                        <ErrorMessage name={`tools.${index}.tool_name`} component={ValidationMessage}/>
+                                                    </div>
+                                                </div>
+
+
+                                                <div className='flex items-center justify-between'>
+                                                    <Body1>
+                                                        Kuantitas Alat
+                                                    </Body1>
+                                                    <div className="block">
+                                                        <Field
+                                                            className="w-96 border-none focus:ring-0 py-2 px-3 text-sm leading-5 text-gray-900 rounded-lg shadow-md"
+                                                            id={`tools.${index}.quantity`}
+                                                            name={`tools.${index}.quantity`}
+                                                            type="number"
+                                                            placeholder="Isi Kuantitas Alat"
+                                                            />
+                                                        <ErrorMessage name={`tools.${index}.quantity`} component={ValidationMessage}/>
+                                                    </div>
                                                 </div>
                                             </div>
-
-
-                                            <div className='flex items-center justify-between'>
-                                                <Body1>
-                                                    Tipe Alat
-                                                </Body1>
-                                                <div className="block">
-                                                    <Field
-                                                        className="w-96 border-none focus:ring-0 py-2 px-3 text-sm leading-5 text-gray-900 rounded-lg shadow-md"
-                                                        id={`tools.${index}.tool_name`}
-                                                        name={`tools.${index}.tool_name`}
-                                                        type="text"
-                                                        placeholder="Isi Nama Alat"
-                                                        />
-                                                    <ErrorMessage name={`tools.${index}.tool_name`} component={ValidationMessage}/>
-                                                </div>
-                                            </div>
-
-
-                                             <div className='flex items-center justify-between'>
-                                                <Body1>
-                                                    Kuantitas Alat
-                                                </Body1>
-                                                <div className="block">
-                                                    <Field
-                                                        className="w-96 border-none focus:ring-0 py-2 px-3 text-sm leading-5 text-gray-900 rounded-lg shadow-md"
-                                                        id={`tools.${index}.quantity`}
-                                                        name={`tools.${index}.quantity`}
-                                                        type="number"
-                                                        placeholder="Isi Kuantitas Alat"
-                                                        />
-                                                    <ErrorMessage name={`tools.${index}.quantity`} component={ValidationMessage}/>
-                                                </div>
-                                            </div>
+                                            
+                                            
 
                                         </div>
                                     ))
@@ -366,7 +384,7 @@ export default function FormPermohonanUji({id}) {
 
                                  <div className="w-full flex justify-end">
                                      <Button 
-                                     className="w-32 hover:bg-secondary-darker10 hover:border-white hover:text-white" 
+                                     className="w-32 hover:bg-primary-darken10 hover:border-white hover:text-white" 
                                      buttonStyle="secondary_default" 
                                      type="button"
                                      onClick={()=> push(tool_details)}>

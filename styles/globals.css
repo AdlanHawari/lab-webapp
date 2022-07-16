@@ -97,6 +97,7 @@
     .input-med {
         @apply font-sans font-normal text-xs
     }
+
 }
 
 /* datepicker */
