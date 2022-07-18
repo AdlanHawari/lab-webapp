@@ -22,7 +22,7 @@ export default function FormPermohonanUji({
     setreqSent,
     errorMsg,
     setErrorMsg,
-    setIsUjiOpen
+    // setIsUjiOpen
     }) {
     const [test_typeSelected, setTest_TypeSelected] = useState()
     const [typeSelected, setTypeSelected] = useState()
@@ -63,179 +63,21 @@ export default function FormPermohonanUji({
             result.quantity = result.quantity.concat(tool.quantity.toString())
             
         }
-            // result.brand = result.type.concat(tool.brand)
-            
-            // result.brand = result.brand + "," + tool.brand
         )
         
-        // console.log("obj",obj)
-        // console.log("result", result)
         return result
     }
     
     
-    
-    
     return (
-    // <Formik
     
-    // initialValues= {{
-    //     test_type: "",
-    //     type: "",
-    //     brand: "",
-    //     tool_name: "",
-    //     quantity: null
-    // }}
-    // validationSchema={ FormPermohononanUjiValidationSchema(Yup)}
-    // onSubmit={ (values) => {
-    //     console.log(values);
-    // }}
-    // >
-    // {/* <form onSubmit={formik.handleSubmit}> */}
-    // { 
-    // formik =>{
-    //     return  <Form id={id}>
-    //             <div className="block w-full pl-10 pr-32 space-y-3">
-    //                 <div className='flex items-center justify-between'>
-    //                     <Body1>
-    //                         Jenis Pekerjaan
-    //                     </Body1>
-    //                     <div className="block">
-    //                         <CustomComboBox 
-    //                         // selected={test_typeSelected}
-    //                         // setSelected={setTest_TypeSelected}
-    //                         selected={formik.values.test_type}
-    //                         setSelected={formik.setFieldValue}
-
-    //                         id="test_type"
-    //                         name="test_type"
-    //                         type="text"
-    //                         // onChange={formik.handleChange}
-    //                         // onChange={(e)=>{formik.setFieldValue('test_type',"mahmud")}}
-    //                         onBlur={formik.handleBlur}
-    //                         // value={formik.values.test_type}
-    //                         placeholder="Pilih Jenis Uji" 
-    //                         itemLists={jenisPekerjaan}/>
-    //                         <ErrorMessage name="test_type" component={ValidationMessage}/>
-    //                         {/* <ErrorMessage name="test_type" component="p" className="text-error"/> */}
-    //                         {/* {formik.touched.test_type && formik.errors.test_type ? 
-    //                             <p className="text-error">{formik.errors.test_type}</p>
-    //                             :
-    //                             null
-    //                         } */}
-    //                     </div>
-    //                 </div>
-    //                 <div className='flex items-center justify-between'>
-    //                     <Body1>
-    //                         Jenis Alat
-    //                     </Body1>
-    //                     {/* <CustomComboBox itemLists={jenisAlatUkes}/> */}
-    //                     <div className="block">
-
-    //                         <CustomComboBox 
-    //                             // selected={typeSelected}
-    //                             // setSelected={setTypeSelected}
-    //                             selected={formik.values.type}
-    //                             setSelected={formik.setFieldValue}
-    //                             id="type"
-    //                             name="type"
-    //                             type="text"
-    //                             disabled={formik.values.test_type?false:true}
-    //                             // onChange={formik.handleChange}
-    //                             // onChange={(e)=>{formik.setFieldValue('test_type',"mahmud")}}
-    //                             onBlur={formik.handleBlur}
-    //                             // value={formik.values.test_type}
-    //                             placeholder="Pilih Jenis Alat" 
-    //                             itemLists={formik.values.test_type == jenisPekerjaan[0] ?
-    //                                 jenisAlatUkes
-    //                                 :
-    //                                 jenisAlatKalibrasi
-    //                             }/>
-    //                             <ErrorMessage name="type" component={ValidationMessage}/>
-    //                             {/* {formik.touched.type && formik.errors.type ? 
-    //                                 <p className="text-error">{formik.errors.type}</p>
-    //                                 :
-    //                                 null
-    //                             } */}
-    //                     </div>
-    //                 </div>
-    //                 <div className='flex items-center justify-between'>
-    //                     <Body1>
-    //                         Merk Alat
-    //                     </Body1>
-    //                     <div className="block">
-    //                         <Field
-    //                             className="w-96 border-none focus:ring-0 py-2 px-3 text-sm leading-5 text-gray-900 rounded-lg shadow-md"
-    //                             id="brand"
-    //                             name="brand"
-    //                             type="text"
-    //                             placeholder="Isi Merk Alat"
-    //                             />
-    //                         <ErrorMessage name="brand" component={ValidationMessage}/>
-    //                     </div>
-    //                 </div>
-    //                 <div className='flex items-center justify-between'>
-    //                     <Body1>
-    //                         Tipe Alat
-    //                     </Body1>
-    //                     <div className="block">
-    //                         <Field
-    //                             className="w-96 border-none focus:ring-0 py-2 px-3 text-sm leading-5 text-gray-900 rounded-lg shadow-md"
-    //                             id="tool_name"
-    //                             name="tool_name"
-    //                             type="text"
-    //                             placeholder="Isi Nama Alat"
-    //                             />
-    //                         <ErrorMessage name="tool_name" component={ValidationMessage}/>
-    //                     </div>
-    //                 </div>
-    //                 <div className='flex items-center justify-between'>
-    //                     <Body1>
-    //                         Kuantitas Alat
-    //                     </Body1>
-    //                     <div className="block">
-    //                         <Field
-    //                             className="w-96 border-none focus:ring-0 py-2 px-3 text-sm leading-5 text-gray-900 rounded-lg shadow-md"
-    //                             id="quantity"
-    //                             name="quantity"
-    //                             type="number"
-    //                             placeholder="Isi Kuantitas Alat"
-    //                             />
-    //                         <ErrorMessage name="quantity" component={ValidationMessage}/>
-    //                     </div>
-    //                 </div>
-
-    //                 <div className="w-full flex justify-end">
-    //                     <Button className="w-32 hover:bg-secondary-darker10 hover:border-white hover:text-white" buttonStyle="secondary_default" type="button">
-    //                         Tambah alat
-    //                     </Button>
-
-    //                 </div>
-    //                 {/* <div className='flex items-start justify-between'>
-    //                     <Body1>
-    //                         Keterangan
-    //                     </Body1>
-    //                     <div className="block">
-    //                         <Field as="textarea"
-    //                             className="w-96 h-36 border-none focus:ring-0 py-2 px-3 text-sm leading-5 text-gray-900 rounded-lg shadow-md"
-    //                             id="description"
-    //                             name="description"
-    //                             type="text"
-    //                             placeholder="Isi Keterangan"
-    //                             />
-    //                     </div>
-    //                 </div> */}
-    //             </div>
-                
-    //     </Form>
-    // }}
-    // </Formik>
 
     <Formik
         initialValues={permohonanUjiInitVal}
         validationSchema={FormPermohononanUjiValidationSchema(Yup)}
         onSubmit={async (values) => {
             // console.log(rearrangeObject(values))
+            console.log("submitting")
             setSubmitState(true)
             const arrangedObj = rearrangeObject(values)
             let formData = handleFormData(arrangedObj)
@@ -246,7 +88,7 @@ export default function FormPermohonanUji({
                 setSubmitState(false)
                 setErrorMsg('')
                 console.log("submit sent")
-                setIsUjiOpen(false)
+                // setIsUjiOpen(false)
             }
             else{
                 setErrorMsg('Terjadi kesalahan')
@@ -310,10 +152,10 @@ export default function FormPermohonanUji({
 
                                                         <CustomComboBox
                                                             // selected={formik.values.type}
-                                                            selected={tool.type}
+                                                            selected={tool.tool_name}
                                                             setSelected={formik.setFieldValue}
-                                                            id={`tools.${index}.type`}
-                                                            name={`tools.${index}.type`}
+                                                            id={`tools.${index}.tool_name`}
+                                                            name={`tools.${index}.tool_name`}
                                                             type="text"
                                                             disabled={formik.values.test_type?false:true}
                                                             // onChange={formik.handleChange}
@@ -326,7 +168,7 @@ export default function FormPermohonanUji({
                                                                 :
                                                                 jenisAlatKalibrasi
                                                             }/>
-                                                            <ErrorMessage name={`tools.${index}.type`} component={ValidationMessage}/>
+                                                            <ErrorMessage name={`tools.${index}.tool_name`} component={ValidationMessage}/>
                                                             {/* {formik.touched.type && formik.errors.type ? 
                                                                 <p className="text-error">{formik.errors.type}</p>
                                                                 :
@@ -360,12 +202,12 @@ export default function FormPermohonanUji({
                                                     <div className="block">
                                                         <Field
                                                             className="w-96 border-none focus:ring-0 py-2 px-3 text-sm leading-5 text-gray-900 rounded-lg shadow-md"
-                                                            id={`tools.${index}.tool_name`}
-                                                            name={`tools.${index}.tool_name`}
+                                                            id={`tools.${index}.type`}
+                                                            name={`tools.${index}.type`}
                                                             type="text"
-                                                            placeholder="Isi Nama Alat"
+                                                            placeholder="Isi Tipe Alat"
                                                             />
-                                                        <ErrorMessage name={`tools.${index}.tool_name`} component={ValidationMessage}/>
+                                                        <ErrorMessage name={`tools.${index}.type`} component={ValidationMessage}/>
                                                     </div>
                                                 </div>
 
@@ -409,6 +251,11 @@ export default function FormPermohonanUji({
 
                     </FieldArray>
                 </div>
+
+                <button
+                type="submit">
+                        submit
+                </button>
 
             </Form>
         }}

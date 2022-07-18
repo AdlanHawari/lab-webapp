@@ -102,15 +102,16 @@ export default function DetailModal({status, current_status, title, isOpen, setI
                                         <Section2 data={data}/>
                                         
 
-                                        <SectionFormPraUji/>
                                     {/* section 3 */}
                                         {current_status>1 &&
-
+                                        <>
+                                            <SectionFormPraUji/>
                                             <SectionFee/>
+                                            <SectionSchedule/>
+                                        </>
                                         }
 
-
-                                        <SectionSchedule/>
+                                        
 
 
                                     </div>

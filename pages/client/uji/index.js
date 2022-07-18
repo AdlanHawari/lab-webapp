@@ -52,21 +52,27 @@ export default function ClientUjiPage() {
   useEffect(() => {
     setTitle('Uji');
     if(!data && !error){
-      mutate()
+      // mutate()
     }
     
     
     // getUji();
   })
 
-  // useEffect(()=> {
-  //   console.log("reqsent", reqSent)
-  //   if(reqSent){
+  useEffect(() => {
+    
+    console.log("substate", submitState)
+  }, [submitState])
+  
+
+  useEffect(()=> {
+    console.log("reqsent", reqSent)
+    if(reqSent){
       
-  //     setIsUjiOpen(false)
-  //     // mutate()
-  //   }
-  // }, [reqSent])
+      setIsUjiOpen(false)
+      mutate()
+    }
+  }, [reqSent])
 
   
 
@@ -139,6 +145,7 @@ export default function ClientUjiPage() {
                 </li>
               ))
               :
+              !loading&&
               <div className="relative w-full h-96 ">
                 <div className="absolute top-1/2 transform -translate-y-1/2 left-1/2 -translate-x-1/2">
                   <h1>Anda belum memiliki daftar pengajuan</h1>
@@ -167,9 +174,12 @@ export default function ClientUjiPage() {
                 <Button 
                 className="bg-primary" 
                 buttonStyle={submitState?"primary_disabled":"primary_default"}
+                // buttonStyle="primary_default"
                 type="submit" 
                 disabled={submitState? true:false}
-                form={form_permohonan_uji_id}>
+                form={form_permohonan_uji_id}
+                // form="ujibaru"
+                >
                   { submitState &&
                     <FontAwesomeIcon icon={faSpinner} className="animate-spin"/>
                   }
@@ -179,14 +189,16 @@ export default function ClientUjiPage() {
             
           }
       >
-            <FormPermohonanUji id={form_permohonan_uji_id} 
+            <FormPermohonanUji 
+            id={form_permohonan_uji_id} 
+            // id="ujibaru"
             submitState={submitState}
             setSubmitState={setSubmitState}
             reqSent={reqSent}
             setreqSent={setreqSent}
             errorMsg={errorMsg} 
             setErrorMsg={setErrorMsg}
-            setIsUjiOpen={setIsUjiOpen}
+            // setIsUjiOpen={setIsUjiOpen}
             />
           </FormModal>
         }

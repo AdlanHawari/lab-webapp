@@ -4,7 +4,6 @@ import Body2 from 'components/small/typography/Body2'
 import { format } from 'date-fns'
 import { useRouter } from 'next/router'
 import React from 'react'
-import RoleDetector from 'utils/RoleDetector'
 import UrlSplitter from 'utils/UrlSplitter'
 
 export default function Section1({data}) {

@@ -13,19 +13,19 @@ export default function Section2({data}) {
             Jenis Alat
         </Body1>
         <Body2 className="text-black-500">
-            Radiografi Umum
+            {item.name}
         </Body2>
         <Body1 className="text-black-400">
             Merk Alat
         </Body1>
         <Body2 className="text-black-500">
-            Yangzou
+        {item.brand}
         </Body2>
         <Body1 className="text-black-400">
             Tipe Alat
         </Body1>
         <Body2 className="text-black-500">
-            Type YZ 100C
+            {item.type}
         </Body2>
 
 
@@ -33,7 +33,7 @@ export default function Section2({data}) {
             Kuantitas
         </Body1>
         <Body2 className="text-black-500">
-            5
+            {item.quantity}
         </Body2>
 
 
