@@ -39,10 +39,10 @@ export default function Home() {
           router.push("/login/welcomeSU")
         }
         if(user.data.role.access_code == ACCESS_CODE.CLIENT){
-          router.push("/client/log")
+          router.push("/client/uji")
         }
         if(user.data.role.access_code == ACCESS_CODE.PERSONNEL){
-          router.push("/personel/log")
+          router.push("/personel/uji")
         }
       }
 

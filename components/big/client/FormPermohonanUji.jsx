@@ -252,11 +252,6 @@ export default function FormPermohonanUji({
                     </FieldArray>
                 </div>
 
-                <button
-                type="submit">
-                        submit
-                </button>
-
             </Form>
         }}
 

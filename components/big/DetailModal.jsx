@@ -105,8 +105,8 @@ export default function DetailModal({status, current_status, title, isOpen, setI
                                     {/* section 3 */}
                                         {current_status>1 &&
                                         <>
-                                            <SectionFormPraUji/>
                                             <SectionFee/>
+                                            {/* <SectionFormPraUji/> */}
                                             <SectionSchedule/>
                                         </>
                                         }
@@ -118,12 +118,14 @@ export default function DetailModal({status, current_status, title, isOpen, setI
 
                                 </div>
                                 <div className="relative h-innerDetailModal w-1/5">
-                                <div className="absolute inset-x-0 top-0 pt-6 px-10">
-                                        <Button buttonStyle="primary_default">
-                                            Konfirmasi Penawaran
-                                        </Button>
+                                    {current_status==2 &&
+                                        <div className="absolute inset-x-0 top-0 pt-6 px-10">
+                                            <Button buttonStyle="primary_default">
+                                                Konfirmasi Penawaran
+                                            </Button>
 
-                                    </div>
+                                        </div>
+                                    }
                                     <div className="absolute inset-x-0 bottom-0 px-10">
                                         <Button buttonStyle="secondary_disabled">
                                             Batalkan Permohonan

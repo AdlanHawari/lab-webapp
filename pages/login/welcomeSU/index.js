@@ -13,17 +13,17 @@ export default function WelcomeSUPage() {
           Super Admin
         </h2>
         <div className="grid grid-flow-row gap-y-6 w-96">
-          <MyLink href="/client/log">
+          <MyLink href="/client/uji">
             <Button buttonStyle="secondary_neutral" className="hover:bg-grey-400 hover:text-white">
               Client
             </Button>
           </MyLink>
-          <MyLink href="/manajemen/log">
+          <MyLink href="/manajemen/summary">
             <Button buttonStyle="secondary_default" className="hover:bg-primary-darken20 hover:text-white">
               Manajemen
             </Button>
           </MyLink>
-          <MyLink href="/personel/log">
+          <MyLink href="/personel/uji">
             <Button buttonStyle="secondary_disabled" className="bg-secondary text-white hover:bg-secondary-darker20">
               Personel
             </Button>
