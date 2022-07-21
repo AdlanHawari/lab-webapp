@@ -20,7 +20,7 @@ export default function SummaryFilterSection() {
 
           <div className='w-72'>
             {institutionLists ?
-              <InstansiFilter itemLists={institutionLists}/>
+              <InstansiFilter itemLists={institutionLists.data}/>
             :
             loading &&
             <p>loading...</p>

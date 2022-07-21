@@ -2,13 +2,17 @@ import DisclosurePekerja from 'components/small/single_menu/disclosure/Disclosur
 import Title1 from 'components/small/typography/Title1';
 import Title2Med from 'components/small/typography/Title2Med';
 import { summary } from 'constants/ManajemenSummary'
+import { subMenu } from 'constants/SubmenuManajemenUji';
+import { userType } from 'constants/UserType';
 import { useDateFilterUjiContext } from 'hooks/context/filter-date/DateFilterUjiContext';
 import { useInstitutionFilterContext } from 'hooks/context/filter-institution/InstitutionFilter';
 import { useJenisPekerjaanFilterContext } from 'hooks/context/filter-jenisPekerjaan/JenisPekerjaanFilter';
 import useSummary from 'hooks/fetcher/management-summary/useSummary';
+import { PersonnelProvider } from 'hooks/fetcher/personnel/usePersonnelFetcher';
 import { useTitleContext } from 'hooks/TitleContext';
 import { useRouter } from 'next/router';
 import React from 'react'
+import SummaryPersonnelStatus from './SummaryPersonnelStatus';
 
 export default function SummaryMainSection() {
     const [title,setTitle,subTitle,setSubtitle] = useTitleContext();
@@ -23,6 +27,7 @@ export default function SummaryMainSection() {
         jenisPekerjaanState
       );
      
+      console.log(data)
     return (
     <div className="flex justify-between space-x-7">
             <ul className="grid grid-flow-row grid-cols-2 w-full h-full gap-9">
@@ -49,31 +54,11 @@ export default function SummaryMainSection() {
               
               
             </ul>
-            <div className="block w-96 p-9 bg-white border border-grey-300 rounded-2xl shadow divide-y divide-grey-300">
-              
-              <div className="flex justify-between pb-4">
-                <h3>Status Pekerja</h3>
-                <button onClick={()=>{
-                  setSubtitle(subMenu.PENGUJI)
-                  router.push("/manajemen/manajemen-uji"
-                )}}>
-                  <Title1 className="text-primary">Lihat Semua</Title1>
-                </button>
-              </div>
-              <div className="block py-4 space-y-1">
-                <Title2Med>Active</Title2Med>
-                <DisclosurePekerja bgButton="bg-primary"/>
-                <DisclosurePekerja bgButton="bg-primary"/>
 
-              </div>
-              <div className="block py-4 space-y-1">
-                <Title2Med>Standby</Title2Med>
-                <DisclosurePekerja bgButton="bg-secondary"/>
-                <DisclosurePekerja bgButton="bg-secondary"/>
-                
-              </div>
-                
-            </div>
+            <PersonnelProvider>
+              <SummaryPersonnelStatus/>
+            </PersonnelProvider>
+
         </div>
   )
 }

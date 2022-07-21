@@ -48,7 +48,7 @@ export default function ManajemenSummaryPage() {
 
 ManajemenSummaryPage.getLayout = function getLayout(page) {
     return (
-        <BaseLayout>{page}</BaseLayout>
+        <BaseLayout>Bisa</BaseLayout>
     )
   }
 

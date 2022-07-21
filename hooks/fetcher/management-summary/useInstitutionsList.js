@@ -8,11 +8,12 @@ export default function useInstitutionsList(){
         summary.getInstitutions
     )
     const loading = !data && !error;
+    console.log("datanya use Ins List:", data)
 
     return{
         loading,
         error,
-        institutionLists: data?.data,
+        institutionLists: data,
         mutate
     }
 }

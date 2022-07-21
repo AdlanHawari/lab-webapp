@@ -1,25 +1,23 @@
 import { createContext, useContext } from "react";
 import GetToken from "utils/GetToken";
 
-const summaryContext = createContext()
+const personnelContext = createContext()
 
-export function SummaryProvider({children}){
-    const summary = useProvideSummary()
-    return <summaryContext.Provider value={summary}>{children}</summaryContext.Provider>
+export function PersonnelProvider({children}){
+    const personnel = useProvidePersonal()
+    return <personnelContext.Provider value={personnel}>{children}</personnelContext.Provider>
 }
 
-export const useSummaryFetcher = () => {
-    return useContext(summaryContext)
+export const usePersonnelFetcher = ()=> {
+    return useContext(personnelContext)
 }
 
-function useProvideSummary(){
+function useProvidePersonal(){
     const token = GetToken()
 
-    async function getSummary(url){
+    async function getPersonnelActivity(url){
         let error
-    
-        const token = GetToken()
-    
+
         var requestOptions = {
             method:'GET'  ,
             headers: {
@@ -28,11 +26,11 @@ function useProvideSummary(){
             },
             redirect: 'follow'
         };
-    
+
         const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, requestOptions)
-    
+
         const res = await req.json()
-    
+
         if(res.header.response_code == 200){
             // console.log("200")
             const data = res.data
@@ -42,7 +40,7 @@ function useProvideSummary(){
                 data
             }
         }
-    
+
         if(res.header.response_code == 401){
             error = new Error(res.error)
             error.status = res.header.response_code
@@ -52,33 +50,9 @@ function useProvideSummary(){
             throw error
             // return error
         }
+
     }
-
-    async function getInstitutions(url){
-
-        const token = GetToken()
-        var requestOptions = {
-            method: 'GET',
-            headers:{
-                'Authorization': `Bearer ${token}`
-            },
-            redirect: 'follow'
-        }
-
-        try{
-            const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, requestOptions)
-
-            const res = await req.json()
-            return res
-        }
-        catch(e){
-            console.log("error",e)
-            return e
-        }
-    }
-
     return {
-        getInstitutions,
-        getSummary
+        getPersonnelActivity
     }
 }

@@ -8,6 +8,7 @@ import Body2 from "components/small/typography/Body2"
 import Body3 from "components/small/typography/Body3"
 import CaptionReg from "components/small/typography/CaptionReg"
 import TitleSmall from "components/small/typography/TitleSmall"
+import { usePersPenawaranContext } from "hooks/context/form-persetujuan-penawaran/PersPenawaranFormContext"
 import {Fragment} from 'react'
 import Section1 from "./detail-section/Section1"
 import Section2 from "./detail-section/Section2"
@@ -17,6 +18,8 @@ import SectionPaymentStep from "./detail-section/SectionPaymentStep"
 import SectionSchedule from "./detail-section/SectionSchedule"
 
 export default function DetailModal({status, current_status, title, isOpen, setIsOpen, data}) {
+
+    const {setPersPenawaranOpen} = usePersPenawaranContext()
     function closeModal() {
         setIsOpen(false)
       }
@@ -128,6 +131,7 @@ export default function DetailModal({status, current_status, title, isOpen, setI
                                         <div className="absolute inset-x-0 top-0 pt-6 px-10">
                                             <Button 
                                             buttonStyle="primary_default"
+                                            onClick={()=> setPersPenawaranOpen(true)}
                                             >
                                                 Konfirmasi Penawaran
                                             </Button>

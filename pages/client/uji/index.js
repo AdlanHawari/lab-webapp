@@ -16,6 +16,7 @@ import { form_permohonan_uji_id } from "constants/FormUtils";
 import { clientUji } from "constants/test_objects/clientUji";
 import { useDateFilterUjiContext } from "hooks/context/filter-date/DateFilterUjiContext";
 import { useStatusFilterContext } from "hooks/context/filter-status/StatusContext";
+import PersPenawaranContextProvider from "hooks/context/form-persetujuan-penawaran/PersPenawaranFormContext";
 import { usePageContext } from "hooks/context/pagination/PageContext";
 import { useAuth } from "hooks/fetcher/auth/useAuth";
 import { ClientProvider } from "hooks/fetcher/useClient";
@@ -133,7 +134,12 @@ export default function ClientUjiPage() {
           
 
             {loading &&
-            <h1>loading</h1>
+            // <h1>loading</h1>
+            <>
+              <SmallCardSkeleton/>
+              <SmallCardSkeleton/>
+              <SmallCardSkeleton/>
+            </>
             }
             {
               data &&
@@ -141,7 +147,9 @@ export default function ClientUjiPage() {
 
               data.data.map((item,index)=>(
                 <li key={index}>
-                  <SmallCard data={item}/>
+                  <PersPenawaranContextProvider>
+                    <SmallCard data={item}/>
+                  </PersPenawaranContextProvider>
                 </li>
               ))
               :

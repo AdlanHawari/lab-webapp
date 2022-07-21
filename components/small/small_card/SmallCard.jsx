@@ -7,10 +7,18 @@ import { useState } from "react";
 import DetailModal from "components/big/DetailModal";
 import { clientUjiStatus } from "constants/filter-status/ClientUjiStatus";
 import { manajemenUjiStatus } from "constants/filter-status/ManajemenUjiStatus";
+import PersPenawaranContextProvider, { usePersPenawaranContext } from "hooks/context/form-persetujuan-penawaran/PersPenawaranFormContext";
+
+import FormModal from "components/big/FormModal";
+import { form_persetujuan_penawaran } from "constants/FormUtils";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 
 export default function SmallCard({data}) {
     const [isDetailOpen, setIsDetailOpen] = useState(false)
+    const {persPenawaranOpen, setPersPenawaranOpen} = usePersPenawaranContext()
+    const [submitState, setSubmitState] = useState("")
   return (
     <div className="block w-full border border-cardStrokes rounded-2xl p-5 space-y-5 bg-white">
         
@@ -95,17 +103,49 @@ export default function SmallCard({data}) {
 
         {isDetailOpen &&
         //   <DetailUjiModal isOpen={isDetailOpen} setIsOpen={setIsDetailOpen}/>
-          <DetailModal 
-          title="Detail Uji" 
-          isOpen={isDetailOpen} 
-          setIsOpen={setIsDetailOpen}
-          status={clientUjiStatus}
-          current_status={data.status}
-          data={data}
-        //   status={manajemenUjiStatus}
-          >
+          
 
-          </DetailModal>
+            <DetailModal 
+            title="Detail Uji" 
+            isOpen={isDetailOpen} 
+            setIsOpen={setIsDetailOpen}
+            status={clientUjiStatus}
+            current_status={data.status}
+            data={data}
+            //   status={manajemenUjiStatus}
+            >
+
+            </DetailModal>
+        }
+
+        {persPenawaranOpen &&
+        // <PersetujuanPenawaranForm/>
+        <FormModal
+            title="Persetujuan Penawaran"
+          bgColor="primary"
+          isOpen={persPenawaranOpen}
+          setIsOpen={setPersPenawaranOpen}
+          buttonSide={
+           <>
+            <Button 
+                className="bg-primary" 
+                buttonStyle={submitState?"primary_disabled":"primary_default"}
+                // buttonStyle="primary_default"
+                type="submit" 
+                disabled={submitState? true:false}
+                form={form_persetujuan_penawaran}
+                // form="ujibaru"
+                >
+                  { submitState &&
+                    <FontAwesomeIcon icon={faSpinner} className="animate-spin"/>
+                  }
+                  Buat Permohonan Uji
+                </Button>
+           </> 
+          }
+        >
+
+        </FormModal> 
         }
     
     </div>
