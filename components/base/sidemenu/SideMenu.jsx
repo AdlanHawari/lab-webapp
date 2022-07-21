@@ -19,13 +19,13 @@ export default function SideMenu() {
   const page = splittedUrl[2];
   const [menu, setMenu] = useState([]);
   useEffect(() => {
-    if(user_type == "client"){
+    if(user_type == userType.client){
       setMenu(client_menu)
     }
-    if(user_type == "manajemen"){
+    if(user_type == userType.management){
       setMenu(management_menu)
     }
-    if(user_type == "personel"){
+    if(user_type == userType.personnel){
       setMenu(personel_menu)
     }
     // setMenu(client_menu)

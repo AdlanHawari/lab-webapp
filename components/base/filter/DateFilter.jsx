@@ -17,6 +17,7 @@ const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
 //   const [dateState, setDateState] = useState("");
 const {setStartDateFilter, setEndDateFilter}    = useDateFilterUjiContext();
+const [removeState, setRemoveState] = useState(false)
 
 useEffect(() => {
     console.log("end: ",endDate)
@@ -26,7 +27,14 @@ useEffect(() => {
         setStartDateFilter(DateFormatter(startDate))
         setEndDateFilter(DateFormatter(endDate))
     }
-}, [endDate])
+    if(removeState){
+        setStartDateFilter("")
+        setEndDateFilter("")
+        setRemoveState(false)
+
+    }
+}, [dateRange, removeState])
+// }, [endDate])
 // useEffect(() => {
 //     console.log("date: ",startDate? startDate.toString(): "null")
 // }, [startDate])
@@ -112,6 +120,7 @@ useEffect(() => {
                 // setStartDate(null)
                 setDateRange([null,null])
                 setOpen(false)
+                setRemoveState(true)
                 }}>
                 Remove Date
             </Button>

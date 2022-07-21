@@ -1,5 +1,6 @@
 import { MyLink } from "components/general/MyLink";
 import Button from "components/small/button_fixed/Button";
+import { userType } from "constants/UserType";
 
 export default function WelcomeSUPage() {
   return (
@@ -13,17 +14,17 @@ export default function WelcomeSUPage() {
           Super Admin
         </h2>
         <div className="grid grid-flow-row gap-y-6 w-96">
-          <MyLink href="/client/uji">
+          <MyLink href={`/${userType.client}/uji`}>
             <Button buttonStyle="secondary_neutral" className="hover:bg-grey-400 hover:text-white">
               Client
             </Button>
           </MyLink>
-          <MyLink href="/manajemen/summary">
+          <MyLink href={`/${userType.management}/summary`}>
             <Button buttonStyle="secondary_default" className="hover:bg-primary-darken20 hover:text-white">
               Manajemen
             </Button>
           </MyLink>
-          <MyLink href="/personel/uji">
+          <MyLink href={`/${userType.personnel}/uji`}>
             <Button buttonStyle="secondary_disabled" className="bg-secondary text-white hover:bg-secondary-darker20">
               Personel
             </Button>

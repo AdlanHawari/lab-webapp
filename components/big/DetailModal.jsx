@@ -24,6 +24,7 @@ export default function DetailModal({status, current_status, title, isOpen, setI
       function openModal() {
         setIsOpen(true)
       }
+
   return (
     <Transition appear show={isOpen} as={Fragment}>
         <Dialog
@@ -105,9 +106,14 @@ export default function DetailModal({status, current_status, title, isOpen, setI
                                     {/* section 3 */}
                                         {current_status>1 &&
                                         <>
-                                            <SectionFee/>
+                                            {current_status<5 &&
+                                                <SectionFee cost_detail={data.cost_detail} current_status={current_status}/>
+                                            }
                                             {/* <SectionFormPraUji/> */}
-                                            <SectionSchedule/>
+                                            {current_status>4 &&
+
+                                                <SectionSchedule/>
+                                            }
                                         </>
                                         }
 
@@ -120,7 +126,9 @@ export default function DetailModal({status, current_status, title, isOpen, setI
                                 <div className="relative h-innerDetailModal w-1/5">
                                     {current_status==2 &&
                                         <div className="absolute inset-x-0 top-0 pt-6 px-10">
-                                            <Button buttonStyle="primary_default">
+                                            <Button 
+                                            buttonStyle="primary_default"
+                                            >
                                                 Konfirmasi Penawaran
                                             </Button>
 

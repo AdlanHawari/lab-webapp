@@ -2,11 +2,14 @@ import Body1 from 'components/small/typography/Body1'
 import Body2 from 'components/small/typography/Body2'
 import Body3 from 'components/small/typography/Body3'
 import CaptionReg from 'components/small/typography/CaptionReg'
+import useFee from 'hooks/fetcher/detail-uji/useFee'
 import React from 'react'
+import NumberFormat from 'react-number-format'
 import SectionPaymentStep from './SectionPaymentStep'
 
-export default function SectionFee() {
-  return (
+export default function SectionFee({cost_detail, current_status}) {
+    
+    return (
     <div className="py-4">      
         <h3>
             Biaya
@@ -19,8 +22,15 @@ export default function SectionFee() {
                     (Termasuk Biaya Setting + Akomodasi)
                 </CaptionReg>
             </Body1>
+            {/* <p className="font-bold text-lg text-banoo-white md:text-2xl font-spartan">
+                    <NumberFormat value={content.currentPrice} displayType={'text'} thousandSeparator=',' prefix={'Rp'} /> 
+
+                </p> */}
             <Body2 className="text-black-500">
-                Rp13.000.000
+                {/* Rp13.000.000 */}
+                
+                <NumberFormat value={cost_detail.cost} displayType={'text'} thousandSeparator=',' prefix={'Rp'} /> 
+                
             </Body2>
             <Body1 className="text-black-400">
                 PPN 10%
@@ -34,15 +44,24 @@ export default function SectionFee() {
             </Body2>
             <div className="flex">
                 <Body3 className="text-black-500 border-t border-grey-200 pt-2">
-                    Rp14.300.000
+                    {/* Rp14.300.000 */}
+                    <NumberFormat value={cost_detail.cost_with_ppn} displayType={'text'} thousandSeparator=',' prefix={'Rp'} /> 
+                    
                 </Body3>
             </div>
             <Body2 className="text-black-400">
                 Status
             </Body2>
-            <Body3 className="text-error">
-                Belum Dibayar
-            </Body3>
+            {current_status<4&&
+                <Body3 className="text-error">
+                    Belum Dibayar
+                </Body3>
+            }
+            {current_status==4&&
+                <Body3 className="text-error">
+                    Menunggu konfirmasi
+                </Body3>
+            }
         </div>
 
 

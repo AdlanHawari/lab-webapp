@@ -1,5 +1,5 @@
 export const userType = {
-    personel : "personel",
+    personnel : "personnel",
     client: "client",
-    manajemen: "manajemen"
+    management: "management"
 }

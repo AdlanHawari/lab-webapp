@@ -1,20 +1,26 @@
 export const summary = [
     {
-        title: "Permohonan Uji Baru"
+        title: "Permohonan Uji Baru",
+        key: "permohonan_uji_baru"
     },
     {
-        title: "Permohonan Uji Terbayarkan"
+        title: "Permohonan Uji Terbayarkan",
+        key: "permohonan_uji_terbayarkan"
     },
     {
-        title: "Uji Dijadwalkan"
+        title: "Uji Dijadwalkan",
+        key:"uji_dijadwalkan"
     },
     {
-        title: "Pengolahan Data Uji"
+        title: "Pengolahan Data Uji",
+        key:"pengolahan_data_uji"
     },
     {
-        title: "Uji Selesai"
+        title: "Uji Selesai",
+        key:"uji_selesai"
     },
     {
-        title: "Uji Tidak Selesai"
+        title: "Uji Tidak Selesai",
+        key:"uji_tidak_selesai"
     },
 ]
