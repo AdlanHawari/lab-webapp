@@ -8,6 +8,7 @@ import Body2 from "components/small/typography/Body2"
 import Body3 from "components/small/typography/Body3"
 import CaptionReg from "components/small/typography/CaptionReg"
 import TitleSmall from "components/small/typography/TitleSmall"
+import { useDetailUjiClientContext } from "hooks/context/detail-uji-client/DetailUjiClientContext"
 import { usePersPenawaranContext } from "hooks/context/form-persetujuan-penawaran/PersPenawaranFormContext"
 import {Fragment} from 'react'
 import Section1 from "./detail-section/Section1"
@@ -19,7 +20,7 @@ import SectionSchedule from "./detail-section/SectionSchedule"
 
 export default function DetailModal({status, current_status, title, isOpen, setIsOpen, data}) {
 
-    const {setPersPenawaranOpen} = usePersPenawaranContext()
+    const {setPersPenawaranOpen, setFormPraUjiOpen, setUploadDokumenOpen} = useDetailUjiClientContext()
     function closeModal() {
         setIsOpen(false)
       }
@@ -127,17 +128,37 @@ export default function DetailModal({status, current_status, title, isOpen, setI
 
                                 </div>
                                 <div className="relative h-innerDetailModal w-1/5">
+                                    <div className="absolute inset-x-0 top-0 pt-6 px-10">
                                     {current_status==2 &&
-                                        <div className="absolute inset-x-0 top-0 pt-6 px-10">
                                             <Button 
                                             buttonStyle="primary_default"
                                             onClick={()=> setPersPenawaranOpen(true)}
                                             >
                                                 Konfirmasi Penawaran
                                             </Button>
+                                    }
+
+                                    {current_status==3 &&
+                                        <div className="block space-y-4">
+                                            <Button 
+                                            buttonStyle="primary_default"
+                                            onClick={()=>setFormPraUjiOpen(true)}
+                                            >
+                                                Isi Form Pra-Uji
+                                            </Button>
+                                            <Button 
+                                            buttonStyle="secondary_default"
+                                            onClick={()=>setUploadDokumenOpen(true)}
+                                            >
+                                                Upload Dokumen
+                                            </Button>
 
                                         </div>
                                     }
+
+
+                                    </div>
+
                                     <div className="absolute inset-x-0 bottom-0 px-10">
                                         <Button buttonStyle="secondary_disabled">
                                             Batalkan Permohonan

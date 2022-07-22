@@ -7,17 +7,28 @@ import { useState } from "react";
 import DetailModal from "components/big/DetailModal";
 import { clientUjiStatus } from "constants/filter-status/ClientUjiStatus";
 import { manajemenUjiStatus } from "constants/filter-status/ManajemenUjiStatus";
-import PersPenawaranContextProvider, { usePersPenawaranContext } from "hooks/context/form-persetujuan-penawaran/PersPenawaranFormContext";
+import { usePersPenawaranContext } from "hooks/context/form-persetujuan-penawaran/PersPenawaranFormContext";
 
 import FormModal from "components/big/FormModal";
 import { form_persetujuan_penawaran } from "constants/FormUtils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import PersetujuanPenawaranUji from "components/big/client/PersetujuanPenawaranUji";
+import { useDetailUjiClientContext } from "hooks/context/detail-uji-client/DetailUjiClientContext";
 
 
 export default function SmallCard({data}) {
     const [isDetailOpen, setIsDetailOpen] = useState(false)
-    const {persPenawaranOpen, setPersPenawaranOpen} = usePersPenawaranContext()
+    const {
+        persPenawaranOpen,
+        setPersPenawaranOpen,
+        formPraUjiOpen,
+        setFormPraUjiOpen,
+        uploadDokumenOpen, 
+        setUploadDokumenOpen
+    } = useDetailUjiClientContext()
+    
+    
     const [submitState, setSubmitState] = useState("")
   return (
     <div className="block w-full border border-cardStrokes rounded-2xl p-5 space-y-5 bg-white">
@@ -131,21 +142,55 @@ export default function SmallCard({data}) {
                 className="bg-primary" 
                 buttonStyle={submitState?"primary_disabled":"primary_default"}
                 // buttonStyle="primary_default"
-                type="submit" 
+                // type="submit" 
+                type="button" 
                 disabled={submitState? true:false}
-                form={form_persetujuan_penawaran}
+                // form={}
                 // form="ujibaru"
                 >
                   { submitState &&
                     <FontAwesomeIcon icon={faSpinner} className="animate-spin"/>
                   }
-                  Buat Permohonan Uji
+                  Konfirmasi Penawaran
                 </Button>
            </> 
           }
         >
+            <PersetujuanPenawaranUji data={data}/>
+
 
         </FormModal> 
+        }
+
+        {uploadDokumenOpen &&
+            <FormModal
+            title="UploadDokumen"
+            bgColor="primary"
+            isOpen={uploadDokumenOpen}
+            setIsOpen={setUploadDokumenOpen}
+            buttonSide={
+            <>
+                <Button 
+                    className="bg-primary" 
+                    buttonStyle={submitState?"primary_disabled":"primary_default"}
+                    // buttonStyle="primary_default"
+                    // type="submit" 
+                    type="button" 
+                    disabled={submitState? true:false}
+                    // form={}
+                    // form="ujibaru"
+                    >
+                    { submitState &&
+                        <FontAwesomeIcon icon={faSpinner} className="animate-spin"/>
+                    }
+                        Simpan Dokumen
+                </Button>
+            </> 
+            }
+            >
+             <FormUploadDokumen/>   
+            </FormModal>
+
         }
     
     </div>

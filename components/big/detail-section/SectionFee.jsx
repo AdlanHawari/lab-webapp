@@ -5,6 +5,7 @@ import CaptionReg from 'components/small/typography/CaptionReg'
 import useFee from 'hooks/fetcher/detail-uji/useFee'
 import React from 'react'
 import NumberFormat from 'react-number-format'
+import SectionPaymentProof from './SectionPaymentProof'
 import SectionPaymentStep from './SectionPaymentStep'
 
 export default function SectionFee({cost_detail, current_status}) {
@@ -67,17 +68,10 @@ export default function SectionFee({cost_detail, current_status}) {
 
         <div className="w-3/5 space-y-3">
             <SectionPaymentStep/>
+            {current_status==4 &&
 
-                <button className="flex justify-between items-center w-full py-2 px-2.5 bg-primary rounded-xl shadow-sm">
-            
-                <Body2 className="text-white">
-                    Bukti Pembayaran
-                </Body2>
-                <Body2 className="text-white underline underline-offset-2">
-                    invoice_bni_3.pdf
-                </Body2>
-                
-            </button>
+                <SectionPaymentProof/>
+            }
         </div>
     </div>
   )

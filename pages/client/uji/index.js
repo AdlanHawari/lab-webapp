@@ -14,6 +14,7 @@ import SmallCardSkeleton from "components/small/small_card/SmallCardSkeleton";
 import { clientUjiStatus } from "constants/filter-status/ClientUjiStatus";
 import { form_permohonan_uji_id } from "constants/FormUtils";
 import { clientUji } from "constants/test_objects/clientUji";
+import DetailUjiClientContextProvider from "hooks/context/detail-uji-client/DetailUjiClientContext";
 import { useDateFilterUjiContext } from "hooks/context/filter-date/DateFilterUjiContext";
 import { useStatusFilterContext } from "hooks/context/filter-status/StatusContext";
 import PersPenawaranContextProvider from "hooks/context/form-persetujuan-penawaran/PersPenawaranFormContext";
@@ -147,9 +148,9 @@ export default function ClientUjiPage() {
 
               data.data.map((item,index)=>(
                 <li key={index}>
-                  <PersPenawaranContextProvider>
+                  <DetailUjiClientContextProvider>
                     <SmallCard data={item}/>
-                  </PersPenawaranContextProvider>
+                  </DetailUjiClientContextProvider>
                 </li>
               ))
               :
