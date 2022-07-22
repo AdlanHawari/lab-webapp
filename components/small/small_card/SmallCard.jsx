@@ -15,6 +15,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import PersetujuanPenawaranUji from "components/big/client/PersetujuanPenawaranUji";
 import { useDetailUjiClientContext } from "hooks/context/detail-uji-client/DetailUjiClientContext";
+import FormUploadDokumen from "components/big/client/FormUploadDokumen";
 
 
 export default function SmallCard({data}) {
@@ -188,7 +189,7 @@ export default function SmallCard({data}) {
             </> 
             }
             >
-             <FormUploadDokumen/>   
+                <FormUploadDokumen/>   
             </FormModal>
 
         }
