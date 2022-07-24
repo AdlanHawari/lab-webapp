@@ -3,7 +3,7 @@ import Body1 from "../typography/Body1";
 import Body3 from "../typography/Body3";
 import Title1 from "../typography/Title1";
 import Title2Med from "../typography/Title2Med";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DetailModal from "components/big/DetailModal";
 import { clientUjiStatus } from "constants/filter-status/ClientUjiStatus";
 import { manajemenUjiStatus } from "constants/filter-status/ManajemenUjiStatus";
@@ -16,6 +16,8 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import PersetujuanPenawaranUji from "components/big/client/PersetujuanPenawaranUji";
 import { useDetailUjiClientContext } from "hooks/context/detail-uji-client/DetailUjiClientContext";
 import FormUploadDokumen from "components/big/client/FormUploadDokumen";
+import { useDetailUji } from "hooks/fetcher/detail-uji/useDetailUji";
+import { delay } from "utils/delay";
 
 
 export default function SmallCard({data}) {
@@ -28,9 +30,14 @@ export default function SmallCard({data}) {
         uploadDokumenOpen, 
         setUploadDokumenOpen
     } = useDetailUjiClientContext()
+
+    const detailUjiFetcher = useDetailUji()
     
     
-    const [submitState, setSubmitState] = useState("")
+    const [submitState, setSubmitState] = useState(false)
+    
+    
+
   return (
     <div className="block w-full border border-cardStrokes rounded-2xl p-5 space-y-5 bg-white">
         
@@ -56,8 +63,8 @@ export default function SmallCard({data}) {
 
         <h3 className="text-black-500">
             {/* {data.TestApplicationTool[0]?.Tool.name} {data.TestApplicationTool[0]?.Tool.brand} - {data.TestApplicationTool[0]?.Tool.type} */}
-            Nama alat
-            {/* {data.tools[0].name} - {data.tools[0].brand} {data.tools[0].type} */}
+            {/* Nama alat */}
+            {data.tools[0].name} - {data.tools[0].brand} {data.tools[0].type}
             
         </h3>
 
@@ -146,6 +153,17 @@ export default function SmallCard({data}) {
                 // type="submit" 
                 type="button" 
                 disabled={submitState? true:false}
+                onClick={async ()=>{
+                    setSubmitState(true)
+                    console.log("id", data.id)
+                    const resp = await detailUjiFetcher.confirmTestApp(data.id)
+                    await delay(3000)
+                    console.log("resp", resp)
+                    // if()
+                    setSubmitState(false)
+                    setPersPenawaranOpen(false)
+                    // setReqSent(true)
+                }}
                 // form={}
                 // form="ujibaru"
                 >

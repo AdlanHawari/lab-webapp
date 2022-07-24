@@ -5,6 +5,7 @@ import CaptionReg from 'components/small/typography/CaptionReg'
 import useFee from 'hooks/fetcher/detail-uji/useFee'
 import React from 'react'
 import NumberFormat from 'react-number-format'
+import CalculatorPPN from 'utils/CalculatorPPN'
 import SectionPaymentProof from './SectionPaymentProof'
 import SectionPaymentStep from './SectionPaymentStep'
 
@@ -37,7 +38,7 @@ export default function SectionFee({cost_detail, current_status}) {
                 PPN 10%
             </Body1>
             <Body2 className="text-black-500  ">
-                Rp1.300.000
+                <NumberFormat value={CalculatorPPN(cost_detail.cost)} displayType={'text'} thousandSeparator=',' prefix={'Rp'} /> 
             </Body2>
 
             <Body2 className="text-black-400  border-t border-grey-200 pt-2">

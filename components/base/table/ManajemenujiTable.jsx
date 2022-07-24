@@ -99,7 +99,8 @@ export default function ManajemenujiTable({data}) {
                     </td>
                     <td className="">
                         <ButtonSmall
-                        onClick={()=>setIsDetailOpen(true)}>
+                        // onClick={()=>setIsDetailOpen(true)}
+                        >
                             Lihat Detail
                         </ButtonSmall>
                     </td>

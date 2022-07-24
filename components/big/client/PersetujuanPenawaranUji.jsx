@@ -3,6 +3,8 @@ import Body2 from 'components/small/typography/Body2'
 import Body3 from 'components/small/typography/Body3'
 import CaptionReg from 'components/small/typography/CaptionReg'
 import React from 'react'
+import NumberFormat from 'react-number-format'
+import CalculatorPPN from 'utils/CalculatorPPN'
 
 export default function PersetujuanPenawaranUji({data}) {
     // console.log(data)
@@ -48,16 +50,17 @@ export default function PersetujuanPenawaranUji({data}) {
             </CaptionReg>
         </Body1>
         <Body2 className="text-black-500">
-            Rp13.000.000
+            {/* Rp13.000.000 */}
                 
-            {/* <NumberFormat value={cost_detail.cost} displayType={'text'} thousandSeparator=',' prefix={'Rp'} />  */}
+            <NumberFormat value={data.cost_detail.cost} displayType={'text'} thousandSeparator=',' prefix={'Rp'} /> 
                 
         </Body2>
         <Body1 className="text-black-400">
             PPN 10%
         </Body1>
         <Body2 className="text-black-500  ">
-            Rp1.300.000
+            {/* Rp1.300.000 */}
+            <NumberFormat value={CalculatorPPN(data.cost_detail.cost)} displayType={'text'} thousandSeparator=',' prefix={'Rp'} /> 
         </Body2>
 
         <Body2 className="text-black-400  border-t border-grey-200 pt-2">
@@ -65,8 +68,8 @@ export default function PersetujuanPenawaranUji({data}) {
         </Body2>
         <div className="flex">
             <Body3 className="text-black-500 border-t border-grey-200 pt-2">
-                Rp14.300.000
-                {/* <NumberFormat value={cost_detail.cost_with_ppn} displayType={'text'} thousandSeparator=',' prefix={'Rp'} />  */}
+                {/* Rp14.300.000 */}
+                <NumberFormat value={data.cost_detail.cost_with_ppn} displayType={'text'} thousandSeparator=',' prefix={'Rp'} /> 
                 
             </Body3>
             </div>

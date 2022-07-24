@@ -1,6 +1,9 @@
 import BaseLayout from "components/base/BaseLayout"
 import LogSection from "components/base/logsection/LogSection"
 import { clientLogs } from "constants/test_objects/clientLog"
+import DateFilterUjiContextProvider from "hooks/context/filter-date/DateFilterUjiContext";
+import PageContextProvider from "hooks/context/pagination/PageContext";
+import { LogProvider } from "hooks/fetcher/log/useLogFetcher";
 import { useTitleContext } from "hooks/TitleContext";
 import { useEffect } from "react";
 
@@ -15,9 +18,13 @@ export default function PersonelLogPage() {
   setTitle('Log')
   })
   return(
-    <LogSection data={clientLogs}>
-
-    </LogSection>
+    <LogProvider>
+    <PageContextProvider>
+      <DateFilterUjiContextProvider>
+        <LogSection/>
+      </DateFilterUjiContextProvider>
+      </PageContextProvider>
+    </LogProvider>
   )
 }
 

@@ -49,7 +49,9 @@ export default function SectionPaymentStep() {
             "pt-2 list-inside list-disc space-y-2"
           >
             {({close}) => (
-                <div className="">hello</div>
+                <div className="">
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Qui neque deserunt debitis consequatur nihil enim mollitia sint unde amet voluptate?
+                </div>
             //   <>
             //   {object.map((item,index)=>(
             //     <li key={index} className={classNames(

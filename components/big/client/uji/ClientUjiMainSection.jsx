@@ -11,6 +11,7 @@ import { useDateFilterUjiContext } from 'hooks/context/filter-date/DateFilterUji
 import { useStatusFilterContext } from 'hooks/context/filter-status/StatusContext'
 import { useFormCreateUjiClientContext } from 'hooks/context/form-createUji-client/FormCreateUjiClientContext'
 import { usePageContext } from 'hooks/context/pagination/PageContext'
+import { DetailUjiFetcherProvider } from 'hooks/fetcher/detail-uji/useDetailUji'
 import usePermohonanUji from 'hooks/fetcher/usePermohonanUji'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -99,7 +100,9 @@ export default function ClientUjiMainSection() {
             data.data.map((item,index)=>(
             <li key={index}>
                 <DetailUjiClientContextProvider>
-                    <SmallCard data={item}/>
+                  <DetailUjiFetcherProvider>
+                      <SmallCard data={item}/>
+                  </DetailUjiFetcherProvider>
                 </DetailUjiClientContextProvider>
             </li>
             ))

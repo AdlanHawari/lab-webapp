@@ -1,7 +1,12 @@
 import BaseLayout from 'components/base/BaseLayout';
 import DateFilter from 'components/base/filter/DateFilter';
 import ArsipTable from 'components/base/table/ArsipTable';
+import ArsipDokumenFilterSection from 'components/big/manajemen/arsip-dokumen/ArsipDokumenFilterSection';
+import ArsipDokumenMainSection from 'components/big/manajemen/arsip-dokumen/ArsipDokumenMainSection';
 import { arsipData } from 'constants/test_objects/arsipDokumen';
+import DateFilterUjiContextProvider from 'hooks/context/filter-date/DateFilterUjiContext';
+import InstitutionFilterContextProvider from 'hooks/context/filter-institution/InstitutionFilter';
+import JenisPekerjaanFilterContextProvider from 'hooks/context/filter-jenisPekerjaan/JenisPekerjaanFilter';
 import { useTitleContext } from "hooks/TitleContext";
 import { useEffect } from 'react';
 
@@ -13,13 +18,24 @@ export default function ManajemenArsipPage() {
     setTitle('Arsip Dokumen')
   })
   return(
-    <div className="block space-y-7">
+    <DateFilterUjiContextProvider>
+      <InstitutionFilterContextProvider>
+        <JenisPekerjaanFilterContextProvider>
+          <div className="flex flex-col divide-y divide-grey-200 space-y-5">
+            <ArsipDokumenFilterSection/>
+            <ArsipDokumenMainSection/>
+          </div>
+        </JenisPekerjaanFilterContextProvider>
+      </InstitutionFilterContextProvider>
 
-      <div className="flex">
-          <DateFilter/>
-      </div>
-      <ArsipTable data={arsipData}/>
-  </div>
+    </DateFilterUjiContextProvider>
+    // <div className="block space-y-7">
+
+    //   <div className="flex">
+    //       <DateFilter/>
+    //   </div>
+    //   <ArsipTable data={arsipData}/>
+    // </div>
   )
 }
 

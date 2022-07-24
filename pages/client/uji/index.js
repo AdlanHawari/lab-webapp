@@ -5,6 +5,7 @@ import DateFilterUjiContextProvider, { useDateFilterUjiContext } from "hooks/con
 import StatusFilterContextProvider, { useStatusFilterContext } from "hooks/context/filter-status/StatusContext";
 import FormCreateUjiClientContextProvider from "hooks/context/form-createUji-client/FormCreateUjiClientContext";
 import PageContextProvider, { usePageContext } from "hooks/context/pagination/PageContext";
+import { DetailUjiFetcherProvider } from "hooks/fetcher/detail-uji/useDetailUji";
 import { ClientProvider } from "hooks/fetcher/useClient";
 import { useTitleContext } from "hooks/TitleContext";
 import { useEffect, useState } from "react";
@@ -28,7 +29,9 @@ export default function ClientUjiPage() {
                 
                 <ClientUjiFilterSection/>
 
-                <ClientUjiMainSection/>
+                <DetailUjiFetcherProvider>
+                  <ClientUjiMainSection/>
+                </DetailUjiFetcherProvider>
             
               </div>
             </FormCreateUjiClientContextProvider>
