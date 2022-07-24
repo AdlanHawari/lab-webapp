@@ -1,4 +1,4 @@
 export const buatPenawaranUjiInitValues = {
     invoice_number: "",
-    cost_offered: ""
+    cost_offered: null
 }

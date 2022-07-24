@@ -12,18 +12,46 @@ import ButtonSmall from 'components/small/button_small/ButtonSmall'
 import Table1 from 'components/small/typography/Table1'
 import Table2 from 'components/small/typography/Table2'
 import { permohonanUjiStatus } from 'constants/filter-status/ManajemenUjiStatus'
+import { form_buat_penawaran_uji_id } from 'constants/FormUtils'
 import { permohonanUjiTableHead } from 'constants/table/RowTitle'
 import { useManajemenPermohonanUjiContext } from 'hooks/context/permohonan-uji/PermohonanUjiContext'
-import {useState} from 'react'
+import { usePermohonanUjiManajemenFetcher } from 'hooks/fetcher/permohonan-uji/usePermohonanUjiFetcher'
+import usePermohonanUji from 'hooks/fetcher/usePermohonanUji'
+import {useEffect, useState} from 'react'
 import DateFormatter from 'utils/DateFormatter'
 
-export default function PermohonanUjiTable({data}) {
+export default function PermohonanUjiTable({data, mutate}) {
     const [isDetailOpen, setIsDetailOpen] = useState(false)
     const dateFormatter = DateFormatter()
     const [dataSelected, setDataSelected] = useState({})
     const {buatPenawaranPopUp, setBuatPenawaranPopUp} = useManajemenPermohonanUjiContext()
     const [submitState, setSubmitState] = useState(false)
-    // console.log("data uji tabel", data)
+    const [reqSent, setreqSent] = useState(false);
+
+    // useEffect(() => {
+    //   console.log("popUp changed")
+    
+    // }, [buatPenawaranPopUp])
+
+    // const {mutate} = usePermohonanUji(
+    //       startDateFilter,
+    //       endDateFilter,
+    //       currentPage,
+    //       statusFilter
+    
+    //     )
+
+    useEffect(()=> {
+        console.log("reqsent", reqSent)
+        if(reqSent){
+          
+          setBuatPenawaranPopUp(false)
+          setreqSent(false)
+          mutate()
+        }
+      }, [reqSent])
+    
+    
   return (
     <>
         <table className='bg-primary-lighten10 min-w-full shadow-lg rounded-lg'>
@@ -161,10 +189,11 @@ export default function PermohonanUjiTable({data}) {
                     className="bg-primary" 
                     buttonStyle={submitState?"primary_disabled":"primary_default"}
                     // buttonStyle="primary_default"
-                    // type="submit" 
-                    type="button" 
+                    type="submit" 
+                    // type="button" 
+                    
                     disabled={submitState? true:false}
-                    // form={}
+                    form={form_buat_penawaran_uji_id}
                     // form="ujibaru"
                     >
                     { submitState &&
@@ -174,7 +203,16 @@ export default function PermohonanUjiTable({data}) {
                 </Button>
             </>}
             >
-                <FormBuatPenawaranUji/>
+                <FormBuatPenawaranUji 
+                id={form_buat_penawaran_uji_id}
+                data={dataSelected}
+                submitState={submitState}
+                setSubmitState={setSubmitState}
+                reqSent={reqSent}
+                setreqSent={setreqSent}
+                // setBuatPenawaranPopUp={setBuatPenawaranPopUp}
+                // onSubmit={}
+                />
 
             </FormModal>
 

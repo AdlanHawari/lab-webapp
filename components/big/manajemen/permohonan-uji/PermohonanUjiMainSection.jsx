@@ -4,6 +4,8 @@ import { permohonanUjiData } from 'constants/test_objects/permohonanUji'
 import { useDateFilterUjiContext } from 'hooks/context/filter-date/DateFilterUjiContext';
 import { useStatusFilterContext } from 'hooks/context/filter-status/StatusContext';
 import { usePageContext } from 'hooks/context/pagination/PageContext';
+import { DetailUjiFetcherProvider } from 'hooks/fetcher/detail-uji/useDetailUji';
+import { PermohonanUjiFetcherProvider } from 'hooks/fetcher/permohonan-uji/usePermohonanUjiFetcher';
 import usePermohonanUji from 'hooks/fetcher/usePermohonanUji';
 import React, { useEffect } from 'react'
 
@@ -37,7 +39,11 @@ export default function PermohonanUjiMainSection() {
         }
         {data &&
             data.data.length>0 &&
-            <PermohonanUjiTable data={data.data}/>
+            // <PermohonanUjiFetcherProvider>
+            <DetailUjiFetcherProvider>
+              <PermohonanUjiTable data={data.data} mutate={mutate}/>
+            </DetailUjiFetcherProvider>
+            // </PermohonanUjiFetcherProvider>
         }
 
         <Pagination/>
