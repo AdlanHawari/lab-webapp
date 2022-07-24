@@ -31,7 +31,7 @@ export default function PermohonanUjiMainSection() {
         },[data])
   
     return (
-    <div>
+      <div className="pt-5 space-y-5">
         {loading &&
             <h2>Loading</h2>
         }

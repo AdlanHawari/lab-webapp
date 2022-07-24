@@ -22,18 +22,15 @@ export default function ManajemenPermohonanUjiPage() {
   return(
     <StatusFilterContextProvider>
       <PageContextProvider>
+        <DateFilterUjiContextProvider>
+          <div className="flex flex-col divide-y divide-grey-200 space-y-5">
+                      
+            <PermohonanUjiFilterSection/>
 
-      
-      <DateFilterUjiContextProvider>
-
-        <div className="flex flex-col divide-y divide-grey-200 space-y-5">
-                    
-          <PermohonanUjiFilterSection/>
-
-          <PermohonanUjiMainSection/>
-                
-        </div>
-      </DateFilterUjiContextProvider>
+            <PermohonanUjiMainSection/>
+                  
+          </div>
+        </DateFilterUjiContextProvider>
       </PageContextProvider>
     </StatusFilterContextProvider>
   )

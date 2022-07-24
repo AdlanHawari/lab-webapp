@@ -12,6 +12,7 @@ import { MyLink } from 'components/general/MyLink'
 import useUser from 'hooks/fetcher/auth/useUser'
 import { useAuth } from 'hooks/fetcher/auth/useAuth'
 import { mutate, useSWRConfig } from 'swr'
+import { delay } from 'utils/delay'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -48,7 +49,9 @@ export default function ProfileDropdown() {
 
   async function handleLogout(){
     localStorage.clear()
+    delay(3000)
     mutate(null)
+    delay(3000)
   }
   
 

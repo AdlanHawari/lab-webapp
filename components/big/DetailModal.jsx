@@ -18,9 +18,17 @@ import SectionFormPraUji from "./detail-section/SectionFormPraUji"
 import SectionPaymentStep from "./detail-section/SectionPaymentStep"
 import SectionSchedule from "./detail-section/SectionSchedule"
 
-export default function DetailModal({status, current_status, title, isOpen, setIsOpen, data}) {
+export default function DetailModal({
+    status,
+    current_status,
+    title, 
+    isOpen, 
+    setIsOpen,
+    children,
+    buttonSide,
+    data}) {
 
-    const {setPersPenawaranOpen, setFormPraUjiOpen, setUploadDokumenOpen} = useDetailUjiClientContext()
+    // const {setPersPenawaranOpen, setFormPraUjiOpen, setUploadDokumenOpen} = useDetailUjiClientContext()
     function closeModal() {
         setIsOpen(false)
       }
@@ -29,6 +37,7 @@ export default function DetailModal({status, current_status, title, isOpen, setI
         setIsOpen(true)
       }
 
+      console.log("status", current_status)
   return (
     <Transition appear show={isOpen} as={Fragment}>
         <Dialog
@@ -101,32 +110,34 @@ export default function DetailModal({status, current_status, title, isOpen, setI
                             <div className="flex h-innerDetailModal">
                                 <div className="relative h-full w-4/5 py-6 border-r border-grey-200">
                                     <div className="absolute max-h-innerDetailModal overflow-auto divide-y divide-grey-200 px-11 pb-20 w-full">
-                                        {/* section 1 */}
-                                        <Section1 data={data}/>
+                                        {children}
+                                        {/* <Section1 data={data}/>
                                         
                                         <Section2 data={data}/>
                                         
 
-                                    {/* section 3 */}
+                                    
                                         {current_status>1 &&
                                         <>
                                             {current_status<5 &&
                                                 <SectionFee cost_detail={data.cost_detail} current_status={current_status}/>
                                             }
-                                            {/* <SectionFormPraUji/> */}
+                                            
                                             {current_status>4 &&
 
                                                 <SectionSchedule/>
                                             }
                                         </>
-                                        }
+                                        } */}
 
                                     </div>
 
                                 </div>
                                 <div className="relative h-innerDetailModal w-1/5">
                                     <div className="absolute inset-x-0 top-0 pt-6 px-10">
-                                    {current_status==2 &&
+
+                                        {buttonSide}
+                                    {/* {current_status==2 &&
                                             <Button 
                                             buttonStyle="primary_default"
                                             onClick={()=> setPersPenawaranOpen(true)}
@@ -151,7 +162,7 @@ export default function DetailModal({status, current_status, title, isOpen, setI
                                             </Button>
 
                                         </div>
-                                    }
+                                    } */}
 
 
                                     </div>

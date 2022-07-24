@@ -12,6 +12,7 @@ export default function PermohonanUjiFilterSection() {
         </div>
         <StatusFilter 
         filter={permohonanUjiStatus}
+        titleSpace="space-x-8" space="space-x-4"
         />
     </div>
   )

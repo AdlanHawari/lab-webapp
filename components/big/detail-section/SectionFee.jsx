@@ -2,15 +2,20 @@ import Body1 from 'components/small/typography/Body1'
 import Body2 from 'components/small/typography/Body2'
 import Body3 from 'components/small/typography/Body3'
 import CaptionReg from 'components/small/typography/CaptionReg'
+import { userType } from 'constants/UserType'
 import useFee from 'hooks/fetcher/detail-uji/useFee'
+import { useRouter } from 'next/router'
 import React from 'react'
 import NumberFormat from 'react-number-format'
 import CalculatorPPN from 'utils/CalculatorPPN'
+import UrlSplitter from 'utils/UrlSplitter'
 import SectionPaymentProof from './SectionPaymentProof'
 import SectionPaymentStep from './SectionPaymentStep'
 
 export default function SectionFee({cost_detail, current_status}) {
-    
+    const route = useRouter()
+    const a = UrlSplitter(route.pathname)
+    const role = a[1]
     return (
     <div className="py-4">      
         <h3>
@@ -61,7 +66,12 @@ export default function SectionFee({cost_detail, current_status}) {
             }
             {current_status==4&&
                 <Body3 className="text-error">
-                    Menunggu konfirmasi
+                    {role==userType.client &&
+                        "Menunggu konfirmasi"
+                    }
+                    {role==userType.management &&
+                        "Konfirmasi Pembayaran"
+                    }
                 </Body3>
             }
         </div>

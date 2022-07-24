@@ -18,6 +18,10 @@ import { useDetailUjiClientContext } from "hooks/context/detail-uji-client/Detai
 import FormUploadDokumen from "components/big/client/FormUploadDokumen";
 import { useDetailUji } from "hooks/fetcher/detail-uji/useDetailUji";
 import { delay } from "utils/delay";
+import Section1 from "components/big/detail-section/Section1";
+import Section2 from "components/big/detail-section/Section2";
+import SectionFee from "components/big/detail-section/SectionFee";
+import SectionSchedule from "components/big/detail-section/SectionSchedule";
 
 
 export default function SmallCard({data}) {
@@ -132,7 +136,55 @@ export default function SmallCard({data}) {
             current_status={data.status}
             data={data}
             //   status={manajemenUjiStatus}
+            buttonSide = {
+                <>
+                
+                {data.status==2 &&
+                        <Button 
+                        buttonStyle="primary_default"
+                        onClick={()=> setPersPenawaranOpen(true)}
+                        >
+                            Konfirmasi Penawaran
+                        </Button>
+                }
+
+                {data.status==3 &&
+                    <div className="block space-y-4">
+                        <Button 
+                        buttonStyle="primary_default"
+                        onClick={()=>setFormPraUjiOpen(true)}
+                        >
+                            Isi Form Pra-Uji
+                        </Button>
+                        <Button 
+                        buttonStyle="secondary_default"
+                        onClick={()=>setUploadDokumenOpen(true)}
+                        >
+                            Upload Dokumen
+                        </Button>
+
+                    </div>
+                } 
+                </>
+            }
             >
+
+                <Section1 data={data}/>
+                                        
+                <Section2 data={data}/>
+
+                {data.status>1 &&
+                <>
+                    {data.status<5 &&
+                        <SectionFee cost_detail={data.cost_detail} current_status={data.status}/>
+                    }
+                    
+                    {data.status>4 &&
+
+                        <SectionSchedule/>
+                    }
+                </>
+                }
 
             </DetailModal>
         }

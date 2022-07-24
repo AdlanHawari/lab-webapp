@@ -19,13 +19,15 @@ const [dateRange, setDateRange] = useState([null, null]);
 const {setStartDateFilter, setEndDateFilter}    = useDateFilterUjiContext();
 const [removeState, setRemoveState] = useState(false)
 
+const dateFormatter = DateFormatter()
+
 useEffect(() => {
     console.log("end: ",endDate)
     if(open && endDate){
         setOpen(false)
         // console.log("start", DateFormatter(startDate))
-        setStartDateFilter(DateFormatter(startDate))
-        setEndDateFilter(DateFormatter(endDate))
+        setStartDateFilter(dateFormatter.filter(startDate))
+        setEndDateFilter(dateFormatter.filter(endDate))
     }
     if(removeState){
         setStartDateFilter("")
@@ -67,7 +69,7 @@ useEffect(() => {
         nextMonthButtonLabel=">"
         previousMonthButtonLabel="<"
         popperClassName="react-datepicker-left"
-        customInput={<DateInput open={open} setOpen={setOpen} startDate={startDate} endDate={endDate}/>}
+        customInput={<DateInput open={open} setOpen={setOpen} startDate={startDate} endDate={endDate} dateFormatter={dateFormatter}/>}
         renderCustomHeader={({
             date,
             decreaseMonth,
@@ -130,7 +132,7 @@ useEffect(() => {
   )
 }
 
-const DateInput = forwardRef(({open, setOpen,startDate, endDate},{ value, onClick }, ref) => (
+const DateInput = forwardRef(({open, setOpen,startDate, endDate, dateFormatter},{ value, onClick }, ref) => (
     <button
     //   onClick={onClick}
       onClick={()=>{
@@ -154,8 +156,9 @@ const DateInput = forwardRef(({open, setOpen,startDate, endDate},{ value, onClic
             )} 
             >
                 {startDate && endDate ?        
-                DateFormatter(startDate) + " - " + DateFormatter(endDate)
-                : "DD/MM/YYYY - DD/MM/YYYY"
+                dateFormatter.filter(startDate) + " - " + dateFormatter.filter(endDate)
+                : 
+                "DD/MM/YYYY - DD/MM/YYYY"
                 }
                 
             </div>
