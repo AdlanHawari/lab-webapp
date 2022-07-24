@@ -17,6 +17,7 @@ import { useRouter } from "next/router";
 import { ACCESS_CODE } from "constants/Access_Code";
 import { useAuth } from "hooks/fetcher/auth/useAuth";
 import { userType } from "constants/UserType";
+import { delay } from "utils/delay";
 
 export default function LoginPage() {
   const auth = useAuth()
@@ -72,7 +73,7 @@ export default function LoginPage() {
         // console.log("role",data.user.role.access_code)
 
         localStorage.setItem('jwt_user', data.token)
-
+        delay(3000)
         // role detector
         if(code == ACCESS_CODE.ADMIN){
           router.push("/login/welcomeSU")

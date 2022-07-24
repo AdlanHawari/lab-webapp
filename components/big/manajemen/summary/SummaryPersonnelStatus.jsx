@@ -6,7 +6,7 @@ import { userType } from 'constants/UserType'
 import { usePersPenawaranContext } from 'hooks/context/form-persetujuan-penawaran/PersPenawaranFormContext'
 import usePersonnelStatus from 'hooks/fetcher/personnel/usePersonnelStatus'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 export default function SummaryPersonnelStatus() {
   
@@ -14,7 +14,15 @@ export default function SummaryPersonnelStatus() {
 
     
     const {personnel,error,mutate,loading} = usePersonnelStatus()
-    console.log("personnel ", personnel)
+    // console.log("personnel ", personnel)
+
+    useEffect(() => {
+      if(personnel){
+        console.log("personel", personnel)
+      }
+    
+    }, [personnel])
+    
 
   return (
     <div className="block w-96 p-9 bg-white border border-grey-300 rounded-2xl shadow divide-y divide-grey-300">

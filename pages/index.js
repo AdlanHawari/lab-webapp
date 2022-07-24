@@ -9,6 +9,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import {useEffect, useState} from 'react'
+import { delay } from 'utils/delay'
 
 export default function Home() {
 
@@ -33,6 +34,7 @@ export default function Home() {
       // console.log(user.data.role.access_code)
       // const role = user.data?.role.access_code
       // console.log("user ni")
+      delay(3000)
       if(user.data){
         
         const code = user.data.role.access_code

@@ -8,12 +8,16 @@ import Title3Med from 'components/small/typography/Title3Med'
 import Title3 from 'components/small/typography/Title3Med'
 import Title3Reg from 'components/small/typography/Title3Reg'
 import React, { useEffect } from 'react'
+import useSWR from 'swr'
 
 export default function DisclosurePekerja({bgButton, data}) {
-    useEffect(() => {
-        console.log("disclosure",data)
     
-    }, [data])
+    const {personnelAssignments, error, mutate, loading} = useSWR()
+    
+    useEffect(() => {
+        console.log("disclosure",personnelAssignments)
+    
+    }, [personnelAssignments])
     
     
   return (
