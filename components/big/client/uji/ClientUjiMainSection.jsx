@@ -101,7 +101,7 @@ export default function ClientUjiMainSection() {
             <li key={index}>
                 <DetailUjiClientContextProvider>
                   <DetailUjiFetcherProvider>
-                      <SmallCard data={item}/>
+                      <SmallCard data={item} mutate={mutate}/>
                   </DetailUjiFetcherProvider>
                 </DetailUjiClientContextProvider>
             </li>

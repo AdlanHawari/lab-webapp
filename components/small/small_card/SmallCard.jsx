@@ -24,7 +24,7 @@ import SectionFee from "components/big/detail-section/SectionFee";
 import SectionSchedule from "components/big/detail-section/SectionSchedule";
 
 
-export default function SmallCard({data}) {
+export default function SmallCard({data, mutate}) {
     const [isDetailOpen, setIsDetailOpen] = useState(false)
     const {
         persPenawaranOpen,
@@ -39,6 +39,19 @@ export default function SmallCard({data}) {
     
     
     const [submitState, setSubmitState] = useState(false)
+    const [reqSent, setReqSent] = useState(false)
+
+    useEffect(() => {
+        if(reqSent){
+            setPersPenawaranOpen(false)
+            setReqSent(false)
+            mutate()
+        }
+      
+    
+    }, [reqSent])
+    
+    
     
     
 
@@ -209,11 +222,15 @@ export default function SmallCard({data}) {
                     setSubmitState(true)
                     console.log("id", data.id)
                     const resp = await detailUjiFetcher.confirmTestApp(data.id)
-                    await delay(3000)
+                    // await delay(3000)
                     console.log("resp", resp)
-                    // if()
-                    setSubmitState(false)
-                    setPersPenawaranOpen(false)
+                    if(resp.header.response_code == 200){
+
+                        setSubmitState(false)
+                        setReqSent(true)
+                        // setPersPenawaranOpen(false)
+                        // mutate()
+                    }
                     // setReqSent(true)
                 }}
                 // form={}
