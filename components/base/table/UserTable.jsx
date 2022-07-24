@@ -36,12 +36,12 @@ export default function UserTable({data}) {
                 </td>
                 <td className="w-48 py-2 px-4">
                     <Table1 className="text-black-500 leading-normal">
-                        {item.roles}
+                        {item.role.name}
                     </Table1>
                 </td>
                 <td className="w-48 py-2 px-4 ">
                     <Table1 className="text-black-500 leading-normal">
-                        {item.instance_name}
+                        {item.institution.name}
                     </Table1>
                 </td>
                 <td className="w-48 py-2 px-4">

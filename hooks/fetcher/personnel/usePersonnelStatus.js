@@ -1,10 +1,10 @@
 import useSWR from "swr";
 import { usePersonnelFetcher } from "./usePersonnelFetcher";
 
-export default function usePersonnelStatus(status){
+export default function usePersonnelStatus(){
     const personnel = usePersonnelFetcher()
     const {data, mutate, error} = useSWR(
-        `/users?role_id=3&personnel_status=${status}`,
+        "/users?role_id=3",
         personnel.getPersonnelActivity
     )
 
@@ -13,7 +13,7 @@ export default function usePersonnelStatus(status){
     return {
         loading,
         error,
-        data,
+        personnel: data,
         mutate
     }
 }

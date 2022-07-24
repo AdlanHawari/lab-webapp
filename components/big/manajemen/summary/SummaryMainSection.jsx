@@ -15,7 +15,6 @@ import React from 'react'
 import SummaryPersonnelStatus from './SummaryPersonnelStatus';
 
 export default function SummaryMainSection() {
-    const [title,setTitle,subTitle,setSubtitle] = useTitleContext();
     const {jenisPekerjaanState, setjenisPekerjaanState}= useJenisPekerjaanFilterContext()
     const {startDateFilter, endDateFilter} =  useDateFilterUjiContext();
     const {institutionState} = useInstitutionFilterContext()

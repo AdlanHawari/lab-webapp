@@ -12,7 +12,7 @@ import { jenisPekerjaan } from 'constants/JenisPekerjaan';
 import { summary } from 'constants/ManajemenSummary';
 import { revalidate_time } from 'constants/SSGRevalidateTime';
 import { subMenu } from 'constants/SubmenuManajemenUji';
-import { useDateFilterUjiContext } from 'hooks/context/filter-date/DateFilterUjiContext';
+import DateFilterUjiContextProvider, { useDateFilterUjiContext } from 'hooks/context/filter-date/DateFilterUjiContext';
 import InstitutionFilterContextProvider from 'hooks/context/filter-institution/InstitutionFilter';
 import JenisPekerjaanFilterContextProvider, { useJenisPekerjaanFilterContext } from 'hooks/context/filter-jenisPekerjaan/JenisPekerjaanFilter';
 import useSummary from 'hooks/fetcher/management-summary/useSummary';
@@ -32,6 +32,7 @@ export default function ManajemenSummaryPage() {
   return(
     <JenisPekerjaanFilterContextProvider>
       <SummaryProvider>
+        <DateFilterUjiContextProvider>
         <InstitutionFilterContextProvider>
 
           <div className="space-y-6">
@@ -41,6 +42,7 @@ export default function ManajemenSummaryPage() {
             <SummaryMainSection/>
           </div>
         </InstitutionFilterContextProvider>
+        </DateFilterUjiContextProvider>
       </SummaryProvider>    
     </JenisPekerjaanFilterContextProvider>
   )
@@ -48,7 +50,7 @@ export default function ManajemenSummaryPage() {
 
 ManajemenSummaryPage.getLayout = function getLayout(page) {
     return (
-        <BaseLayout>Bisa</BaseLayout>
+        <BaseLayout>{page}</BaseLayout>
     )
   }
 

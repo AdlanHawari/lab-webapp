@@ -12,9 +12,9 @@ export default function SummaryPersonnelStatus() {
   
     const router =useRouter()
 
-    const personnel = usePersPenawaranContext()
-    const {data,error,mutate,loading} = usePersonnelStatus()
-    console.log("kabur ", data)
+    
+    const {personnel,error,mutate,loading} = usePersonnelStatus()
+    console.log("personnel ", personnel)
 
   return (
     <div className="block w-96 p-9 bg-white border border-grey-300 rounded-2xl shadow divide-y divide-grey-300">
@@ -29,27 +29,41 @@ export default function SummaryPersonnelStatus() {
         </button>
         </div>
         <div className="block py-4 space-y-1">
-        <Title2Med>Active</Title2Med>
-        {loading &&
-        <h3>
-          Loading
-        </h3>
-        }
+          <Title2Med>Active</Title2Med>
+          {loading &&
+          <h3>
+            Loading
+          </h3>
+          }
 
-        {data?
-        <DisclosurePekerja bgButton="bg-primary"/>
-        :
-        <></>  
-        }
-          {/* <DisclosurePekerja bgButton="bg-primary"/> */}
-          <DisclosurePekerja bgButton="bg-primary"/>
+          {personnel&&
+            personnel.data.map((item,index)=>(
+              item.personnel_status &&
+                <div key={index}>
+                  <DisclosurePekerja bgButton="bg-primary" data={item}/>
+                  {/* <h3>{item.name}</h3> */}
+                </div>
+            ))
+          }
+          
+          
          
 
         </div>
+
         <div className="block py-4 space-y-1">
-        <Title2Med>Standby</Title2Med>
-        <DisclosurePekerja bgButton="bg-secondary"/>
-        <DisclosurePekerja bgButton="bg-secondary"/>
+          <Title2Med>Standby</Title2Med>
+          {/* <DisclosurePekerja bgButton="bg-secondary"/>
+          <DisclosurePekerja bgButton="bg-secondary"/> */}
+          {personnel&&
+            personnel.data.map((item,index)=>(
+              !item.personnel_status &&
+                <div key={index}>
+                  <DisclosurePekerja bgButton="bg-primary" data={item}/>
+                  {/* <h3>{item.name}</h3> */}
+                </div>
+            ))
+          }
         
         </div>
         

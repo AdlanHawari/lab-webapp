@@ -24,7 +24,7 @@ export default function JenisUjiDropdown() {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
         >
-            <Menu.Items className="origin-top-right absolute right-0 mt-2 py-1  w-60 rounded-lg shadow-lg bg-white ring-1 ring-grey-300 ring-opacity-5 focus:outline-none overflow-visible overflow-auto">
+            <Menu.Items className="origin-top-right absolute right-0 mt-2 py-1  w-60 rounded-lg shadow-lg bg-white ring-1 ring-grey-300 ring-opacity-5 focus:outline-none overflow-visible">
             {jenisUji.map((item,index)=>(
               <Menu.Item key={index}>
                   <Body1 className={classNames(

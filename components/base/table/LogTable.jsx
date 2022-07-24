@@ -3,6 +3,7 @@ import classNames from "classnames"
 import Table1 from "components/small/typography/Table1"
 import Table2 from "components/small/typography/Table2"
 import { logtableHead } from "constants/table/RowTitle"
+import { format } from "date-fns"
 
 export default function LogTable({data}) {
     // const tableHead = [
@@ -34,17 +35,21 @@ export default function LogTable({data}) {
                 <tr key={index} className="h-16">
                     <td className="w-48 py-2 px-4">
                         <Table1 className="text-black-500">
-                            {item.date}
+                            {/* {item.date} */}
+                            {/* {item.updated_at} */}
+                            {format(new Date(item.updated_at), 'dd MMMM yyyy')}
                         </Table1>
                     </td>
                     <td className="w-48 py-2 px-4">
                         <Table1 className="text-black-500">
-                            {item.name}
+                            {/* {item.name} */}
+                            {item.user.name}
                         </Table1>
                     </td>
                     <td className="w-48 py-2 px-4 ">
                         <Table1 className="text-black-500">
-                            {item.roles}
+                            {/* {item.roles} */}
+                            {item.user.role.name}
                         </Table1>
                     </td>
                     <td className="w-48 py-2 px-4">
@@ -55,7 +60,14 @@ export default function LogTable({data}) {
                     </td>
                     <td className="w-48 py-2 px-4">
                         <Table1 className="leading-4 text-black-500">
-                            {item.message}
+                            {/* {item.message} */}
+                            {item.test_application.test_type}
+                        </Table1>
+                    </td>
+                    <td className="w-48 py-2 px-4">
+                        <Table1 className="leading-4 text-black-500">
+                            {/* {item.message} */}
+                            {item.test_application.tools[0].name}
                         </Table1>
                     </td>
                     <td scope="col" className="" >

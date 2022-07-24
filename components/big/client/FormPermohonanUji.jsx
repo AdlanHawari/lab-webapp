@@ -22,7 +22,7 @@ export default function FormPermohonanUji({
     setreqSent,
     errorMsg,
     setErrorMsg,
-    // setIsUjiOpen
+    setIsUjiOpen
     }) {
     const [test_typeSelected, setTest_TypeSelected] = useState()
     const [typeSelected, setTypeSelected] = useState()
@@ -88,7 +88,7 @@ export default function FormPermohonanUji({
                 setSubmitState(false)
                 setErrorMsg('')
                 console.log("submit sent")
-                // setIsUjiOpen(false)
+                setIsUjiOpen(false)
             }
             else{
                 setErrorMsg('Terjadi kesalahan')

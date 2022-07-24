@@ -7,9 +7,6 @@ export default function Pagination() {
   const {currentPage, setCurrentPage,lastPage } = usePageContext();
 
   
-
-  // const lastPage = 150;
-  // const currentPage= 120;
   const pageCount = 5;
   const totalPageIndex = Math.ceil(lastPage/pageCount);
   // console.log("total index",totalPageIndex)

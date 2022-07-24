@@ -32,33 +32,33 @@ export default function PermohonanUjiTable({data}) {
                 <tr key={index} className="h-16 ">
                     <td className="w-48 py-2 px-4">
                         <Table1 className="text-black-500 leading-normal">
-                            {item.test_date}
+                            {item.created_at}
                         </Table1>
                     </td>
                     <td className="w-48 py-2 px-4">
                         <Table1 className="text-black-500 leading-normal">
-                            {item.instance_name}
+                            {item.user.institution.name }
                         </Table1>
                     </td>
                     <td className="w-48 py-2 px-4 ">
                         <Table1 className="text-black-500 leading-normal">
-                            {item.nama_alat}
+                            {item.tools[0].name} - {item.tools[0].type}
                         </Table1>
                     </td>
                     <td className="w-48 py-2 px-4">
                         <Table1 className="text-black-500 leading-normal">
-                            {item.merk}
+                            {item.tools[0].brand}
                         </Table1>
                         
                     </td>
                     <td className="w-48 py-2 px-4">
                         <Table1 className="text-black-500 leading-normal">
-                            {item.jenis_uji}
+                            {item.test_type}
                         </Table1>
                     </td>
                     <td className="w-48 py-2 px-4">
                         <Table1 className="text-black-500 leading-normal">
-                            {item.status}
+                            {item.status_detail.management_value}
                         </Table1>
                     </td>
                     <td className="w-48 py-2 px-4">

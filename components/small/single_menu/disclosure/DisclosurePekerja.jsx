@@ -7,9 +7,15 @@ import Title1 from 'components/small/typography/Title1'
 import Title3Med from 'components/small/typography/Title3Med'
 import Title3 from 'components/small/typography/Title3Med'
 import Title3Reg from 'components/small/typography/Title3Reg'
-import React from 'react'
+import React, { useEffect } from 'react'
 
-export default function DisclosurePekerja({bgButton, children}) {
+export default function DisclosurePekerja({bgButton, data}) {
+    useEffect(() => {
+        console.log("disclosure",data)
+    
+    }, [data])
+    
+    
   return (
     <Disclosure as="div" className="">
         {({open}) => (
@@ -23,14 +29,15 @@ export default function DisclosurePekerja({bgButton, children}) {
                     "text-white"
                 )}>
                     {/* {children} */}
-                    Aulia Rizky H
+                    {/* Aulia Rizky H */}
+                    {data.name}
                 </Table2>
                 <div className="flex space-x-1">
                     <Table2 className={classNames(
                         "text-white"
                         )}>
                         {/* {children} */}
-                        3
+                        {data.total_assignments}
                     </Table2>
 
                     <TableSmall className={classNames(

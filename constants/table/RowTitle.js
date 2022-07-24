@@ -3,7 +3,8 @@ export const logtableHead = [
     "Nama User",
     "Roles",
     "Tipe Notifikasi",
-    "Pesan",
+    "Jenis Uji",
+    "Nama Uji",
     "Pilihan"
 ]
 

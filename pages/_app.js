@@ -12,16 +12,7 @@ function MyApp({ Component, pageProps }) {
   return getLayout(
     // <TitleContextProvider>
     <AuthProvider>
-      <PageContextProvider>
-        <DateFilterUjiContextProvider>
-
-          <StatusFilterContextProvider>
-
-            <Component {...pageProps} />
-            
-          </StatusFilterContextProvider>
-        </DateFilterUjiContextProvider>
-      </PageContextProvider>
+      <Component {...pageProps} />
     </AuthProvider>
 
     // </TitleContextProvider>

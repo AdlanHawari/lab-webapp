@@ -1,17 +1,24 @@
-import { useContext } from "react"
+import useSWR from "swr";
+import { useLogFetcher } from "./useLogFetcher";
 
-export function LogProvider({children}){
-    const log = useProvideLog()
-    return <logContext.Provider value={log}>{children}</logContext.Provider>
-}
+export default function useLog(
+    start_date,
+    end_date,
+    page
+){
+    const userLog = useLogFetcher()
+    const {data,mutate,error} = useSWR(
+        `/logs?start_date=${start_date}&end_date=${end_date}&page=${page}`,
+        userLog.getUserLog
+    )
 
-export const useLog = () => {
-    return useContext(logContext)
-}
+    const loading = !data && !error;
 
-function useProvideLog(){
-
-    return {
-
+    return{
+        loading,
+        error,
+        data,
+        mutate
     }
+
 }

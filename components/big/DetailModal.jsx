@@ -121,9 +121,6 @@ export default function DetailModal({status, current_status, title, isOpen, setI
                                         </>
                                         }
 
-                                        
-
-
                                     </div>
 
                                 </div>
