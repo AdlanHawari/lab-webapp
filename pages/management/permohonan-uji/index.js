@@ -9,6 +9,7 @@ import { permohonanUjiData } from 'constants/test_objects/permohonanUji';
 import DateFilterUjiContextProvider from 'hooks/context/filter-date/DateFilterUjiContext';
 import StatusFilterContextProvider from 'hooks/context/filter-status/StatusContext';
 import PageContextProvider from 'hooks/context/pagination/PageContext';
+import ManajemenPermohonanUjiContextProvider from 'hooks/context/permohonan-uji/PermohonanUjiContext';
 import { useTitleContext } from "hooks/TitleContext";
 import { useEffect } from 'react';
 
@@ -23,12 +24,11 @@ export default function ManajemenPermohonanUjiPage() {
     <StatusFilterContextProvider>
       <PageContextProvider>
         <DateFilterUjiContextProvider>
-          <div className="flex flex-col divide-y divide-grey-200 space-y-5">
-                      
+          <div className="flex flex-col divide-y divide-grey-200 space-y-5">                      
             <PermohonanUjiFilterSection/>
-
-            <PermohonanUjiMainSection/>
-                  
+              <ManajemenPermohonanUjiContextProvider>
+                <PermohonanUjiMainSection/>
+              </ManajemenPermohonanUjiContextProvider>                  
           </div>
         </DateFilterUjiContextProvider>
       </PageContextProvider>

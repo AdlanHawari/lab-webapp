@@ -52,6 +52,8 @@ export default function ProfileDropdown() {
     delay(3000)
     mutate(null)
     delay(3000)
+    // router.push("/login")
+    
   }
   
 

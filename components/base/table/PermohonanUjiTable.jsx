@@ -1,14 +1,19 @@
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
 import Section1 from 'components/big/detail-section/Section1'
 import Section2 from 'components/big/detail-section/Section2'
 import SectionFee from 'components/big/detail-section/SectionFee'
 import DetailModal from 'components/big/DetailModal'
+import FormModal from 'components/big/FormModal'
+import FormBuatPenawaranUji from 'components/big/manajemen/permohonan-uji/FormBuatPenawaranUji'
 import Button from 'components/small/button_fixed/Button'
 import ButtonSmall from 'components/small/button_small/ButtonSmall'
 import Table1 from 'components/small/typography/Table1'
 import Table2 from 'components/small/typography/Table2'
 import { permohonanUjiStatus } from 'constants/filter-status/ManajemenUjiStatus'
 import { permohonanUjiTableHead } from 'constants/table/RowTitle'
+import { useManajemenPermohonanUjiContext } from 'hooks/context/permohonan-uji/PermohonanUjiContext'
 import {useState} from 'react'
 import DateFormatter from 'utils/DateFormatter'
 
@@ -16,7 +21,9 @@ export default function PermohonanUjiTable({data}) {
     const [isDetailOpen, setIsDetailOpen] = useState(false)
     const dateFormatter = DateFormatter()
     const [dataSelected, setDataSelected] = useState({})
-    console.log("data uji tabel", data)
+    const {buatPenawaranPopUp, setBuatPenawaranPopUp} = useManajemenPermohonanUjiContext()
+    const [submitState, setSubmitState] = useState(false)
+    // console.log("data uji tabel", data)
   return (
     <>
         <table className='bg-primary-lighten10 min-w-full shadow-lg rounded-lg'>
@@ -107,18 +114,25 @@ export default function PermohonanUjiTable({data}) {
           buttonSide = {
           <>
             {dataSelected.status<3 &&
-                 <Button 
-                 buttonStyle="primary_default"
-                //  onClick={
-                //     ()=> setPersPenawaranOpen(true)
-                // }
-                 >
-                    {dataSelected.status <2 ?
-                        "Buat Penawaran"
-                        :
-                        "Ubah Penawaran"
+                dataSelected.status <2 ?
+                    <Button 
+                    buttonStyle="primary_default"
+                     onClick={
+                        ()=> setBuatPenawaranPopUp(true)
                     }
-                 </Button>
+                    >
+                        Buat Penawaran
+                    </Button>
+                :
+                    <Button 
+                    buttonStyle="primary_default"
+                    //  onClick={
+                    //     ()=> setPersPenawaranOpen(true)
+                    // }
+                    >
+                    Ubah Penawaran
+                    </Button>
+                
             }
           </>
           }
@@ -134,7 +148,37 @@ export default function PermohonanUjiTable({data}) {
             }
 
           </DetailModal>
-      }
+        }
+
+        {buatPenawaranPopUp &&
+            <FormModal
+            title="Buat Penawaran"
+            bgColor="primary"
+            isOpen={buatPenawaranPopUp}
+            setIsOpen={setBuatPenawaranPopUp}
+            buttonSide={<>
+                <Button 
+                    className="bg-primary" 
+                    buttonStyle={submitState?"primary_disabled":"primary_default"}
+                    // buttonStyle="primary_default"
+                    // type="submit" 
+                    type="button" 
+                    disabled={submitState? true:false}
+                    // form={}
+                    // form="ujibaru"
+                    >
+                    { submitState &&
+                        <FontAwesomeIcon icon={faSpinner} className="animate-spin"/>
+                    }
+                        Kirim Penawaran
+                </Button>
+            </>}
+            >
+                <FormBuatPenawaranUji/>
+
+            </FormModal>
+
+        }
     </>
   )
 }

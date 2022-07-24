@@ -29,21 +29,45 @@ export default function Home() {
   useEffect(() => {
     if(user){
       // setRole(user.role.name)
-      console.log("user", user)
+      // console.log("user", user)
       // console.log(user.data.role.access_code)
       // const role = user.data?.role.access_code
-      console.log("user ni")
+      // console.log("user ni")
       if(user.data){
-
-        if(user.data.role.access_code == ACCESS_CODE.ADMIN){
+        
+        const code = data.user.role.access_code
+        if(code == ACCESS_CODE.ADMIN){
           router.push("/login/welcomeSU")
         }
-        if(user.data.role.access_code == ACCESS_CODE.CLIENT){
-          router.push("/client/uji")
+        if(code == ACCESS_CODE.CLIENT){
+          router.push(`/${userType.client}/uji`)
         }
-        if(user.data.role.access_code == ACCESS_CODE.PERSONNEL){
-          router.push("/personel/uji")
+        if(code == ACCESS_CODE.PERSONNEL){
+          router.push(`/${userType.personnel}/uji`)
         }
+
+        if(code == ACCESS_CODE.KEPALA_LAB){
+          router.push(`/${userType.management}/summary`)
+        }
+        if(code == ACCESS_CODE.MANAGEMENT_KAL){
+          router.push(`/${userType.management}/summary`)
+        }
+        if(code == ACCESS_CODE.MANAGEMENT_UJI){
+          router.push(`/${userType.management}/summary`)
+        }
+        
+        
+        // if(user.data.role.access_code == ACCESS_CODE.ADMIN){
+        //   router.push("/login/welcomeSU")
+        // }
+        // if(user.data.role.access_code == ACCESS_CODE.CLIENT){
+        //   router.push("/client/uji")
+        // }
+        // if(user.data.role.access_code == ACCESS_CODE.PERSONNEL){
+        //   router.push("/personel/uji")
+        // }
+
+
       }
 
     }

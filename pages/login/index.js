@@ -16,6 +16,7 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from "next/router";
 import { ACCESS_CODE } from "constants/Access_Code";
 import { useAuth } from "hooks/fetcher/auth/useAuth";
+import { userType } from "constants/UserType";
 
 export default function LoginPage() {
   const auth = useAuth()
@@ -77,20 +78,20 @@ export default function LoginPage() {
           router.push("/login/welcomeSU")
         }
         if(code == ACCESS_CODE.CLIENT){
-          router.push("/client/log")
+          router.push(`/${userType.client}/uji`)
         }
         if(code == ACCESS_CODE.PERSONNEL){
-          router.push("/personel/log")
+          router.push(`/${userType.personnel}/uji`)
         }
 
         if(code == ACCESS_CODE.KEPALA_LAB){
-          router.push("/manajemen/log")
+          router.push(`/${userType.management}/summary`)
         }
         if(code == ACCESS_CODE.MANAGEMENT_KAL){
-          router.push("/manajemen/log")
+          router.push(`/${userType.management}/summary`)
         }
         if(code == ACCESS_CODE.MANAGEMENT_UJI){
-          router.push("/manajemen/log")
+          router.push(`/${userType.management}/summary`)
         }
         
         
