@@ -4,6 +4,7 @@ import Title2Med from 'components/small/typography/Title2Med'
 import { subMenu } from 'constants/SubmenuManajemenUji'
 import { userType } from 'constants/UserType'
 import { usePersPenawaranContext } from 'hooks/context/form-persetujuan-penawaran/PersPenawaranFormContext'
+import { usePersonnelFetcher } from 'hooks/fetcher/personnel/usePersonnelFetcher'
 import usePersonnelStatus from 'hooks/fetcher/personnel/usePersonnelStatus'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
@@ -15,6 +16,7 @@ export default function SummaryPersonnelStatus() {
     
     const {personnel,error,mutate,loading} = usePersonnelStatus()
     // console.log("personnel ", personnel)
+    // const  = usePersonnelFetcher()
 
     useEffect(() => {
       if(personnel){

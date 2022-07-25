@@ -49,10 +49,10 @@ export default function ProfileDropdown() {
 
   async function handleLogout(){
     localStorage.clear()
-    delay(3000)
+    delay(1500)
     mutate(null)
-    delay(3000)
-    // router.push("/login")
+    // delay(3000)
+    router.replace("/")
     
   }
   
@@ -117,23 +117,30 @@ export default function ProfileDropdown() {
 
             <div className="py-1">
               <Menu.Item>
-                  <MyLink 
-                  // href={index>0? item.link : constructLink(router.pathname,item.link)}
+                <button 
+                className="w-full text-left"
+                 onClick={
+                  handleLogout}
+                  >
+                  <Body1 className={classNames(
+                      "w-full px-6 py-2 text-black-500 hover:bg-grey-500 hover:text-grey-50",
+                      )}
+                    >
+                    {accountMenu[1].title}
+                    </Body1>
+                </button>
+                  {/* <MyLink 
                   href={constructLink(router.pathname,accountMenu[1].link)}
                   onClick={
-                    // mutate(null)
-                    // handleLogout()
                     handleLogout}
                   >
                     <Body1 className={classNames(
                       "px-6 py-2 text-black-500 hover:bg-grey-500 hover:text-grey-50",
-                 
-                      )
-                    }
+                      )}
                     >
                     {accountMenu[1].title}
                     </Body1>
-                  </MyLink>
+                  </MyLink> */}
               </Menu.Item>
             </div>
 

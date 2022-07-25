@@ -1,23 +1,45 @@
 import { Disclosure, Transition } from '@headlessui/react'
 import { ChevronDownIcon, LightningBoltIcon } from '@heroicons/react/solid'
 import classNames from 'classnames'
+import Body1 from 'components/small/typography/Body1'
+import Body3 from 'components/small/typography/Body3'
 import Table2 from 'components/small/typography/Table2'
 import TableSmall from 'components/small/typography/TableSmall'
 import Title1 from 'components/small/typography/Title1'
 import Title3Med from 'components/small/typography/Title3Med'
 import Title3 from 'components/small/typography/Title3Med'
 import Title3Reg from 'components/small/typography/Title3Reg'
-import React, { useEffect } from 'react'
+import usePersonnelAssignments from 'hooks/fetcher/personnel/usePersonnelAssignments'
+import { usePersonnelFetcher } from 'hooks/fetcher/personnel/usePersonnelFetcher'
+import React, { useEffect, useState } from 'react'
 import useSWR from 'swr'
+import DateFormatter from 'utils/DateFormatter'
 
 export default function DisclosurePekerja({bgButton, data}) {
     
-    const {personnelAssignments, error, mutate, loading} = useSWR()
+    // const {personnelAssignments, error, mutate, loading} = usePersonnelAssignments(
+    //     data.id
+    // )
+    // console.log("data di disclosure", data)
+    const [assignments, setAssignments] = useState([])
+    const fetcher = usePersonnelFetcher()
+    const dateFormatter = DateFormatter()
+
+    useEffect(async () => {
+        const resp = await fetcher.getAssignments( `/test-applications?tester_user_id=${data.id}`)
+        if(resp.header.response_code == 200){
+            setAssignments(resp.data)
+        }
+    },[])
     
     useEffect(() => {
-        console.log("disclosure",personnelAssignments)
+        console.log("assignments",assignments)
     
-    }, [personnelAssignments])
+    }, [assignments])
+    // useEffect(() => {
+    //     console.log("disclosure",personnelAssignments)
+    
+    // }, [personnelAssignments])
     
     
   return (
@@ -76,68 +98,77 @@ export default function DisclosurePekerja({bgButton, data}) {
                 )}
                 >
                 {({close}) => (
-                <>
-                    <li className='py-3'>
-                        <Title3Med className="text-black-500">
-                            Uji Kalibrasi
-                        </Title3Med>
-                        <div className="grid grid-flow-row grid-cols-2">
-                            <Title3Reg className="text-black-400">
-                                Instansi
-                            </Title3Reg>
+                    <ul>
+                        {
+                        assignments.length > 0 ?
+                        assignments.map((item,index)=>(
+                            <li key={index} className='py-3'>
                             <Title3Med className="text-black-500">
-                                RS Aisyah Purworejo
+                                {item.test_type}
                             </Title3Med>
-                            <Title3Reg className="text-black-400">
-                                Tanggal
-                            </Title3Reg>
-                            <Title3Med className="text-black-500">
-                                5 Juni 2021
+                            <div className="grid grid-flow-row grid-cols-2">
+                                <Title3Reg className="text-black-400">
+                                    Instansi
+                                </Title3Reg>
+                                <Title3Med className="text-black-500">
+                                    {/* {item.} */}
+                                </Title3Med>
+                                <Title3Reg className="text-black-400">
+                                    Tanggal
+                                </Title3Reg>
+                                <Title3Med className="text-black-500">
+                                    {dateFormatter.readable(item.assignment_detail.test_date)}
+                                </Title3Med>
+                                <Title3Reg className="text-black-400">
+                                    Status
+                                </Title3Reg>
+                                <Title3Med className="text-black-500">
+                                    {item.status_detail.personnel_value}
+                                </Title3Med>
+                            </div>
+                            </li>
+                        ))
+                        :
+                        <li>
+                            <Title3Med>
+                                Belum memiliki penugasan
                             </Title3Med>
-                            <Title3Reg className="text-black-400">
-                                Status
-                            </Title3Reg>
-                            <Title3Med className="text-black-500">
-                                Dijadwalkan
-                            </Title3Med>
-
-
-                        </div>
-
-                    </li>
-
-                     <li>
-                        <Title3Med className="text-black-500">
-                            Uji Kalibrasi
-                        </Title3Med>
-                        <div className="grid grid-flow-row grid-cols-2">
-                            <Title3Reg className="text-black-400">
-                                Instansi
-                            </Title3Reg>
-                            <Title3Med className="text-black-500">
-                                RS Aisyah Purworejo
-                            </Title3Med>
-                            <Title3Reg className="text-black-400">
-                                Tanggal
-                            </Title3Reg>
-                            <Title3Med className="text-black-500">
-                                5 Juni 2021
-                            </Title3Med>
-                            <Title3Reg className="text-black-400">
-                                Status
-                            </Title3Reg>
-                            <Title3Med className="text-black-500">
-                                Dijadwalkan
-                            </Title3Med>
-
-
-                        </div>
-
-                    </li>
+                        </li>   
+                        }
+                    </ul>
                     
+                    // <ul>
+                    //     {
+                    //     personnelAssignments.map((item,index)=>(
 
-
-                </>
+                    //         <li key={index} className='py-3'>
+                    //             <Title3Med className="text-black-500">
+                    //                 Test Type
+                    //             </Title3Med>
+                    //             <div className="grid grid-flow-row grid-cols-2">
+                    //                 <Title3Reg className="text-black-400">
+                    //                     Instansi
+                    //                 </Title3Reg>
+                    //                 <Title3Med className="text-black-500">
+                    //                     RS Aisyah Purworejo
+                    //                 </Title3Med>
+                    //                 <Title3Reg className="text-black-400">
+                    //                     Tanggal
+                    //                 </Title3Reg>
+                    //                 <Title3Med className="text-black-500">
+                    //                     5 Juni 2021
+                    //                 </Title3Med>
+                    //                 <Title3Reg className="text-black-400">
+                    //                     Status
+                    //                 </Title3Reg>
+                    //                 <Title3Med className="text-black-500">
+                    //                     Dijadwalkan
+                    //                 </Title3Med>
+                    //             </div>
+                    //         </li>
+                    //     ))}
+                        
+                    // </ul>
                 )}
 
                 </Disclosure.Panel>

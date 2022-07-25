@@ -22,6 +22,7 @@ import Section1 from "components/big/detail-section/Section1";
 import Section2 from "components/big/detail-section/Section2";
 import SectionFee from "components/big/detail-section/SectionFee";
 import SectionSchedule from "components/big/detail-section/SectionSchedule";
+import FormPraUji from "components/big/client/uji/FormPraUji";
 
 
 export default function SmallCard({data, mutate}) {
@@ -248,6 +249,35 @@ export default function SmallCard({data, mutate}) {
 
 
         </FormModal> 
+        }
+
+        {formPraUjiOpen &&
+            <FormModal
+            title="Form Pra-Uji"
+            bgColor="primary"
+            isOpen={formPraUjiOpen}
+            setIsOpen={setFormPraUjiOpen}
+            buttonSide={
+                <Button 
+                    className="bg-primary" 
+                    buttonStyle={submitState?"primary_disabled":"primary_default"}
+                    // buttonStyle="primary_default"
+                    // type="submit" 
+                    type="button" 
+                    disabled={submitState? true:false}
+                    // form={}
+                    // form="ujibaru"
+                    >
+                    { submitState &&
+                        <FontAwesomeIcon icon={faSpinner} className="animate-spin"/>
+                    }
+                        Konfirmasi Form Pra Uji
+                </Button>
+            }
+            >
+                <FormPraUji data={data}/>
+            </FormModal>
+
         }
 
         {uploadDokumenOpen &&

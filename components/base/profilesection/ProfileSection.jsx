@@ -17,7 +17,7 @@ export default function ProfileSection() {
   
 
   return (
-    <BigCard className="border-1 border-solid border-cardStrokes drop-shadow z-0">
+    <BigCard className="border-1 border-solid border-cardStrokes drop-shadow z-10">
       <div className="grid grid-flow-col grid-cols-2 ">
         <ul className="space-y-8">
             {profile.map((item,index)=> (

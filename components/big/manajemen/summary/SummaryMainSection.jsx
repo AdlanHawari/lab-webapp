@@ -11,7 +11,7 @@ import useSummary from 'hooks/fetcher/management-summary/useSummary';
 import { PersonnelProvider } from 'hooks/fetcher/personnel/usePersonnelFetcher';
 import { useTitleContext } from 'hooks/TitleContext';
 import { useRouter } from 'next/router';
-import React from 'react'
+import React, { useEffect } from 'react'
 import SummaryPersonnelStatus from './SummaryPersonnelStatus';
 
 export default function SummaryMainSection() {
@@ -26,7 +26,20 @@ export default function SummaryMainSection() {
         jenisPekerjaanState
       );
      
-      console.log(data)
+      // console.log(data)
+      useEffect(() => {
+       
+        
+        if(error){
+          console.log("error",error)
+          // console.log("data pas error",data)
+          mutate(null)
+          router.replace("/")
+          // mutate()
+        }
+        // console.log("perm uji", data)
+    
+      },[data, error])
     return (
     <div className="flex justify-between space-x-7">
             <ul className="grid grid-flow-row grid-cols-2 w-full h-full gap-9">

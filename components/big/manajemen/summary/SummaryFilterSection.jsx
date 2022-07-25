@@ -3,11 +3,21 @@ import InstansiFilter from 'components/base/filter/InstansiFilter'
 import JenisPekerjaanFilter from 'components/base/filter/JenisPekerjaanFilter'
 import Button from 'components/small/button_fixed/Button'
 import useInstitutionsList from 'hooks/fetcher/management-summary/useInstitutionsList'
-import React from 'react'
+import { useRouter } from 'next/router'
+import React, { useEffect } from 'react'
 
 export default function SummaryFilterSection() {
 
   const {institutionLists, loading, error, mutate} = useInstitutionsList()
+  const router = useRouter()
+  
+  useEffect(() => {
+    if(error){
+      mutate(nul)
+      router.reload()
+    }
+  }, [error])
+  
   
   return (
     <div className="flex justify-between items-center">
@@ -19,11 +29,14 @@ export default function SummaryFilterSection() {
           </div>
 
           <div className='w-72'>
-            {institutionLists ?
+
+            {loading&&
+             <p>loading...</p>
+            }
+
+            {institutionLists &&
+              // institutionLists.length>0 &&
               <InstansiFilter itemLists={institutionLists.data}/>
-            :
-            loading &&
-            <p>loading...</p>
             }
             
           </div>
