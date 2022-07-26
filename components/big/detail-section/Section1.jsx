@@ -4,6 +4,7 @@ import Body2 from 'components/small/typography/Body2'
 import { format } from 'date-fns'
 import { useRouter } from 'next/router'
 import React from 'react'
+import DateFormatter from 'utils/DateFormatter'
 import UrlSplitter from 'utils/UrlSplitter'
 
 export default function Section1({data}) {
@@ -11,21 +12,24 @@ export default function Section1({data}) {
     console.log(route)
     const a = UrlSplitter(route.pathname)
     const role = a[1]
-    console.log()
+
+    const {readable} = DateFormatter()
+    // console.log()
   return (
     <div className="grid grid-cols-2 gap-y-3 py-3">
                                             
         <Body1 className="text-black-400">
             Nomor Surat Penawaran
         </Body1>
-        <Body1 className="text-black-400">
-            {data.invoice_no}
-        </Body1>
+        <Body2 className="text-black-500">
+            {data.cost_detail.invoice_no}
+        </Body2>
         <Body1 className="text-black-400">
             Tanggal Permohonan
         </Body1>
         <Body2 className="text-black-500">
-            {format(new Date(data.created_at), 'dd MMMM yyyy')}
+            {readable(data.created_at)}
+
         </Body2>
     
     

@@ -98,7 +98,7 @@ export default function DisclosurePekerja({bgButton, data}) {
                 )}
                 >
                 {({close}) => (
-                    <ul>
+                    <ul className='divide-y divide-grey-200'>
                         {
                         assignments.length > 0 ?
                         assignments.map((item,index)=>(
@@ -111,7 +111,7 @@ export default function DisclosurePekerja({bgButton, data}) {
                                     Instansi
                                 </Title3Reg>
                                 <Title3Med className="text-black-500">
-                                    {/* {item.} */}
+                                    {item.user.institution.name}
                                 </Title3Med>
                                 <Title3Reg className="text-black-400">
                                     Tanggal

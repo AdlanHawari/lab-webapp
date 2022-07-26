@@ -10,7 +10,7 @@ import { manajemenUjiStatus } from "constants/filter-status/ManajemenUjiStatus";
 import { usePersPenawaranContext } from "hooks/context/form-persetujuan-penawaran/PersPenawaranFormContext";
 
 import FormModal from "components/big/FormModal";
-import { form_persetujuan_penawaran } from "constants/FormUtils";
+import { form_persetujuan_penawaran, form_pra_uji } from "constants/FormUtils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import PersetujuanPenawaranUji from "components/big/client/PersetujuanPenawaranUji";
@@ -22,7 +22,9 @@ import Section1 from "components/big/detail-section/Section1";
 import Section2 from "components/big/detail-section/Section2";
 import SectionFee from "components/big/detail-section/SectionFee";
 import SectionSchedule from "components/big/detail-section/SectionSchedule";
-import FormPraUji from "components/big/client/uji/FormPraUji";
+import FormPraUji from "components/big/client/FormPraUji";
+
+import { jenisPekerjaan } from "constants/JenisPekerjaan";
 
 
 export default function SmallCard({data, mutate}) {
@@ -164,12 +166,16 @@ export default function SmallCard({data, mutate}) {
 
                 {data.status==3 &&
                     <div className="block space-y-4">
-                        <Button 
-                        buttonStyle="primary_default"
-                        onClick={()=>setFormPraUjiOpen(true)}
-                        >
-                            Isi Form Pra-Uji
-                        </Button>
+                        {data.test_type != jenisPekerjaan[1] &&
+
+                            <Button 
+                            buttonStyle="primary_default"
+                            onClick={()=>setFormPraUjiOpen(true)}
+                            >
+                                Isi Form Pra-Uji
+                            </Button>
+                        }
+
                         <Button 
                         buttonStyle="secondary_default"
                         onClick={()=>setUploadDokumenOpen(true)}
@@ -275,7 +281,7 @@ export default function SmallCard({data, mutate}) {
                 </Button>
             }
             >
-                <FormPraUji data={data}/>
+                <FormPraUji id={form_pra_uji} data={data}/>
             </FormModal>
 
         }
