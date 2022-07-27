@@ -1,4 +1,4 @@
-function UploadDokumenClientValidationSchema(yup){
+export default function UploadDokumenClientValidationSchema(yup){
     return(
         yup.object({
             npwp: yup

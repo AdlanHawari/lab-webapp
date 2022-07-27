@@ -10,7 +10,7 @@ import { manajemenUjiStatus } from "constants/filter-status/ManajemenUjiStatus";
 import { usePersPenawaranContext } from "hooks/context/form-persetujuan-penawaran/PersPenawaranFormContext";
 
 import FormModal from "components/big/FormModal";
-import { form_persetujuan_penawaran, form_pra_uji } from "constants/FormUtils";
+import { form_persetujuan_penawaran, form_pra_uji, form_pra_uji_id } from "constants/FormUtils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import PersetujuanPenawaranUji from "components/big/client/PersetujuanPenawaranUji";
@@ -271,7 +271,7 @@ export default function SmallCard({data, mutate}) {
                     type="submit" 
                     // type="button" 
                     disabled={submitState? true:false}
-                    // form={}
+                    form={form_pra_uji_id}
                     // form="ujibaru"
                     >
                     { submitState &&
@@ -281,7 +281,7 @@ export default function SmallCard({data, mutate}) {
                 </Button>
             }
             >
-                <FormPraUji id={form_pra_uji} data={data}/>
+                <FormPraUji id={form_pra_uji_id} data={data}/>
             </FormModal>
 
         }

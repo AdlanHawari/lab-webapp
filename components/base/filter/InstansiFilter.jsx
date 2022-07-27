@@ -1,5 +1,6 @@
 import { Combobox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/solid'
+import classNames from 'classnames'
 import { useInstitutionFilterContext } from 'hooks/context/filter-institution/InstitutionFilter'
 import useInstitutionsList from 'hooks/fetcher/management-summary/useInstitutionsList'
 import React, { Fragment, useEffect, useState } from 'react'
@@ -46,7 +47,10 @@ export default function InstansiFilter({itemLists}) {
                 <div className=" relative justify-start w-72 text-sm font-medium text-grey-700 bg-white border border-grey-300 rounded-xl shadow-sm  ">
                     
                     <Combobox.Input
-                        className=" inline-flex w-full px-3 py-2 text-sm font-medium text-grey-700 rounded-xl hover:bg-grey-50 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-secondary"
+                        className={classNames(
+                            " inline-flex w-full px-3 py-2 text-sm font-medium  rounded-xl hover:bg-grey-50 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-secondary",
+                            selected.name? "text-grey-700" : "text-grey-500"
+                            )}
                         // className="w-full border-none focus:ring-0 rounded-xl py-2 pl-3 pr-10 text-sm leading-5 text-grey-700"
                         onChange={
                             (event) => setQuery(event.target.value)
@@ -54,7 +58,9 @@ export default function InstansiFilter({itemLists}) {
                         }
                         
                         // placeholder={3>4&&"Nama Institusi"}
-                        displayValue={(item)=> item.name}
+                        // displayValue={(item)=> item.name}
+                        displayValue={(item)=> item.name? item.name : "Nama Institusi"}
+                        // displayValue={(item)=> "Nama Institusi"}
                     />
                     <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
                         <ChevronDownIcon

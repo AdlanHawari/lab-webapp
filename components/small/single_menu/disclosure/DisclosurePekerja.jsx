@@ -34,6 +34,7 @@ export default function DisclosurePekerja({bgButton, data}) {
     
     useEffect(() => {
         console.log("assignments",assignments)
+        console.log("total", data.total_assignments)
     
     }, [assignments])
     // useEffect(() => {
@@ -63,7 +64,8 @@ export default function DisclosurePekerja({bgButton, data}) {
                         "text-white"
                         )}>
                         {/* {children} */}
-                        {data.total_assignments}
+                        {/* {data.total_assignments} */}
+                        {assignments.length}
                     </Table2>
 
                     <TableSmall className={classNames(

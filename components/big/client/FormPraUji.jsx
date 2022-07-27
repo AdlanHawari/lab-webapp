@@ -1,28 +1,83 @@
 import Body1 from 'components/small/typography/Body1'
 import Body2 from 'components/small/typography/Body2'
 import ValidationMessage from 'components/small/validation_form/ValidationMessage'
-import { ErrorMessage, Field, Form, Formik } from 'formik'
+import { ErrorMessage, Field, FieldArray, Form, Formik } from 'formik'
 import { formPraUjiInitValues } from 'helper/initial-formik-values/FormPraUjiInitValues'
 import FormPraUjiValidationSchema from 'helper/yup/FormPraUjiValidationSchema'
 import React from 'react'
 import DateFormatter from 'utils/DateFormatter'
+import handleFormData from 'utils/HandleFormData'
 import * as Yup from 'yup'
 
 export default function FormPraUji({data, id}) {
     const {readable} = DateFormatter()
+
+    function rearrangeObject(obj, fullData){
+        let result = {
+            permit_holder: obj.permit_holder,
+            ppr_no: obj.ppr_no,
+            tool_id: "",
+            manufactured: "",
+            control_panel_serial_no: "",
+            tube_container_serial_no: "",
+            q1: obj.q1,
+            q2: obj.q2,
+            q3: obj.q3,
+            q4: obj.q4,
+            q5: obj.q5,
+            q6: obj.q6,
+            q7: obj.q7,
+            q8: obj.q8
+        }
+        obj.tool_info.map((tool, index)=>{
+            if(result.manufactured.length>0){
+                result.manufactured = result.manufactured + ","
+            }
+            result.manufactured = result.manufactured.concat(tool.manufactured)
+            
+            if(result.control_panel_serial_no.length>0){
+                result.control_panel_serial_no = result.control_panel_serial_no + ","
+            }
+            result.control_panel_serial_no = result.control_panel_serial_no.concat(tool.control_panel_serial_no)
+            
+            if(result.tube_container_serial_no.length>0){
+                result.tube_container_serial_no = result.tube_container_serial_no + ","
+            }
+            result.tube_container_serial_no = result.tube_container_serial_no.concat(tool.tube_container_serial_no)
+
+            if(result.tool_id.length>0){
+                result.tool_id = result.tool_id + ","
+            }
+            result.tool_id = result.tool_id.concat(fullData.tools[index].id)
+        })
+
+        
+        return result
+    }
+
   return (
     <Formik
         initialValues={formPraUjiInitValues}
         validationSchema={FormPraUjiValidationSchema(Yup)}
-        onSubmit={ (values) => 
+        onSubmit={ (values) => {
+
             console.log(values)
+            const rearrangedValues = rearrangeObject(values, data)
+            console.log(rearrangedValues)
+            // const finalValues = Object.assign(rearrangedValues, 
+            //     {tool_id: }
+            //     )
+            // let formData = handleFormData(finalValues)
+
+
+        }
 
         }
     >
         {formik => {
             return <Form id={id}>
                  <div className='block w-full pl-10 pr-32 space-y-3 divide-y divide-grey-200'>
-                    <div className="">
+                    {/* <div className="">
                         <h3>Alat 1</h3>
                         <div className="grid grid-cols-2 gap-y-3 py-3">
                             <Body1 className="text-black-400">
@@ -39,7 +94,7 @@ export default function FormPraUji({data, id}) {
                             </Body2>
                         </div>
                         
-                    </div>
+                    </div> */}
                     <div className="grid grid-cols-2 gap-y-3 py-3">
                         <Body1 className="text-black-400">
                             Nomor Surat
@@ -89,7 +144,7 @@ export default function FormPraUji({data, id}) {
                                     
                                     placeholder="Isi Pemegang Izin"
                                     />
-                                {/* <ErrorMessage name="permit_holder" component={ValidationMessage}/> */}
+                                <ErrorMessage name="permit_holder" component={ValidationMessage}/>
                             </div>
 
                             <Body1 className="text-black-400">
@@ -104,78 +159,104 @@ export default function FormPraUji({data, id}) {
                                     
                                     placeholder="Isi Izin Pemanfaatan PPR"
                                     />
-                                {/* <ErrorMessage name="ppr_no" component={ValidationMessage}/> */}
+                                <ErrorMessage name="ppr_no" component={ValidationMessage}/>
                             </div>
 
                     </div>
 
                     <div className="py-3">
-                        <h3>Spesifikasi Alat</h3>
-                        <div className="grid grid-cols-2 gap-y-3 py-3">
-                            <Body1 className="text-black-400">
-                                Merk Alat
-                            </Body1>
-                            <Body2 className="text-black-500">
-                                {data.tools[0].brand}
-                            </Body2>
-                            <Body1 className="text-black-400">
-                                Tipe Alat
-                            </Body1>
-                            <Body2 className="text-black-500">
-                                {data.tools[0].type}
-                            </Body2>
-                            
-                            <Body1 className="text-black-400">
-                                Buatan/Pabrik
-                            </Body1>
-                            <div className="block">
-                                <Field
-                                    className="placeholder:text-grey-500 form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300"
-                                    id="manufactured"
-                                    name="manufactured"
-                                    type="text"
-                                    
-                                    placeholder="Isi Input"
-                                    />
-                                {/* <ErrorMessage name="manufactured" component={ValidationMessage}/> */}
-                            </div>
+                        <h3 className='pb-10'>Spesifikasi Alat</h3>
 
-                            <Body1 className="text-black-400">
-                                No. Seri Kontrol Panel
-                            </Body1>
-                            <div className="block">
-                                <Field
-                                    className="placeholder:text-grey-500 form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300"
-                                    id="control_panel_serial_no"
-                                    name="control_panel_serial_no"
-                                    type="text"
-                                    
-                                    placeholder="Isi Input"
-                                    />
-                                {/* <ErrorMessage name="control_panel_serial_no" component={ValidationMessage}/> */}
-                            </div>
+                        <FieldArray name="tool_info">
+                            {({insert, remove, push}) => (
+                                <>
+                                    {data.tools.map((item,index)=>(
+                                        <div key={index} className="">
+                                            <h3>Alat {index+1}</h3>
+                                            <div className="grid grid-cols-2 gap-y-3 py-3">
+                                                <Body1 className="text-black-400">
+                                                    Jenis Alat
+                                                </Body1>
+                                                <Body2 className="text-black-500">
+                                                    {item.name}
+                                                </Body2>
+                                                <Body1 className="text-black-400">
+                                                    Jenis Uji
+                                                </Body1>
+                                                <Body2 className="text-black-500">
+                                                    {data.test_type}
+                                                </Body2>
+                                            
+                                        
+                                                <Body1 className="text-black-400">
+                                                    Merk Alat
+                                                </Body1>
+                                                <Body2 className="text-black-500">
+                                                    {item.brand}
+                                                </Body2>
+                                                <Body1 className="text-black-400">
+                                                    Tipe Alat
+                                                </Body1>
+                                                <Body2 className="text-black-500">
+                                                    {item.type}
+                                                </Body2>
+                                                
+                                                <Body1 className="text-black-400">
+                                                    Buatan/Pabrik
+                                                </Body1>
+                                                <div className="block">
+                                                    <Field
+                                                        className="placeholder:text-grey-500 form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300"
+                                                        id={`tool_info.${index}.manufactured`}
+                                                        name={`tool_info.${index}.manufactured`}
+                                                        type="text"
+                                                        
+                                                        placeholder="Isi Input"
+                                                        />
+                                                    <ErrorMessage name={`tool_info.${index}.manufactured`} component={ValidationMessage}/>
+                                                </div>
 
-                            <Body1 className="text-black-400">
-                                No. Seri Wadah Tabung
-                            </Body1>
-                            <div className="block">
-                                <Field
-                                    className="placeholder:text-grey-500 form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300"
-                                    id="tube_container_serial_no"
-                                    name="tube_container_serial_no"
-                                    type="text"
-                                    
-                                    placeholder="Isi Input"
-                                    />
-                                {/* <ErrorMessage name="tube_container_serial_no" component={ValidationMessage}/> */}
-                            </div>
+                                                <Body1 className="text-black-400">
+                                                    No. Seri Kontrol Panel
+                                                </Body1>
+                                                <div className="block">
+                                                    <Field
+                                                        className="placeholder:text-grey-500 form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300"
+                                                        id={`tool_info.${index}.control_panel_serial_no`}
+                                                        name={`tool_info.${index}.control_panel_serial_no`}
+                                                        type="text"
+                                                        
+                                                        placeholder="Isi Input"
+                                                        />
+                                                    <ErrorMessage name={`tool_info.${index}.control_panel_serial_no`} component={ValidationMessage}/>
+                                                </div>
 
-                        </div>
+                                                <Body1 className="text-black-400">
+                                                    No. Seri Wadah Tabung
+                                                </Body1>
+                                                <div className="block">
+                                                    <Field
+                                                        className="placeholder:text-grey-500 form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300"
+                                                        id={`tool_info.${index}.tube_container_serial_no`}
+                                                        name={`tool_info.${index}.tube_container_serial_no`}
+                                                        type="text"
+                                                        
+                                                        placeholder="Isi Input"
+                                                        />
+                                                    <ErrorMessage name={`tool_info.${index}.tube_container_serial_no`} component={ValidationMessage}/>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    ))}
+                                </>
+                            )}
+                        </FieldArray>
                     </div>
 
                     <div className="py-3 space-y-4">
                         <h3>Kolom Pertanyaan</h3>
-                        <div className="block space-y-1">
+                        <div className="block space-y-2">
 
                             <Body1 className="text-black-400">
                                 Bagaimana Kondisi Listrik dan Daya Listrik?
@@ -194,14 +275,14 @@ export default function FormPraUji({data, id}) {
                             <Body1 className="text-black-400">
                                 Bagaimana Kondisi dari Fungsi Kolmator?
                             </Body1>
-                            <div role="group" className='flex space-x-4'>
-                                <label className='flex items-center space-x-1'>
+                            <div role="group" className='flex space-x-20'>
+                                <label className='flex items-center space-x-3'>
                                     <Field type="radio" name="q2" value="Baik" />
                                     <Body2 className="text-black-500">
                                         Baik
                                     </Body2>
                                 </label>
-                                <label className='flex items-center space-x-1'>
+                                <label className='flex items-center space-x-3'>
                                     <Field type="radio" name="q2" value="Tidak Baik" />
                                     <Body2 className="text-black-500">
                                         Tidak Baik
@@ -214,14 +295,14 @@ export default function FormPraUji({data, id}) {
                             <Body1 className="text-black-400">
                                 Bagaimana Kondisi dari Fungsi Tube/Tabung Sinar X?
                             </Body1>
-                            <div role="group" className='flex space-x-4'>
-                                <label className='flex items-center space-x-1'>
+                            <div role="group" className='flex space-x-20'>
+                                <label className='flex items-center space-x-3'>
                                     <Field type="radio" name="q3" value="Baik" />
                                     <Body2 className="text-black-500">
                                         Baik
                                     </Body2>
                                 </label>
-                                <label className='flex items-center space-x-1'>
+                                <label className='flex items-center space-x-3'>
                                     <Field type="radio" name="q3" value="Tidak Baik" />
                                     <Body2 className="text-black-500">
                                         Tidak Baik
@@ -234,14 +315,14 @@ export default function FormPraUji({data, id}) {
                             <Body1 className="text-black-400">
                                 Bagaimana Kondisi dari Fungsi Kontrol Panel?
                             </Body1>
-                            <div role="group" className='flex space-x-4'>
-                                <label className='flex items-center space-x-1'>
+                            <div role="group" className='flex space-x-20'>
+                                <label className='flex items-center space-x-3'>
                                     <Field type="radio" name="q4" value="Baik" />
                                     <Body2 className="text-black-500">
                                         Baik
                                     </Body2>
                                 </label>
-                                <label className='flex items-center space-x-1'>
+                                <label className='flex items-center space-x-3'>
                                     <Field type="radio" name="q4" value="Tidak Baik" />
                                     <Body2 className="text-black-500">
                                         Tidak Baik
@@ -251,21 +332,21 @@ export default function FormPraUji({data, id}) {
 
                         </div>
 
-                        <div className="">
-                            <Body2>Untuk Radiografi Umum</Body2>
+                        <div className=" block space-y-3">
+                            <Body2 className="text-black-400">Untuk Radiografi Umum</Body2>
 
-                            <div className="">
-                                <Body1 className="text-black-500">
+                            <div className="block space-y-1">
+                                <Body1 className="text-black-400">
                                     1.  Apakah sudah menggunakan ALC?
                                 </Body1>
-                                <div role="group" className='flex space-x-4'>
-                                    <label className='flex items-center space-x-1'>
+                                <div role="group" className='flex space-x-20'>
+                                    <label className='flex items-center space-x-3'>
                                         <Field type="radio" name="q5" value="Ya" />
                                         <Body2 className="text-black-500">
                                             Ya
                                         </Body2>
                                     </label>
-                                    <label className='flex items-center space-x-1'>
+                                    <label className='flex items-center space-x-3'>
                                         <Field type="radio" name="q5" value="Tidak" />
                                         <Body2 className="text-black-500">
                                             Tidak
@@ -275,18 +356,18 @@ export default function FormPraUji({data, id}) {
 
                             </div>
 
-                            <div className="">
-                                <Body1 className="text-black-500">
+                            <div className="block space-y-1">
+                                <Body1 className="text-black-400">
                                     2. Moda Pengaturan mA dan s (terpisah) atau mAs?
                                 </Body1>
-                                <div role="group" className='flex space-x-4'>
-                                    <label className='flex items-center space-x-1'>
+                                <div role="group" className='flex space-x-20'>
+                                    <label className='flex items-center space-x-3'>
                                         <Field type="radio" name="q6" value="Terpisah" />
                                         <Body2 className="text-black-500">
                                             Terpisah
                                         </Body2>
                                     </label>
-                                    <label className='flex items-center space-x-1'>
+                                    <label className='flex items-center space-x-3'>
                                         <Field type="radio" name="q6" value="Tidak Terpisah" />
                                         <Body2 className="text-black-500">
                                             Tidak Terpisah
@@ -298,21 +379,21 @@ export default function FormPraUji({data, id}) {
 
                         </div>
 
-                        <div className="">
-                            <Body2>Untuk Dental Intraoral</Body2>
+                        <div className="block space-y-3">
+                            <Body2 className="text-black-400">Untuk Dental Intraoral</Body2>
 
-                            <div className="">
-                                <Body1 className="text-black-500">
+                            <div className="block space-y-1">
+                                <Body1 className="text-black-400">
                                     1.  Untuk alat Dental Intraoral, apakah tersedia kaset film radiografi dan pencuncian manual?
                                 </Body1>
-                                <div role="group" className='flex space-x-4'>
-                                    <label className='flex items-center space-x-1'>
+                                <div role="group" className='flex space-x-20'>
+                                    <label className='flex items-center space-x-3'>
                                         <Field type="radio" name="q7" value="Ya" />
                                         <Body2 className="text-black-500">
                                             Ya
                                         </Body2>
                                     </label>
-                                    <label className='flex items-center space-x-1'>
+                                    <label className='flex items-center space-x-3'>
                                         <Field type="radio" name="q7" value="Tidak" />
                                         <Body2 className="text-black-500">
                                             Tidak
@@ -322,18 +403,18 @@ export default function FormPraUji({data, id}) {
 
                             </div>
 
-                            <div className="">
-                                <Body1 className="text-black-500">
+                            <div className="block space-y-1">
+                                <Body1 className="text-black-400">
                                 2.  Untuk alat Dental Intraoral, apabila tidak tersedia kaset film radiografi dan pencuncian manual, apakah memiliki akses ke klinik/RS terdekat untuk peminjaman kaset dan pencucian film?
                                 </Body1>
-                                <div role="group" className='flex space-x-4'>
-                                    <label className='flex items-center space-x-1'>
+                                <div role="group" className='flex space-x-20'>
+                                    <label className='flex items-center space-x-3'>
                                         <Field type="radio" name="q8" value="Ya" />
                                         <Body2 className="text-black-500">
                                             Ya
                                         </Body2>
                                     </label>
-                                    <label className='flex items-center space-x-1'>
+                                    <label className='flex items-center space-x-3'>
                                         <Field type="radio" name="q8" value="Tidak" />
                                         <Body2 className="text-black-500">
                                             Tidak
