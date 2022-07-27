@@ -82,7 +82,7 @@ export default function FormPraUji({data, id}) {
                             </Body1>
                             <div className="block">
                                 <Field
-                                    className="form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300"
+                                    className="placeholder:text-grey-500 form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300"
                                     id="permit_holder"
                                     name="permit_holder"
                                     type="text"
@@ -97,7 +97,7 @@ export default function FormPraUji({data, id}) {
                             </Body1>
                             <div className="block">
                                 <Field
-                                    className="form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300"
+                                    className="placeholder:text-grey-500 form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300"
                                     id="ppr_no"
                                     name="ppr_no"
                                     type="text"
@@ -109,7 +109,7 @@ export default function FormPraUji({data, id}) {
 
                     </div>
 
-                    <div className="">
+                    <div className="py-3">
                         <h3>Spesifikasi Alat</h3>
                         <div className="grid grid-cols-2 gap-y-3 py-3">
                             <Body1 className="text-black-400">
@@ -130,7 +130,7 @@ export default function FormPraUji({data, id}) {
                             </Body1>
                             <div className="block">
                                 <Field
-                                    className="form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300"
+                                    className="placeholder:text-grey-500 form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300"
                                     id="manufactured"
                                     name="manufactured"
                                     type="text"
@@ -145,7 +145,7 @@ export default function FormPraUji({data, id}) {
                             </Body1>
                             <div className="block">
                                 <Field
-                                    className="form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300"
+                                    className="placeholder:text-grey-500 form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300"
                                     id="control_panel_serial_no"
                                     name="control_panel_serial_no"
                                     type="text"
@@ -160,7 +160,7 @@ export default function FormPraUji({data, id}) {
                             </Body1>
                             <div className="block">
                                 <Field
-                                    className="form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300"
+                                    className="placeholder:text-grey-500 form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300"
                                     id="tube_container_serial_no"
                                     name="tube_container_serial_no"
                                     type="text"
@@ -173,8 +173,177 @@ export default function FormPraUji({data, id}) {
                         </div>
                     </div>
 
-                    <div className="">
+                    <div className="py-3 space-y-4">
                         <h3>Kolom Pertanyaan</h3>
+                        <div className="block space-y-1">
+
+                            <Body1 className="text-black-400">
+                                Bagaimana Kondisi Listrik dan Daya Listrik?
+                            </Body1>
+
+                            <Field as="textarea"
+                            className="form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300  h-36 placeholder:body1 placeholder:text-grey-500"
+                            
+                            name="q1"
+                            type="text"
+                            placeholder="Masukkan jawaban anda"
+                            />
+                           
+
+                            
+                            <Body1 className="text-black-400">
+                                Bagaimana Kondisi dari Fungsi Kolmator?
+                            </Body1>
+                            <div role="group" className='flex space-x-4'>
+                                <label className='flex items-center space-x-1'>
+                                    <Field type="radio" name="q2" value="Baik" />
+                                    <Body2 className="text-black-500">
+                                        Baik
+                                    </Body2>
+                                </label>
+                                <label className='flex items-center space-x-1'>
+                                    <Field type="radio" name="q2" value="Tidak Baik" />
+                                    <Body2 className="text-black-500">
+                                        Tidak Baik
+                                    </Body2>
+                                </label>
+                            </div>
+
+
+
+                            <Body1 className="text-black-400">
+                                Bagaimana Kondisi dari Fungsi Tube/Tabung Sinar X?
+                            </Body1>
+                            <div role="group" className='flex space-x-4'>
+                                <label className='flex items-center space-x-1'>
+                                    <Field type="radio" name="q3" value="Baik" />
+                                    <Body2 className="text-black-500">
+                                        Baik
+                                    </Body2>
+                                </label>
+                                <label className='flex items-center space-x-1'>
+                                    <Field type="radio" name="q3" value="Tidak Baik" />
+                                    <Body2 className="text-black-500">
+                                        Tidak Baik
+                                    </Body2>
+                                </label>
+                            </div>
+
+
+
+                            <Body1 className="text-black-400">
+                                Bagaimana Kondisi dari Fungsi Kontrol Panel?
+                            </Body1>
+                            <div role="group" className='flex space-x-4'>
+                                <label className='flex items-center space-x-1'>
+                                    <Field type="radio" name="q4" value="Baik" />
+                                    <Body2 className="text-black-500">
+                                        Baik
+                                    </Body2>
+                                </label>
+                                <label className='flex items-center space-x-1'>
+                                    <Field type="radio" name="q4" value="Tidak Baik" />
+                                    <Body2 className="text-black-500">
+                                        Tidak Baik
+                                    </Body2>
+                                </label>
+                            </div>
+
+                        </div>
+
+                        <div className="">
+                            <Body2>Untuk Radiografi Umum</Body2>
+
+                            <div className="">
+                                <Body1 className="text-black-500">
+                                    1.  Apakah sudah menggunakan ALC?
+                                </Body1>
+                                <div role="group" className='flex space-x-4'>
+                                    <label className='flex items-center space-x-1'>
+                                        <Field type="radio" name="q5" value="Ya" />
+                                        <Body2 className="text-black-500">
+                                            Ya
+                                        </Body2>
+                                    </label>
+                                    <label className='flex items-center space-x-1'>
+                                        <Field type="radio" name="q5" value="Tidak" />
+                                        <Body2 className="text-black-500">
+                                            Tidak
+                                        </Body2>
+                                    </label>
+                                </div>
+
+                            </div>
+
+                            <div className="">
+                                <Body1 className="text-black-500">
+                                    2. Moda Pengaturan mA dan s (terpisah) atau mAs?
+                                </Body1>
+                                <div role="group" className='flex space-x-4'>
+                                    <label className='flex items-center space-x-1'>
+                                        <Field type="radio" name="q6" value="Terpisah" />
+                                        <Body2 className="text-black-500">
+                                            Terpisah
+                                        </Body2>
+                                    </label>
+                                    <label className='flex items-center space-x-1'>
+                                        <Field type="radio" name="q6" value="Tidak Terpisah" />
+                                        <Body2 className="text-black-500">
+                                            Tidak Terpisah
+                                        </Body2>
+                                    </label>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div className="">
+                            <Body2>Untuk Dental Intraoral</Body2>
+
+                            <div className="">
+                                <Body1 className="text-black-500">
+                                    1.  Untuk alat Dental Intraoral, apakah tersedia kaset film radiografi dan pencuncian manual?
+                                </Body1>
+                                <div role="group" className='flex space-x-4'>
+                                    <label className='flex items-center space-x-1'>
+                                        <Field type="radio" name="q7" value="Ya" />
+                                        <Body2 className="text-black-500">
+                                            Ya
+                                        </Body2>
+                                    </label>
+                                    <label className='flex items-center space-x-1'>
+                                        <Field type="radio" name="q7" value="Tidak" />
+                                        <Body2 className="text-black-500">
+                                            Tidak
+                                        </Body2>
+                                    </label>
+                                </div>
+
+                            </div>
+
+                            <div className="">
+                                <Body1 className="text-black-500">
+                                2.  Untuk alat Dental Intraoral, apabila tidak tersedia kaset film radiografi dan pencuncian manual, apakah memiliki akses ke klinik/RS terdekat untuk peminjaman kaset dan pencucian film?
+                                </Body1>
+                                <div role="group" className='flex space-x-4'>
+                                    <label className='flex items-center space-x-1'>
+                                        <Field type="radio" name="q8" value="Ya" />
+                                        <Body2 className="text-black-500">
+                                            Ya
+                                        </Body2>
+                                    </label>
+                                    <label className='flex items-center space-x-1'>
+                                        <Field type="radio" name="q8" value="Tidak" />
+                                        <Body2 className="text-black-500">
+                                            Tidak
+                                        </Body2>
+                                    </label>
+                                </div>
+
+                            </div>
+
+                        </div>
 
                     </div>
                 </div>

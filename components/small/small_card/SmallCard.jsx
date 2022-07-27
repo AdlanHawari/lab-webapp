@@ -268,8 +268,8 @@ export default function SmallCard({data, mutate}) {
                     className="bg-primary" 
                     buttonStyle={submitState?"primary_disabled":"primary_default"}
                     // buttonStyle="primary_default"
-                    // type="submit" 
-                    type="button" 
+                    type="submit" 
+                    // type="button" 
                     disabled={submitState? true:false}
                     // form={}
                     // form="ujibaru"

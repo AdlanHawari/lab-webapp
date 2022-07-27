@@ -73,6 +73,7 @@ export default function FormBuatPenawaranUji({
         setUpdate(true)
         // delay(1500)
       }
+
       if(response.header.response_code==201){
         setStorePrice(true)
         // delay(1500)
@@ -105,13 +106,13 @@ export default function FormBuatPenawaranUji({
               <div className="block">
                   <Field
                       className="w-96 border-none focus:ring-0 py-2 px-3 text-sm leading-5 text-gray-900 rounded-lg shadow-md"
-                      id="invoice_number"
-                      name="invoice_number"
+                      id="invoice_no"
+                      name="invoice_no"
                       type="text"
                       
                       placeholder="Masukkan nomor surat"
                       />
-                  {/* <ErrorMessage name="invoice_number" component={ValidationMessage}/> */}
+                  {/* <ErrorMessage name="invoice_no" component={ValidationMessage}/> */}
               </div>
 
             {/* </div> */}

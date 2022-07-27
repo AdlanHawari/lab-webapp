@@ -1,7 +1,7 @@
 function BuatPenawaranUjiValidationSchema(yup){
     return(
         yup.object({
-            invoice_number: yup.string().required("Masukkan nomor surat"),
+            invoice_no: yup.string().required("Masukkan nomor surat"),
             cost_offered: yup
                             .number("Harap masukkan nominal dengan benar")
                             .positive("Harap masukkan nominal dengan benar")
