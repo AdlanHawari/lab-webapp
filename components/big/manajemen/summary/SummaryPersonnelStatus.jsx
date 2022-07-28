@@ -6,6 +6,7 @@ import { userType } from 'constants/UserType'
 import { usePersPenawaranContext } from 'hooks/context/form-persetujuan-penawaran/PersPenawaranFormContext'
 import { usePersonnelFetcher } from 'hooks/fetcher/personnel/usePersonnelFetcher'
 import usePersonnelStatus from 'hooks/fetcher/personnel/usePersonnelStatus'
+import { useTitleContext } from 'hooks/TitleContext'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 
@@ -15,6 +16,7 @@ export default function SummaryPersonnelStatus() {
 
     
     const {personnel,error,mutate,loading} = usePersonnelStatus()
+    const [title,setTitle, subTitle,setSubtitle] = useTitleContext();
     // console.log("personnel ", personnel)
     // const  = usePersonnelFetcher()
 

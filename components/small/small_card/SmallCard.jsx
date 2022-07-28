@@ -25,6 +25,7 @@ import SectionSchedule from "components/big/detail-section/SectionSchedule";
 import FormPraUji from "components/big/client/FormPraUji";
 
 import { jenisPekerjaan } from "constants/JenisPekerjaan";
+import DateFormatter from "utils/DateFormatter";
 
 
 export default function SmallCard({data, mutate}) {
@@ -43,6 +44,8 @@ export default function SmallCard({data, mutate}) {
     
     const [submitState, setSubmitState] = useState(false)
     const [reqSent, setReqSent] = useState(false)
+
+    const {readable} = DateFormatter()
 
     useEffect(() => {
         if(reqSent){
@@ -75,7 +78,7 @@ export default function SmallCard({data, mutate}) {
                 </div>
             </div>
             <Title2Med className="text-black-400 pl-6">
-                {data.quotation_no}
+                {data.cost_detail.invoice_no}
             </Title2Med>
         </div>
 
@@ -96,8 +99,12 @@ export default function SmallCard({data, mutate}) {
                     </Body1>
                     <Body3 className="text-black-500">
                         {/* 13 November 2021 */}
-                        {/* {data.test_date} */}
-                        Tanggal
+
+                        { data.status<6 ?
+                        "Jadwal belum ditentukan"
+                        :
+                        readable(data.assignment_detail.test_date)
+                        }
                     </Body3>
 
                 </div>
