@@ -44,7 +44,7 @@ export default function PermohonanUjiTable({data, mutate}) {
     useEffect(()=> {
         console.log("reqsent", reqSent)
         if(reqSent){
-          
+          setSubmitState(false)
           setBuatPenawaranPopUp(false)
           setreqSent(false)
           mutate()
@@ -138,7 +138,7 @@ export default function PermohonanUjiTable({data, mutate}) {
           status={permohonanUjiStatus}
           current_status={dataSelected.status}
           data={dataSelected}
-          //   status={manajemenUjiStatus}
+          
           buttonSide = {
           <>
             {dataSelected.status<3 &&
@@ -188,13 +188,13 @@ export default function PermohonanUjiTable({data, mutate}) {
                 <Button 
                     className="bg-primary" 
                     buttonStyle={submitState?"primary_disabled":"primary_default"}
-                    // buttonStyle="primary_default"
+                    
                     type="submit" 
-                    // type="button" 
+                    
                     
                     disabled={submitState? true:false}
                     form={form_buat_penawaran_uji_id}
-                    // form="ujibaru"
+                    
                     >
                     { submitState &&
                         <FontAwesomeIcon icon={faSpinner} className="animate-spin"/>
@@ -210,8 +210,7 @@ export default function PermohonanUjiTable({data, mutate}) {
                 setSubmitState={setSubmitState}
                 reqSent={reqSent}
                 setreqSent={setreqSent}
-                // setBuatPenawaranPopUp={setBuatPenawaranPopUp}
-                // onSubmit={}
+                
                 />
 
             </FormModal>

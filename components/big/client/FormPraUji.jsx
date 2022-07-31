@@ -1,16 +1,27 @@
 import Body1 from 'components/small/typography/Body1'
 import Body2 from 'components/small/typography/Body2'
 import ValidationMessage from 'components/small/validation_form/ValidationMessage'
+import { jenisPekerjaan } from 'constants/JenisPekerjaan'
 import { ErrorMessage, Field, FieldArray, Form, Formik } from 'formik'
 import { formPraUjiInitValues } from 'helper/initial-formik-values/FormPraUjiInitValues'
 import FormPraUjiValidationSchema from 'helper/yup/FormPraUjiValidationSchema'
-import React from 'react'
+import { useDetailUjiClientContext } from 'hooks/context/detail-uji-client/DetailUjiClientContext'
+import { useDetailUji } from 'hooks/fetcher/detail-uji/useDetailUji'
+import React, { useEffect, useState } from 'react'
 import DateFormatter from 'utils/DateFormatter'
 import handleFormData from 'utils/HandleFormData'
 import * as Yup from 'yup'
 
-export default function FormPraUji({data, id}) {
+export default function FormPraUji({
+    data, 
+    id,
+    setSubmitState,
+    setReqSent
+}) {
     const {readable} = DateFormatter()
+    const [inputForm, setInputForm] = useState(false)
+    const {confirmTestApp, inputFormPraUji} = useDetailUji()
+    
 
     function rearrangeObject(obj, fullData){
         let result = {
@@ -55,19 +66,61 @@ export default function FormPraUji({data, id}) {
         return result
     }
 
+    useEffect(async () => {
+        if(inputForm){
+            if(data.documents[0].type == "NPWP" || data.documents[0].type == "INVOICE"){
+                const resStat = await confirmTestApp(data.id)
+                if(resStat.header.response_code==200){
+                    setSubmitState(false)
+                    setReqSent(true)
+                  }
+                  else{
+          
+                  }
+            }
+            else{
+                setSubmitState(false)
+                setReqSent(true)
+              }
+
+        }
+      
+    
+        
+    }, [inputForm])
+    
+
   return (
     <Formik
         initialValues={formPraUjiInitValues}
         validationSchema={FormPraUjiValidationSchema(Yup)}
-        onSubmit={ (values) => {
+        onSubmit={ async (values) => {
 
-            console.log(values)
+            // console.log(values)
+            setSubmitState(true)
             const rearrangedValues = rearrangeObject(values, data)
-            console.log(rearrangedValues)
             // const finalValues = Object.assign(rearrangedValues, 
-            //     {tool_id: }
+            //     {tool_id: data.id}
             //     )
-            // let formData = handleFormData(finalValues)
+            console.log(rearrangedValues)
+            let formData = handleFormData(rearrangedValues)
+            console.log("test id", data.id)
+            const response = await inputFormPraUji(formData, data.id)
+            console.log("respon", response)
+
+            if(response.header.response_code==200){
+                // setReqSent(true)
+                // setSubmitState(false)
+                // setErrorMsg('')
+                console.log("submit sent")
+                setInputForm(true)
+                // setFormPraUjiOpen(false)
+            }
+            else{
+                // setErrorMsg('Terjadi kesalahan')
+                // setSubmitState(false)
+            }
+
 
 
         }

@@ -66,9 +66,55 @@ function useProvideDetailUjiFetcher(){
 
     }
 
+    async function inputFormPraUji(formData, id){
+        var requestOptions = {
+            method: 'PUT',
+            headers:{
+                'Authorization': `Bearer ${token}`
+            },
+            body: formData,
+            redirect: 'follow'
+        }
+
+        try{
+            const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/test-applications/pretest/${id}`, requestOptions)
+
+            const res = await req.json()
+            return res
+        }
+        catch(e){
+            console.log("error",e)
+            return e
+        }
+    }
+
+    async function uploadDokumenPraUji(formData, id){
+        var requestOptions = {
+            method: 'POST',
+            headers:{
+                'Authorization': `Bearer ${token}`
+            },
+            body: formData,
+            redirect: 'follow'
+        }
+
+        try{
+            const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/documents/${id}/payment/upload`, requestOptions)
+
+            const res = await req.json()
+            return res
+        }
+        catch(e){
+            console.log("error",e)
+            return e
+        }
+    }
+
 
     return{
         confirmTestApp,
-        createPenawaranUji
+        createPenawaranUji,
+        inputFormPraUji,
+        uploadDokumenPraUji
     }
 }

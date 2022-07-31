@@ -10,7 +10,7 @@ import { manajemenUjiStatus } from "constants/filter-status/ManajemenUjiStatus";
 import { usePersPenawaranContext } from "hooks/context/form-persetujuan-penawaran/PersPenawaranFormContext";
 
 import FormModal from "components/big/FormModal";
-import { form_persetujuan_penawaran, form_pra_uji, form_pra_uji_id } from "constants/FormUtils";
+import { form_kaji_ulang_upload_dokumen_id, form_persetujuan_penawaran, form_pra_uji, form_pra_uji_id } from "constants/FormUtils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import PersetujuanPenawaranUji from "components/big/client/PersetujuanPenawaranUji";
@@ -26,6 +26,7 @@ import FormPraUji from "components/big/client/FormPraUji";
 
 import { jenisPekerjaan } from "constants/JenisPekerjaan";
 import DateFormatter from "utils/DateFormatter";
+import NumberFormat from "react-number-format";
 
 
 export default function SmallCard({data, mutate}) {
@@ -50,6 +51,8 @@ export default function SmallCard({data, mutate}) {
     useEffect(() => {
         if(reqSent){
             setPersPenawaranOpen(false)
+            setFormPraUjiOpen(false)
+            setUploadDokumenOpen(false)
             setReqSent(false)
             mutate()
         }
@@ -135,7 +138,8 @@ export default function SmallCard({data, mutate}) {
                 <Body3 className="text-primary-darken10">
 
                     {/* Rp 2,000,000.- */}
-                    {data.total_cost}
+                    <NumberFormat value={data.cost_detail.cost_with_ppn} displayType={'text'} thousandSeparator=',' prefix={'Rp'} /> 
+                    {/* {data.cost_detail.cost} */}
                 </Body3>
             </div>
 
@@ -176,7 +180,10 @@ export default function SmallCard({data, mutate}) {
                         {data.test_type != jenisPekerjaan[1] &&
 
                             <Button 
-                            buttonStyle="primary_default"
+                            buttonStyle={data.permit_holder?"primary_disabled":"primary_default"}
+                            // buttonStyle="primary_default"
+                            disabled={data.permit_holder? true:false}
+                            // disabled={data.permit_holder.length>0? true:false}
                             onClick={()=>setFormPraUjiOpen(true)}
                             >
                                 Isi Form Pra-Uji
@@ -184,7 +191,9 @@ export default function SmallCard({data, mutate}) {
                         }
 
                         <Button 
-                        buttonStyle="secondary_default"
+                        // buttonStyle="secondary_default"
+                        buttonStyle={data.documents && data.documents[0].type == "NPWP" || data.documents && data.documents[1].type == "NPWP"  ? "secondary_disabled" : "secondary_default"}
+                        disabled={data.documents && data.documents[0].type == "NPWP" || data.documents && data.documents[1].type == "NPWP"  ? true : false}
                         onClick={()=>setUploadDokumenOpen(true)}
                         >
                             Upload Dokumen
@@ -288,7 +297,13 @@ export default function SmallCard({data, mutate}) {
                 </Button>
             }
             >
-                <FormPraUji id={form_pra_uji_id} data={data}/>
+                <FormPraUji 
+                id={form_pra_uji_id} 
+                data={data}
+                setSubmitState={setSubmitState}
+                setReqSent ={setReqSent}
+
+                />
             </FormModal>
 
         }
@@ -305,11 +320,9 @@ export default function SmallCard({data, mutate}) {
                     className="bg-primary" 
                     buttonStyle={submitState?"primary_disabled":"primary_default"}
                     // buttonStyle="primary_default"
-                    // type="submit" 
-                    type="button" 
+                    type="submit" 
                     disabled={submitState? true:false}
-                    // form={}
-                    // form="ujibaru"
+                    form={form_kaji_ulang_upload_dokumen_id}
                     >
                     { submitState &&
                         <FontAwesomeIcon icon={faSpinner} className="animate-spin"/>
@@ -319,7 +332,12 @@ export default function SmallCard({data, mutate}) {
             </> 
             }
             >
-                <FormUploadDokumen/>   
+                <FormUploadDokumen 
+                data={data} 
+                id={form_kaji_ulang_upload_dokumen_id}
+                setSubmitState={setSubmitState}
+                setReqSent ={setReqSent}
+                />   
             </FormModal>
 
         }
