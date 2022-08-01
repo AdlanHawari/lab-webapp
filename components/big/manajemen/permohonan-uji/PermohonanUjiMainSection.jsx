@@ -38,15 +38,29 @@ export default function PermohonanUjiMainSection() {
             <h2>Loading</h2>
         }
         {data &&
-            data.data.length>0 &&
+            data.data.length>0 ?
             // <PermohonanUjiFetcherProvider>
             <DetailUjiFetcherProvider>
               <PermohonanUjiTable data={data.data} mutate={mutate}/>
             </DetailUjiFetcherProvider>
+            :
+            !loading&&
+            <div className="relative w-full h-96 ">
+              <div className="absolute top-1/2 transform -translate-y-1/2 left-1/2 -translate-x-1/2">
+                  <h1>Belum ada data</h1>
+              </div>
+            </div>
             // </PermohonanUjiFetcherProvider>
         }
 
-        <Pagination/>
+        {data && 
+          data.data.length>0 ?
+          <Pagination/>
+          :
+          !loading&&
+          <></>
+        
+        }
     </div>
   )
 }

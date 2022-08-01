@@ -2,8 +2,10 @@ import QuickFilterSmaller from 'components/small/button_small/QuickFilterSmaller
 import Body1 from 'components/small/typography/Body1'
 import Body2 from 'components/small/typography/Body2'
 import React from 'react'
+import DateFormatter from 'utils/DateFormatter'
 
-export default function SectionSchedule() {
+export default function SectionSchedule({data}) {
+    const {readable} = DateFormatter()
   return (
     <div className="pt-4">
         <h3>
@@ -15,13 +17,18 @@ export default function SectionSchedule() {
                 Tanggal Uji
             </Body1>
             <Body2 className="text-black-500">
-                5 Juli 2021
+                {/* 5 Juli 2021 */}
+                {data.assignment_detail.tester.name ?
+                readable(data.assignment_detail.test_date)
+                :
+                "-"
+                }
             </Body2>
             <Body1 className="text-black-400">
                 Nama Penguji
             </Body1>
             <Body2 className="text-black-500">
-                M. Bernadi Luvian
+                {data.assignment_detail.tester.name}
             </Body2>
         
         
@@ -29,7 +36,8 @@ export default function SectionSchedule() {
                 Nomor Surat Tugas
             </Body1>
             <Body2 className="text-black-500">
-                081/ST/SIP/VI/2021
+            {data.assignment_detail.assignment_no}
+                {/* 081/ST/SIP/VI/2021 */}
             </Body2>
         
         
@@ -54,7 +62,8 @@ export default function SectionSchedule() {
                 Data X-Ray
             </Body1>
             <Body2 className="text-black-500">
-                X-Ray Stasioner 200 mA
+                {/* X-Ray Stasioner 200 mA */}
+                -
             </Body2>
 
             <Body1 className="text-black-400">

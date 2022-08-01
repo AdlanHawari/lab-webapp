@@ -7,6 +7,7 @@ import SectionFee from 'components/big/detail-section/SectionFee'
 import DetailModal from 'components/big/DetailModal'
 import FormModal from 'components/big/FormModal'
 import FormBuatPenawaranUji from 'components/big/manajemen/permohonan-uji/FormBuatPenawaranUji'
+import FormKonfirmPembayaranUji from 'components/big/manajemen/permohonan-uji/FormKonfirmPembayaranUji'
 import Button from 'components/small/button_fixed/Button'
 import ButtonSmall from 'components/small/button_small/ButtonSmall'
 import Table1 from 'components/small/typography/Table1'
@@ -15,6 +16,7 @@ import { permohonanUjiStatus } from 'constants/filter-status/ManajemenUjiStatus'
 import { form_buat_penawaran_uji_id } from 'constants/FormUtils'
 import { permohonanUjiTableHead } from 'constants/table/RowTitle'
 import { useManajemenPermohonanUjiContext } from 'hooks/context/permohonan-uji/PermohonanUjiContext'
+import { useDetailUji } from 'hooks/fetcher/detail-uji/useDetailUji'
 import { usePermohonanUjiManajemenFetcher } from 'hooks/fetcher/permohonan-uji/usePermohonanUjiFetcher'
 import usePermohonanUji from 'hooks/fetcher/usePermohonanUji'
 import {useEffect, useState} from 'react'
@@ -24,9 +26,16 @@ export default function PermohonanUjiTable({data, mutate}) {
     const [isDetailOpen, setIsDetailOpen] = useState(false)
     const dateFormatter = DateFormatter()
     const [dataSelected, setDataSelected] = useState({})
-    const {buatPenawaranPopUp, setBuatPenawaranPopUp} = useManajemenPermohonanUjiContext()
+    const {
+        buatPenawaranPopUp, 
+        setBuatPenawaranPopUp,
+        konfirmPembayaranPopUp, 
+        setKonfirmPembayaranPopUp
+    } = useManajemenPermohonanUjiContext()
     const [submitState, setSubmitState] = useState(false)
     const [reqSent, setreqSent] = useState(false);
+
+    const {confirmTestApp} = useDetailUji()
 
     // useEffect(() => {
     //   console.log("popUp changed")
@@ -46,6 +55,7 @@ export default function PermohonanUjiTable({data, mutate}) {
         if(reqSent){
           setSubmitState(false)
           setBuatPenawaranPopUp(false)
+          setKonfirmPembayaranPopUp(false)
           setreqSent(false)
           mutate()
         }
@@ -152,6 +162,7 @@ export default function PermohonanUjiTable({data, mutate}) {
                         Buat Penawaran
                     </Button>
                 :
+                dataSelected.status <4 &&
                     <Button 
                     buttonStyle="primary_default"
                     //  onClick={
@@ -162,6 +173,16 @@ export default function PermohonanUjiTable({data, mutate}) {
                     </Button>
                 
             }
+            {dataSelected.status == 4 &&
+                <Button 
+                buttonStyle="primary_default"
+                onClick={
+                    ()=> setKonfirmPembayaranPopUp(true)
+                }
+                >
+                    Konfirmasi Pembayaran
+                </Button>
+            }
           </>
           }
           >
@@ -171,7 +192,7 @@ export default function PermohonanUjiTable({data, mutate}) {
 
             {dataSelected.status>2 &&
                 <>
-                    <SectionFee cost_detail={dataSelected.cost_detail} current_status={dataSelected.status}/>
+                    <SectionFee data={dataSelected} cost_detail={dataSelected.cost_detail} current_status={dataSelected.status}/>
                 </>
             }
 
@@ -214,6 +235,42 @@ export default function PermohonanUjiTable({data, mutate}) {
                 />
 
             </FormModal>
+
+        }
+
+        {konfirmPembayaranPopUp &&
+        <FormModal
+            title="Konfirmasi Pembayaran"
+            bgColor="primary"
+            isOpen={konfirmPembayaranPopUp}
+            setIsOpen={setKonfirmPembayaranPopUp}
+            buttonSide={
+                <Button 
+                    className="bg-primary" 
+                    buttonStyle={submitState?"primary_disabled":"primary_default"}
+                    type="button" 
+                    disabled={submitState? true:false}
+                    onClick={async ()=> {
+                        setSubmitState(true)
+                        const resp = await confirmTestApp(dataSelected.id)
+                        if(resp.header.response_code == 200){
+                            setSubmitState(false)
+                            setreqSent(true)
+                        }
+                    }}
+                    >
+                    { submitState &&
+                        <FontAwesomeIcon icon={faSpinner} className="animate-spin"/>
+                    }
+                        Konfirmasi Pembayaran
+                </Button>
+            }
+        >
+            <FormKonfirmPembayaranUji
+                data={dataSelected}
+            />
+
+        </FormModal>
 
         }
     </>

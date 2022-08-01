@@ -5,17 +5,36 @@ import CaptionReg from 'components/small/typography/CaptionReg'
 import { userType } from 'constants/UserType'
 import useFee from 'hooks/fetcher/detail-uji/useFee'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import NumberFormat from 'react-number-format'
 import CalculatorPPN from 'utils/CalculatorPPN'
 import UrlSplitter from 'utils/UrlSplitter'
 import SectionPaymentProof from './SectionPaymentProof'
 import SectionPaymentStep from './SectionPaymentStep'
 
-export default function SectionFee({cost_detail, current_status}) {
+export default function SectionFee({data, cost_detail, current_status}) {
     const route = useRouter()
     const a = UrlSplitter(route.pathname)
     const role = a[1]
+    const [invoice, setInvoice] = useState({})
+
+    useEffect(() => {
+        if(data.documents.length>0){
+            
+            data.documents.map((item,index)=>{
+                if(item.type=="INVOICE"){
+                    setInvoice(item)
+                }
+            })
+        }
+    
+    })
+
+    useEffect(() => {
+      console.log(invoice)
+    }, [invoice])
+    
+    
     return (
     <div className="py-4">      
         <h3>
@@ -65,7 +84,7 @@ export default function SectionFee({cost_detail, current_status}) {
                 </Body3>
             }
             {current_status==4&&
-                <Body3 className="text-error">
+                <Body3 className="text-warning">
                     {role==userType.client &&
                         "Menunggu konfirmasi"
                     }
@@ -81,7 +100,7 @@ export default function SectionFee({cost_detail, current_status}) {
             <SectionPaymentStep/>
             {current_status==4 &&
 
-                <SectionPaymentProof/>
+                <SectionPaymentProof invoice={invoice}/>
             }
         </div>
     </div>

@@ -68,7 +68,7 @@ export default function FormPraUji({
 
     useEffect(async () => {
         if(inputForm){
-            if(data.documents[0].type == "NPWP" || data.documents[0].type == "INVOICE"){
+            if(data.documents.length>0 && data.documents[0].type == "NPWP" || data.documents.length>0 && data.documents[0].type == "INVOICE"){
                 const resStat = await confirmTestApp(data.id)
                 if(resStat.header.response_code==200){
                     setSubmitState(false)

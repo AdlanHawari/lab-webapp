@@ -192,8 +192,8 @@ export default function SmallCard({data, mutate}) {
 
                         <Button 
                         // buttonStyle="secondary_default"
-                        buttonStyle={data.documents && data.documents[0].type == "NPWP" || data.documents && data.documents[1].type == "NPWP"  ? "secondary_disabled" : "secondary_default"}
-                        disabled={data.documents && data.documents[0].type == "NPWP" || data.documents && data.documents[1].type == "NPWP"  ? true : false}
+                        buttonStyle={data.documents.length>0 && data.documents[0].type == "NPWP" || data.documents.length>0 && data.documents[1].type == "NPWP"  ? "secondary_disabled" : "secondary_default"}
+                        disabled={data.documents.length>0 && data.documents[0].type == "NPWP" || data.documents.length>0 && data.documents[1].type == "NPWP"  ? true : false}
                         onClick={()=>setUploadDokumenOpen(true)}
                         >
                             Upload Dokumen
@@ -212,12 +212,12 @@ export default function SmallCard({data, mutate}) {
                 {data.status>1 &&
                 <>
                     {data.status<5 &&
-                        <SectionFee cost_detail={data.cost_detail} current_status={data.status}/>
+                        <SectionFee data={data} cost_detail={data.cost_detail} current_status={data.status}/>
                     }
                     
                     {data.status>4 &&
 
-                        <SectionSchedule/>
+                        <SectionSchedule data={data}/>
                     }
                 </>
                 }

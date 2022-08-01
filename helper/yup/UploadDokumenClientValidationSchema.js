@@ -9,7 +9,7 @@ export default function UploadDokumenClientValidationSchema(yup){
             invoice: yup
                     .mixed()
                     .nullable()
-                    .required("Harap masukkan NPWP")
+                    .required("Harap masukkan bukti pembayaran")
         })
     )
 }
