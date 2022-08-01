@@ -21,7 +21,8 @@ export default function PermohonanUjiMainSection() {
           startDateFilter,
           endDateFilter,
           currentPage,
-          statusFilter
+          statusFilter,
+          "permohonan"
     
         )
 

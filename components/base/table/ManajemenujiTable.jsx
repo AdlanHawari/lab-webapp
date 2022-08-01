@@ -4,13 +4,41 @@ import Table1 from "components/small/typography/Table1";
 import Table2 from "components/small/typography/Table2";
 import { manajemenUjiTableHead } from "constants/table/RowTitle";
 import DetailUjiModalPersonel from "components/big/personel/DetailUjiModalPersonel";
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import DetailModal from "components/big/DetailModal";
 import { manajemenUjiStatus, permohonanUjiStatus } from "constants/filter-status/ManajemenUjiStatus";
+import { useManajemenUjiContext } from "hooks/context/manajemen-uji/ManajemenUjiContext";
+import { useDetailUji } from "hooks/fetcher/detail-uji/useDetailUji";
+import DateFormatter from "utils/DateFormatter";
+import Section1 from "components/big/detail-section/Section1";
+import Section2 from "components/big/detail-section/Section2";
+import SectionSchedule from "components/big/detail-section/SectionSchedule";
+import FormModal from "components/big/FormModal";
 
-export default function ManajemenujiTable({data}) {
+export default function ManajemenujiTable({data, mutate}) {
     const [isDetailOpen, setIsDetailOpen] = useState(false)
     const [selected, setSelected] = useState()
+    const [dataSelected, setDataSelected] = useState({})
+    const [submitState, setSubmitState] = useState(false)
+    const [reqSent, setreqSent] = useState(false);
+    const {confirmTestApp} = useDetailUji()
+    const {readable} = DateFormatter()
+    const {
+        pemilihanJadwalPopUp,
+        setPemilihanJadwalPopUp
+    } = useManajemenUjiContext()
+
+
+    useEffect(() => {
+        if(reqSent){
+            setPemilihanJadwalPopUp(false)
+            setreqSent(false)
+            mutate()
+        }
+      
+    
+    }, [reqSent])
+
   return (
       <>
     <table className="bg-primary-lighten10 min-w-full shadow-lg rounded-lg">
@@ -39,12 +67,12 @@ export default function ManajemenujiTable({data}) {
                 >
                      <td className="max-w-24 p-4">
                         <Table1 className="text-black-500 leading-normal">
-                            {item.nama_instansi}
+                            {item.user.institution.name}
                         </Table1>
                     </td>
                     <td className="max-w-24 p-4">
                         <Table1 className="text-black-500 leading-normal">
-                            {item.address_instansi}
+                        {item.user.institution.address}
                         </Table1>
                     </td>
                     <td className="max-w-24 p-4">
@@ -54,22 +82,22 @@ export default function ManajemenujiTable({data}) {
                     </td>
                     <td className="max-w-24 p-4">
                         <Table1 className="text-black-500 leading-normal">
-                            {item.jenis_uji}
+                            {item.test_type}
                         </Table1>
                     </td>
                     <td className="max-w-24 p-4">
                         <Table1 className="text-black-500 leading-normal">
-                            {item.status}
+                            {item.status_detail.management_value}
                         </Table1>
                     </td>
                     <td className="max-w-24 p-4">
                         <Table1 className="text-black-500 leading-normal">
-                            {item.test_date}
+                            {readable(item.assignment_detail.test_date)}
                         </Table1>
                     </td>
                     <td className="max-w-24 p-4">
                         <Table1 className="text-black-500 leading-normal">
-                            {item.nama_penguji}
+                            {item.assignment_detail.tester.name}
                         </Table1>
                     </td>
                     <td className="max-w-24 p-4">
@@ -99,7 +127,10 @@ export default function ManajemenujiTable({data}) {
                     </td>
                     <td className="">
                         <ButtonSmall
-                        // onClick={()=>setIsDetailOpen(true)}
+                        onClick={()=>{
+                            setIsDetailOpen(true)
+                            setDataSelected(item)
+                        }}
                         >
                             Lihat Detail
                         </ButtonSmall>
@@ -116,12 +147,154 @@ export default function ManajemenujiTable({data}) {
           title="Detail Uji" 
           isOpen={isDetailOpen} 
           setIsOpen={setIsDetailOpen}
-          status={permohonanUjiStatus}
-          current_status={2}
-        //   status={manajemenUjiStatus}
+          status={manajemenUjiStatus}
+          current_status={dataSelected.status}
+          data={dataSelected}
+          buttonSide={
+            <>
+            {dataSelected.status==5 &&
+                <Button
+                buttonStyle="primary_default"
+                onClick={
+                    ()=>{setPemilihanJadwalPopUp(true)}
+                }
+                >
+                    Pemilihan Jadwal &amp; Penguji
+                </Button>
+            }
+
+            {dataSelected.status>5 &&
+                <div className="block space-y-4">
+                    {dataSelected.status==6 &&
+                    <>
+                        <Button
+                        buttonStyle="primary_default"
+                        // onClick={}
+                        >
+                            Dokumen Penugasan
+                        </Button>
+                        <Button
+                        // buttonStyle="primary_default"
+                        className="bg-secondary text-white"
+                        // onClick={}
+                        >
+                            Ubah Jadwal &amp; Penguji
+                        </Button>
+                    </>
+                    }
+
+                    {dataSelected.status==7 &&
+                    <>
+                        <Button
+                            buttonStyle="primary_default"
+                        >
+                            Input Tanggal Registrasi Balis
+                        </Button>
+                        
+                        <Button
+                            buttonStyle="secondary_default"
+                        >
+                            Unduh Berita Acara Pekerjaan
+                        </Button>
+                    </>
+
+                    }
+
+                    {dataSelected.status == 8 &&
+                    <>
+                        <Button
+                        buttonStyle="primary_default"
+                        // onClick={}
+                        >
+                            Unduh Laporan Uji
+                        </Button>
+                        <Button
+                        // buttonStyle="primary_default"
+                        className="bg-secondary text-white"
+                        // onClick={}
+                        >
+                            Konfirmasi Laporan Uji
+                        </Button>
+                        <Button
+                            buttonStyle="secondary_default"
+                        >
+                            Ubah Laporan Uji
+                        </Button>
+                        <Button
+                            buttonStyle="secondary_default"
+                        >
+                            Unduh Berita Acara Pekerjaan
+                        </Button>
+                    </>
+                    }
+
+                    {dataSelected.status == 9 &&
+                    <>
+                        <Button
+                        buttonStyle="primary_default"
+                        // onClick={}
+                        >
+                            Isi No. Registrasi Bapeten
+                        </Button>
+                        <Button
+                        // buttonStyle="primary_default"
+                        className="bg-secondary text-white"
+                        // onClick={}
+                        >
+                            Edit Sertifikasi LUK
+                        </Button>
+                        <Button
+                            buttonStyle="primary_default"
+                        >
+                            Unduh Laporan Uji
+                        </Button>
+                        <Button
+                            buttonStyle="secondary_default"
+                        >
+                            Unduh Berita Acara Pekerjaan
+                        </Button>
+                    </>
+                    }
+                </div>
+
+            }
+
+            </>
+          }
           >
+            <Section1 data={dataSelected} />
+
+            <Section2 data={dataSelected}/>
+
+            <SectionSchedule data={dataSelected}/>
 
           </DetailModal>
+      }
+
+      {pemilihanJadwalPopUp && 
+      <FormModal
+        title="Pemilihan Jadwal &amp; Penguji"
+        bgColor="primary"
+        isOpen={pemilihanJadwalPopUp}
+        setIsOpen={setPemilihanJadwalPopUp}
+        buttonSide={<>
+         <Button 
+                className="bg-primary" 
+                buttonStyle={submitState?"primary_disabled":"primary_default"}
+                type="submit"                 
+                disabled={submitState? true:false}
+                // form={}
+                >
+                  { submitState &&
+                    <FontAwesomeIcon icon={faSpinner} className="animate-spin"/>
+                  }
+                  Konfirmasi Jadwal dan Personil
+                </Button>
+
+        </>}
+      >
+
+      </FormModal>
       }
 
       </>

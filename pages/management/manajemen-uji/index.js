@@ -13,6 +13,7 @@ import { manajemenUjiData } from 'constants/test_objects/manajemenUji';
 import { pengujiData } from 'constants/test_objects/penguji';
 import DateFilterUjiContextProvider from 'hooks/context/filter-date/DateFilterUjiContext';
 import StatusFilterContextProvider from 'hooks/context/filter-status/StatusContext';
+import ManajemenUjiContextProvider from 'hooks/context/manajemen-uji/ManajemenUjiContext';
 import PageContextProvider from 'hooks/context/pagination/PageContext';
 import { useTitleContext } from "hooks/TitleContext";
 import { useEffect, useState } from 'react';
@@ -28,32 +29,36 @@ export default function ManajemenManajemenUjiPage() {
   })
   return(
     
-    <StatusFilterContextProvider>
-
-    <PageContextProvider>
-
     
-      <DateFilterUjiContextProvider>
         <div className="flex flex-col divide-y divide-grey-200 space-y-5">
 
           {subTitle == subMenu.UJI ?
-            <>
-              <ManajemenUjiFilterSection/>
-              <ManajemenUjiMainSection/>
-            </>
+            <StatusFilterContextProvider>
+              <PageContextProvider>
+                <DateFilterUjiContextProvider>
+                  <ManajemenUjiFilterSection/>
+                  <ManajemenUjiContextProvider>
+                    <ManajemenUjiMainSection/>
+                  </ManajemenUjiContextProvider>
+                </DateFilterUjiContextProvider>
+              </PageContextProvider>
+            </StatusFilterContextProvider>
+            
             :
             subTitle == subMenu.PENGUJI &&
-            <>
-              <ManajemenPengujiFilterSection/>
-              <ManajemenPengujiMainSection/>
-            </>
+            <StatusFilterContextProvider>
+              <PageContextProvider>
+                <DateFilterUjiContextProvider>
+                  <ManajemenPengujiFilterSection/>
+                  <ManajemenPengujiMainSection/>
+                </DateFilterUjiContextProvider>
+              </PageContextProvider>
+            </StatusFilterContextProvider>
+            
 
           }
 
         </div>
-      </DateFilterUjiContextProvider>
-      </PageContextProvider>
-    </StatusFilterContextProvider>
     // <div className="block space-y-7">
 
     //   <div className="block space-y-6">

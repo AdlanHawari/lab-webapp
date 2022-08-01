@@ -47,16 +47,20 @@ export default function usePermohonanUji(
     start_date,
     end_date,
     page,
-    status_filter
+    status_filter,
+    dashboard
 
 ){
     if(!status_filter){
         status_filter=""
     }
+    if(!dashboard){
+        dashboard=""
+    }
     
     // const {data, mutate, error} = useSWR("/test-applications", getPermohonanUji)
     const {data, mutate, error} = useSWR(
-        `/test-applications?start_date=${start_date}&end_date=${end_date}&page=${page}&status=${status_filter}`, 
+        `/test-applications?start_date=${start_date}&end_date=${end_date}&page=${page}&status=${status_filter}&dashboard=${dashboard}`, 
         getPermohonanUji)
 
     const loading = !data && !error;
