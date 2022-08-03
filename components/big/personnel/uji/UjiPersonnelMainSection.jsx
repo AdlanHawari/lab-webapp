@@ -5,7 +5,8 @@ import React from 'react'
 export default function UjiPersonnelMainSection() {
   return (
     <div className="pt-5 space-y-5">
-        <ManajemenujiTable data={manajemenUjiData}/>
+
+        {/* <ManajemenujiTable data={manajemenUjiData}/> */}
     
     </div>
   )
