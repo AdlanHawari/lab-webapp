@@ -132,12 +132,81 @@ function useProvideDetailUjiFetcher(){
         }
     }
 
+    async function uploadDokumenPenugasan(formData, id){
+        var requestOptions = {
+            method: 'POST',
+            headers:{
+                'Authorization': `Bearer ${token}`
+            },
+            body: formData,
+            redirect: 'follow'
+        }
+
+        try{
+            const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/documents/${id}/assignment/upload`, requestOptions)
+
+            const res = await req.json()
+            return res
+        }
+        catch(e){
+            console.log("error",e)
+            return e
+        }
+    }
+    
+    async function laporAlatKeluar(formData, assignmentId){
+        var requestOptions = {
+            method: 'PUT',
+            headers:{
+                'Authorization': `Bearer ${token}`
+            },
+            body: formData,
+            redirect: 'follow'
+        }
+
+        try{
+            const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/assignments/${assignmentId}`, requestOptions)
+
+            const res = await req.json()
+            return res
+        }
+        catch(e){
+            console.log("error",e)
+            return e
+        }
+    }
+
+    async function updateTestApp(formData, id){
+        var requestOptions = {
+            method: 'PUT',
+            headers:{
+                'Authorization': `Bearer ${token}`
+            },
+            body: formData,
+            redirect: 'follow'
+        }
+
+        try{
+            const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/test-applications/${id}`, requestOptions)
+
+            const res = await req.json()
+            return res
+        }
+        catch(e){
+            console.log("error",e)
+            return e
+        }
+    }
+
 
     return{
         confirmTestApp,
         createPenawaranUji,
         inputFormPraUji,
         uploadDokumenPraUji,
-        createTestAssignment
+        createTestAssignment,
+        uploadDokumenPenugasan,
+        laporAlatKeluar,
+        updateTestApp
     }
 }

@@ -17,9 +17,10 @@ import FormModal from "components/big/FormModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import FormPemilihanJadwalPenguji from "components/big/manajemen/manajemen-uji/FormPemilihanJadwalPenguji";
-import { form_dokumen_penugasan_id, form_pemilihan_jadwal_penguji_id } from "constants/FormUtils";
+import { form_dokumen_penugasan_id, form_input_regis_balis, form_pemilihan_jadwal_penguji_id } from "constants/FormUtils";
 import { PersonnelProvider } from "hooks/fetcher/personnel/usePersonnelFetcher";
 import FormDokumenPenugasan from "components/big/manajemen/manajemen-uji/FormDokumenPenugasan";
+import FormInputTanggalRegisBalis from "components/big/manajemen/manajemen-uji/FormInputTanggalRegisBalis";
 
 export default function ManajemenujiTable({data, mutate}) {
     const [isDetailOpen, setIsDetailOpen] = useState(false)
@@ -33,7 +34,9 @@ export default function ManajemenujiTable({data, mutate}) {
         pemilihanJadwalPopUp,
         setPemilihanJadwalPopUp,
         dokumenPenugasanPopUp,
-        setDokumenPenugasanPopUp
+        setDokumenPenugasanPopUp,
+        tanggalRegisBalisPopUp,
+        setTanggalRegisBalisPopUp
     } = useManajemenUjiContext()
 
 
@@ -41,6 +44,7 @@ export default function ManajemenujiTable({data, mutate}) {
         if(reqSent){
             setPemilihanJadwalPopUp(false)
             setDokumenPenugasanPopUp(false)
+            setTanggalRegisBalisPopUp(false)
             setreqSent(false)
             mutate()
         }
@@ -198,6 +202,7 @@ export default function ManajemenujiTable({data, mutate}) {
                     <>
                         <Button
                             buttonStyle="primary_default"
+                            onClick={()=> setTanggalRegisBalisPopUp(true)}
                         >
                             Input Tanggal Registrasi Balis
                         </Button>
@@ -351,6 +356,36 @@ export default function ManajemenujiTable({data, mutate}) {
                 setreqSent={setreqSent}
             />
         
+        </FormModal>
+      }
+      {tanggalRegisBalisPopUp &&
+        <FormModal
+        title="Input Tanggal Registrasi Balis"
+        bgColor="primary"
+        isOpen={tanggalRegisBalisPopUp}
+        setIsOpen={setTanggalRegisBalisPopUp}
+        buttonSide={
+        <>
+            <Button 
+            className="bg-primary" 
+            buttonStyle={submitState?"primary_disabled":"primary_default"}
+            type="submit"                 
+            disabled={submitState? true:false}
+            form={form_input_regis_balis}
+            >
+                  { submitState &&
+                    <FontAwesomeIcon icon={faSpinner} className="animate-spin"/>
+                  }
+                  Konfirm Tanggal Registrasi
+            </Button>
+
+        </>
+        }
+        >
+            <FormInputTanggalRegisBalis
+            id={form_input_regis_balis}
+            />
+            
         </FormModal>
       }
 

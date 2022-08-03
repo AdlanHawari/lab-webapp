@@ -16,6 +16,7 @@ export default function DokumenPenugasanValidationSchema(yup) {
             .nullable()
             .required("Harap masukkan NPWP")
             ,
+        
     })
     
   )
