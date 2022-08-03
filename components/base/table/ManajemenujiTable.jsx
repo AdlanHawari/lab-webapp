@@ -14,6 +14,12 @@ import Section1 from "components/big/detail-section/Section1";
 import Section2 from "components/big/detail-section/Section2";
 import SectionSchedule from "components/big/detail-section/SectionSchedule";
 import FormModal from "components/big/FormModal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import FormPemilihanJadwalPenguji from "components/big/manajemen/manajemen-uji/FormPemilihanJadwalPenguji";
+import { form_dokumen_penugasan_id, form_pemilihan_jadwal_penguji_id } from "constants/FormUtils";
+import { PersonnelProvider } from "hooks/fetcher/personnel/usePersonnelFetcher";
+import FormDokumenPenugasan from "components/big/manajemen/manajemen-uji/FormDokumenPenugasan";
 
 export default function ManajemenujiTable({data, mutate}) {
     const [isDetailOpen, setIsDetailOpen] = useState(false)
@@ -25,13 +31,16 @@ export default function ManajemenujiTable({data, mutate}) {
     const {readable} = DateFormatter()
     const {
         pemilihanJadwalPopUp,
-        setPemilihanJadwalPopUp
+        setPemilihanJadwalPopUp,
+        dokumenPenugasanPopUp,
+        setDokumenPenugasanPopUp
     } = useManajemenUjiContext()
 
 
     useEffect(() => {
         if(reqSent){
             setPemilihanJadwalPopUp(false)
+            setDokumenPenugasanPopUp(false)
             setreqSent(false)
             mutate()
         }
@@ -92,7 +101,9 @@ export default function ManajemenujiTable({data, mutate}) {
                     </td>
                     <td className="max-w-24 p-4">
                         <Table1 className="text-black-500 leading-normal">
-                            {readable(item.assignment_detail.test_date)}
+                        {item.assignment_detail.tester.name &&
+                            readable(item.assignment_detail.test_date)
+                        }
                         </Table1>
                     </td>
                     <td className="max-w-24 p-4">
@@ -169,7 +180,7 @@ export default function ManajemenujiTable({data, mutate}) {
                     <>
                         <Button
                         buttonStyle="primary_default"
-                        // onClick={}
+                        onClick={()=> setDokumenPenugasanPopUp(true)}
                         >
                             Dokumen Penugasan
                         </Button>
@@ -283,7 +294,7 @@ export default function ManajemenujiTable({data, mutate}) {
                 buttonStyle={submitState?"primary_disabled":"primary_default"}
                 type="submit"                 
                 disabled={submitState? true:false}
-                // form={}
+                form={form_pemilihan_jadwal_penguji_id}
                 >
                   { submitState &&
                     <FontAwesomeIcon icon={faSpinner} className="animate-spin"/>
@@ -293,8 +304,54 @@ export default function ManajemenujiTable({data, mutate}) {
 
         </>}
       >
-
+        <PersonnelProvider>
+            <FormPemilihanJadwalPenguji
+            id={form_pemilihan_jadwal_penguji_id}
+            data={dataSelected}
+            submitState={submitState}
+            setSubmitState={setSubmitState}
+            reqSent={reqSent}
+            setreqSent={setreqSent}
+            />
+        </PersonnelProvider>
       </FormModal>
+      }
+
+      {dokumenPenugasanPopUp &&
+        <FormModal  
+        title="Dokumen Penugasan"
+        bgColor="primary"
+        isOpen={dokumenPenugasanPopUp}
+        setIsOpen={setDokumenPenugasanPopUp}
+        buttonSide={
+        <>
+            <Button 
+            className="bg-primary" 
+            buttonStyle={submitState?"primary_disabled":"primary_default"}
+            type="submit"                 
+            disabled={submitState? true:false}
+            form={form_dokumen_penugasan_id}
+            >
+                  { submitState &&
+                    <FontAwesomeIcon icon={faSpinner} className="animate-spin"/>
+                  }
+                  Konfirmasi Jadwal dan Personil
+            </Button>
+        
+
+        </>
+        }
+        >
+            <FormDokumenPenugasan
+                id={form_dokumen_penugasan_id}
+                data={dataSelected}
+                submitState={submitState}
+                setSubmitState={setSubmitState}
+                reqSent={reqSent}
+                setreqSent={setreqSent}
+            />
+        
+        </FormModal>
       }
 
       </>

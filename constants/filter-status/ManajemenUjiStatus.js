@@ -68,4 +68,28 @@ export const manajemenPengujiStatus= [
     "Submit Balis & Cetak Sertifikat",
     "Selesai",
     "Batal"
+    // {
+    //     title:"Semua",
+    //     status:null
+    // },
+    // {
+    //     title:"Menunggu Penawaran",
+    //     status:1
+    // },
+    // {
+    //     title:"Penawaran Dikirimkan",
+    //     status:2
+    // },
+    // {
+    //     title:"Menunggu Pembayaran",
+    //     status:3
+    // },
+    // {
+    //     title:"Konfirmasi Pembayaran",
+    //     status:4
+    // },
+    // {
+    //     title:"Batal",
+    //     status:99
+    // }
 ]

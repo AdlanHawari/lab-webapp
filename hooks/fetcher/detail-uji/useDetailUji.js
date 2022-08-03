@@ -110,11 +110,34 @@ function useProvideDetailUjiFetcher(){
         }
     }
 
+    async function createTestAssignment(formData, id){
+        var requestOptions = {
+            method: 'POST',
+            headers:{
+                'Authorization': `Bearer ${token}`
+            },
+            body: formData,
+            redirect: 'follow'
+        }
+
+        try{
+            const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/assignments`, requestOptions)
+
+            const res = await req.json()
+            return res
+        }
+        catch(e){
+            console.log("error",e)
+            return e
+        }
+    }
+
 
     return{
         confirmTestApp,
         createPenawaranUji,
         inputFormPraUji,
-        uploadDokumenPraUji
+        uploadDokumenPraUji,
+        createTestAssignment
     }
 }

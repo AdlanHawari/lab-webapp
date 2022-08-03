@@ -26,7 +26,7 @@ export default function FormBuatPenawaranUji({
 }) {
 
   const fetcher = useDetailUji()
-  const {buatPenawaranPopUp, setBuatPenawaranPopUp} = useManajemenPermohonanUjiContext()
+  // const {buatPenawaranPopUp, setBuatPenawaranPopUp} = useManajemenPermohonanUjiContext()
   // const [ppnCost, setPpnCost] = useState(null)
   // const [totalCost, setTotalCost] = useState(null)
   const [update, setUpdate] = useState(false)

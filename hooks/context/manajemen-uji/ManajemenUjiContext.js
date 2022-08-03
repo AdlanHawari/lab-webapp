@@ -5,15 +5,20 @@ const manajemenUjiContext = createContext()
 export default function ManajemenUjiContextProvider({children}){
 
     const [pemilihanJadwalPopUp, setPemilihanJadwalPopUp] = useState(false)
+    const [dokumenPenugasanPopUp, setDokumenPenugasanPopUp] = useState(false)
 
     const contextValue = useMemo(() => {
         return {
             pemilihanJadwalPopUp, 
-            setPemilihanJadwalPopUp
+            setPemilihanJadwalPopUp,
+            dokumenPenugasanPopUp,
+            setDokumenPenugasanPopUp
         }
     }, [
         pemilihanJadwalPopUp,
-        setPemilihanJadwalPopUp
+        setPemilihanJadwalPopUp,
+        dokumenPenugasanPopUp,
+        setDokumenPenugasanPopUp
     ])
 
     return(

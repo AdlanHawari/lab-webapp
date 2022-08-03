@@ -61,7 +61,7 @@ import { Fragment, useState, useEffect } from "react";
         <div className="relative">
           <div className="relative w-full text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-primary focus-visible:ring-offset-2 sm:text-sm overflow-hidden">
               <Combobox.Input
-              className="w-full border-none focus:ring-0 py-2 pl-3 pr-10 text-sm leading-5 text-gray-900"
+              className="w-full border-none focus:ring-0 py-2 pl-3 pr-10 text-sm leading-5 text-grey-900"
               // displayValue={(item) => item}
                 
               id={id}

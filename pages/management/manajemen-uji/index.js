@@ -46,14 +46,14 @@ export default function ManajemenManajemenUjiPage() {
             
             :
             subTitle == subMenu.PENGUJI &&
-            <StatusFilterContextProvider>
+            // <StatusFilterContextProvider>
               <PageContextProvider>
                 <DateFilterUjiContextProvider>
                   <ManajemenPengujiFilterSection/>
                   <ManajemenPengujiMainSection/>
                 </DateFilterUjiContextProvider>
               </PageContextProvider>
-            </StatusFilterContextProvider>
+            // </StatusFilterContextProvider>
             
 
           }
