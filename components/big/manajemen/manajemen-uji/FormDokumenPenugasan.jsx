@@ -6,14 +6,26 @@ import ValidationMessage from 'components/small/validation_form/ValidationMessag
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import { dokumenPenugasanInitValues } from 'helper/initial-formik-values/DokumenPenugasanInitValues'
 import DokumenPenugasanValidationSchema from 'helper/yup/DokumenPenugasanValidationSchema'
-import React from 'react'
+import { useDetailUji } from 'hooks/fetcher/detail-uji/useDetailUji'
+import React, { useState } from 'react'
+import handleFormData from 'utils/HandleFormData'
 import ObjectReducer from 'utils/ObjectReducer'
 import * as Yup from 'yup'
 
 export default function FormDokumenPenugasan({
     id,
-    data
+    data,
+    submitState,
+    setSubmitState,
+    reqSent,
+    setreqSent,
 }) {
+
+    const { uploadDokumenPenugasan, laporAlatKeluar, confirmTestApp } = useDetailUji()
+
+    const [upload, setUpload] = useState(false)
+    const [updateAlat, setUpdateAlat] = useState(false)
+
   return (
     <Formik
     initialValues={dokumenPenugasanInitValues}
@@ -25,9 +37,24 @@ export default function FormDokumenPenugasan({
             tools_brought: values.tools_brought
         }
 
-        const uploadValues = ObjectReducer(values,tools_brought)
+        const uploadValues = ObjectReducer(values,"tools_brought")
         console.log("form1", uploadValues)
+        console.log("assId", data.assignment_id)
         console.log("form2", alatKeluarValues)
+
+        let uploadFormData = handleFormData(uploadValues)
+        let alatKeluarFormData = handleFormData(alatKeluarValues)
+
+        async function fetchData(){
+            const responseUpload = await uploadDokumenPenugasan(uploadFormData, data.id)
+            const responseAlatKeluar = await laporAlatKeluar(alatKeluarFormData, data.assignment_id)
+
+            console.log("responseUpload", responseUpload)
+            console.log("responseAlatKeluar", responseAlatKeluar)
+        } 
+
+        fetchData()
+
     }
     }>
         {formik => {

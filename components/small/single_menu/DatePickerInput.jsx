@@ -51,7 +51,7 @@ export default function DatePickerInput({
     onClickOutside={()=>setOpen(false)}
     nextMonthButtonLabel=">"
     previousMonthButtonLabel="<"
-    popperClassName="react-datepicker-left"
+    popperClassName="react-datepicker-right"
     customInput={
     <DateInput
         open={open}
@@ -107,8 +107,8 @@ export default function DatePickerInput({
       {/* <div className=" mx-auto w-1/2 py-4"> */}
       <div className=" mx-auto w-full py-4">
             <Button 
-            buttonStyle="primary_default" 
-            className="bg-error py-1"
+            // buttonStyle="primary_default" 
+            className="bg-error py-3 text-white"
             onClick={() => {
                 // setStartDate(null)
                 // setDateRange([null,null])
@@ -125,9 +125,9 @@ export default function DatePickerInput({
 }
 
 const DateInput = forwardRef(({
-    open, 
+    
     setOpen, 
-    placeholder, 
+    
     selectedDate,
     dateFormatter},
     { value, onClick }, ref) => (
