@@ -2,13 +2,14 @@ import useSWR from "swr";
 import { useManajemenUserFetcherContext } from "./useManajemenUserFetcher";
 
 export default function useGetUsers(
-    page
+    page,
+    role_id
 ){
     
     const managementUserFetcher = useManajemenUserFetcherContext()
 
     const {data,error,mutate} = useSWR(
-        `/users?page=${page}`,
+        `/users?role_id=${role_id}&page=${page}`,
         managementUserFetcher.getUsers
     )
     console.log("datanya", data)

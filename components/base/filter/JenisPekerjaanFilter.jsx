@@ -43,8 +43,10 @@ export default function JenisPekerjaanFilter() {
             }>
                 <div className="relative">
                     <div 
-                    className=" relative justify-start w-72 text-sm font-medium text-grey-700 bg-white border border-grey-300 rounded-xl shadow-sm  ">
-                    {/* className="relative w-full text-left bg-white font-medium rounded-xl shadow-sm cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-primary focus-visible:ring-offset-2 text-sm overflow-hidden"> */}
+                    
+                    className=" relative justify-start w-full text-sm font-medium text-grey-700 bg-white border border-grey-300 rounded-xl shadow-sm  "
+                    // className="relative w-full text-left bg-white font-medium rounded-xl shadow-sm cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-primary focus-visible:ring-offset-2 text-sm overflow-hidden"
+                    >
                         <Combobox.Input
                         className=" inline-flex w-full px-3 py-2 text-sm font-medium text-grey-700 rounded-xl hover:bg-grey-50 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-secondary"
                             // className="w-full border-none focus:ring-0 rounded-xl py-2 pl-3 pr-10 text-sm leading-5 text-grey-700"

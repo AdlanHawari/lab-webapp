@@ -4,18 +4,52 @@ import ValidationMessage from 'components/small/validation_form/ValidationMessag
 import { ErrorMessage, Form, Formik } from 'formik'
 import { inputTanggalRegisBalisInitValues } from 'helper/initial-formik-values/InputTanggalRegisBalisInitValues'
 import InputTanggalRegisBalisValidationSchema from 'helper/yup/InputTanggalRegisBalisValidationSchema'
-import React from 'react'
+import { useDetailUji } from 'hooks/fetcher/detail-uji/useDetailUji'
+import React, { useEffect, useState } from 'react'
+import handleFormData from 'utils/HandleFormData'
 import * as Yup from 'yup'
 
 export default function FormInputTanggalRegisBalis({
-    id
+    id,
+    data,
+    submitState,
+    setSubmitState,
+    reqSent,
+    setreqSent,
 }) {
+    const {updateTestApp, confirmTestApp} = useDetailUji()
+    const [update, setUpdate] = useState(false)
+    const [storeData, setStoreData] = useState(false)
+
+    useEffect(() => {
+      if(storeData && update){
+        setreqSent(true)
+      }
+    
+    }, [storeData, update])
+    
+
   return (
     <Formik
     initialValues={inputTanggalRegisBalisInitValues}
     validationSchema={InputTanggalRegisBalisValidationSchema(Yup)}
     onSubmit={(values)=> {
         console.log(values)
+        console.log(data.id)
+
+        let formData = handleFormData(values)
+
+        async function fetchData(){
+            const response = await updateTestApp(formData, data.id)
+            // const resStat = await fetcher.confirmTestApp(data.id)
+            console.log("respons", response)
+            if(response.header.response_code == 200){
+                setStoreData(true)
+            }
+            // if(response.header.response_code == )
+
+        }
+        fetchData()
     }}
     >{formik => {
         return <Form id={id}>

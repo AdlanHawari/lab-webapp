@@ -28,7 +28,7 @@ export default function SummaryFilterSection() {
             <DateFilter/>
           </div>
 
-          <div className='w-72'>
+          <div className='w-64'>
 
             {loading&&
              <p>loading...</p>
@@ -49,7 +49,7 @@ export default function SummaryFilterSection() {
             placeholder="Nama PT"/>
           </div> */}
 
-          <div className='w-72'>
+          <div className='w-64'>
             <JenisPekerjaanFilter/>
           </div>
 

@@ -1,5 +1,6 @@
 import { PlusIcon, UsersIcon } from '@heroicons/react/solid'
 import DateFilter from 'components/base/filter/DateFilter'
+import RoleFilter from 'components/base/filter/RoleFilter'
 import UserRoleDropDown from 'components/small/single_menu/UserRoleDropDown'
 import { useManajemenUserContext } from 'hooks/context/manajemen-user/ManajemenUserContext'
 import React from 'react'
@@ -10,8 +11,9 @@ export default function ManajemenUserFilterSection() {
   return (
     <div className="flex justify-between items-center">
         <div className="w-72">
+          <RoleFilter/>
           {/* <DateFilter/> */}
-          <UserRoleDropDown/>
+          {/* <UserRoleDropDown/> */}
         </div>
 
         <div className="flex space-x-4">

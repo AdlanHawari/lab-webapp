@@ -21,6 +21,7 @@ import { form_dokumen_penugasan_id, form_input_regis_balis, form_pemilihan_jadwa
 import { PersonnelProvider } from "hooks/fetcher/personnel/usePersonnelFetcher";
 import FormDokumenPenugasan from "components/big/manajemen/manajemen-uji/FormDokumenPenugasan";
 import FormInputTanggalRegisBalis from "components/big/manajemen/manajemen-uji/FormInputTanggalRegisBalis";
+import SectionFee from "components/big/detail-section/SectionFee";
 
 export default function ManajemenujiTable({data, mutate}) {
     const [isDetailOpen, setIsDetailOpen] = useState(false)
@@ -284,6 +285,8 @@ export default function ManajemenujiTable({data, mutate}) {
 
             <SectionSchedule data={dataSelected}/>
 
+            <SectionFee data={dataSelected} cost_detail={dataSelected.cost_detail} current_status={dataSelected.status}/>
+
           </DetailModal>
       }
 
@@ -384,6 +387,11 @@ export default function ManajemenujiTable({data, mutate}) {
         >
             <FormInputTanggalRegisBalis
             id={form_input_regis_balis}
+            data={dataSelected}
+            submitState={submitState}
+            setSubmitState={setSubmitState}
+            reqSent={reqSent}
+            setreqSent={setreqSent}
             />
             
         </FormModal>

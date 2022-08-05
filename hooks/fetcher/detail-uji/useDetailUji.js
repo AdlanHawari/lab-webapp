@@ -187,7 +187,7 @@ function useProvideDetailUjiFetcher(){
         }
 
         try{
-            const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/test-applications/${id}`, requestOptions)
+            const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/test-applications/id/${id}`, requestOptions)
 
             const res = await req.json()
             return res

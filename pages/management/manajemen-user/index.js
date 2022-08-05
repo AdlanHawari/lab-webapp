@@ -13,8 +13,10 @@ import Button from 'components/small/button_fixed/Button';
 import Body1 from 'components/small/typography/Body1';
 import { form_create_user_id } from 'constants/FormUtils';
 import { users } from 'constants/test_objects/users';
+import RoleFilterContextProvider from 'hooks/context/filter-role/RoleFilter';
 import ManajemenUserContextProvider from 'hooks/context/manajemen-user/ManajemenUserContext';
 import PageContextProvider from 'hooks/context/pagination/PageContext';
+import { SummaryProvider } from 'hooks/fetcher/management-summary/useSummaryFetcher';
 import { ManajemenUserFetcherProvider } from 'hooks/fetcher/management-user/useManajemenUserFetcher';
 import { useTitleContext } from "hooks/TitleContext";
 import { useEffect,useState } from 'react';
@@ -32,14 +34,18 @@ export default function ManajemenManajemenUserPage() {
 
   return(
   <PageContextProvider>
-    <ManajemenUserContextProvider>
-      <ManajemenUserFetcherProvider>
-        <div className="block space-y-7">
-          <ManajemenUserFilterSection/>
-          <ManajemenUserMainSection/>
-      </div>
-      </ManajemenUserFetcherProvider>
-    </ManajemenUserContextProvider>
+    <RoleFilterContextProvider>
+      <ManajemenUserContextProvider>
+        <ManajemenUserFetcherProvider>
+          <div className="block space-y-7">
+            <ManajemenUserFilterSection/>
+            <SummaryProvider>
+              <ManajemenUserMainSection/>
+            </SummaryProvider>
+        </div>
+        </ManajemenUserFetcherProvider>
+      </ManajemenUserContextProvider>
+    </RoleFilterContextProvider>
   </PageContextProvider>
   )
 }
