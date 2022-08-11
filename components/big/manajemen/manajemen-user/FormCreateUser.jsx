@@ -12,9 +12,13 @@ import CreateUserValidationSchema from "helper/yup/CreateUserValidationSchema";
 import CaptionReg from "components/small/typography/CaptionReg";
 import Body2 from "components/small/typography/Body2";
 import Button from "components/small/button_fixed/Button";
-import CreateInstitutionForm from "./manajemen-user/CreateInstitutionForm";
+
 import UserRoleDropDown from "components/small/single_menu/UserRoleDropDown";
 import InstansiDropDown from "components/small/single_menu/InstansiDropDown";
+import { form_create_institution_id } from "constants/FormUtils";
+import CreateInstValidationSchema from "helper/yup/CreateInstValidationSchema";
+import { createInstInitValues } from "helper/initial-formik-values/CrateInstFormInitValues";
+import CreateInstitutionForm from "./CreateInstitutionForm";
 
 export default function FormCreateUser({
     id,
@@ -22,12 +26,21 @@ export default function FormCreateUser({
 }) {
     const [test_typeSelected, setTest_TypeSelected] = useState()
     const [typeSelected, setTypeSelected] = useState()
+    const [createInstForm, setCreateInstForm ] = useState(false)
+    
+
+    useEffect(() => {
+      console.log("state", createInstForm)
+    
+    }, [createInstForm])
     
     
     return (
     <Formik
     
-    initialValues= {createUserInitValues}
+    // initialValues= {!createInstForm ? createUserInitValues : createInstInitValues}
+    // validationSchema={!createInstForm ? CreateUserValidationSchema(Yup) : CreateInstValidationSchema(Yup)}
+    initialValues= {createUserInitValues }
     validationSchema={CreateUserValidationSchema(Yup)}
     onSubmit={ (values) => {
         console.log(values);
@@ -61,6 +74,11 @@ export default function FormCreateUser({
                     </Body1>
                     {/* <CustomComboBox itemLists={jenisAlatUkes}/> */}
                     <div className="block">
+                        {/* <button type="button" className="bg-secondary-darker10"
+                        onClick={()=>setCreateInstForm(!createInstForm)}
+                        >
+                            state change
+                        </button> */}
                         <UserRoleDropDown
                         formikName="role_id"
                         setFormikValue={formik.setFieldValue}
@@ -89,13 +107,27 @@ export default function FormCreateUser({
                         itemLists={institutionList}
                         formikName="institution_id"
                         setFormikValue={formik.setFieldValue}
+                        bottomButton={
+                            <Button
+                            type="button"
+                            buttonStyle="secondary_default"
+                            onClick={()=> setCreateInstForm(true)}
+                            >
+                                Buat Instansi Baru
+                            </Button>
+                        }
                         />
                         
                     </div>
                     
                 </div>
 
-                <CreateInstitutionForm/>
+                {/* {createInstForm && 
+                    <CreateInstitutionForm
+                        id={form_create_institution_id}
+                    />
+                } */}
+
                 <div className="grid grid-cols-2 gap-y-3 py-3">
 
 
@@ -121,12 +153,12 @@ export default function FormCreateUser({
                     <div className="block">
                         <Field
                             className="placeholder:text-grey-500 form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300"
-                            id="phone_number"
-                            name="phone_number"
+                            id="phone"
+                            name="phone"
                             type="number"
                             placeholder="Isi Nomor Handphone"
                             />
-                        <ErrorMessage name="phone_number" component={ValidationMessage}/>
+                        <ErrorMessage name="phone" component={ValidationMessage}/>
                     </div>
                 
                 

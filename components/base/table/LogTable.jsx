@@ -65,10 +65,12 @@ export default function LogTable({data}) {
                         </Table1>
                     </td>
                     <td className="w-48 py-2 px-4">
-                        <Table1 className="leading-4 text-black-500">
-                            {/* {item.message} */}
-                            {item.test_application.tools[0].name}
-                        </Table1>
+                        {item.test_application.tools&&
+                            <Table1 className="leading-4 text-black-500">
+                                
+                                {item.test_application.tools[0].name}
+                            </Table1>
+                        }
                     </td>
                     <td scope="col" className="" >
                         <div className="flex items-center justify-center">

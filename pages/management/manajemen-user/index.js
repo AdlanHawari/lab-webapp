@@ -4,7 +4,6 @@ import BaseLayout from 'components/base/BaseLayout';
 import DateFilter from 'components/base/filter/DateFilter';
 import UserTable from 'components/base/table/UserTable';
 import FormModal from 'components/big/FormModal';
-import FormCreateUser from 'components/big/manajemen/FormCreateUser';
 import ManajemenUserFilterSection from 'components/big/manajemen/manajemen-user/ManajemenUserFilterSection';
 import ManajemenUserMainSection from 'components/big/manajemen/manajemen-user/ManajemenUserMainSection';
 

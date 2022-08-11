@@ -43,6 +43,7 @@ export default function ManajemenujiTable({data, mutate}) {
 
     useEffect(() => {
         if(reqSent){
+            setSubmitState(false)
             setPemilihanJadwalPopUp(false)
             setDokumenPenugasanPopUp(false)
             setTanggalRegisBalisPopUp(false)

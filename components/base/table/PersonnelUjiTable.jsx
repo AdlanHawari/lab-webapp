@@ -1,9 +1,57 @@
+import classNames from 'classnames'
+import DetailModal from 'components/big/DetailModal'
+import ButtonSmall from 'components/small/button_small/ButtonSmall'
+import Table1 from 'components/small/typography/Table1'
 import Table2 from 'components/small/typography/Table2'
 import { manajemenUjiTableHead } from 'constants/table/RowTitle'
-import React from 'react'
+import { personelUjiStatus } from 'constants/filter-status/PersonelUjiStatus'
+import React, { useEffect, useState } from 'react'
+import DateFormatter from 'utils/DateFormatter'
+import Button from 'components/small/button_fixed/Button'
+import Section1 from 'components/big/detail-section/Section1'
+import Section2 from 'components/big/detail-section/Section2'
+import SectionSchedule from 'components/big/detail-section/SectionSchedule'
+import SectionFee from 'components/big/detail-section/SectionFee'
+import { usePersonnelUjiContext } from 'hooks/context/personnel-uji/PersonnelUjiContext'
+import FormModal from 'components/big/FormModal'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { form_bap_id, form_laporan_hasil_uji_id } from 'constants/FormUtils'
+import FormBeritaAcaraPekerjaan from 'components/big/personnel/uji/FormBeritaAcaraPekerjaan'
+import FormLaporanHasilUji from 'components/big/personnel/uji/FormLaporanHasilUji'
 
-export default function PersonnelUjiTable() {
-  
+export default function PersonnelUjiTable({data, mutate}) {
+    const [isDetailOpen, setIsDetailOpen] = useState(false)
+  const [selected, setSelected] = useState()
+  const [dataSelected, setDataSelected] = useState({})
+  const {readable} = DateFormatter()
+  const [submitState, setSubmitState] = useState(false)
+    const [reqSent, setreqSent] = useState(false);
+
+  const {
+    beritaAcaraPopUp, 
+    setBeritaAcaraPopUp,
+    laporanUjiPopUp, 
+    setLaporanUjiPopUp,
+    konfirmlaporanUjiPopUp, 
+    setKonfirmLaporanUjiPopUp
+    } = usePersonnelUjiContext()
+
+    useEffect(() => {
+        if(reqSent){
+            setSubmitState(false)
+            setBeritaAcaraPopUp(false)
+            setLaporanUjiPopUp(false)
+            setKonfirmLaporanUjiPopUp(false)
+            setreqSent(false)
+            mutate()
+        }
+      
+    
+    }, [reqSent])
+    
+
+
   return (
     <>
     <table className="bg-primary-lighten10 min-w-full shadow-lg rounded-lg">
@@ -24,9 +72,236 @@ export default function PersonnelUjiTable() {
 
       </thead>
       <tbody className="bg-white divide-y divide-table-divider">
-
+        {data.map((item,index)=>(
+          <tr key={index} className={classNames(
+            selected == index &&
+            "bg-warning-light"
+          )
+        }
+        onClick={()=>setSelected(index)}
+        >
+          <td className="max-w-24 p-4">
+              <Table1 className="text-black-500 leading-normal">
+                  {item.user.institution.name}
+              </Table1>
+          </td>
+          <td className="max-w-24 p-4">
+              <Table1 className="text-black-500 leading-normal">
+              {item.user.institution.address}
+              </Table1>
+          </td>
+          <td className="max-w-24 p-4">
+              <Table1 className="text-black-500 leading-normal">
+                  {item.xray_data}
+              </Table1>
+          </td>
+          <td className="max-w-24 p-4">
+              <Table1 className="text-black-500 leading-normal">
+                  {item.test_type}
+              </Table1>
+          </td>
+          <td className="max-w-24 p-4">
+              <Table1 className="text-black-500 leading-normal">
+                  {item.status_detail.management_value}
+              </Table1>
+          </td>
+          <td className="max-w-24 p-4">
+              <Table1 className="text-black-500 leading-normal">
+              {item.assignment_detail.tester.name &&
+                  readable(item.assignment_detail.test_date)
+              }
+              </Table1>
+          </td>
+          <td className="max-w-24 p-4">
+              <Table1 className="text-black-500 leading-normal">
+                  {item.assignment_detail.tester.name}
+              </Table1>
+          </td>
+          <td className="max-w-24 p-4">
+              <Table1 className="text-black-500 leading-normal">
+                  {item.alat_keluar}
+              </Table1>
+          </td>
+          <td className="max-w-24 p-4">
+              <Table1 className="text-black-500 leading-normal">
+                  {item.h_minus}
+              </Table1>
+          </td>
+          <td className="max-w-24 p-4">
+              <Table1 className="text-black-500 leading-normal">
+                  {item.last_submit}
+              </Table1>
+          </td>
+          <td className="max-w-24 p-4">
+              <Table1 className="text-black-500 leading-normal">
+                  {item.keterangan}
+              </Table1>
+          </td>
+          <td className="max-w-24 p-4">
+              <Table1 className="text-black-500 leading-normal">
+                  {item.regist_date}
+              </Table1>
+          </td>
+          <td className="">
+              <ButtonSmall
+              onClick={()=>{
+                  setIsDetailOpen(true)
+                  setDataSelected(item)
+              }}
+              >
+                  Lihat Detail
+              </ButtonSmall>
+          </td>
+        </tr>
+      ))}
       </tbody>
     </table>
+
+
+    {isDetailOpen && 
+
+    <DetailModal
+        title="Detail Uji"
+        isOpen={isDetailOpen} 
+        setIsOpen={setIsDetailOpen}
+        status={personelUjiStatus}
+        current_status={dataSelected.status}
+        data={dataSelected}
+        buttonSide={
+            <>
+            {dataSelected.status == 6 &&
+            <div className="block space-y-4">
+                <Button
+                buttonStyle="primary_default"
+                >
+                    Unduh Dokumen Penugasan
+                </Button>
+
+                <Button
+                className="bg-secondary text-white"
+                onClick={()=> setBeritaAcaraPopUp(true)}
+                >
+                    Isi Berita Acara Pekerjaan
+                </Button>
+
+            </div>
+
+            }
+
+            {dataSelected.status == 7 && 
+            <Button
+            buttonStyle="primary_default"
+            onClick={()=> setLaporanUjiPopUp(true)}>
+                Isi Laporan Hasil Uji
+            </Button>
+
+            }
+
+            {dataSelected.status>7 && dataSelected.status <50 && 
+            <div className="block space-y-4">
+                <Button
+                buttonStyle="primary_default"
+                >
+                    Unduh Laporan Uji
+                </Button>
+                
+                {dataSelected.status<10 &&
+                <Button
+                className="bg-secondary text-white"
+                >
+                    Ubah Laporan Uji
+                </Button>
+                }
+
+                {dataSelected.status == 8 &&
+                <Button
+                className="bg-secondary text-white"
+                >
+                    Konfirmasi Laporan Uji
+                </Button>
+                }
+
+            </div>
+            }
+            </>
+        }
+    >
+
+        <Section1 data={dataSelected} />
+
+        <Section2 data={dataSelected}/>
+
+        <SectionSchedule data={dataSelected}/>
+        
+        {/* <SectionFee data={dataSelected} cost_detail={dataSelected.cost_detail} current_status={dataSelected.status}/> */}
+
+    </DetailModal>
+
+    }
+
+    {beritaAcaraPopUp && 
+    <FormModal
+    title="Berita Acara Pekerjaan"
+    bgColor="primary"
+    isOpen={beritaAcaraPopUp}
+    setIsOpen={setBeritaAcaraPopUp}
+    buttonSide={<>
+        <Button 
+        className="bg-primary" 
+        buttonStyle={submitState?"primary_disabled":"primary_default"}
+        type="submit"                 
+        disabled={submitState? true:false}
+        form={form_bap_id}
+        >
+            { submitState &&
+            <FontAwesomeIcon icon={faSpinner} className="animate-spin"/>
+            }
+            Konfirmasi Berita Acara &amp; Selesaikan Uji
+        </Button>
+    </>}
+    >
+        <FormBeritaAcaraPekerjaan
+            id={form_bap_id}
+            data={dataSelected}
+            submitState={submitState}
+            setSubmitState={setSubmitState}
+            reqSent={reqSent}
+            setreqSent={setreqSent}
+        />
+    </FormModal>
+    }
+
+    {laporanUjiPopUp &&
+        <FormModal
+        title="Laporan Hasil Uji"
+        bgColor="primary"
+        isOpen={laporanUjiPopUp}
+        setIsOpen={setLaporanUjiPopUp}
+        buttonSide={<>
+            <Button 
+            className="bg-primary" 
+            buttonStyle={submitState?"primary_disabled":"primary_default"}
+            type="submit"                 
+            disabled={submitState? true:false}
+            form={form_laporan_hasil_uji_id}
+            >
+                { submitState &&
+                <FontAwesomeIcon icon={faSpinner} className="animate-spin"/>
+                }
+                Upload Laporan Uji
+            </Button>
+        </>
+    }>
+        <FormLaporanHasilUji
+            id={form_laporan_hasil_uji_id}
+            data={dataSelected}
+            submitState={submitState}
+            setSubmitState={setSubmitState}
+            setreqSent={setreqSent}
+        />
+
+    </FormModal>
+    }
     </>
   )
 }

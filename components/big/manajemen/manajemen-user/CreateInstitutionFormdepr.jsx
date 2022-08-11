@@ -5,23 +5,21 @@ import ValidationMessage from 'components/small/validation_form/ValidationMessag
 import { form_create_institution_id } from 'constants/FormUtils'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import { createInstInitValues } from 'helper/initial-formik-values/CrateInstFormInitValues'
-import CreateInstValidationSchema from 'helper/yup/CreateInstValidationSchema'
 import React from 'react'
 import * as Yup from 'yup'
 
-export default function CreateInstitutionForm() {
+export default function CreateInstitutionFormdepr({id}) {
   return (
-    <Formik 
+    <Formik
     initialValues={createInstInitValues}
-    validationSchema={CreateInstValidationSchema(Yup)}
-    onSubmit={ (values) => {
-        console.log(values);
+    validationSchema={CreateInstitutionForm(Yup)}
+    onSubmit={(values)=> {
+        console.log(values)
     }}
-    >{
-        formik=>{
-        return <Form id={form_create_institution_id}>
-        <div className="block">
-            <Body2 className="text-black-400 pb-3.5">
+    >{formik =>{
+        return <Form id={id}>
+                    <div className="block bg-grey-100 border border-grey-400 space-y-3 rounded-xl p-5">
+                        <Body2 className="text-black-400 pb-3.5">
                             Instansi Baru
                         </Body2>
                         <div className='flex items-center justify-between'>
@@ -104,22 +102,21 @@ export default function CreateInstitutionForm() {
                             </div>
                         </div>
 
+                        <div className="flex w-full justify-end">
 
-            <Button
-            className="bg-primary w-40" 
-            buttonStyle="primary_default" 
-            type="submit"
-            // type="submit"
-            form={form_create_institution_id}
-            >
-                Simpan Instansi
-            </Button>
-        </div>
-        </Form>
-        }
-    }
+                            <Button 
+                            className="bg-primary w-40" 
+                            buttonStyle="primary_default" 
+                            type="submit"
+                            form={form_create_institution_id}>
+                                Simpan Instansi
+                            </Button>
+                        </div>
+
+                    </div>
+                    
+            </Form>}}
 
     </Formik>
-    
   )
 }

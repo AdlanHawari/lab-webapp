@@ -98,9 +98,9 @@ export default function SectionFee({data, cost_detail, current_status}) {
 
         <div className="w-3/5 space-y-3">
             <SectionPaymentStep/>
-            {current_status>4 &&
+            {current_status>=4 &&
 
-                <SectionPaymentProof invoice={invoice}/>
+                <SectionPaymentProof data={data} invoice={invoice}/>
             }
         </div>
     </div>

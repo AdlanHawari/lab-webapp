@@ -5,6 +5,7 @@ import { manajemenUjiData } from 'constants/test_objects/manajemenUji'
 import { useDateFilterUjiContext } from 'hooks/context/filter-date/DateFilterUjiContext'
 import { useStatusFilterContext } from 'hooks/context/filter-status/StatusContext'
 import { usePageContext } from 'hooks/context/pagination/PageContext'
+import { DetailUjiFetcherProvider } from 'hooks/fetcher/detail-uji/useDetailUji'
 import usePermohonanUji from 'hooks/fetcher/usePermohonanUji'
 import React, { useEffect } from 'react'
 
@@ -38,7 +39,10 @@ export default function UjiPersonnelMainSection() {
         {/* <ManajemenujiTable data={manajemenUjiData}/> */}
         {data &&
       data.data.length>0 ? 
-        <PersonnelUjiTable/>
+        <DetailUjiFetcherProvider>
+
+          <PersonnelUjiTable data={data.data} mutate={mutate}/>
+        </DetailUjiFetcherProvider>
       :
       !loading&&
         <div className="relative w-full h-96 ">

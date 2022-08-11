@@ -2,7 +2,7 @@ import UserTable from 'components/base/table/UserTable'
 import FormModal from 'components/big/FormModal'
 import Button from 'components/small/button_fixed/Button'
 import Pagination from 'components/small/pagination/Pagination'
-import { form_create_user_id } from 'constants/FormUtils'
+import { form_create_institution_id, form_create_user_id } from 'constants/FormUtils'
 import { users } from 'constants/test_objects/users'
 import { useRoleFilterContext } from 'hooks/context/filter-role/RoleFilter'
 import { useManajemenUserContext } from 'hooks/context/manajemen-user/ManajemenUserContext'
@@ -10,8 +10,9 @@ import { usePageContext } from 'hooks/context/pagination/PageContext'
 import useInstitutionsList from 'hooks/fetcher/management-summary/useInstitutionsList'
 import useGetUsers from 'hooks/fetcher/management-user/useGetUsers'
 import React, { useEffect, useState } from 'react'
-import FormCreateUser from '../FormCreateUser'
 import RoleList from '../RoleList'
+import CreateInstitutionForm from './CreateInstitutionForm'
+import FormCreateUser from './FormCreateUser'
 
 export default function ManajemenUserMainSection() {
   
@@ -112,14 +113,20 @@ export default function ManajemenUserMainSection() {
             
             {/* <FormPermohonanUji id={form_permohonan_uji_id}/> */}
                 {institutionFetcher.institutionLists &&
-                    <FormCreateUser 
-                    institutionList={ institutionFetcher.institutionLists.data}
-                    id={form_create_user_id}
-                    submitState={submitState}
-                    setSubmitState={setSubmitState}
-                    reqSent={reqSent}
-                    setreqSent={setreqSent}
-                    />
+                    <>
+                        {/* <FormCreateUser 
+                        institutionList={ institutionFetcher.institutionLists.data}
+                        id={form_create_user_id}
+                        submitState={submitState}
+                        setSubmitState={setSubmitState}
+                        reqSent={reqSent}
+                        setreqSent={setreqSent}
+                        /> */}
+
+                        <CreateInstitutionForm
+                        id={form_create_institution_id}
+                        />
+                    </>
 
                 }
             </FormModal>

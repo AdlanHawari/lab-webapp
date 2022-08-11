@@ -4,17 +4,17 @@ export default function DokumenPenugasanValidationSchema(yup) {
         accommodation : yup
             .mixed()
             .nullable()
-            .required("Harap masukkan NPWP")
+            .required("Harap masukkan surat akomodasi")
             ,
         transportation : yup
             .mixed()
             .nullable()
-            .required("Harap masukkan NPWP")
+            .required("Harap masukkan surat transportasi")
             ,
         test_documentation: yup
             .mixed()
             .nullable()
-            .required("Harap masukkan NPWP")
+            .required("Harap masukkan dokumentasi uji")
             ,
         
     })

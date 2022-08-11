@@ -27,7 +27,23 @@ export default function Pagination() {
   return (
     <div className="pb-20 pt-10 flex justify-end">
       <ul className="flex space-x-4 items-center">
+        {currentPage>pageCount &&
+          <li>
+              <Button 
+              // className="bg-primary" 
+              className="w-20 py-1"
+              buttonStyle={currentPage>1?"primary_default" : "primary_disabled"} 
+              type="button"
+              disabled={currentPage>1? false:true}
+              onClick={()=>setCurrentPage(currentPage-1)}>
+              Previous
+            </Button>
+          </li>
+
+        }
         {pageNum.map((item,index)=>(
+
+
           <li key={index} className={classNames(
             "button-base",
             currentPage==item?

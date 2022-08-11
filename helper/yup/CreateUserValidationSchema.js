@@ -4,8 +4,8 @@ export default function CreateUserValidationSchema(yup) {
             name: yup.string().required("Harap diisi"),
             role_id: yup.string().required("Harap diisi"),
             email: yup.string().required("Harap diisi"),
-            instance: yup.string().required("Harap diisi"),
-            phone_number: yup.string()
+            institution_id: yup.string().required("Harap diisi"),
+            phone: yup.string()
                         .required("Harap diisi")
                         .matches(
                         /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,

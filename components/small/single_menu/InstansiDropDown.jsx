@@ -8,7 +8,8 @@ export default function InstansiDropDown({
     itemLists,
     setContext,
     setFormikValue,
-    formikName
+    formikName,
+    bottomButton
 }) {
     const [selected, setSelected] = useState({})
     const [query, setQuery] = useState('')
@@ -122,10 +123,15 @@ export default function InstansiDropDown({
                                 ))
                                 )
                             }
-                        {formikName &&
-                            <Combobox.Option>
-                                <button> Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores, voluptates?</button>
+                        {bottomButton &&
+                            <Combobox.Option
+                            value={{}}
+                            >
+                                {bottomButton}
                             </Combobox.Option>
+                            // <div className="" onClick={}>
+                            //     {bottomButton}
+                            // </div>
 
                         }
                     </Combobox.Options>

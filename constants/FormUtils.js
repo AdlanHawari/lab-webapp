@@ -6,3 +6,6 @@ export const form_kaji_ulang_upload_dokumen_id = "KajiUlangUploadDokumenForm";
 export const form_pemilihan_jadwal_penguji_id = "PemilihanJadwalPengujiForm";
 export const form_dokumen_penugasan_id = "DokumenPenugasanForm";
 export const form_input_regis_balis = "InputTanggalRegisBalisForm";
+export const form_create_institution_id = "CreateInstitutionForm";
+export const form_bap_id = "BeritaAcaraPekerjaanForm";
+export const form_laporan_hasil_uji_id = "LaporanHasilUjiForm";

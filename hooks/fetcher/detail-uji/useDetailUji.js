@@ -1,3 +1,4 @@
+import axios from "axios";
 import { createContext, useContext } from "react";
 import GetToken from "utils/GetToken";
 
@@ -197,7 +198,85 @@ function useProvideDetailUjiFetcher(){
             return e
         }
     }
+    
+    async function downloadDoc(id, docType){
+        var requestOptions = {
+            method: 'GET',
+            headers:{
+                'Authorization': `Bearer ${token}`
+            },
+            // body: formData,
+            redirect: 'follow'
+        }
 
+        try{
+            // const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/documents/download?test_application_id=${id}&doc_type=${docType}`, requestOptions)
+
+            // var file = new Blob([req], {type:'application/pdf'});
+            // console.log("req", req)
+            // return file
+
+            const res = await axios.get(
+                `${process.env.NEXT_PUBLIC_API_URL}/documents/download?test_application_id=${id}&doc_type=${docType}`,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+            })
+            var file = new Blob([res], {type:'application/pdf'});
+            return file
+
+        }
+        catch(e){
+            console.log("error",e)
+            return e
+        }
+    }
+
+    async function createBAPReport(formData, id){
+        var requestOptions = {
+            method: 'POST',
+            headers:{
+                'Authorization': `Bearer ${token}`
+            },
+            body: formData,
+            redirect: 'follow'
+        }
+
+        try{
+            const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/report/${id}`, requestOptions)
+
+            const res = await req.json()
+            return res
+        }
+        catch(e){
+            console.log("error",e)
+            return e
+        }
+
+    }
+
+    async function uploadLaporanHasilUji(formData, id){
+        var requestOptions = {
+            method: 'POST',
+            headers:{
+                'Authorization': `Bearer ${token}`
+            },
+            body: formData,
+            redirect: 'follow'
+        }
+
+        try{
+            const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/documents/${id}/report/upload`, requestOptions)
+
+            const res = await req.json()
+            return res
+        }
+        catch(e){
+            console.log("error",e)
+            return e
+        }
+    }
 
     return{
         confirmTestApp,
@@ -207,6 +286,9 @@ function useProvideDetailUjiFetcher(){
         createTestAssignment,
         uploadDokumenPenugasan,
         laporAlatKeluar,
-        updateTestApp
+        updateTestApp,
+        downloadDoc,
+        createBAPReport,
+        uploadLaporanHasilUji
     }
 }

@@ -3,7 +3,7 @@ export const createUserInitValues = {
     role_id: "",
     email: "",
     institution_id: "",
-    phone_number: "",
+    phone: "",
     password: "",
     password_confirmation: "",
 }
