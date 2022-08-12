@@ -8,6 +8,7 @@ import Body2 from 'components/small/typography/Body2'
 import Body3 from 'components/small/typography/Body3'
 import { form_tolak_laporan_uji_id } from 'constants/FormUtils'
 import { useKonfirmLaporanUjiContext } from 'hooks/context/manajemen-uji/KonfirmLaporanUjiContext'
+import { useDetailUji } from 'hooks/fetcher/detail-uji/useDetailUji'
 import React, { useEffect, useState } from 'react'
 import FormTolakLaporanUji from './FormTolakLaporanUji'
 
@@ -29,6 +30,17 @@ export default function FormKonfirmLaporanUji({
     } = useKonfirmLaporanUjiContext()
 
     const [fileName, setFileName] = useState("")
+
+    const {confirmTestApp} = useDetailUji()
+
+    async function SetujuiLaporan(testAppId){
+        setSubmitState(true)
+        const resp = await confirmTestApp(testAppId)
+        if(resp.header.response_code == 200){
+            // setSubmitState(false)
+            setreqSent(true)
+        }
+    }
 
     useEffect(() => {
         
@@ -91,8 +103,10 @@ export default function FormKonfirmLaporanUji({
          setIsOpen={setTerimaPopUp}
          buttonSide={
             <Button
-            buttonStyle="primary_default"
+            buttonStyle={submitState?"primary_disabled":"primary_default"}
+            disabled={submitState? true:false}
             type="button"
+            onClick={()=> SetujuiLaporan(data.id)}
             >
                 Setujui Laporan
             </Button>
