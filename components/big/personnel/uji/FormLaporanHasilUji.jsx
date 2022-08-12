@@ -7,7 +7,7 @@ import { ErrorMessage, Form, Formik } from 'formik'
 import { laporanHasilUjiInitValues } from 'helper/initial-formik-values/LaporanHasilUjiInitValues'
 import LaporanHasilUjiValidationSchema from 'helper/yup/LaporanHasilUjiValidationSchema'
 import { useDetailUji } from 'hooks/fetcher/detail-uji/useDetailUji'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import handleFormData from 'utils/HandleFormData'
 import * as Yup from 'yup'
 
@@ -24,6 +24,12 @@ export default function FormLaporanHasilUji({
     const [storeFile, setStoreFile] = useState(false)
     const [confirm, setConfirm] = useState(false)
 
+    useEffect(() => {
+        if(storeFile && confirm){
+            setreqSent(true)
+        }
+    }, [storeFile, confirm])
+
   return (
     <Formik
     initialValues={laporanHasilUjiInitValues}
@@ -35,8 +41,15 @@ export default function FormLaporanHasilUji({
 
         async function fetchData(){
             const response = await uploadLaporanHasilUji(formData, data.id)
-            // const respConf = await confirmTestApp( data.id)
-            console.log(response)
+            const respConf = await confirmTestApp( data.id)
+            console.log("upload",response)
+            console.log("conf",respConf)
+            if(response.header.response_code == 200){
+                setStoreFile(true)
+            }
+            if(respConf.header.response_code == 200){
+                setConfirm(true)
+            }
 
         }
 
@@ -66,14 +79,14 @@ export default function FormLaporanHasilUji({
                     </Body1>
                     <div className="block">
                         <InputFileUpload
-                            id="additional_do"   
-                            name="additional_do"
-                            formikValue={formik.values.additional_do}
+                            id="additional_doc"   
+                            name="additional_doc"
+                            formikValue={formik.values.additional_doc}
                             setFormikValue={formik.setFieldValue}
                             accept="application/pdf"
                             placeholder="Upload Document"
                         />
-                        
+                        <ErrorMessage name="additional_doc" component={ValidationMessage}/>
 
                     </div>
                 </div>

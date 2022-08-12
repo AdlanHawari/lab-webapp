@@ -117,14 +117,22 @@ export default function SmallCard({data, mutate}) {
                         
                     </Body1>
                     <ul>
-                        {/* {data.kelengkapan.map((item,index)=>(
+                        {data.documents.map((item,index)=>(
                             <li key={index}>
-                                <Body3 className="text-black-500">
-                                    {item}
-                                </Body3>
-                            </li>
+                                {item.type == "INVOICE"?
+                                    <Body3 className="text-black-500">
+                                            Bukti Pembayaran
+                                    </Body3>
+                                    :
+                                    <Body3 className="text-black-500">
+                                            {item.type}
+                                    </Body3>
 
-                        ))} */}
+                                }
+                            </li>
+                        ))}
+                        
+                     
                     </ul>
 
                 </div>

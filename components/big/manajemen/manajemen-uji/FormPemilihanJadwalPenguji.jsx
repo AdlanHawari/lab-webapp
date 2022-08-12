@@ -116,7 +116,7 @@ export default function FormPemilihanJadwalPenguji({
                             {data.tools[0].type}
                         </Body2>
                     </div>
-                    <SectionFormPraUji/>
+                    <SectionFormPraUji data={data}/>
                 </div>
 
                 <div className="block py-3">

@@ -88,6 +88,8 @@ export default function FormPraUji({
     
         
     }, [inputForm])
+
+    
     
 
   return (
@@ -218,7 +220,7 @@ export default function FormPraUji({
                     </div>
 
                     <div className="py-3">
-                        <h3 className='pb-10'>Spesifikasi Alat</h3>
+                        <h3 className='pb-4'>Spesifikasi Alat</h3>
 
                         <FieldArray name="tool_info">
                             {({insert, remove, push}) => (
@@ -307,7 +309,7 @@ export default function FormPraUji({
                         </FieldArray>
                     </div>
 
-                    <div className="py-3 space-y-4">
+                    <div className="block py-3 space-y-4">
                         <h3>Kolom Pertanyaan</h3>
                         <div className="block space-y-2">
 

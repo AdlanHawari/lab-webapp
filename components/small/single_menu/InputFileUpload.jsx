@@ -1,6 +1,7 @@
 import React, { useRef } from 'react'
 import { UploadIcon } from '@heroicons/react/outline'
 import Title3Med from '../typography/Title3Med'
+import classNames from 'classnames'
 
 export default function InputFileUpload({
     id,
@@ -31,9 +32,21 @@ export default function InputFileUpload({
         }}
         />
         <div className="w-full flex justify-between form-input px-2.5 py-1 rounded-xl text-xs  border-solid border-2 border-grey-300">
-            <Title3Med className={formikValue? "text-black-400" : "text-grey-400"}>
+            <Title3Med className={classNames(
+                formikValue? 
+                    formikValue.name ?
+                        "text-black-400" 
+                        : 
+                        "text-grey-400"    
+                    : 
+                    "text-grey-400"    
+                ) 
+            }>
             {formikValue?
-                formikValue.name
+                formikValue.name ?
+                    formikValue.name
+                    :
+                    placeholder
                 :
                 placeholder
             }

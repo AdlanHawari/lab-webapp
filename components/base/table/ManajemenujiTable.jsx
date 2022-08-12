@@ -22,6 +22,7 @@ import { PersonnelProvider } from "hooks/fetcher/personnel/usePersonnelFetcher";
 import FormDokumenPenugasan from "components/big/manajemen/manajemen-uji/FormDokumenPenugasan";
 import FormInputTanggalRegisBalis from "components/big/manajemen/manajemen-uji/FormInputTanggalRegisBalis";
 import SectionFee from "components/big/detail-section/SectionFee";
+import classNames from "classnames";
 
 export default function ManajemenujiTable({data, mutate}) {
     const [isDetailOpen, setIsDetailOpen] = useState(false)
@@ -74,10 +75,10 @@ export default function ManajemenujiTable({data, mutate}) {
         </thead>
         <tbody className="bg-white divide-y divide-table-divider">
             {data.map((item,index)=>(
-                <tr key={index} className={
+                <tr key={index} className={classNames(
                     selected == index &&
                     "bg-warning-light"
-                }
+                )}
                 onClick={()=>setSelected(index)}
                 >
                      <td className="max-w-24 p-4">
@@ -333,7 +334,7 @@ export default function ManajemenujiTable({data, mutate}) {
         isOpen={dokumenPenugasanPopUp}
         setIsOpen={setDokumenPenugasanPopUp}
         buttonSide={
-        <>
+        <div className="block space-y-3">
             <Button 
             className="bg-primary" 
             buttonStyle={submitState?"primary_disabled":"primary_default"}
@@ -344,11 +345,17 @@ export default function ManajemenujiTable({data, mutate}) {
                   { submitState &&
                     <FontAwesomeIcon icon={faSpinner} className="animate-spin"/>
                   }
-                  Konfirmasi Jadwal dan Personil
+                  Simpan Dokumen
+            </Button>
+
+            <Button
+            className="bg-secondary text-white" 
+            >
+                Cetak Surat Tugas
             </Button>
         
 
-        </>
+        </div>
         }
         >
             <FormDokumenPenugasan

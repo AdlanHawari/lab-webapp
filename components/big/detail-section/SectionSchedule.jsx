@@ -47,7 +47,7 @@ export default function SectionSchedule({data}) {
                     Nomor Berita Acara Pekerjaan
                 </Body1>
                 <Body2 className="text-black-500">
-                    
+                    {data.test_report.bap_no}
                 </Body2>
             
             </div>

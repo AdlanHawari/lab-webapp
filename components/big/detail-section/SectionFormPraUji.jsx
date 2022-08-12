@@ -8,8 +8,9 @@ import Title1 from 'components/small/typography/Title1'
 import Title2Med from 'components/small/typography/Title2Med'
 import { useTitleContext } from 'hooks/TitleContext'
 import { useEffect } from 'react'
+import ContentSectionFormPraUji from './ContentSectionFormPraUji'
 
-export default function SectionFormPraUji() {
+export default function SectionFormPraUji({data}) {
 
 
   return (
@@ -49,7 +50,12 @@ export default function SectionFormPraUji() {
             "pt-2 list-inside list-disc space-y-2"
           >
             {({close}) => (
-                <div className="">hello</div>
+              <div className="px-2">
+                <ContentSectionFormPraUji
+                data={data}
+                />
+
+              </div>
             //   <>
             //   {object.map((item,index)=>(
             //     <li key={index} className={classNames(

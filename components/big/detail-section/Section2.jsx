@@ -65,7 +65,7 @@ export default function Section2({data}) {
     
     } */}
     {data.status>3 &&
-        <SectionFormPraUji/>
+        <SectionFormPraUji data={data}/>
     }
     </div>
   )

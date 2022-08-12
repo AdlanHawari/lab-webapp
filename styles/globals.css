@@ -117,7 +117,7 @@
 }
 
 .react-datepicker-right {
-    @apply absolute right-0 left-auto top-11 transform-none !important
+    @apply absolute right-0 left-auto top-2 transform-none !important
 }
 
 .react-datepicker__portal {
@@ -161,7 +161,7 @@
 }
 
 .react-datepicker__day {
-    @apply mb-1 w-8 h-8 flex items-center justify-center py-1 text-base font-normal leading-loose transition text-black-500 rounded hover:bg-secondary
+    @apply mb-1 w-8 h-8 flex items-center justify-center py-1 text-base font-normal leading-loose transition text-black-500 rounded hover:text-white hover:bg-secondary
 }
 
 .react-datepicker__day--disabled {
