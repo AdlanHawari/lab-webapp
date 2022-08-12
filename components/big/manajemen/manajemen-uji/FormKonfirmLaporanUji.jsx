@@ -1,8 +1,16 @@
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { data } from 'autoprefixer'
+import classNames from 'classnames'
 import FormModal from 'components/big/FormModal'
+import Button from 'components/small/button_fixed/Button'
 import Body2 from 'components/small/typography/Body2'
+import Body3 from 'components/small/typography/Body3'
+import { form_tolak_laporan_uji_id } from 'constants/FormUtils'
 import { useKonfirmLaporanUjiContext } from 'hooks/context/manajemen-uji/KonfirmLaporanUjiContext'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import FormTolakLaporanUji from './FormTolakLaporanUji'
+
 
 export default function FormKonfirmLaporanUji({
     id,
@@ -19,6 +27,19 @@ export default function FormKonfirmLaporanUji({
         tolakPopUp,
         setTolakPopUp
     } = useKonfirmLaporanUjiContext()
+
+    const [fileName, setFileName] = useState("")
+
+    useEffect(() => {
+        
+        data.documents.map((item)=>{
+            if(item.type=="TEST_REPORT"){
+                setFileName(item.file_name)
+            }
+        })
+    
+    }, [])
+    
   return (
     <>
         <div className="flex flex-col  w-full pl-10 pr-32">
@@ -26,12 +47,26 @@ export default function FormKonfirmLaporanUji({
                 <h3 className='text-black-400'>
                     Konfirmasi laporan berikut sebagai Kepala LUK
                 </h3>
-                {data.documents.map((item,index)=>(
+                <button 
+                className="flex justify-between items-center w-full py-2 px-2.5 bg-primary rounded-xl shadow-sm"
+                
+                >
+                        
+                    <Body2 className="text-white">
+                        Laporan Uji
+                    </Body2>
+                    <Body2 className="text-white underline underline-offset-2">
+                        {fileName}
+                        
+                    </Body2>
+                    
+                </button>
+                {/* {data.documents.map((item,index)=>(
                     item.type=="TEST_REPORT" &&
             
                         <button 
                         className="flex justify-between items-center w-full py-2 px-2.5 bg-primary rounded-xl shadow-sm"
-                        // onClick={()=> downloadFile(data.id, "invoice")}
+                        
                         >
                                 
                             <Body2 className="text-white">
@@ -39,12 +74,12 @@ export default function FormKonfirmLaporanUji({
                             </Body2>
                             <Body2 className="text-white underline underline-offset-2">
                                 {item.file_name}
-                                {/* {invoice.file_name} */}
+                                
                             </Body2>
                             
                         </button>
 
-                ))}
+                ))} */}
             </div>
 
         </div>
@@ -54,9 +89,21 @@ export default function FormKonfirmLaporanUji({
          bgColor="primary"
          isOpen={terimaPopUp}
          setIsOpen={setTerimaPopUp}
-         buttonSide={<>
-         </>
+         buttonSide={
+            <Button
+            buttonStyle="primary_default"
+            type="button"
+            >
+                Setujui Laporan
+            </Button>
          }>
+            <div className="pl-10 pr-32 ">
+                <div className="w-3/4 border-b border-grey-200 pb-3">
+                    <Body3 className="text-black-500">
+                        Saya menyetujui dokumen <strong className='text-primary'>{fileName}</strong> dari hasil uji kalibrasi
+                    </Body3>
+                </div>
+            </div>
 
          </FormModal>
 
@@ -68,9 +115,30 @@ export default function FormKonfirmLaporanUji({
          bgColor="warning"
          isOpen={tolakPopUp}
          setIsOpen={setTolakPopUp}
-         buttonSide={<>
-         </>
+         buttonSide={
+            <Button
+            className={classNames(
+                submitState?"text-grey-500 bg-grey-400":"bg-warning text-white"
+                )}
+            disabled={submitState? true:false}
+            type="submit"
+            form={form_tolak_laporan_uji_id}
+            >
+                { submitState &&
+                    <FontAwesomeIcon icon={faSpinner} className="animate-spin"/>
+                  }
+                Tolak Laporan
+            </Button>
          }>
+            <FormTolakLaporanUji
+            id={form_tolak_laporan_uji_id}
+            fileName={fileName}
+            data={data}
+            submitState={submitState}
+            setSubmitState={setSubmitState}
+            reqSent={reqSent}
+            setreqSent={setreqSent}
+            />
 
          </FormModal>
 

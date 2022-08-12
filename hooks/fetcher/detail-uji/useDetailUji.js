@@ -278,6 +278,28 @@ function useProvideDetailUjiFetcher(){
         }
     }
 
+    async function tolakLaporanUji(formData,id){
+        var requestOptions = {
+            method: 'POST',
+            headers:{
+                'Authorization': `Bearer ${token}`
+            },
+            body: formData,
+            redirect: 'follow'
+        }
+
+        try{
+            const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/report/${id}/reject`, requestOptions)
+
+            const res = await req.json()
+            return res
+        }
+        catch(e){
+            console.log("error",e)
+            return e
+        }
+    }
+
     return{
         confirmTestApp,
         createPenawaranUji,
@@ -289,6 +311,7 @@ function useProvideDetailUjiFetcher(){
         updateTestApp,
         downloadDoc,
         createBAPReport,
-        uploadLaporanHasilUji
+        uploadLaporanHasilUji,
+        tolakLaporanUji
     }
 }
