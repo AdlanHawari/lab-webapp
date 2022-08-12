@@ -9,9 +9,10 @@ import { ErrorMessage, Field, FieldArray, Form, Formik } from 'formik'
 import { dokumenPenugasanInitValues } from 'helper/initial-formik-values/DokumenPenugasanInitValues'
 import DokumenPenugasanValidationSchema from 'helper/yup/DokumenPenugasanValidationSchema'
 import { useDetailUji } from 'hooks/fetcher/detail-uji/useDetailUji'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import handleFormData from 'utils/HandleFormData'
 import ObjectReducer from 'utils/ObjectReducer'
+import RearrangeFileObject from 'utils/RearrangeFileObject'
 import * as Yup from 'yup'
 
 export default function FormDokumenPenugasan({
@@ -28,35 +29,76 @@ export default function FormDokumenPenugasan({
     const [upload, setUpload] = useState(false)
     const [updateAlat, setUpdateAlat] = useState(false)
 
+    useEffect(() => {
+    
+        if(upload && updateAlat){
+            setreqSent(true)
+        }
+    
+    }, [upload, updateAlat])
+    
+
   return (
     <Formik
     initialValues={dokumenPenugasanInitValues}
     validationSchema={DokumenPenugasanValidationSchema(Yup)}
     onSubmit={(values)=>{
+        setSubmitState(true)
         // console.log(values)
+
+        // function ReArrangeFileObject(filesValues, varName){
+        //     var assignDocs = {}
+    
+        //     filesValues.map((item,index)=>{
+        //         const no = index+1
+        //         const key = varName+no
+        //         assignDocs[key] = item
+        //     })
+
+        //     return assignDocs
+        // }
 
         const alatKeluarValues = {
             assignment_no: data.assignment_detail.assignment_no,
             tools_brought: values.tools_brought
         }
 
-        const uploadValues = ObjectReducer(values,"tools_brought")
+        const reducedValues = ObjectReducer(values,"tools_brought")
+        const mandatoryValues = ObjectReducer(reducedValues, "assignment_doc")
+        
+
+        const rearrangedFiles = RearrangeFileObject(reducedValues.assignment_doc, "assignment_doc_")
+        // console.log("files", filesValues)
+        const uploadValues = Object.assign(mandatoryValues, rearrangedFiles)
+
+        
+
+        // console.log("rearrangedFiles", rearrangedFiles)
+        
         console.log("form1", uploadValues)
         console.log("assId", data.assignment_id)
         console.log("form2", alatKeluarValues)
 
-        // let uploadFormData = handleFormData(uploadValues)
-        // let alatKeluarFormData = handleFormData(alatKeluarValues)
+        let uploadFormData = handleFormData(uploadValues)
+        let alatKeluarFormData = handleFormData(alatKeluarValues)
 
-        // async function fetchData(){
-        //     const responseUpload = await uploadDokumenPenugasan(uploadFormData, data.id)
-        //     const responseAlatKeluar = await laporAlatKeluar(alatKeluarFormData, data.assignment_id)
+        async function fetchData(){
+            const responseUpload = await uploadDokumenPenugasan(uploadFormData, data.id)
+            const responseAlatKeluar = await laporAlatKeluar(alatKeluarFormData, data.assignment_id)
 
-        //     console.log("responseUpload", responseUpload)
-        //     console.log("responseAlatKeluar", responseAlatKeluar)
-        // } 
+            console.log("responseUpload", responseUpload)
+            console.log("responseAlatKeluar", responseAlatKeluar)
 
-        // fetchData()
+            if(responseUpload.header.response_code == 200){
+                setUpload(true)
+            }
+
+            if(responseAlatKeluar.header.response_code == 200){
+                setUpdateAlat(true)
+            }
+        } 
+
+        fetchData()
 
     }
     }>

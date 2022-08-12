@@ -5,10 +5,10 @@ export default function LaporanHasilUjiValidationSchema(yup) {
           .mixed()
           .nullable()
           .required("Harap masukkan laporan hasil uji"),
-        additional_doc: yup
-          .mixed()
-          .nullable()
-          .required("Harap masukkan dokumen tambahan")
+        // additional_doc: yup
+        //   .mixed()
+        //   .nullable()
+        //   .required("Harap masukkan dokumen tambahan")
         
     })
   )

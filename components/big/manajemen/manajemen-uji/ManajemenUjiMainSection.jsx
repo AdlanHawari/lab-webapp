@@ -3,6 +3,7 @@ import Pagination from 'components/small/pagination/Pagination'
 import { manajemenUjiData } from 'constants/test_objects/manajemenUji'
 import { useDateFilterUjiContext } from 'hooks/context/filter-date/DateFilterUjiContext';
 import { useStatusFilterContext } from 'hooks/context/filter-status/StatusContext';
+import KonfirmLaporanUjiContextProvider from 'hooks/context/manajemen-uji/KonfirmLaporanUjiContext';
 import { usePageContext } from 'hooks/context/pagination/PageContext';
 import { DetailUjiFetcherProvider } from 'hooks/fetcher/detail-uji/useDetailUji';
 import usePermohonanUji from 'hooks/fetcher/usePermohonanUji';
@@ -41,7 +42,9 @@ export default function ManajemenUjiMainSection() {
       data.data.length>0 ?
       <DetailUjiFetcherProvider>
         {/* <ManajemenujiTable data={manajemenUjiData}/> */}
-        <ManajemenujiTable data={data.data} mutate={mutate}/>
+        <KonfirmLaporanUjiContextProvider>
+          <ManajemenujiTable data={data.data} mutate={mutate}/>
+        </KonfirmLaporanUjiContextProvider>
 
       </DetailUjiFetcherProvider>
       :

@@ -1,13 +1,20 @@
 import QuickFilterSmaller from 'components/small/button_small/QuickFilterSmaller'
 import Body1 from 'components/small/typography/Body1'
 import Body2 from 'components/small/typography/Body2'
+import { formatDistanceToNow } from 'date-fns'
+import { id } from 'date-fns/locale'
 import React from 'react'
 import DateFormatter from 'utils/DateFormatter'
+import HMinus from 'utils/HMinus'
 
 export default function SectionSchedule({data}) {
     const {readable} = DateFormatter()
+    // const hMinus = HMinus()
+   
+
+    
   return (
-    <div className="pt-4">
+    <div className="pt-4 pb-3">
         <h3>
             Jadwal Uji &amp; Pengolahan Data
         </h3> 
@@ -57,7 +64,11 @@ export default function SectionSchedule({data}) {
                     H- Minus
                 </Body1>
                 <Body2 className="text-black-500">
-                    -
+                {data.balis_registration_date ?
+                    HMinus(data.balis_registration_date)
+                    :
+                    "-"
+                    }
                 </Body2>
                 
             
@@ -74,7 +85,11 @@ export default function SectionSchedule({data}) {
                     Submit Terakhir
                 </Body1>
                 <Body2 className="text-black-500">
-                    -
+                    {data.balis_registration_date?
+                        readable(data.balis_registration_date)
+                        :
+                        "-"
+                    }
                 </Body2>
                 <Body1 className="text-black-400">
                     Keterangan
@@ -87,11 +102,7 @@ export default function SectionSchedule({data}) {
                 </Body1>
                 <Body2 className="text-black-500">
                     
-                    {data.balis_registration_date ?
-                     readable(data.balis_registration_date)
-                     :
-                     "-"
-                    }
+                   
                 </Body2>
 
                 <Body1 className="text-black-400">

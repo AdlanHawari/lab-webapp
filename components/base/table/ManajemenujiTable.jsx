@@ -23,6 +23,10 @@ import FormDokumenPenugasan from "components/big/manajemen/manajemen-uji/FormDok
 import FormInputTanggalRegisBalis from "components/big/manajemen/manajemen-uji/FormInputTanggalRegisBalis";
 import SectionFee from "components/big/detail-section/SectionFee";
 import classNames from "classnames";
+import HMinus from "utils/HMinus";
+import FormKonfirmLaporanUji from "components/big/manajemen/manajemen-uji/FormKonfirmLaporanUji";
+import { useKonfirmLaporanUjiContext } from "hooks/context/manajemen-uji/KonfirmLaporanUjiContext";
+
 
 export default function ManajemenujiTable({data, mutate}) {
     const [isDetailOpen, setIsDetailOpen] = useState(false)
@@ -38,8 +42,17 @@ export default function ManajemenujiTable({data, mutate}) {
         dokumenPenugasanPopUp,
         setDokumenPenugasanPopUp,
         tanggalRegisBalisPopUp,
-        setTanggalRegisBalisPopUp
+        setTanggalRegisBalisPopUp,
+        konfirmLaporanUjiPopUp,
+        setKonfirmLaporanUjiPopUp,
     } = useManajemenUjiContext()
+
+    const {
+        terimaPopUp,
+        setTerimaPopUp,
+        tolakPopUp,
+        setTolakPopUp
+    } = useKonfirmLaporanUjiContext()
 
 
     useEffect(() => {
@@ -48,6 +61,7 @@ export default function ManajemenujiTable({data, mutate}) {
             setPemilihanJadwalPopUp(false)
             setDokumenPenugasanPopUp(false)
             setTanggalRegisBalisPopUp(false)
+            setKonfirmLaporanUjiPopUp(false)
             setreqSent(false)
             mutate()
         }
@@ -125,7 +139,10 @@ export default function ManajemenujiTable({data, mutate}) {
                     </td>
                     <td className="max-w-24 p-4">
                         <Table1 className="text-black-500 leading-normal">
-                            {item.h_minus}
+                            {item.balis_registration_date ?
+                                HMinus(item.balis_registration_date) :
+                                "-"
+                            }
                         </Table1>
                     </td>
                     <td className="max-w-24 p-4">
@@ -230,7 +247,7 @@ export default function ManajemenujiTable({data, mutate}) {
                         <Button
                         // buttonStyle="primary_default"
                         className="bg-secondary text-white"
-                        // onClick={}
+                        onClick={()=> setKonfirmLaporanUjiPopUp(true)}
                         >
                             Konfirmasi Laporan Uji
                         </Button>
@@ -402,6 +419,46 @@ export default function ManajemenujiTable({data, mutate}) {
             setreqSent={setreqSent}
             />
             
+        </FormModal>
+      }
+
+      {konfirmLaporanUjiPopUp&&
+        <FormModal
+        title="Konfirmasi Laporan Uji"
+        bgColor="primary"
+        isOpen={konfirmLaporanUjiPopUp}
+        setIsOpen={setKonfirmLaporanUjiPopUp}
+        buttonSide={
+        <div className="block space-y-3">
+            <Button 
+            buttonStyle="primary_default"
+            type="button"                 
+            // form={}
+            onClick={()=> setTerimaPopUp(true)}
+            >
+                  Setujui Laporan
+            </Button>
+
+            <Button
+            className="bg-warning text-white"
+            type="button" 
+            onClick={()=> setTolakPopUp(true)}
+            >
+                Tolak Laporan
+            </Button>
+        
+
+        </div>
+        }>
+            
+            <FormKonfirmLaporanUji
+            id={form_input_regis_balis}
+            data={dataSelected}
+            submitState={submitState}
+            setSubmitState={setSubmitState}
+            reqSent={reqSent}
+            setreqSent={setreqSent}
+            />
         </FormModal>
       }
 

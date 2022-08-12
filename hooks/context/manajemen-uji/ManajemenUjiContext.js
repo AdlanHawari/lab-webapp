@@ -7,6 +7,7 @@ export default function ManajemenUjiContextProvider({children}){
     const [pemilihanJadwalPopUp, setPemilihanJadwalPopUp] = useState(false)
     const [dokumenPenugasanPopUp, setDokumenPenugasanPopUp] = useState(false)
     const [tanggalRegisBalisPopUp, setTanggalRegisBalisPopUp] = useState(false)
+    const [konfirmLaporanUjiPopUp, setKonfirmLaporanUjiPopUp] = useState(false)
 
     const contextValue = useMemo(() => {
         return {
@@ -15,7 +16,9 @@ export default function ManajemenUjiContextProvider({children}){
             dokumenPenugasanPopUp,
             setDokumenPenugasanPopUp,
             tanggalRegisBalisPopUp,
-            setTanggalRegisBalisPopUp
+            setTanggalRegisBalisPopUp,
+            konfirmLaporanUjiPopUp,
+            setKonfirmLaporanUjiPopUp,
         }
     }, [
         pemilihanJadwalPopUp,
@@ -23,7 +26,9 @@ export default function ManajemenUjiContextProvider({children}){
         dokumenPenugasanPopUp,
         setDokumenPenugasanPopUp,
         tanggalRegisBalisPopUp,
-        setTanggalRegisBalisPopUp
+        setTanggalRegisBalisPopUp,
+        konfirmLaporanUjiPopUp,
+        setKonfirmLaporanUjiPopUp,
     ])
 
     return(

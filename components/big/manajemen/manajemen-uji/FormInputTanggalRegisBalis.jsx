@@ -21,12 +21,12 @@ export default function FormInputTanggalRegisBalis({
     const [update, setUpdate] = useState(false)
     const [storeData, setStoreData] = useState(false)
 
-    useEffect(() => {
-      if(storeData && update){
-        setreqSent(true)
-      }
+    // useEffect(() => {
+    //   if(storeData && update){
+    //     setreqSent(true)
+    //   }
     
-    }, [storeData, update])
+    // }, [storeData, update])
     
 
   return (
@@ -34,8 +34,9 @@ export default function FormInputTanggalRegisBalis({
     initialValues={inputTanggalRegisBalisInitValues}
     validationSchema={InputTanggalRegisBalisValidationSchema(Yup)}
     onSubmit={(values)=> {
-        console.log(values)
-        console.log(data.id)
+        setSubmitState(true)
+        // console.log(values)
+        // console.log(data.id)
 
         let formData = handleFormData(values)
 
@@ -44,7 +45,8 @@ export default function FormInputTanggalRegisBalis({
             // const resStat = await fetcher.confirmTestApp(data.id)
             console.log("respons", response)
             if(response.header.response_code == 200){
-                setStoreData(true)
+                // setStoreData(true)
+                setreqSent(true)
             }
             // if(response.header.response_code == )
 
