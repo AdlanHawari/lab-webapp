@@ -7,6 +7,8 @@ import { arsipData } from 'constants/test_objects/arsipDokumen';
 import DateFilterUjiContextProvider from 'hooks/context/filter-date/DateFilterUjiContext';
 import InstitutionFilterContextProvider from 'hooks/context/filter-institution/InstitutionFilter';
 import JenisPekerjaanFilterContextProvider from 'hooks/context/filter-jenisPekerjaan/JenisPekerjaanFilter';
+import PageContextProvider from 'hooks/context/pagination/PageContext';
+import { SummaryProvider } from 'hooks/fetcher/management-summary/useSummaryFetcher';
 import { useTitleContext } from "hooks/TitleContext";
 import { useEffect } from 'react';
 
@@ -19,15 +21,19 @@ export default function ManajemenArsipPage() {
   })
   return(
     <DateFilterUjiContextProvider>
-      <InstitutionFilterContextProvider>
-        <JenisPekerjaanFilterContextProvider>
-          <div className="flex flex-col divide-y divide-grey-200 space-y-5">
-            <ArsipDokumenFilterSection/>
-            <ArsipDokumenMainSection/>
-          </div>
-        </JenisPekerjaanFilterContextProvider>
-      </InstitutionFilterContextProvider>
+      <PageContextProvider>
 
+      <SummaryProvider>
+        <InstitutionFilterContextProvider>
+          <JenisPekerjaanFilterContextProvider>
+            <div className="flex flex-col space-y-5">
+              <ArsipDokumenFilterSection/>
+              <ArsipDokumenMainSection/>
+            </div>
+          </JenisPekerjaanFilterContextProvider>
+        </InstitutionFilterContextProvider>
+      </SummaryProvider>
+      </PageContextProvider>
     </DateFilterUjiContextProvider>
     // <div className="block space-y-7">
 

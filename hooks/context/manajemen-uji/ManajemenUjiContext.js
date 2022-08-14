@@ -8,6 +8,8 @@ export default function ManajemenUjiContextProvider({children}){
     const [dokumenPenugasanPopUp, setDokumenPenugasanPopUp] = useState(false)
     const [tanggalRegisBalisPopUp, setTanggalRegisBalisPopUp] = useState(false)
     const [konfirmLaporanUjiPopUp, setKonfirmLaporanUjiPopUp] = useState(false)
+    const [regisBapetenPopUp, setRegisBapetenPopUp] = useState(false)
+    const [sertifLukPopUp, setSertifLukPopUp] = useState(false)
 
     const contextValue = useMemo(() => {
         return {
@@ -19,6 +21,10 @@ export default function ManajemenUjiContextProvider({children}){
             setTanggalRegisBalisPopUp,
             konfirmLaporanUjiPopUp,
             setKonfirmLaporanUjiPopUp,
+            regisBapetenPopUp, 
+            setRegisBapetenPopUp,
+            sertifLukPopUp, 
+            setSertifLukPopUp
         }
     }, [
         pemilihanJadwalPopUp,
@@ -29,6 +35,10 @@ export default function ManajemenUjiContextProvider({children}){
         setTanggalRegisBalisPopUp,
         konfirmLaporanUjiPopUp,
         setKonfirmLaporanUjiPopUp,
+        regisBapetenPopUp, 
+        setRegisBapetenPopUp,
+        sertifLukPopUp, 
+        setSertifLukPopUp
     ])
 
     return(

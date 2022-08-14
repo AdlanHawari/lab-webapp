@@ -1,3 +1,5 @@
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import UserTable from 'components/base/table/UserTable'
 import FormModal from 'components/big/FormModal'
 import Button from 'components/small/button_fixed/Button'
@@ -11,7 +13,7 @@ import useInstitutionsList from 'hooks/fetcher/management-summary/useInstitution
 import useGetUsers from 'hooks/fetcher/management-user/useGetUsers'
 import React, { useEffect, useState } from 'react'
 import RoleList from '../RoleList'
-import CreateInstitutionForm from './CreateInstitutionForm'
+
 import FormCreateUser from './FormCreateUser'
 
 export default function ManajemenUserMainSection() {
@@ -22,7 +24,10 @@ export default function ManajemenUserMainSection() {
     const { rolePopUp,
         setRolePopUp,
         isCreateUserOpen,
-        setIsCreateUserOpen } = useManajemenUserContext()
+        setIsCreateUserOpen,
+        createInstForm, 
+        setCreateInstForm 
+    } = useManajemenUserContext()
 
     const {loading, error, users, mutate} = useGetUsers(
         currentPage,
@@ -45,6 +50,7 @@ export default function ManajemenUserMainSection() {
 
     useEffect(() => {
         if(reqSent){
+            setSubmitState(false)
             setRolePopUp(false)
             setIsCreateUserOpen(false)
             setreqSent(false)
@@ -99,11 +105,15 @@ export default function ManajemenUserMainSection() {
                 {/* <Button className="bg-primary" buttonStyle="primary_default" type="submit" form={form_permohonan_uji_id}> */}
                 <Button 
                 className="bg-primary"  
-                buttonStyle={submitState?"primary_disabled":"primary_default"}
+                buttonStyle={
+                    !submitState && !createInstForm ? "primary_default": "primary_disabled"}
                 type="submit"
-                disabled={submitState? true:false}
+                disabled={!submitState && !createInstForm ? false:true}
                 form={form_create_user_id}
                 >
+                    { submitState &&
+                    <FontAwesomeIcon icon={faSpinner} className="animate-spin"/>
+                    }
                     Tambah User Baru
                 </Button>
                 </>
@@ -114,18 +124,17 @@ export default function ManajemenUserMainSection() {
             {/* <FormPermohonanUji id={form_permohonan_uji_id}/> */}
                 {institutionFetcher.institutionLists &&
                     <>
-                        {/* <FormCreateUser 
+                        <FormCreateUser 
                         institutionList={ institutionFetcher.institutionLists.data}
                         id={form_create_user_id}
-                        submitState={submitState}
                         setSubmitState={setSubmitState}
-                        reqSent={reqSent}
                         setreqSent={setreqSent}
-                        /> */}
-
-                        <CreateInstitutionForm
-                        id={form_create_institution_id}
+                        submitState={submitState}
                         />
+
+                        {/* <CreateInstitutionForm
+                        id={form_create_institution_id}
+                        /> */}
                     </>
 
                 }

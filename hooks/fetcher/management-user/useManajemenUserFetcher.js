@@ -13,11 +13,12 @@ export const useManajemenUserFetcherContext = () => {
 }
 
 function useProvideManajemenUser(){
-
+    const token = GetToken()
+    
     async function getUsers(url){
         let error
 
-        const token = GetToken()
+        
         var requestOptions = {
         method:'GET'  ,
         headers: {
@@ -55,7 +56,44 @@ function useProvideManajemenUser(){
         }
     }
 
+    async function createInstitution(formData){
+        var requestOptions = {
+            method:'POST'  ,
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                // 'Content-Type': 'application/json'
+            },
+            body: formData,
+            redirect: 'follow'
+            };
+
+        const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/institutions`, requestOptions)
+        const res = await req.json()
+
+        return res
+    }
+
+    async function createUser(formData){
+        var requestOptions = {
+            method:'POST'  ,
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                // 'Content-Type': 'application/json'
+            },
+            body: formData,
+            redirect: 'follow'
+            };
+
+        const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, requestOptions)
+        const res = await req.json()
+
+        return res
+    }
+
     return {
-        getUsers
+        getUsers,
+        createInstitution,
+        createUser
+
     }
 }

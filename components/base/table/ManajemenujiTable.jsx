@@ -17,7 +17,7 @@ import FormModal from "components/big/FormModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import FormPemilihanJadwalPenguji from "components/big/manajemen/manajemen-uji/FormPemilihanJadwalPenguji";
-import { form_dokumen_penugasan_id, form_input_regis_balis, form_pemilihan_jadwal_penguji_id } from "constants/FormUtils";
+import { form_dokumen_penugasan_id, form_edit_sertif_luk_id, form_input_regis_balis, form_input_regis_bapeten_id, form_pemilihan_jadwal_penguji_id } from "constants/FormUtils";
 import { PersonnelProvider } from "hooks/fetcher/personnel/usePersonnelFetcher";
 import FormDokumenPenugasan from "components/big/manajemen/manajemen-uji/FormDokumenPenugasan";
 import FormInputTanggalRegisBalis from "components/big/manajemen/manajemen-uji/FormInputTanggalRegisBalis";
@@ -26,6 +26,8 @@ import classNames from "classnames";
 import HMinus from "utils/HMinus";
 import FormKonfirmLaporanUji from "components/big/manajemen/manajemen-uji/FormKonfirmLaporanUji";
 import { useKonfirmLaporanUjiContext } from "hooks/context/manajemen-uji/KonfirmLaporanUjiContext";
+import FormRegisBapeten from "components/big/manajemen/manajemen-uji/FormRegisBapeten";
+import FormEditSertifLuk from "components/big/manajemen/manajemen-uji/FormEditSertifLuk";
 
 
 export default function ManajemenujiTable({data, mutate}) {
@@ -45,6 +47,10 @@ export default function ManajemenujiTable({data, mutate}) {
         setTanggalRegisBalisPopUp,
         konfirmLaporanUjiPopUp,
         setKonfirmLaporanUjiPopUp,
+        regisBapetenPopUp, 
+        setRegisBapetenPopUp,
+        sertifLukPopUp, 
+        setSertifLukPopUp
     } = useManajemenUjiContext()
 
     const {
@@ -268,14 +274,14 @@ export default function ManajemenujiTable({data, mutate}) {
                     <>
                         <Button
                         buttonStyle="primary_default"
-                        // onClick={}
+                        onClick={()=> setRegisBapetenPopUp(true)}
                         >
                             Isi No. Registrasi Bapeten
                         </Button>
                         <Button
                         // buttonStyle="primary_default"
                         className="bg-secondary text-white"
-                        // onClick={}
+                        onClick={()=> setSertifLukPopUp(true)}
                         >
                             Edit Sertifikasi LUK
                         </Button>
@@ -460,6 +466,76 @@ export default function ManajemenujiTable({data, mutate}) {
             setreqSent={setreqSent}
             />
         </FormModal>
+      }
+
+      {regisBapetenPopUp &&
+        <FormModal
+        title="Isi No Registrasi Bapeten"
+        bgColor="primary"
+        isOpen={regisBapetenPopUp}
+        setIsOpen={setRegisBapetenPopUp}
+        buttonSide={
+            <Button 
+            className="bg-primary" 
+            buttonStyle={submitState?"primary_disabled":"primary_default"}
+            type="submit"                 
+            disabled={submitState? true:false}
+            form={form_input_regis_bapeten_id}
+            >
+                  { submitState &&
+                    <FontAwesomeIcon icon={faSpinner} className="animate-spin"/>
+                  }
+                  Konfirm Nomor Registrasi
+            </Button>
+
+            
+        }
+        >
+            <FormRegisBapeten
+            id={form_input_regis_bapeten_id}
+            data={dataSelected}
+            submitState={submitState}
+            setSubmitState={setSubmitState}
+            reqSent={reqSent}
+            setreqSent={setreqSent}
+            />
+
+        </FormModal> 
+
+            
+
+      }
+
+      {sertifLukPopUp &&
+        <FormModal
+        title="Cetak Sertifikat LUK"
+        bgColor="primary"
+        isOpen={sertifLukPopUp}
+        setIsOpen={setSertifLukPopUp}
+        buttonSide={
+            <Button 
+            className="bg-primary" 
+            buttonStyle={submitState?"primary_disabled":"primary_default"}
+            type="submit"                 
+            disabled={submitState? true:false}
+            form={form_edit_sertif_luk_id}
+            >
+                  { submitState &&
+                    <FontAwesomeIcon icon={faSpinner} className="animate-spin"/>
+                  }
+                  Simpan Sertifikat
+            </Button>
+
+        }
+        >
+            <FormEditSertifLuk
+                id={form_edit_sertif_luk_id}
+                data={dataSelected}
+                setSubmitState={setSubmitState}
+                setreqSent={setreqSent}
+            />
+
+        </FormModal> 
       }
 
       </>

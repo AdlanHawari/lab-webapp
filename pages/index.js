@@ -48,6 +48,9 @@ export default function Home() {
         if(code == ACCESS_CODE.PERSONNEL){
           router.push(`/${userType.personnel}/uji`)
         }
+        if(code == ACCESS_CODE.PERSONNEL_PEERS){
+          router.push(`/${userType.personnel}/uji`)
+        }
 
         if(code == ACCESS_CODE.KEPALA_LAB){
           router.push(`/${userType.management}/summary`)

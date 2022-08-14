@@ -1,125 +1,142 @@
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { XIcon } from '@heroicons/react/outline'
 import Button from 'components/small/button_fixed/Button'
 import Body1 from 'components/small/typography/Body1'
 import Body2 from 'components/small/typography/Body2'
 import ValidationMessage from 'components/small/validation_form/ValidationMessage'
-import { form_create_institution_id } from 'constants/FormUtils'
-import { ErrorMessage, Field, Form, Formik } from 'formik'
-import { createInstInitValues } from 'helper/initial-formik-values/CrateInstFormInitValues'
-import CreateInstValidationSchema from 'helper/yup/CreateInstValidationSchema'
+import { ErrorMessage, Field } from 'formik'
 import React from 'react'
-import * as Yup from 'yup'
 
-export default function CreateInstitutionForm() {
+export default function CreateInstitutionForm({
+    id,
+    setCreateInstForm,
+    submitState
+}) {
   return (
-    <Formik 
-    initialValues={createInstInitValues}
-    validationSchema={CreateInstValidationSchema(Yup)}
-    onSubmit={ (values) => {
-        console.log(values);
-    }}
-    >{
-        formik=>{
-        return <Form id={form_create_institution_id}>
-        <div className="block">
-            <Body2 className="text-black-400 pb-3.5">
-                            Instansi Baru
-                        </Body2>
-                        <div className='flex items-center justify-between'>
-                            <Body1 className="text-black-400">
-                                Nama Instansi
-                            </Body1>
-                            <div className="block">
-                            <Field
-                                className="placeholder:text-grey-500 form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300"
-                                id="name"
-                                name="name"
-                                type="text"
-                                placeholder="Isi Nama Instansi"
-                                />
-                            <ErrorMessage name="name" component={ValidationMessage}/>
-                            </div>
-                        </div>
-                        <div className='flex items-center justify-between'>
-                            <Body1 className="text-black-400">
-                                Alamat Instansi
-                            </Body1>
-                            <div className="block">
-                            <Field
-                                className="placeholder:text-grey-500 form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300"
-                                id="address"
-                                name="address"
-                                type="text"
-                                placeholder="Isi Alamat Instansi"
-                                />
-                            <ErrorMessage name="address" component={ValidationMessage}/>
-                            
-                            </div>
-                        </div>
-                        <div className='flex items-center justify-between'>
-                            <Body1 className="text-black-400">
-                                Email Instansi
-                            </Body1>
-                            <div className="block">
-                            <Field
-                                className="placeholder:text-grey-500 form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300"
-                                id="email"
-                                name="email"
-                                type="text"
-                                placeholder="Isi Email Instansi"
-                                />
-                            <ErrorMessage name="email" component={ValidationMessage}/>
-                            
-                            </div>
-                        </div>
-                        <div className='flex items-center justify-between'>
-                            <Body1 className="text-black-400">
-                                No. Telp Instansi
-                            </Body1>
-                            <div className="block">
-                            <Field
-                                className="placeholder:text-grey-500 form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300"
-                                id="phone_number"
-                                name="phone_number"
-                                type="text"
-                                placeholder="Isi No. Telp Instansi"
-                                />
-                            <ErrorMessage name="phone_number" component={ValidationMessage}/>
-                            
-                            </div>
-                        </div>
-                        <div className='flex items-center justify-between'>
-                            <Body1 className="text-black-400">
-                                No. Hp Instansi
-                            </Body1>
-                            <div className="block">
-                            <Field
-                                className="placeholder:text-grey-500 form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300"
-                                id="mobile_phone_number"
-                                name="mobile_phone_number"
-                                type="text"
-                                placeholder="Isi No. Hp Instansi"
-                                />
-                            <ErrorMessage name="mobile_phone_number" component={ValidationMessage}/>
-                            
-                            </div>
-                        </div>
+    <div className="relative block p-5 rounded-xl bg-grey-100 border border-grey-400 ">
+        <div className="absolute top-0 right-0">
+            <button 
+            className="flex w-8 h-8 items-center justify-center py-2 px-2 bg-error hover:bg-error-dark rounded-lg"
+            type="button"
+            onClick={()=> setCreateInstForm(false)}>
+                <XIcon className="w-4 h-5 text-white " aria-hidden="true"/>
+            </button>
 
-
-            <Button
-            className="bg-primary w-40" 
-            buttonStyle="primary_default" 
-            type="submit"
-            // type="submit"
-            form={form_create_institution_id}
-            >
-                Simpan Instansi
-            </Button>
         </div>
-        </Form>
-        }
-    }
+        <Body2 className="text-black-400 pb-3.5">
+            Instansi Baru
+        </Body2>
+        <div className="grid grid-cols-2 gap-y-3 py-3">
+            <Body1 className="text-black-400">
+                Nama Instansi
+            </Body1>
+            <div className="block">
+                <Field
+                    className="placeholder:text-grey-500 form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300"
+                    id="institution_create.name"
+                    name="institution_create.name"
+                    type="text"
+                    placeholder="Isi Nama Instansi"
+                    />
+                <ErrorMessage name="institution_create.name" component={ValidationMessage}/>
+            </div>
 
-    </Formik>
-    
+            <Body1 className="text-black-400">
+                Nama Kontak Instansi
+            </Body1>
+            <div className="block">
+                <Field
+                    className="placeholder:text-grey-500 form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300"
+                    id="institution_create.contact_name"
+                    name="institution_create.contact_name"
+                    type="text"
+                    placeholder="Isi Nama Kontak Instansi"
+                    />
+                <ErrorMessage name="institution_create.contact_name" component={ValidationMessage}/>
+            </div>
+
+            <Body1 className="text-black-400">
+                Alamat Instansi
+            </Body1>
+            <div className="block">
+                <Field
+                    className="placeholder:text-grey-500 form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300"
+                    id="institution_create.address"
+                    name="institution_create.address"
+                    type="text"
+                    placeholder="Isi Alamat Instansi"
+                    />
+                <ErrorMessage name="institution_create.address" component={ValidationMessage}/>
+                
+            </div>
+
+            <Body1 className="text-black-400">
+                Email Instansi
+            </Body1>
+            <div className="block">
+                <Field
+                    className="placeholder:text-grey-500 form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300"
+                    id="institution_create.email"
+                    name="institution_create.email"
+                    type="text"
+                    placeholder="Isi Email Instansi"
+                    />
+                <ErrorMessage name="institution_create.email" component={ValidationMessage}/>
+            
+            </div>
+
+            <Body1 className="text-black-400">
+                No. Telp Instansi
+            </Body1>
+            <div className="block">
+                <Field
+                    className="placeholder:text-grey-500 form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300"
+                    id="institution_create.phone_number"
+                    name="institution_create.phone_number"
+                    type="text"
+                    placeholder="Isi No. Telp Instansi"
+                    />
+                <ErrorMessage name="institution_create.phone_number" component={ValidationMessage}/>
+            
+            </div>
+
+            <Body1 className="text-black-400">
+                No. Hp Instansi
+            </Body1>
+            <div className="block">
+                <Field
+                    className="placeholder:text-grey-500 form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300"
+                    id="institution_create.mobile_phone_number"
+                    name="institution_create.mobile_phone_number"
+                    type="text"
+                    placeholder="Isi No. Hp Instansi"
+                    />
+                <ErrorMessage name="institution_create.mobile_phone_number" component={ValidationMessage}/>
+            
+            </div>
+
+        </div>
+
+        <div className="flex w-full justify-end pt-4">
+            {/* {submitButton} */}
+            <div className="w-64">
+                <Button 
+                className="bg-primary"  
+                buttonStyle={!submitState ? "primary_default": "primary_disabled"}
+                type="submit"
+                disabled={!submitState ? false:true}
+                form={id}
+                >
+                    { submitState &&
+                    <FontAwesomeIcon icon={faSpinner} className="animate-spin"/>
+                    }
+                    Simpan Instansi
+                </Button>
+            </div>
+        </div>
+
+
+    </div>
   )
 }
