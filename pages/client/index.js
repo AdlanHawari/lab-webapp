@@ -1,20 +1,45 @@
 
+import { ACCESS_CODE } from "constants/Access_Code"
+import useUser from "hooks/fetcher/auth/useUser"
 import { useRouter } from "next/router"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import BaseLayout from "/components/base/BaseLayout"
 
 export default function ClientPage() {
   const router = useRouter()
+  const { user, loading,error, mutate } = useUser()
+  const [render, setRender] = useState(false)
 
+  // useEffect(() => {
+  //   router.push("client/uji")
+  // })
   useEffect(() => {
-    router.push("client/uji")
-  })
+    if(user){
+      console.log("user", user)
+      if(user.data.role.access_code != ACCESS_CODE.CLIENT &&  user.data.role.access_code != ACCESS_CODE.ADMIN){
+        router.replace("/")
+      }
+      else{
+        // setRender(true)
+        router.push("client/uji")
+      }
+    }
+  }, [user])
   
   return (
+    <>
+     {loading &&
     <div className="">
 
-      <h1>client page</h1>
+      <h3>Loading...</h3>
     </div>
+    }
+
+    </>
+    // <div className="">
+
+    //   <h1>client page</h1>
+    // </div>
 
   )
 }

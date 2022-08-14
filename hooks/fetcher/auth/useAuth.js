@@ -101,29 +101,29 @@ function useProvideAuth(){
         const res = await req.json()
         console.log('response', res)
 
+        return res
+        // if(res.header.response_code == 200){
+        //     const data = res.data
+        //     const header = res.header
+        //     return {
+        //         data,
+        //         header
+        //     }
+        // }
 
-        if(res.header.response_code == 200){
-            const data = res.data
-            const header = res.header
-            return {
-                data,
-                header
-            }
-        }
+        // if(res.header.response_code == 401){
+        //     error = new Error(res.message)
+        //     error.status = res.status_code
+        //     error.info = res
+        //     throw error
+        // }
 
-        if(res.header.response_code == 401){
-            error = new Error(res.message)
-            error.status = res.status_code
-            error.info = res
-            throw error
-        }
-
-        if(res.header.response_code == 422){
-            error = new Error(res.message)
-            error.status = res.status_code
-            error.info = res
-            throw error
-        }
+        // if(res.header.response_code == 422){
+        //     error = new Error(res.message)
+        //     error.status = res.status_code
+        //     error.info = res
+        //     throw error
+        // }
 
     }
 

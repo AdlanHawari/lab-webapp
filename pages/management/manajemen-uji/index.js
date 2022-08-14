@@ -7,6 +7,7 @@ import ManajemenPengujiFilterSection from 'components/big/manajemen/manajemen-pe
 import ManajemenPengujiMainSection from 'components/big/manajemen/manajemen-penguji/ManajemenPengujiMainSection';
 import ManajemenUjiFilterSection from 'components/big/manajemen/manajemen-uji/ManajemenUjiFilterSection';
 import ManajemenUjiMainSection from 'components/big/manajemen/manajemen-uji/ManajemenUjiMainSection';
+import { ACCESS_CODE } from 'constants/Access_Code';
 import { manajemenUjiStatus } from 'constants/filter-status/ManajemenUjiStatus';
 import { subMenu } from 'constants/SubmenuManajemenUji';
 import { manajemenUjiData } from 'constants/test_objects/manajemenUji';
@@ -15,19 +16,47 @@ import DateFilterUjiContextProvider from 'hooks/context/filter-date/DateFilterUj
 import StatusFilterContextProvider from 'hooks/context/filter-status/StatusContext';
 import ManajemenUjiContextProvider from 'hooks/context/manajemen-uji/ManajemenUjiContext';
 import PageContextProvider from 'hooks/context/pagination/PageContext';
+import useUser from 'hooks/fetcher/auth/useUser';
 import { useTitleContext } from "hooks/TitleContext";
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 export default function ManajemenManajemenUjiPage() {
   // const [title, setTitle] = useTitleContext();
   // const [subTitle, setSubtitle] = useState(subMenu.PENGUJI)
   const [title,setTitle, subTitle,setSubtitle] = useTitleContext();
-  // const router = useRouter
-  // console.log(clientLogs)
+  const router = useRouter()
+  const { user, loading,error, mutate } = useUser()
+  const [render, setRender] = useState(false)
+
+
   useEffect(() => {
   setTitle('Manajemen Uji')
   })
+
+  useEffect(() => {
+    if(user){
+      console.log("user", user)
+      if(user.data.role.access_code != ACCESS_CODE.MANAGEMENT_KAL && user.data.role.access_code != ACCESS_CODE.MANAGEMENT_UJI && user.data.role.access_code != ACCESS_CODE.KEPALA_LAB &&  user.data.role.access_code != ACCESS_CODE.ADMIN){
+        router.replace("/")
+      }
+      else{
+        setRender(true)
+        // router.push("management/summary")
+      }
+    }
+  }, [user])
+
+
   return(
+    <>
+      {loading ?
+        <div className="">
+
+          <h3>Loading...</h3>
+        </div>
+        :
+        render &&
     
     
         <div className="flex flex-col divide-y divide-grey-200 space-y-5">
@@ -71,6 +100,10 @@ export default function ManajemenManajemenUjiPage() {
     //   <ManajemenPengujiTable data={pengujiData}/>
     //   }
     // </div>
+
+  }
+
+  </>
   )
 }
 

@@ -4,18 +4,24 @@ import { PencilIcon } from '@heroicons/react/outline'
 import { TrashIcon } from '@heroicons/react/solid'
 import classNames from 'classnames'
 import AssuranceModal from 'components/big/AssuranceModal'
+import ErrorModal from 'components/big/ErrorModal'
+import FormModal from 'components/big/FormModal'
+import FormEditUser from 'components/big/manajemen/manajemen-user/FormEditUser'
 import Button from 'components/small/button_fixed/Button'
 import ButtonSmall from 'components/small/button_small/ButtonSmall'
 import Body3 from 'components/small/typography/Body3'
 import Table1 from 'components/small/typography/Table1'
 import Table2 from 'components/small/typography/Table2'
+import { form_edit_user_id } from 'constants/FormUtils'
 import { userTableHead } from 'constants/table/RowTitle'
 import { useManajemenUserFetcherContext } from 'hooks/fetcher/management-user/useManajemenUserFetcher'
 import React, { useEffect, useState } from 'react'
 import { useSWRConfig } from 'swr'
 
-export default function UserTable({data, mutate}) {
+export default function UserTable({data, mutate, institutionList}) {
     const [onDelete, setOnDelete] = useState(false)
+    const [onEdit, setOnEdit] = useState(false)
+    const [onError, setOnError] = useState(false)
     const [dataSelected, setDataSelected] = useState({})
     const [submitState, setSubmitState] = useState(false)
     const [reqSent, setreqSent] = useState(false);
@@ -26,6 +32,8 @@ export default function UserTable({data, mutate}) {
     useEffect(() => {
         if(reqSent){
             setSubmitState(false)
+            setOnError(false)
+            setOnEdit(false)
             setOnDelete(false)
             setreqSent(false)
             mutate()
@@ -82,7 +90,10 @@ export default function UserTable({data, mutate}) {
                     <div className="flex items-center justify-center space-x-4">
                         <button 
                         className="flex items-center justify-center py-2 px-2 bg-secondary rounded-lg"
-                        
+                        onClick={()=> {
+                            setOnEdit(true)
+                            setDataSelected(item)
+                        }}
                         >
                             <PencilIcon className="w-4 h-5 text-white " aria-hidden="true"/>
                         </button>
@@ -144,6 +155,8 @@ export default function UserTable({data, mutate}) {
                         }
                         if(responseDel.header.response_code==422){
                             setSubmitState(false)
+                            setOnDelete(false)
+                            setOnError(true)
                         }
                     }
                     fetchData(dataSelected.id)
@@ -157,25 +170,7 @@ export default function UserTable({data, mutate}) {
                         Hapus
                     </Body3>
                 </Button>
-                // <button
-                // className='px-2 py-3 w-48 rounded-xl text-white bg-error hover:bg-error-dark'
-                // type='button'
-                // onClick={()=> {
-                    
-                //     async function fetchData(id){
-
-                //         const responseDel = await deleteUser(id)
-
-                //         console.log("responseDel", responseDel)
-                //     }
-                //     fetchData(dataSelected.id)
-                    
-                // }}
-                // >
-                //     <Body3>
-                //         Hapus
-                //     </Body3>
-                // </button>
+               
         }
         >
 
@@ -184,6 +179,69 @@ export default function UserTable({data, mutate}) {
             </div>
 
         </AssuranceModal>
+    }
+
+    {onError &&
+        <ErrorModal
+        confirmButton
+        bgColor="error"
+        isOpen={onError}
+        setIsOpen={setOnError}
+        >
+            <div className="block pb-10 text-center">
+                <Body3 className="text-black-400">User <strong className='text-black-400 underline'>{dataSelected.name}</strong> tidak dapat dihapus karena sudah melakukan pengajuan uji</Body3>
+            </div>
+
+
+        </ErrorModal>
+    }
+
+    {onEdit && 
+        <FormModal
+        title="Edit User"
+        bgColor="primary"
+        isOpen={onEdit}
+        setIsOpen={setOnEdit}
+        buttonSide={
+            <>
+            {/* <Button className="bg-primary" buttonStyle="primary_default" type="submit" form={form_permohonan_uji_id}> */}
+            <Button 
+            className="bg-primary"  
+            buttonStyle={
+                !submitState ? "primary_default": "primary_disabled"}
+            type="submit"
+            disabled={!submitState ? false:true}
+            form={form_edit_user_id}
+            >
+                { submitState &&
+                <FontAwesomeIcon icon={faSpinner} className="animate-spin"/>
+                }
+                Ubah Informasi User
+            </Button>
+            </>
+        }
+        
+        >
+            <FormEditUser
+            institutionList={institutionList}
+            id={form_edit_user_id}
+            data={dataSelected}
+            submitState={submitState}
+            setSubmitState={setSubmitState}
+            setreqSent={setreqSent}
+            />
+        
+        
+            {/* <FormCreateUser 
+            institutionList={ institutionFetcher.institutionLists.data}
+            id={form_create_user_id}
+            setSubmitState={setSubmitState}
+            setreqSent={setreqSent}
+            submitState={submitState}
+            /> */}
+
+            
+        </FormModal>
     }
 </>
   )

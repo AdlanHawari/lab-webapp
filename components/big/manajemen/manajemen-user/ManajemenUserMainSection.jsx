@@ -72,7 +72,8 @@ export default function ManajemenUserMainSection() {
     return (
     <div>
         {users&&
-            <UserTable data={users.data} mutate={mutate}/>
+            institutionFetcher.institutionLists &&
+            <UserTable data={users.data} mutate={mutate} institutionList={institutionFetcher.institutionLists.data}/>
         }
         {loading&&
         <h1>Loading</h1>

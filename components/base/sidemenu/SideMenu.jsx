@@ -18,6 +18,10 @@ export default function SideMenu() {
   const user_type = splittedUrl[1];
   const page = splittedUrl[2];
   const [menu, setMenu] = useState([]);
+
+  // console.log("user_type",user_type)
+  // console.log("router pathname", router.pathname)
+
   useEffect(() => {
     if(user_type == userType.client){
       setMenu(client_menu)
@@ -61,8 +65,8 @@ export default function SideMenu() {
               object={item.submenu}
               textclassName="text-black-300"
               page={router.pathname}
-              bgclassName={page.includes(item.id) && "bg-sidebar-menu rounded-lg"}
-              iconclassName={page.includes(item.id) ? "text-primary" : "text-black-300"}
+              bgclassName={page && page.includes(item.id) && "bg-sidebar-menu rounded-lg"}
+              iconclassName={page && page.includes(item.id) ? "text-primary" : "text-black-300"}
               >
                 {item.title}
               </DisclosureMenu> 
