@@ -72,7 +72,7 @@ export default function ManajemenUserMainSection() {
     return (
     <div>
         {users&&
-            <UserTable data={users.data}/>
+            <UserTable data={users.data} mutate={mutate}/>
         }
         {loading&&
         <h1>Loading</h1>

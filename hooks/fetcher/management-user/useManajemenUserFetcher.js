@@ -90,10 +90,28 @@ function useProvideManajemenUser(){
         return res
     }
 
+    async function deleteUser(id){
+        var requestOptions = {
+            method:'DELETE'  ,
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                // 'Content-Type': 'application/json'
+            },
+            redirect: 'follow'
+            };
+
+        const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${id}`, requestOptions)
+        const res = await req.json()
+
+        return res
+    }
+
     return {
         getUsers,
         createInstitution,
-        createUser
+        createUser,
+        deleteUser,
+
 
     }
 }
