@@ -11,10 +11,11 @@ export default function UserRoleDropDown({
     setContext,
     setFormikValue,
     formikName,
-    onBlur
+    onBlur,
+    initValue
 }) {
 
-    const [selected, setSelected] = useState({})
+    const [selected, setSelected] = useState(initValue? initValue : {})
     const [query, setQuery] = useState('')
     const itemLists = USER_ROLE
     const filteredItemLists =

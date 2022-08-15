@@ -68,6 +68,8 @@ export default function ManajemenujiTable({data, mutate}) {
             setDokumenPenugasanPopUp(false)
             setTanggalRegisBalisPopUp(false)
             setKonfirmLaporanUjiPopUp(false)
+            setSertifLukPopUp(false)
+            setRegisBapetenPopUp(false)
             setreqSent(false)
             mutate()
         }

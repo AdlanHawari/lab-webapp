@@ -9,9 +9,11 @@ export default function InstansiDropDown({
     setContext,
     setFormikValue,
     formikName,
-    bottomButton
+    bottomButton,
+    initValue
 }) {
-    const [selected, setSelected] = useState({})
+    // const [selected, setSelected] = useState({})
+    const [selected, setSelected] = useState(initValue? initValue: {})
     const [query, setQuery] = useState('')
 
     const filteredItemLists =

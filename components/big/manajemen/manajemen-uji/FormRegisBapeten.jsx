@@ -3,7 +3,9 @@ import ValidationMessage from 'components/small/validation_form/ValidationMessag
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import { inputNoRegisBalisInitValues } from 'helper/initial-formik-values/InputNoRegisBalisInitValues'
 import NoRegisBalisValidationSchema from 'helper/yup/NoRegisBalisValidationSchema'
-import React from 'react'
+import { useDetailUji } from 'hooks/fetcher/detail-uji/useDetailUji'
+import React, { useEffect, useState } from 'react'
+import handleFormData from 'utils/HandleFormData'
 import * as Yup from 'yup'
 
 export default function FormRegisBapeten({
@@ -14,12 +16,50 @@ export default function FormRegisBapeten({
     reqSent,
     setreqSent,
 }) {
+
+    const {updateTestApp, confirmTestApp} = useDetailUji()
+
+    const [bapetenState, setBapetenState] = useState(false)
+    const [confirm, setConfirm] = useState(false)
+
+    useEffect(() => {
+      
+    
+        if(confirm && bapetenState){
+            setreqSent(true)
+        }
+    }, [confirm, bapetenState])
+    
+
+
   return (
     <Formik
     initialValues={inputNoRegisBalisInitValues}
     validationSchema={NoRegisBalisValidationSchema(Yup)}
     onSubmit={(values)=> {
+        setSubmitState(true)
         console.log(values)
+
+        let formData = handleFormData(values)
+        async function fetchData(formData, id){
+            const responseReg = await updateTestApp(formData, id)
+            const responseConf = await confirmTestApp(id)
+            console.log("responseReg",responseReg)
+            console.log("responseConf",responseConf)
+
+            if(responseReg.header.response_code == 200){
+                // setreqSent(true)
+                setBapetenState(true)
+              }
+            if(responseConf.header.response_code == 200){
+                // setreqSent(true)
+                setConfirm(true)
+              }
+
+
+        }
+
+        fetchData(formData, data.id)
     }}
     >
         <Form id={id}>

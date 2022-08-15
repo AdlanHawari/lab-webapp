@@ -40,6 +40,11 @@ export default function FormEditSertifLuk({
         const response = await editSertifLUK(formData, data.id)
         console.log("response", response)
 
+        if(response.header.response_code == 200){
+          setreqSent(true)
+
+        }
+
 
       }
       fetchData()

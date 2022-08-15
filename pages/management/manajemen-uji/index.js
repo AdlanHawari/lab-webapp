@@ -17,6 +17,7 @@ import StatusFilterContextProvider from 'hooks/context/filter-status/StatusConte
 import ManajemenUjiContextProvider from 'hooks/context/manajemen-uji/ManajemenUjiContext';
 import PageContextProvider from 'hooks/context/pagination/PageContext';
 import useUser from 'hooks/fetcher/auth/useUser';
+import { PersonnelProvider } from 'hooks/fetcher/personnel/usePersonnelFetcher';
 import { useTitleContext } from "hooks/TitleContext";
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -45,9 +46,9 @@ export default function ManajemenManajemenUjiPage() {
         // router.push("management/summary")
       }
     }
-    else{
-      router.replace("/")
-    }
+    // else{
+    //   router.replace("/")
+    // }
   }, [user])
 
 
@@ -78,14 +79,16 @@ export default function ManajemenManajemenUjiPage() {
             
             :
             subTitle == subMenu.PENGUJI &&
-            // <StatusFilterContextProvider>
+            <StatusFilterContextProvider>
               <PageContextProvider>
                 <DateFilterUjiContextProvider>
                   <ManajemenPengujiFilterSection/>
-                  <ManajemenPengujiMainSection/>
+                  <PersonnelProvider>
+                    <ManajemenPengujiMainSection/>
+                  </PersonnelProvider>
                 </DateFilterUjiContextProvider>
               </PageContextProvider>
-            // </StatusFilterContextProvider>
+            </StatusFilterContextProvider>
             
 
           }
