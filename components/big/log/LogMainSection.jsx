@@ -26,7 +26,7 @@ export default function LogMainSection() {
         <h1>Loading</h1>
       }
       {data&&
-        <LogTable data={data.data}/>
+        <LogTable data={data.data} mutate={mutate}/>
         // <div className="">huhu</div>
       }
         <Pagination/>

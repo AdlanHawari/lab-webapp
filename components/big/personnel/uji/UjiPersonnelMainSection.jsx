@@ -4,6 +4,7 @@ import Pagination from 'components/small/pagination/Pagination'
 import { manajemenUjiData } from 'constants/test_objects/manajemenUji'
 import { useDateFilterUjiContext } from 'hooks/context/filter-date/DateFilterUjiContext'
 import { useStatusFilterContext } from 'hooks/context/filter-status/StatusContext'
+import KonfirmLaporanUjiContextProvider from 'hooks/context/manajemen-uji/KonfirmLaporanUjiContext'
 import { usePageContext } from 'hooks/context/pagination/PageContext'
 import { DetailUjiFetcherProvider } from 'hooks/fetcher/detail-uji/useDetailUji'
 import usePermohonanUji from 'hooks/fetcher/usePermohonanUji'
@@ -25,11 +26,15 @@ export default function UjiPersonnelMainSection() {
 
     )
 
+    console.log("data",data)
+    
+
     useEffect(() => {
       if(data){
         setLastPage(data.header.total_page)
         console.log("datanya",data.data)
       }
+      
   },[data])
   return (
     <div className="pt-5 space-y-5">
@@ -40,8 +45,9 @@ export default function UjiPersonnelMainSection() {
         {data &&
       data.data.length>0 ? 
         <DetailUjiFetcherProvider>
-
-          <PersonnelUjiTable data={data.data} mutate={mutate}/>
+            <KonfirmLaporanUjiContextProvider>
+              <PersonnelUjiTable data={data.data} mutate={mutate}/>
+            </KonfirmLaporanUjiContextProvider>
         </DetailUjiFetcherProvider>
       :
       !loading&&

@@ -27,6 +27,9 @@ export default function ClientProfilePage() {
         setRender(true)
       }
     }
+    else{
+      router.replace("/")
+    }
   
   }, [user])
 

@@ -45,6 +45,9 @@ export default function ManajemenManajemenUjiPage() {
         // router.push("management/summary")
       }
     }
+    else{
+      router.replace("/")
+    }
   }, [user])
 
 

@@ -33,9 +33,17 @@ export default function ManajemenArsipPage() {
         router.replace("/")
       }
       else{
-        setRender(true)
+        if(user.header.response_code==200){
+          setRender(true)
+        }
+        if(user.header.response_code==401){
+          router.replace("/")
+        }
         // router.push("management/summary")
       }
+    }
+    else{
+      router.replace("/")
     }
   }, [user])
 

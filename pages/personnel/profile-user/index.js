@@ -1,5 +1,6 @@
 import BaseLayout from 'components/base/BaseLayout';
 import ProfileSection from 'components/base/profilesection/ProfileSection';
+import { ACCESS_CODE } from 'constants/Access_Code';
 import useUser from 'hooks/fetcher/auth/useUser';
 import { useTitleContext } from "hooks/TitleContext";
 import { useRouter } from 'next/router';
@@ -24,6 +25,9 @@ export default function PersonelProfilePage() {
       else{
         setRender(true)
       }
+    }
+    else{
+      router.replace("/")
     }
   
   }, [user])

@@ -37,6 +37,9 @@ export default function PersonelUjiPage() {
         setRender(true)
       }
     }
+    else{
+      router.replace("/")
+    }
   
   }, [user])
 

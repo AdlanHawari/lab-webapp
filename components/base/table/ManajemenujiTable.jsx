@@ -458,7 +458,6 @@ export default function ManajemenujiTable({data, mutate}) {
         }>
             
             <FormKonfirmLaporanUji
-            id={form_input_regis_balis}
             data={dataSelected}
             submitState={submitState}
             setSubmitState={setSubmitState}

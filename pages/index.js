@@ -39,6 +39,8 @@ export default function Home() {
       if(user.data){
         
         const code = user.data.role.access_code
+        console.log(code)
+        console.log(ACCESS_CODE.PERSONNEL_PEERS)
         if(code == ACCESS_CODE.ADMIN){
           router.push("/login/welcomeSU")
         }
@@ -103,6 +105,9 @@ export default function Home() {
       {loading &&
         <h1>LOADING</h1>
       }
+      {/* {user && 
+      <h1>RENDERED</h1>
+      } */}
       {/* {error &&
        <h1>ini error</h1>
       } */}

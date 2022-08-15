@@ -33,6 +33,9 @@ export default function PersonelLogPage() {
         setRender(true)
       }
     }
+    else{
+      router.replace("/")
+    }
   
   }, [user])
 

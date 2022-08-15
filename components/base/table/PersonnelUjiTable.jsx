@@ -19,6 +19,10 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { form_bap_id, form_laporan_hasil_uji_id } from 'constants/FormUtils'
 import FormBeritaAcaraPekerjaan from 'components/big/personnel/uji/FormBeritaAcaraPekerjaan'
 import FormLaporanHasilUji from 'components/big/personnel/uji/FormLaporanHasilUji'
+import useUser from 'hooks/fetcher/auth/useUser'
+import { ACCESS_CODE } from 'constants/Access_Code'
+import { useKonfirmLaporanUjiContext } from 'hooks/context/manajemen-uji/KonfirmLaporanUjiContext'
+import FormKonfirmLaporanUji from 'components/big/manajemen/manajemen-uji/FormKonfirmLaporanUji'
 
 export default function PersonnelUjiTable({data, mutate}) {
     const [isDetailOpen, setIsDetailOpen] = useState(false)
@@ -28,6 +32,8 @@ export default function PersonnelUjiTable({data, mutate}) {
   const [submitState, setSubmitState] = useState(false)
     const [reqSent, setreqSent] = useState(false);
 
+    const { user, loading,error } = useUser()
+
   const {
     beritaAcaraPopUp, 
     setBeritaAcaraPopUp,
@@ -36,6 +42,14 @@ export default function PersonnelUjiTable({data, mutate}) {
     konfirmlaporanUjiPopUp, 
     setKonfirmLaporanUjiPopUp
     } = usePersonnelUjiContext()
+
+    const {
+        terimaPopUp,
+        setTerimaPopUp,
+        tolakPopUp,
+        setTolakPopUp
+    } = useKonfirmLaporanUjiContext()
+
 
     useEffect(() => {
         if(reqSent){
@@ -49,6 +63,12 @@ export default function PersonnelUjiTable({data, mutate}) {
       
     
     }, [reqSent])
+
+    useEffect(()=>{
+        if(user){
+            console.log("role",user.data.role.access_code)
+        }
+    }, [user])
     
 
 
@@ -213,9 +233,12 @@ export default function PersonnelUjiTable({data, mutate}) {
                 </Button>
                 }
 
-                {dataSelected.status == 8 &&
+                {dataSelected.status == 8 && user.data.role.access_code == ACCESS_CODE.ADMIN || 
+                dataSelected.status == 8 && user.data.role.access_code == ACCESS_CODE.PERSONNEL_PEERS &&
+
                 <Button
                 className="bg-secondary text-white"
+                onClick={()=> setKonfirmLaporanUjiPopUp(true)}
                 >
                     Konfirmasi Laporan Uji
                 </Button>
@@ -301,6 +324,47 @@ export default function PersonnelUjiTable({data, mutate}) {
         />
 
     </FormModal>
+    }
+
+    {konfirmlaporanUjiPopUp && 
+        <FormModal
+        title="Konfirmasi Laporan Uji"
+        bgColor="primary"
+        isOpen={konfirmlaporanUjiPopUp}
+        setIsOpen={setKonfirmLaporanUjiPopUp}
+        buttonSide={
+            <div className="block space-y-3">
+            <Button 
+            buttonStyle="primary_default"
+            type="button"                 
+            // form={}
+            onClick={()=> setTerimaPopUp(true)}
+            >
+                  Setujui Laporan
+            </Button>
+
+            <Button
+            className="bg-warning text-white"
+            type="button" 
+            onClick={()=> setTolakPopUp(true)}
+            >
+                Tolak Laporan
+            </Button>
+        
+
+        </div>
+        }
+        >
+            <FormKonfirmLaporanUji
+             data={dataSelected}
+             submitState={submitState}
+             setSubmitState={setSubmitState}
+             reqSent={reqSent}
+             setreqSent={setreqSent}
+             asPeers="true"
+            />
+
+        </FormModal>
     }
     </>
   )

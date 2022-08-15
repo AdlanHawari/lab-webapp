@@ -14,12 +14,12 @@ import FormTolakLaporanUji from './FormTolakLaporanUji'
 
 
 export default function FormKonfirmLaporanUji({
-    id,
     data,
     submitState,
     setSubmitState,
     reqSent,
     setreqSent,
+    asPeers
 }) {
 
     const {
@@ -57,7 +57,7 @@ export default function FormKonfirmLaporanUji({
         <div className="flex flex-col  w-full pl-10 pr-32">
             <div className="space-y-6">
                 <h3 className='text-black-400'>
-                    Konfirmasi laporan berikut sebagai Kepala LUK
+                    Konfirmasi laporan berikut sebagai { asPeers ? "Peers" : "Kepala LUK"}
                 </h3>
                 <button 
                 className="flex justify-between items-center w-full py-2 px-2.5 bg-primary rounded-xl shadow-sm"

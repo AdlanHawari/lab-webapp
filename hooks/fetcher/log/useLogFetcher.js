@@ -13,12 +13,12 @@ export const useLogFetcher = ()=> {
 }
 
 function useProvideLog(){
-    // const token = GetToken()
+    const token = GetToken()
 
     async function getUserLog(url){
         let error
     
-        const token = GetToken()
+        
     
         var requestOptions = {
             method:'GET'  ,
@@ -54,7 +54,26 @@ function useProvideLog(){
         }
     }
 
+    async function deleteLog(id){
+        var requestOptions = {
+            method:'DELETE'  ,
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                // 'Content-Type': 'application/json'
+            },
+            redirect: 'follow'
+        };
+
+        const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/logs/${id}`, requestOptions)
+    
+        const res = await req.json()
+
+        return res
+
+    }
+
     return {
-        getUserLog
+        getUserLog,
+        deleteLog
     }
 }

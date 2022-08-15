@@ -34,6 +34,9 @@ export default function ClientUjiPage() {
         setRender(true)
       }
     }
+    else{
+      router.replace("/")
+    }
   
   }, [user])
   

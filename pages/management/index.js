@@ -21,6 +21,9 @@ export default function ManagementPage() {
         router.push("management/summary")
       }
     }
+    else{
+      router.replace("/")
+    }
   }, [user])
 
   return (
