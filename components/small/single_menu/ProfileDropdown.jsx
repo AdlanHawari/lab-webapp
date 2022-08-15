@@ -49,8 +49,9 @@ export default function ProfileDropdown() {
 
   async function handleLogout(){
     localStorage.clear()
-    delay(3000)
+    delay(5000)
     mutate("/users/profile")
+    delay(5000)
     // delay(3000)
     // router.reload()
     router.replace("/")

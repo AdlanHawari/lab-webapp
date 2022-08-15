@@ -73,7 +73,7 @@ export default function LoginPage() {
         // console.log("role",data.user.role.access_code)
 
         localStorage.setItem('jwt_user', data.token)
-        delay(3000)
+        delay(5000)
         // role detector
         if(code == ACCESS_CODE.ADMIN){
           router.push("/login/welcomeSU")

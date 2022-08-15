@@ -40,7 +40,7 @@ export default function Home() {
         
         const code = user.data.role.access_code
         console.log(code)
-        console.log(ACCESS_CODE.PERSONNEL_PEERS)
+        delay(5000)
         if(code == ACCESS_CODE.ADMIN){
           router.push("/login/welcomeSU")
         }

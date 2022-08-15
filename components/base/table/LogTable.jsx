@@ -165,7 +165,6 @@ export default function LogTable({data, mutate}) {
                             if(responseDel.header.response_code==422){
                                 setSubmitState(false)
                                 setOnDelete(false)
-                                setOnError(true)
                             }
                         }
                         fetchData(dataSelected.id)
