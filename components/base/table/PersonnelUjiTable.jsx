@@ -233,8 +233,7 @@ export default function PersonnelUjiTable({data, mutate}) {
                 </Button>
                 }
 
-                {dataSelected.status == 8 && user.data.role.access_code == ACCESS_CODE.ADMIN || 
-                dataSelected.status == 8 && user.data.role.access_code == ACCESS_CODE.PERSONNEL_PEERS &&
+                {dataSelected.status == 8 && user.data.role.access_code == ACCESS_CODE.ADMIN ? 
 
                 <Button
                 className="bg-secondary text-white"
@@ -242,7 +241,16 @@ export default function PersonnelUjiTable({data, mutate}) {
                 >
                     Konfirmasi Laporan Uji
                 </Button>
-                }
+                :
+                dataSelected.status == 8 && user.data.role.access_code == ACCESS_CODE.PERSONNEL_PEERS &&
+                <Button
+                className="bg-secondary text-white"
+                onClick={()=> setKonfirmLaporanUjiPopUp(true)}
+                >
+                    Konfirmasi Laporan Uji
+                </Button>
+
+            }
 
             </div>
             }

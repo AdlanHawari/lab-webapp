@@ -24,12 +24,16 @@ export default function ManajemenPengujiTable({data}) {
                 <tr key={index} className="h-16 ">
                     <td className="w-48 py-7 px-4">
                         <Table1 className="text-black-500">
-                            {item.name}
+                            {item.tester.name}
                         </Table1>
                     </td>
                     <td className="w-48 py-7 px-4">
                         <Table1 className="text-black-500">
-                            {item.status}
+                            {item.tester.personnel_status ?
+                            "Aktif"
+                            :
+                            "Standby"
+                            }
                         </Table1>
                     </td>
                     <td className="w-48 py-7 px-4">

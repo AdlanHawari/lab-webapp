@@ -14,6 +14,12 @@ export default function useManajemenPengujiSWR(
     if(!personnel_status){
         personnel_status=""
     }
+
+    if(typeof status_filter === 'string'){
+        personnel_status=status_filter
+        status_filter=""
+    }
+
     const {getPersonnelActivity} = usePersonnelFetcher()
     const {data, mutate, error} = useSWR(
         `/test-applications/tester?start_date=${start_date}&end_date=${end_date}&personnel_status=${personnel_status}&status=${status_filter}&page=${page}`,

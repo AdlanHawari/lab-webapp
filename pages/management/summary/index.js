@@ -45,9 +45,7 @@ export default function ManajemenSummaryPage() {
         // router.push("management/summary")
       }
     }
-    else{
-      router.replace("/")
-    }
+    
   }, [user])
 
   return(

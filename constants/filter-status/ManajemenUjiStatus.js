@@ -61,13 +61,34 @@ export const manajemenUjiStatus= [
 ]
 
 export const manajemenPengujiStatus= [
-    "Semua",
-    "Aktif",
-    "Standby",
-    "Konfirmasi Laporan Uji",
-    "Submit Balis & Cetak Sertifikat",
-    "Selesai",
-    "Batal"
+    {
+        title:"Semua",
+        status:null
+    },
+    {
+        title:"Aktif",
+        status:"true"
+    },
+    {
+        title:"Standby",
+        status:"false"
+    },
+    {
+        title:"Konfirmasi Laporan Uji",
+        status:8
+    },
+    {
+        title:"Submit Balis & Cetak Sertifikat",
+        status:9
+    },
+
+    // "Semua",
+    // "Aktif",
+    // "Standby",
+    // "Konfirmasi Laporan Uji",
+    // "Submit Balis & Cetak Sertifikat",
+    // "Selesai",
+    // "Batal"
     // {
     //     title:"Semua",
     //     status:null

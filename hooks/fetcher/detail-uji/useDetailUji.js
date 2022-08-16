@@ -202,6 +202,8 @@ function useProvideDetailUjiFetcher(){
     async function downloadDoc(id, docType){
         var requestOptions = {
             method: 'GET',
+            encoding: 'binary',
+            responseType: 'blob',
             headers:{
                 'Authorization': `Bearer ${token}`
             },
@@ -210,21 +212,23 @@ function useProvideDetailUjiFetcher(){
         }
 
         try{
-            // const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/documents/download?test_application_id=${id}&doc_type=${docType}`, requestOptions)
+            const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/documents/download?test_application_id=${id}&doc_type=${docType}`, requestOptions)
 
+            const fileBlob = await req.blob()
+            return fileBlob
             // var file = new Blob([req], {type:'application/pdf'});
-            // console.log("req", req)
+            // console.log("req", file)
             // return file
 
-            const res = await axios.get(
-                `${process.env.NEXT_PUBLIC_API_URL}/documents/download?test_application_id=${id}&doc_type=${docType}`,
-                {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-            })
-            var file = new Blob([res], {type:'application/pdf'});
-            return file
+            // const res = await axios.get(
+            //     `${process.env.NEXT_PUBLIC_API_URL}/documents/download?test_application_id=${id}&doc_type=${docType}`,
+            //     {
+            //         headers: {
+            //             'Authorization': `Bearer ${token}`
+            //         }
+            // })
+            // var file = new Blob([res], {type:'application/pdf'});
+            // return file
 
         }
         catch(e){
