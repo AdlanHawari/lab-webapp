@@ -38,9 +38,6 @@ export default function ManajemenPermohonanUjiPage() {
         // router.push("management/summary")
       }
     }
-    else{
-      router.replace("/")
-    }
   }, [user])
 
 

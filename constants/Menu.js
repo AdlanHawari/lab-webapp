@@ -50,7 +50,7 @@ export const management_menu = [
     {
         id:MENU_ITEM.MANAJEMEN_ALAT_UKUR.id,
         title:MENU_ITEM.MANAJEMEN_ALAT_UKUR.title,
-        path:`/${userType.management}`+MENU_ITEM.MANAJEMEN_ALAT_UKUR.path,
+        path:`/${userType.management}`+MENU_ITEM.MANAJEMEN_ALAT_UKUR,
         submenu: [
             {
                 id: MENU_ITEM.MANAJEMEN_ALAT_UKUR.submenu.DASHBOARD.id,

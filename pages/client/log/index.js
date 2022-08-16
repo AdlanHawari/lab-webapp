@@ -32,9 +32,6 @@ export default function ClientLogPage() {
         setRender(true)
       }
     }
-    else{
-      router.replace("/")
-    }
   
   }, [user])
   

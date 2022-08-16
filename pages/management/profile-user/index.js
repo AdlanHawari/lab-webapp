@@ -29,9 +29,6 @@ export default function ManajemenProfilePage() {
         // router.push("management/summary")
       }
     }
-    else{
-      router.replace("/")
-    }
   }, [user])
 
 

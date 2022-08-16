@@ -26,9 +26,6 @@ export default function PersonelProfilePage() {
         setRender(true)
       }
     }
-    else{
-      router.replace("/")
-    }
   
   }, [user])
 

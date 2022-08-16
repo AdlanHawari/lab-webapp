@@ -33,9 +33,6 @@ export default function ManajemenLogPage() {
         // router.push("management/summary")
       }
     }
-    else{
-      router.replace("/")
-    }
   }, [user])
 
 

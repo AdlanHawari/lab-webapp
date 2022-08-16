@@ -24,9 +24,6 @@ export default function ClientPage() {
         router.push("client/uji")
       }
     }
-    else{
-      router.replace("/")
-    }
   }, [user])
   
   return (

@@ -40,7 +40,7 @@ export const MENU_ITEM = {
     },
      
     MANAJEMEN_ALAT_UKUR: {
-        id: "manajemenAlatUkur",
+        id: "alat-ukur",
         title: "Manajemen Alat Ukur",
         path: "/manajemen-alat-ukur",
         submenu: {

@@ -42,9 +42,6 @@ export default function ManajemenArsipPage() {
         // router.push("management/summary")
       }
     }
-    else{
-      router.replace("/")
-    }
   }, [user])
 
   return(

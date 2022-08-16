@@ -1,14 +1,16 @@
 import { Disclosure, Transition } from '@headlessui/react'
-import { LightningBoltIcon } from '@heroicons/react/outline'
+import { LightningBoltIcon, ServerIcon } from '@heroicons/react/outline'
 import { ChevronDownIcon } from '@heroicons/react/solid'
 import classNames from 'classnames'
 import { MyLink } from 'components/general/MyLink'
 import Title1 from 'components/small/typography/Title1'
 import Title2Med from 'components/small/typography/Title2Med'
+import { MENU_ITEM } from 'constants/MenuItemConst'
 import { useTitleContext } from 'hooks/TitleContext'
 import { useEffect } from 'react'
 
 export default function DisclosureMenu({iconclassName,
+  type,
   children,
   textclassName,
   bgclassName,
@@ -31,11 +33,19 @@ export default function DisclosureMenu({iconclassName,
         {/* <Disclosure.Button className="flex justify-between items-center w-48 h-11 py-2.5"> */}
           <div className="flex items-center space-x-5">
 
+          {type == MENU_ITEM.UJI.id ?
             <LightningBoltIcon className={classNames(
                             "w-8",
                             iconclassName
                         )}
                         aria-hidden="true"/>
+            :
+            <ServerIcon className={classNames(
+                            "w-8",
+                            iconclassName
+                        )}
+                        aria-hidden="true"/>
+          }
             <Title1 className={classNames(
                 textclassName
               )}>

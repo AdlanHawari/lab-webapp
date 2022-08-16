@@ -47,9 +47,6 @@ export default function ManajemenManajemenUserPage() {
         // router.push("management/summary")
       }
     }
-    else{
-      router.replace("/")
-    }
   }, [user])
 
   return(
