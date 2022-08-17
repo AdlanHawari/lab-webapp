@@ -81,36 +81,19 @@ export const manajemenPengujiStatus= [
         title:"Submit Balis & Cetak Sertifikat",
         status:9
     },
+]
 
-    // "Semua",
-    // "Aktif",
-    // "Standby",
-    // "Konfirmasi Laporan Uji",
-    // "Submit Balis & Cetak Sertifikat",
-    // "Selesai",
-    // "Batal"
-    // {
-    //     title:"Semua",
-    //     status:null
-    // },
-    // {
-    //     title:"Menunggu Penawaran",
-    //     status:1
-    // },
-    // {
-    //     title:"Penawaran Dikirimkan",
-    //     status:2
-    // },
-    // {
-    //     title:"Menunggu Pembayaran",
-    //     status:3
-    // },
-    // {
-    //     title:"Konfirmasi Pembayaran",
-    //     status:4
-    // },
-    // {
-    //     title:"Batal",
-    //     status:99
-    // }
+export const dashboardAlatUkurStatus= [
+    {
+        title:"Semua",
+        status:null
+    },
+    {
+        title:"Aktif",
+        status:"true"
+    },
+    {
+        title:"Standby",
+        status:"false"
+    },
 ]

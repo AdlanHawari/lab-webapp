@@ -61,3 +61,13 @@ export const manajemenPengujiTableHead = [
     "Tanggal Uji/Tugas",
     "Status Tugas"
 ]
+
+export const alatUkurTableHead = [
+    "Alat",
+    "Merk",
+    "No Seri/ID",
+    "Tanggal Kalibrasi",
+    "Tanggal Kalibrasi Ulang",
+    "Interval Kalibrasi",
+    "Menu",
+]
