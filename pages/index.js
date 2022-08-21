@@ -41,7 +41,7 @@ export default function Home() {
         
         const code = user.data.role.access_code
         console.log(code)
-        delay(1500)
+        // delay(1500)
         if(code == ACCESS_CODE.ADMIN){
           router.push("/login/welcomeSU")
         }
@@ -68,7 +68,7 @@ export default function Home() {
       
       
     }
-    if(error){
+    if(error && !user){
       router.replace("/login")
     }
 
