@@ -96,12 +96,33 @@ function useProvideAuth(){
             },
             redirect: 'follow'
           };
+          try {
+            const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, requestOptions)
+            const res = await req.json()
+            return res
 
-        const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, requestOptions)
-        const res = await req.json()
-        console.log('response', res)
+          } catch (e) {
+              throw e
+          }
 
-        return res
+        
+            // const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, requestOptions)
+            // const res = await req.json()
+            // console.log('response', res)
+            // // if(res.)
+            // if(res.header.response_code == 200){
+            //   return res
+
+            // }
+
+            // if(res.error){
+            //   error = new Error(res.error)
+            //   error.status = res.header.response_code
+            //   error.info = res
+            //   throw error
+            // }
+    
+
         // if(res.header.response_code == 200){
         //     const data = res.data
         //     const header = res.header

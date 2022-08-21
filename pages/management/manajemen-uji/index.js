@@ -46,10 +46,14 @@ export default function ManajemenManajemenUjiPage() {
         // router.push("management/summary")
       }
     }
+    if(error&& !user){
+      console.log("error", error)
+      router.replace("/")
+    }
     // else{
     //   router.replace("/")
     // }
-  }, [user])
+  }, [user,error])
 
 
   return(

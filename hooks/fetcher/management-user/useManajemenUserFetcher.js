@@ -106,12 +106,28 @@ function useProvideManajemenUser(){
         return res
     }
 
+    async function editUser(formData){
+        var requestOptions = {
+            method:'PUT'  ,
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                // 'Content-Type': 'application/json'
+            },
+            body: formData,
+            redirect: 'follow'
+            };
+
+        const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, requestOptions)
+        const res = await req.json()
+
+        return res
+    }
+
     return {
         getUsers,
         createInstitution,
         createUser,
         deleteUser,
-
-
+        editUser
     }
 }

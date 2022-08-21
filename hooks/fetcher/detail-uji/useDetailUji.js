@@ -306,7 +306,7 @@ function useProvideDetailUjiFetcher(){
 
     async function editSertifLUK(formData, id){
         var requestOptions = {
-            method: 'POST',
+            method: 'PUT',
             headers:{
                 'Authorization': `Bearer ${token}`
             },
@@ -315,10 +315,36 @@ function useProvideDetailUjiFetcher(){
         }
 
         try{
-            const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/documents/${id}/certificate/create`, requestOptions)
+            const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/test-applications/id/${id}`, requestOptions)
 
             const res = await req.json()
             return res
+        }
+        catch(e){
+            console.log("error",e)
+            return e
+        }
+    }
+
+
+    async function downloadZipFile(id, docGroup){
+        var requestOptions = {
+            method: 'GET',
+            encoding: 'binary',
+            responseType: 'blob',
+            headers:{
+                'Authorization': `Bearer ${token}`
+            },
+            // body: formData,
+            redirect: 'follow'
+        }
+
+        try{
+            const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/documents/download/all?test_application_id=${id}${docGroup&&`&docGroup=${docGroup}`}`, requestOptions)
+
+            const fileBlob = await req.blob()
+            return fileBlob
+
         }
         catch(e){
             console.log("error",e)
@@ -339,6 +365,7 @@ function useProvideDetailUjiFetcher(){
         createBAPReport,
         uploadLaporanHasilUji,
         tolakLaporanUji,
-        editSertifLUK
+        editSertifLUK,
+        downloadZipFile
     }
 }

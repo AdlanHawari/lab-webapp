@@ -24,7 +24,11 @@ export default function ClientPage() {
         router.push("client/uji")
       }
     }
-  }, [user])
+    if(error&& !user){
+      console.log("error", error)
+      router.replace("/")
+    }
+  }, [user,error])
   
   return (
     <>

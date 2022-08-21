@@ -29,18 +29,19 @@ export default function Home() {
 
 
   useEffect(() => {
+    delay(3000)
     if(user){
       // setRole(user.role.name)
       console.log("user", user)
       // console.log(user.data.role.access_code)
       // const role = user.data?.role.access_code
       // console.log("user ni")
-      delay(3000)
+      
       if(user.data){
         
         const code = user.data.role.access_code
         console.log(code)
-        delay(5000)
+        delay(1500)
         if(code == ACCESS_CODE.ADMIN){
           router.push("/login/welcomeSU")
         }
@@ -63,31 +64,12 @@ export default function Home() {
         if(code == ACCESS_CODE.MANAGEMENT_UJI){
           router.push(`/${userType.management}/summary`)
         }
-        
-        
-        // if(user.data.role.access_code == ACCESS_CODE.ADMIN){
-        //   router.push("/login/welcomeSU")
-        // }
-        // if(user.data.role.access_code == ACCESS_CODE.CLIENT){
-        //   router.push("/client/uji")
-        // }
-        // if(user.data.role.access_code == ACCESS_CODE.PERSONNEL){
-        //   router.push("/personel/uji")
-        // }
-
-
       }
-
+      
+      
     }
-    // else{
-    //   router.push("/login")
-    // }
     if(error){
-      console.log(user)
-      // console.log("index error")
-      // console.log(error.status)
       router.replace("/login")
-      // mutate()
     }
 
   }, [user,error])
@@ -105,6 +87,7 @@ export default function Home() {
       {loading &&
         <h1>LOADING</h1>
       }
+      
       {/* {user && 
       <h1>RENDERED</h1>
       } */}

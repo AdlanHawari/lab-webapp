@@ -57,13 +57,13 @@ export default function ClientUjiMainSection() {
           // console.log(data.header.total_page)
         }
         
-        if(error){
-          console.log("error",error)
-          console.log("data pas error",data)
-          mutate(null)
-          router.replace("/")
-          // mutate()
-        }
+        // if(error){
+        //   console.log("error",error)
+        //   console.log("data pas error",data)
+        //   mutate(null)
+        //   router.replace("/")
+        //   // mutate()
+        // }
         console.log("perm uji", data)
     
       },[data, error])

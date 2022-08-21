@@ -26,8 +26,8 @@ export default function FormEditSertifLuk({
   return (
     <Formik
     initialValues={{
-      certificate_name: data.user.institution.name,
-      certificate_address: data.user.institution.address
+      certificate_name: data.certificate_name? data.certificate_name:data.user.institution.name,
+      certificate_address: data.certificate_address? data.certificate_address:data.user.institution.address
     }}
     onSubmit={(values)=>{
       setSubmitState(true)
@@ -96,7 +96,11 @@ export default function FormEditSertifLuk({
             :
             <div className="flex items-center space-x-2">
                 <Body2 className="text-black-500">
-                  {data.user.institution.name}
+                  {data.certificate_name?
+                  data.certificate_name
+                  :  
+                  data.user.institution.name
+                }
                 </Body2>
               <button
               type='button'
@@ -122,7 +126,11 @@ export default function FormEditSertifLuk({
             :
             <div className="flex items-center space-x-2">
               <Body2 className="text-black-500">
-                {data.user.institution.address}
+                {data.certificate_address
+                  ?
+                  data.certificate_address
+                :
+                data.user.institution.address}
               </Body2>
               <button
               type='button'

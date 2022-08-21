@@ -1,12 +1,49 @@
 import { MyLink } from "components/general/MyLink";
 import Button from "components/small/button_fixed/Button";
+import { ACCESS_CODE } from "constants/Access_Code";
 import { userType } from "constants/UserType";
+import useUser from "hooks/fetcher/auth/useUser";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export default function WelcomeSUPage() {
-  return (
-    <div className="flex flex-col space-y-6 h-screen w-screen justify-center items-center">
+  const { user, loading,error, mutate } = useUser()
+  const [render, setRender] = useState(false)
+  const router = useRouter()
+  useEffect(() => {
+    console.log("entering superadmin")
+    // delay(1000)
+    if(user){
+      console.log("user", user)
+      if(user.data.role.access_code != ACCESS_CODE.ADMIN){
+        router.replace("/")
+      }
+      else{
+        setRender(true)
+      }
+    }
 
-      {/* <div className=""> */}
+    if(error&& !user){
+      console.log("error", error)
+      router.replace("/")
+    }
+    // else{
+    //   router.replace("/")
+    // }
+  
+  }, [user,error])
+
+  return (
+    <>
+    {loading ?
+    <div className="">
+
+      <h3>Loading...</h3>
+    </div>
+    :
+    render &&
+    
+    <div className="flex flex-col space-y-6 h-screen w-screen justify-center items-center">
         <h1>
           Welcome! 
         </h1>
@@ -34,5 +71,7 @@ export default function WelcomeSUPage() {
       </div>
 
    </div>
+    }
+   </>
   )
 }

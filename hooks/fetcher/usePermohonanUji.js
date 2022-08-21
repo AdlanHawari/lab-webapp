@@ -45,20 +45,26 @@ export default function usePermohonanUji(
     start_date,
     end_date,
     page,
-    status_filter,
-    dashboard
+    status_filter="",
+    dashboard="",
+    arsipDoc= {
+        doc_number: "",
+        institution: "",
+        test_type: ""
+    }
 
 ){
-    if(!status_filter){
-        status_filter=""
-    }
-    if(!dashboard){
-        dashboard=""
-    }
+    // if(!status_filter){
+    //     status_filter=""
+    // }
+    // if(!dashboard){
+    //     dashboard=""
+    // }
     
+    // console.log("docnum", arsipDoc.doc_number)
     // const {data, mutate, error} = useSWR("/test-applications", getPermohonanUji)
     const {data, mutate, error} = useSWR(
-        `/test-applications?start_date=${start_date}&end_date=${end_date}&page=${page}&status=${status_filter}&dashboard=${dashboard}`, 
+        `/test-applications?${start_date&&`start_date=${start_date}`}${end_date&&`&end_date=${end_date}`}${page&&`&page=${page}`}${status_filter&&`&status=${status_filter}`}${dashboard&&`&dashboard=${dashboard}`}${arsipDoc.doc_number&&`&doc_number=${arsipDoc.doc_number}`}${arsipDoc.institution&&`&institution=${arsipDoc.institution}`}${arsipDoc.test_type&&`&test_type=${arsipDoc.test_type}`}`, 
         getPermohonanUji)
 
     const loading = !data && !error;

@@ -6,10 +6,10 @@ import { id } from 'date-fns/locale'
 import React from 'react'
 import DateFormatter from 'utils/DateFormatter'
 import HMinus from 'utils/HMinus'
+import XRayDetector from 'utils/XRayDetector'
 
 export default function SectionSchedule({data}) {
     const {readable} = DateFormatter()
-    // const hMinus = HMinus()
    
 
     
@@ -64,11 +64,8 @@ export default function SectionSchedule({data}) {
                     H- Minus
                 </Body1>
                 <Body2 className="text-black-500">
-                {data.balis_registration_date ?
-                    HMinus(data.balis_registration_date)
-                    :
-                    "-"
-                    }
+                
+                {    HMinus(data.balis_registration_date)}
                 </Body2>
                 
             
@@ -77,19 +74,19 @@ export default function SectionSchedule({data}) {
                     Data X-Ray
                 </Body1>
                 <Body2 className="text-black-500">
-                    {/* X-Ray Stasioner 200 mA */}
-                    -
+                    {XRayDetector(data.tools[0].name)}
                 </Body2>
 
                 <Body1 className="text-black-400">
                     Submit Terakhir
                 </Body1>
                 <Body2 className="text-black-500">
-                    {data.balis_registration_date?
-                        readable(data.balis_registration_date)
-                        :
-                        "-"
-                    }
+                {
+                    HMinus(data.balis_registration_date) =="-" ?
+                    "-"
+                    :
+                    readable(data.balis_registration_date)
+                }
                 </Body2>
                 <Body1 className="text-black-400">
                     Keterangan

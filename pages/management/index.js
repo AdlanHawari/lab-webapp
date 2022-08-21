@@ -21,7 +21,11 @@ export default function ManagementPage() {
         router.push("management/summary")
       }
     }
-  }, [user])
+    if(error&& !user){
+      console.log("error", error)
+      router.replace("/")
+    }
+  }, [user,error])
 
   return (
     <>

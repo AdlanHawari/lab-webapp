@@ -28,6 +28,9 @@ import FormKonfirmLaporanUji from "components/big/manajemen/manajemen-uji/FormKo
 import { useKonfirmLaporanUjiContext } from "hooks/context/manajemen-uji/KonfirmLaporanUjiContext";
 import FormRegisBapeten from "components/big/manajemen/manajemen-uji/FormRegisBapeten";
 import FormEditSertifLuk from "components/big/manajemen/manajemen-uji/FormEditSertifLuk";
+import XRayDetector from "utils/XRayDetector";
+import { SingleFileDownloader, ZipFileDownloader } from 'utils/FileDownloader'
+import { DOCTYPE } from "constants/DocType";
 
 
 export default function ManajemenujiTable({data, mutate}) {
@@ -35,8 +38,9 @@ export default function ManajemenujiTable({data, mutate}) {
     const [selected, setSelected] = useState()
     const [dataSelected, setDataSelected] = useState({})
     const [submitState, setSubmitState] = useState(false)
+    const [testFileName, setTestFileName] = useState("")
     const [reqSent, setreqSent] = useState(false);
-    const {confirmTestApp} = useDetailUji()
+    const {confirmTestApp, downloadDoc, downloadZipFile} = useDetailUji()
     const {readable} = DateFormatter()
     const {
         pemilihanJadwalPopUp,
@@ -50,7 +54,9 @@ export default function ManajemenujiTable({data, mutate}) {
         regisBapetenPopUp, 
         setRegisBapetenPopUp,
         sertifLukPopUp, 
-        setSertifLukPopUp
+        setSertifLukPopUp,
+        ubahLaporanUjiPopUp, 
+        setUbahLaporanUjiPopUp
     } = useManajemenUjiContext()
 
     const {
@@ -70,12 +76,24 @@ export default function ManajemenujiTable({data, mutate}) {
             setKonfirmLaporanUjiPopUp(false)
             setSertifLukPopUp(false)
             setRegisBapetenPopUp(false)
+            setUbahLaporanUjiPopUp(false)
             setreqSent(false)
             mutate()
         }
       
     
     }, [reqSent])
+
+    useEffect(() => {
+        dataSelected.documents?.map((item)=>{
+            if(item.type==DOCTYPE.TEST_REPORT){
+                setTestFileName(item.file_name)
+
+            }
+        })
+      
+    }, [dataSelected])
+    
 
   return (
       <>
@@ -115,7 +133,7 @@ export default function ManajemenujiTable({data, mutate}) {
                     </td>
                     <td className="max-w-24 p-4">
                         <Table1 className="text-black-500 leading-normal">
-                            {item.xray_data}
+                            {XRayDetector(item.tools[0].name)}
                         </Table1>
                     </td>
                     <td className="max-w-24 p-4">
@@ -142,30 +160,42 @@ export default function ManajemenujiTable({data, mutate}) {
                     </td>
                     <td className="max-w-24 p-4">
                         <Table1 className="text-black-500 leading-normal">
-                            {item.alat_keluar}
+                            {item.assignment_detail.tools_brought?
+                            item.assignment_detail.tools_brought
+                            :
+                            "-"}
                         </Table1>
                     </td>
                     <td className="max-w-24 p-4">
                         <Table1 className="text-black-500 leading-normal">
-                            {item.balis_registration_date ?
+                            {
+                                HMinus(item.balis_registration_date)
+                                
+                            }
+                            {/* {item.balis_registration_date ?
                                 HMinus(item.balis_registration_date) :
                                 "-"
+                            } */}
+                        </Table1>
+                    </td>
+                    <td className="max-w-24 p-4">
+                        <Table1 className="text-black-500 leading-normal">
+                            {
+                                HMinus(item.balis_registration_date) =="-" ?
+                                "-"
+                                :
+                                readable(item.balis_registration_date)
                             }
                         </Table1>
                     </td>
                     <td className="max-w-24 p-4">
                         <Table1 className="text-black-500 leading-normal">
-                            {item.last_submit}
+                            isinya apa
                         </Table1>
                     </td>
                     <td className="max-w-24 p-4">
                         <Table1 className="text-black-500 leading-normal">
-                            {item.keterangan}
-                        </Table1>
-                    </td>
-                    <td className="max-w-24 p-4">
-                        <Table1 className="text-black-500 leading-normal">
-                            {item.regist_date}
+                            isinya apa
                         </Table1>
                     </td>
                     <td className="">
@@ -193,9 +223,120 @@ export default function ManajemenujiTable({data, mutate}) {
           status={manajemenUjiStatus}
           current_status={dataSelected.status}
           data={dataSelected}
-          buttonSide={
+          buttonSide=
+          {
+            <div className="block space-y-4">
+            {dataSelected.status <=5 ? 
+                <Button
+                buttonStyle="primary_default"
+                onClick={
+                    ()=>{setPemilihanJadwalPopUp(true)}
+                }
+                >
+                    Pemilihan Jadwal &amp; Penguji
+                </Button>
+            :
+
+            dataSelected.status <=6 ? 
             <>
-            {dataSelected.status==5 &&
+                <Button
+                buttonStyle="primary_default"
+                onClick={()=> setDokumenPenugasanPopUp(true)}
+                >
+                    Dokumen Penugasan
+                </Button>
+                <Button
+                // buttonStyle="primary_default"
+                className="bg-secondary text-white"
+                // onClick={}
+                >
+                    Ubah Jadwal &amp; Penguji
+                </Button>
+            </>
+                
+            :
+            <>
+            {dataSelected.status <=7 ?
+                 <Button
+                 buttonStyle="primary_default"
+                 onClick={()=> setTanggalRegisBalisPopUp(true)}
+                >
+                    Input Tanggal Registrasi Balis
+                </Button>
+                :
+                <>
+                    {dataSelected.status==9 &&
+                        <>
+                            <Button
+                            buttonStyle="primary_default"
+                            onClick={()=> setRegisBapetenPopUp(true)}
+                            >
+                                Isi No. Registrasi Bapeten
+                            </Button>
+                            <Button
+                            className="bg-secondary text-white"
+                            onClick={()=> setSertifLukPopUp(true)}
+                            >
+                                Edit Sertifikasi LUK
+                            </Button>
+
+                        </>
+
+                    }
+
+                    {dataSelected.status==100 &&
+                        <Button
+                        className="bg-secondary text-white"
+                        onClick={()=> SingleFileDownloader(downloadDoc, dataSelected.id, DOCTYPE.CERTIFICATE, `SIP_CERT_${dataSelected.doc_number}`)}
+                        >
+                            Cetak Sertifikasi LUK
+                        </Button>
+                    }
+
+                    <Button
+                    buttonStyle="primary_default"
+                    // onClick={()=> SingleFileDownloader(downloadDoc, dataSelected.id, DOCTYPE.TEST_REPORT, testFileName)}
+                    onClick={()=> ZipFileDownloader(downloadZipFile, dataSelected.id, DOCTYPE.DOCGROUP.REPORT, testFileName)}
+                    >
+                        Unduh Laporan Uji
+                    </Button>
+
+                    {dataSelected.status==8 &&
+                    <>
+                        <Button
+                        className="bg-secondary text-white"
+                        onClick={()=> setKonfirmLaporanUjiPopUp(true)}
+                        >
+                            Konfirmasi Laporan Uji
+                        </Button>
+
+                        <Button
+                            buttonStyle="secondary_default"
+                            onClick={()=> setUbahLaporanUjiPopUp(true)}
+                            
+                        >
+                            Ubah Laporan Uji
+                        </Button>
+                    </>
+                    }
+                </>
+
+            }
+
+
+
+            <Button
+                buttonStyle="secondary_default"
+            >
+                Unduh Berita Acara Pekerjaan
+            </Button>
+            </>
+            
+            
+
+
+            }
+            {/* {dataSelected.status==5 &&
                 <Button
                 buttonStyle="primary_default"
                 onClick={
@@ -248,7 +389,7 @@ export default function ManajemenujiTable({data, mutate}) {
                     <>
                         <Button
                         buttonStyle="primary_default"
-                        // onClick={}
+                        onClick={()=> SingleFileDownloader(downloadDoc, dataSelected.id, DOCTYPE.TEST_REPORT, testFileName)}
                         >
                             Unduh Laporan Uji
                         </Button>
@@ -289,6 +430,11 @@ export default function ManajemenujiTable({data, mutate}) {
                         </Button>
                         <Button
                             buttonStyle="primary_default"
+                            onClick={()=> {
+                                // console.log("id", dataSelected.id)
+                                // console.log("file name", testFileName)
+                                SingleFileDownloader(downloadDoc, dataSelected.id, DOCTYPE.TEST_REPORT, testFileName)
+                            }}
                         >
                             Unduh Laporan Uji
                         </Button>
@@ -299,11 +445,12 @@ export default function ManajemenujiTable({data, mutate}) {
                         </Button>
                     </>
                     }
+
                 </div>
 
-            }
+            } */}
 
-            </>
+            </div>
           }
           >
             <Section1 data={dataSelected} />
@@ -537,6 +684,18 @@ export default function ManajemenujiTable({data, mutate}) {
             />
 
         </FormModal> 
+      }
+
+      {ubahLaporanUjiPopUp && 
+        <FormModal
+        title="Cetak Sertifikat LUK"
+        bgColor="primary"
+        isOpen={ubahLaporanUjiPopUp}
+        setIsOpen={setUbahLaporanUjiPopUp}
+        buttonSide={<></>}
+        >
+
+        </FormModal>
       }
 
       </>

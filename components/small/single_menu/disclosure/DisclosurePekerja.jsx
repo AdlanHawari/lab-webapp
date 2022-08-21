@@ -25,11 +25,16 @@ export default function DisclosurePekerja({bgButton, data}) {
     const fetcher = usePersonnelFetcher()
     const dateFormatter = DateFormatter()
 
-    useEffect(async () => {
-        const resp = await fetcher.getAssignments( `/test-applications?tester_user_id=${data.id}`)
-        if(resp.header.response_code == 200){
-            setAssignments(resp.data)
+    useEffect(() => {
+
+        async function fetchData(){
+            const resp = await fetcher.getAssignments( `/test-applications?tester_user_id=${data.id}`)
+            if(resp.header.response_code == 200){
+                setAssignments(resp.data)
+            }
+
         }
+        fetchData()
     },[])
     
     useEffect(() => {

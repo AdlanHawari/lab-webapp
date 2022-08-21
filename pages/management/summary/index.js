@@ -45,8 +45,12 @@ export default function ManajemenSummaryPage() {
         // router.push("management/summary")
       }
     }
+    if(error&& !user){
+      console.log("error", error)
+      router.replace("/")
+    }
     
-  }, [user])
+  }, [user,error])
 
   return(
     <>

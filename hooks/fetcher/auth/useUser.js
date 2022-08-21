@@ -8,6 +8,7 @@ export default function useUser(){
     const {data, mutate, error} = useSWR("/users/profile",auth.isLoggedIn);
     
     const loading = !data && !error;
+    // console.log("error swr",error.status)
 
     return {
         loading,

@@ -1,3 +1,5 @@
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import AlatUkurTable from 'components/base/table/AlatUkurTable'
 import FormModal from 'components/big/FormModal'
 import Button from 'components/small/button_fixed/Button'

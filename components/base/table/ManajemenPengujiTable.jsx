@@ -2,8 +2,11 @@ import Table1 from 'components/small/typography/Table1'
 import Table2 from 'components/small/typography/Table2'
 import { manajemenPengujiTableHead } from 'constants/table/RowTitle'
 import React from 'react'
+import DateFormatter from 'utils/DateFormatter'
 
 export default function ManajemenPengujiTable({data}) {
+
+    const {readable} = DateFormatter()
   return (
     <>
         <table className='bg-grey-100 min-w-full shadow-lg rounded-lg'>
@@ -20,42 +23,45 @@ export default function ManajemenPengujiTable({data}) {
 
             </thead>
             <tbody className='bg-white divide-y divide-table-divider'>
-            {data.map((item,index)=>(
-                <tr key={index} className="h-16 ">
-                    <td className="w-48 py-7 px-4">
-                        <Table1 className="text-black-500">
-                            {item.tester.name}
-                        </Table1>
-                    </td>
-                    <td className="w-48 py-7 px-4">
-                        <Table1 className="text-black-500">
-                            {item.tester.personnel_status ?
-                            "Aktif"
-                            :
-                            "Standby"
-                            }
-                        </Table1>
-                    </td>
-                    <td className="w-48 py-7 px-4">
-                        <Table1 className="text-black-500">
-                            {item.instansi_penugasan}
-                        </Table1>
-                    </td>
-                    <td className="w-48 py-7 px-4">
-                        <Table1 className="text-black-500">
-                            {item.test_date}
-                        </Table1>
+            {data.map((personel,pIndex)=>(
+                personel.test_applications.map((item,index)=>(
+                    
+                    <tr key={index} className="h-16 ">
+                        <td className="w-48 py-7 px-4">
+                            <Table1 className="text-black-500">
+                                {personel.tester.name}
+                            </Table1>
+                        </td>
+                        <td className="w-48 py-7 px-4">
+                            <Table1 className="text-black-500">
+                                {personel.tester.personnel_status ?
+                                "Aktif"
+                                :
+                                "Standby"
+                                }
+                            </Table1>
+                        </td>
+                        <td className="w-48 py-7 px-4">
+                            <Table1 className="text-black-500">
+                                {item.user.institution.name}
+                            </Table1>
+                        </td>
+                        <td className="w-48 py-7 px-4">
+                            <Table1 className="text-black-500">
+                                {readable(item.assignment_detail.test_date)}
+                            </Table1>
+                            
+                        </td>
+                        <td className="w-48 py-7 px-4">
+                            <Table1 className="text-black-500">
+                                {item.status_detail.management_value}
+                            </Table1>
+                        </td>
                         
-                    </td>
-                    <td className="w-48 py-7 px-4">
-                        <Table1 className="text-black-500">
-                            {item.status_tugas}
-                        </Table1>
-                    </td>
-                    
-                    
+                        
 
                 </tr>
+                ))
                 
 
             ))}

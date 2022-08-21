@@ -47,14 +47,14 @@ export default function ProfileDropdown() {
   // const auth = useAuth()
   const {mutate} = useSWRConfig()
 
-  async function handleLogout(){
+  function handleLogout(){
     localStorage.clear()
-    delay(5000)
+    // delay(5000)
     mutate("/users/profile")
-    delay(5000)
+    // delay(5000)
     // delay(3000)
     // router.reload()
-    router.replace("/")
+    router.replace("/login")
     
   }
   

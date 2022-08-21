@@ -29,7 +29,11 @@ export default function ManajemenProfilePage() {
         // router.push("management/summary")
       }
     }
-  }, [user])
+    if(error&& !user){
+      console.log("error", error)
+      router.replace("/")
+    }
+  }, [user,error])
 
 
   return(

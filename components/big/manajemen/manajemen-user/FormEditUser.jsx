@@ -1,11 +1,16 @@
+import ErrorModal from 'components/big/ErrorModal'
 import InstansiDropDown from 'components/small/single_menu/InstansiDropDown'
 import UserRoleDropDown from 'components/small/single_menu/UserRoleDropDown'
 import Body1 from 'components/small/typography/Body1'
+import Body3 from 'components/small/typography/Body3'
 import CaptionReg from 'components/small/typography/CaptionReg'
 import ValidationMessage from 'components/small/validation_form/ValidationMessage'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import EditUserValidationSchema from 'helper/yup/EditUserValidationSchema'
-import React from 'react'
+import { useDetailUji } from 'hooks/fetcher/detail-uji/useDetailUji'
+import { useManajemenUserFetcherContext } from 'hooks/fetcher/management-user/useManajemenUserFetcher'
+import React, { useEffect, useRef, useState } from 'react'
+import handleFormData from 'utils/HandleFormData'
 import * as Yup from 'yup'
 
 export default function FormEditUser({
@@ -16,7 +21,35 @@ export default function FormEditUser({
     setSubmitState,
     setreqSent
 }) {
+
+
+    function formEntry(values){
+        let updatedVal = {}
+        for (let [key, value] of Object.entries(values)) {
+            if(key !="role_id" && key !="institution_id"){
+              if(value != ""){
+                updatedVal[key] = value
+              }
+            }
+            else{
+              if(key == "role_id" && values.role_id != data.role_id){
+                  updatedVal[key]=value
+              }
+              if(key == "institution_id" && values.institution_id != data.institution_id){
+                  updatedVal[key]=value
+              }
+            }
+        }
+        return updatedVal
+    }
+
+    const [emptyVal, setEmptyVal] = useState(false)
+
+    const {editUser} = useManajemenUserFetcherContext()
+    
+
   return (
+    <>
     <Formik
     initialValues={{
         name: "",
@@ -24,26 +57,47 @@ export default function FormEditUser({
         position:"",
         email: "",
         institution_id: "",
-        phone: "",
+        phone_number: "",
         password: "",
         password_confirmation: "",
     }}
     validationSchema={EditUserValidationSchema(Yup)}
     onSubmit={(values)=> {
-        // console.log(values)
-        let updatedVal = {}
+        
+        // console.log("finalValues", finalValues)
+        const finalValues = formEntry(values)
 
-        for (let [key, value] of Object.entries(values)) {
-          // console.log(`${key}: ${value}`);
-          if(key !="role_id" && key !="institution_id"){
-            if(value != ""){
-              updatedVal[key] = value
+        async function fetchData(form){
+            const response = await editUser(form)
+            console.log("response", response)
+            if(response.header.response_code==200){
+                // setSubmitState(false)
+                setreqSent(true)
             }
-          }
-          // updatedVal[key] = value
-          // console.log(`updated[${key}]:`,updatedVal[key])
+            if(response.header.response_code==400){
+                setSubmitState(false)
+            }
+            if(response.header.response_code==401){
+                setSubmitState(false)
+            }
+            if(response.header.response_code==422){
+                setSubmitState(false)
+            }
         }
-        console.log("updatedVal", updatedVal)
+
+        if(Object.keys(finalValues).length === 0 && finalValues.constructor === Object){
+            console.log("no change")
+            // setEmptyVal(true)
+        }
+        else{
+            setSubmitState(true)
+            
+            let formData = handleFormData(finalValues)
+            console.log(finalValues)
+            fetchData(formData)
+        }
+
+        
     }}
     >{formik=>{
       return <Form id={id}>
@@ -116,7 +170,7 @@ export default function FormEditUser({
                     type="text"
                     placeholder={data.email}
                     />
-                {/* <ErrorMessage name="user_create.email" component={ValidationMessage}/> */}
+                <ErrorMessage name="email" component={ValidationMessage}/>
             </div>
 
             <Body1 className="text-black-400">
@@ -125,12 +179,12 @@ export default function FormEditUser({
             <div className="block">
                 <Field
                     className="placeholder:text-grey-500 form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300"
-                    id="phone"
-                    name="phone"
-                    type="number"
+                    id="phone_number"
+                    name="phone_number"
+                    type="text"
                     placeholder={data.phone}
                     />
-                {/* <ErrorMessage name="user_create.phone" component={ValidationMessage}/> */}
+                <ErrorMessage name="phone_number" component={ValidationMessage}/>
             </div>
 
 
@@ -142,13 +196,14 @@ export default function FormEditUser({
             </Body1>
             <div className="block">
                 <Field
+                    
                     className="placeholder:text-grey-500 form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300"
                     id="password"
                     name="password"
                     type="password"
                     placeholder="Ganti Password Baru"
                     />
-                {/* <ErrorMessage name="user_create.password" component={ValidationMessage}/> */}
+                <ErrorMessage name="password" component={ValidationMessage}/>
                 
             </div>
 
@@ -157,6 +212,7 @@ export default function FormEditUser({
             </Body1>
             <div className="block">
                 <Field
+                    // ref={passConfRef}
                     className="placeholder:text-grey-500 form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300"
                     id="password_confirmation"
                     name="password_confirmation"
@@ -173,5 +229,21 @@ export default function FormEditUser({
     }}
 
     </Formik>
+
+    {/* {emptyVal &&
+        <ErrorModal
+        confirmButton
+        bgColor="warning"
+        isOpen={emptyVal}
+        setIsOpen={setEmptyVal}
+        >
+            <div className="block pb-10 text-center">
+                <Body3 className="text-black-400">Tidak ada data yang diubah</Body3>
+            </div>
+
+
+        </ErrorModal>
+    } */}
+    </>
   )
 }

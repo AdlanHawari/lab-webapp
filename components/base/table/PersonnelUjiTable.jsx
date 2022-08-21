@@ -23,6 +23,8 @@ import useUser from 'hooks/fetcher/auth/useUser'
 import { ACCESS_CODE } from 'constants/Access_Code'
 import { useKonfirmLaporanUjiContext } from 'hooks/context/manajemen-uji/KonfirmLaporanUjiContext'
 import FormKonfirmLaporanUji from 'components/big/manajemen/manajemen-uji/FormKonfirmLaporanUji'
+import XRayDetector from 'utils/XRayDetector'
+import HMinus from 'utils/HMinus'
 
 export default function PersonnelUjiTable({data, mutate}) {
     const [isDetailOpen, setIsDetailOpen] = useState(false)
@@ -64,11 +66,11 @@ export default function PersonnelUjiTable({data, mutate}) {
     
     }, [reqSent])
 
-    useEffect(()=>{
-        if(user){
-            console.log("role",user.data.role.access_code)
-        }
-    }, [user])
+    // useEffect(()=>{
+    //     if(user){
+    //         console.log("role",user.data.role.access_code)
+    //     }
+    // }, [user])
     
 
 
@@ -112,7 +114,7 @@ export default function PersonnelUjiTable({data, mutate}) {
           </td>
           <td className="max-w-24 p-4">
               <Table1 className="text-black-500 leading-normal">
-                  {item.xray_data}
+              {XRayDetector(item.tools[0].name)}
               </Table1>
           </td>
           <td className="max-w-24 p-4">
@@ -139,27 +141,38 @@ export default function PersonnelUjiTable({data, mutate}) {
           </td>
           <td className="max-w-24 p-4">
               <Table1 className="text-black-500 leading-normal">
-                  {item.alat_keluar}
+                {item.assignment_detail.tools_brought?
+                    item.assignment_detail.tools_brought
+                    :
+                    "-"
+                }
               </Table1>
           </td>
           <td className="max-w-24 p-4">
               <Table1 className="text-black-500 leading-normal">
-                  {item.h_minus}
+                {
+                    HMinus(item.balis_registration_date)    
+                }
               </Table1>
           </td>
           <td className="max-w-24 p-4">
               <Table1 className="text-black-500 leading-normal">
-                  {item.last_submit}
+                {
+                    HMinus(item.balis_registration_date) =="-" ?
+                    "-"
+                    :
+                    readable(item.balis_registration_date)
+                }
               </Table1>
           </td>
           <td className="max-w-24 p-4">
               <Table1 className="text-black-500 leading-normal">
-                  {item.keterangan}
+              isinya apa
               </Table1>
           </td>
           <td className="max-w-24 p-4">
               <Table1 className="text-black-500 leading-normal">
-                  {item.regist_date}
+              isinya apa
               </Table1>
           </td>
           <td className="">

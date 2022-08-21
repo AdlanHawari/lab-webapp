@@ -12,6 +12,7 @@ import { ClientProvider } from "hooks/fetcher/useClient";
 import { useTitleContext } from "hooks/TitleContext";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { delay } from "utils/delay";
 
 export default function ClientUjiPage() {
 
@@ -25,6 +26,8 @@ export default function ClientUjiPage() {
   })
 
   useEffect(() => {
+    console.log("entering client uji")
+    // delay(1000)
     if(user){
       console.log("user", user)
       if(user.data.role.access_code != ACCESS_CODE.CLIENT &&  user.data.role.access_code != ACCESS_CODE.ADMIN){
@@ -34,11 +37,16 @@ export default function ClientUjiPage() {
         setRender(true)
       }
     }
+
+    if(error&& !user){
+      console.log("error", error)
+      router.replace("/")
+    }
     // else{
     //   router.replace("/")
     // }
   
-  }, [user])
+  }, [user,error])
   
 
   return(

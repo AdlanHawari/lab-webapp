@@ -33,8 +33,12 @@ export default function PersonelLogPage() {
         setRender(true)
       }
     }
+    if(error&& !user){
+      console.log("error", error)
+      router.replace("/")
+    }
   
-  }, [user])
+  }, [user,error])
 
 
   return(

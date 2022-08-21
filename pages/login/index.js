@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import Link from "next/link";
-import { Fragment, useState } from "react"
+import { Fragment, useEffect, useState } from "react"
 import LoginLayout from "/components/auth/LoginLayout"
 import Body1 from "/components/small/typography/Body1";
 import Button from "/components/small/button_fixed/Button";
@@ -26,12 +26,24 @@ export default function LoginPage() {
   const [errorMsg, setErrorMsg] = useState('')
   const router = useRouter()
   const [showPass, setShowPass] = useState(false)
+  const [token, setToken] = useState("")
   
 
-   async function handleLogin(formData){
-    const res =  await auth.login(formData);
-    return res
-  }
+  //  async function handleLogin(formData){
+  //   const res =  await auth.login(formData);
+  //   return res
+  // }
+
+  // useEffect(() => {
+  //   if(token.length>0)
+  //   {
+  //     localStorage.setItem('jwt_user',token)
+  //     delay(5000)
+  
+  //     router.replace("/")
+  //   }
+  // }, [token])
+  
     
   return(
     <>
@@ -47,72 +59,82 @@ export default function LoginPage() {
         // username: Yup.string().email("Invalid Email").required("Fill in your email"),
         password: Yup.string().required("Password can't be empty"),
     })}
-    onSubmit={ async (values) => {
+    onSubmit={ (values) => {
 
       setSubmitState(true)
       let formData = handleFormData(values)
       //log the value
-      for (let property of formData.entries()) {
-        console.log(property[0], property[1]);
+      // for (let property of formData.entries()) {
+      //   console.log(property[0], property[1]);
+      // }
+
+      async function fetchData(){
+        const response = await  auth.login(formData)
+        if(response.header.response_code == 200){
+          if (errorUser) {
+            setErrorUser(false)
+            setErrorMsg('')
+          }
+          const data = response.data
+          const code = data.user.role.access_code
+          // console.log("response:", response)
+          console.log("data:", data)
+          console.log("code:", code)
+          localStorage.setItem('jwt_user',data.token)
+          // a = JSON.stringify(data)
+          // console.log("token",data.token)
+          // console.log("role",data.user.role.access_code)
+          // setToken(data.token)
+  
+          
+  
+          // role detector
+          if(code == ACCESS_CODE.ADMIN){
+            router.replace("/login/welcomeSU")
+          }
+          if(code == ACCESS_CODE.CLIENT){
+            router.replace(`/${userType.client}/uji`)
+          }
+          if(code == ACCESS_CODE.PERSONNEL){
+            router.replace(`/${userType.personnel}/uji`)
+          }
+          if(code == ACCESS_CODE.PERSONNEL_PEERS){
+            router.replace(`/${userType.personnel}/uji`)
+          }
+  
+          if(code == ACCESS_CODE.KEPALA_LAB){
+            router.replace(`/${userType.management}/summary`)
+          }
+          if(code == ACCESS_CODE.MANAGEMENT_KAL){
+            router.replace(`/${userType.management}/summary`)
+          }
+          if(code == ACCESS_CODE.MANAGEMENT_UJI){
+            router.replace(`/${userType.management}/summary`)
+          }
+          
+          
+          
+        }
+  
+        if(response.header.response_code == 401){
+          // const data = response.data
+          setErrorUser(true)
+          setErrorMsg(response.error)
+          // a = JSON.stringify(data)
+          // console.log("token",data.token)
+          // console.log("role",data.user.role.name)
+          
+          
+          setSubmitState(false)
+        }
+
       }
-      const response = await handleLogin(formData)
+
       // console.log("data", response)
       
-      if(response.header.response_code == 200){
-        if (errorUser) {
-          setErrorUser(false)
-          setErrorMsg('')
-        }
-        const data = response.data
-        const code = data.user.role.access_code
-        // console.log("response:", response)
-        console.log("data:", data)
-        console.log("code:", code)
-        // a = JSON.stringify(data)
-        // console.log("token",data.token)
-        // console.log("role",data.user.role.access_code)
-
-        localStorage.setItem('jwt_user', data.token)
-        delay(5000)
-        // role detector
-        if(code == ACCESS_CODE.ADMIN){
-          router.push("/login/welcomeSU")
-        }
-        if(code == ACCESS_CODE.CLIENT){
-          router.push(`/${userType.client}/uji`)
-        }
-        if(code == ACCESS_CODE.PERSONNEL){
-          router.push(`/${userType.personnel}/uji`)
-        }
-        if(code == ACCESS_CODE.PERSONNEL_PEERS){
-          router.push(`/${userType.personnel}/uji`)
-        }
-
-        if(code == ACCESS_CODE.KEPALA_LAB){
-          router.push(`/${userType.management}/summary`)
-        }
-        if(code == ACCESS_CODE.MANAGEMENT_KAL){
-          router.push(`/${userType.management}/summary`)
-        }
-        if(code == ACCESS_CODE.MANAGEMENT_UJI){
-          router.push(`/${userType.management}/summary`)
-        }
-        
-        
-        
-      }
-
-      if(response.header.response_code == 401){
-        // const data = response.data
-        setErrorUser(true)
-        setErrorMsg(response.error)
-        // a = JSON.stringify(data)
-        // console.log("token",data.token)
-        // console.log("role",data.user.role.name)
-        
-        
-      }
-      setSubmitState(false)
+      
+      
+      fetchData()
 
     }}>
         {/* {formik=>{return  */}
