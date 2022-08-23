@@ -27,9 +27,12 @@ export default function ArsipDokumenMainSection() {
       "",
       {
         doc_number: docNumState,
+        institution_id: institutionState,
         test_type: jenisPekerjaanState
       }
     )
+
+    // console.log("data",docNumState,institutionState,jenisPekerjaanState)
 
     // useEffect(() => {
     //   console.log("docnum", docNumState)

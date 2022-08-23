@@ -352,6 +352,29 @@ function useProvideDetailUjiFetcher(){
         }
     }
 
+    async function cancelUji(formData, id){
+        var requestOptions = {
+            method: 'POST',
+            headers:{
+                'Authorization': `Bearer ${token}`
+            },
+            body: formData,
+            redirect: 'follow'
+        }
+
+        try{
+            const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/test-applications/status/${id}/cancel`, requestOptions)
+            const res = await req.json()
+            return res
+            
+
+        }
+        catch(e){
+            console.log("error",e)
+            return e
+        }
+    }
+
     return{
         confirmTestApp,
         createPenawaranUji,
@@ -366,6 +389,7 @@ function useProvideDetailUjiFetcher(){
         uploadLaporanHasilUji,
         tolakLaporanUji,
         editSertifLUK,
-        downloadZipFile
+        downloadZipFile,
+        cancelUji
     }
 }

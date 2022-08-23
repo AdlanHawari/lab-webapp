@@ -8,15 +8,18 @@ import Body2 from "components/small/typography/Body2"
 import Body3 from "components/small/typography/Body3"
 import CaptionReg from "components/small/typography/CaptionReg"
 import TitleSmall from "components/small/typography/TitleSmall"
+import { form_batal_permohonan_uji_id } from "constants/FormUtils"
 import { useDetailUjiClientContext } from "hooks/context/detail-uji-client/DetailUjiClientContext"
 import { usePersPenawaranContext } from "hooks/context/form-persetujuan-penawaran/PersPenawaranFormContext"
-import {Fragment} from 'react'
+import {Fragment, useState} from 'react'
 import Section1 from "./detail-section/Section1"
 import Section2 from "./detail-section/Section2"
 import SectionFee from "./detail-section/SectionFee"
 import SectionFormPraUji from "./detail-section/SectionFormPraUji"
 import SectionPaymentStep from "./detail-section/SectionPaymentStep"
 import SectionSchedule from "./detail-section/SectionSchedule"
+import FormCancelUji from "./FormCancelUji"
+import FormModal from "./FormModal"
 
 export default function DetailModal({
     status,
@@ -26,7 +29,9 @@ export default function DetailModal({
     setIsOpen,
     children,
     buttonSide,
-    data}) {
+    data,
+    setCancelPopUp
+    }) {
 
     // const {setPersPenawaranOpen, setFormPraUjiOpen, setUploadDokumenOpen} = useDetailUjiClientContext()
     function closeModal() {
@@ -37,8 +42,11 @@ export default function DetailModal({
         setIsOpen(true)
       }
 
+    
       console.log("status", current_status)
   return (
+    <>
+    
     <Transition appear show={isOpen} as={Fragment}>
         <Dialog
         as="div"
@@ -104,6 +112,16 @@ export default function DetailModal({
                                             </li>
                                         
                                     ))}
+                                    {current_status == 99 &&
+                                    <li className="flex items-center">
+                                        <ChevronRightIcon className="h-6 w-6 text-grey-500" aria-hidden="true"/>
+                                        <QuickFilterButton className= "bg-error-light border-error text-error">
+                                            <TitleSmall >
+                                                Batal
+                                            </TitleSmall>
+                                        </QuickFilterButton>
+                                    </li>
+                                    }
                                     
                                 </ul>
                             </div>
@@ -167,12 +185,24 @@ export default function DetailModal({
 
                                     </div>
 
+                                    {current_status != 100 && current_status !=99 &&
                                     <div className="absolute inset-x-0 bottom-0 px-10">
-                                        <Button buttonStyle="secondary_disabled">
+                                        <Button 
+                                        buttonStyle="secondary_neutral"
+                                        onClick={
+                                            // ()=>{}
+                                            setCancelPopUp?
+                                            ()=>setCancelPopUp(true)
+                                            :
+                                            ()=>{}
+                                        }
+                                        type="button" 
+                                        >
                                             Batalkan Permohonan
                                         </Button>
 
                                     </div>
+                                    }
                                 </div>
 
                             </div>
@@ -187,5 +217,8 @@ export default function DetailModal({
         </Dialog>
 
     </Transition>
+
+   
+    </>
   )
 }

@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import QuickFilterSmaller from 'components/small/button_small/QuickFilterSmaller'
 import Body1 from 'components/small/typography/Body1'
 import Body2 from 'components/small/typography/Body2'
@@ -53,7 +54,13 @@ export default function Section1({data}) {
             Status
         </Body1>
         <div className="">
-            <QuickFilterSmaller className="bg-primary-lighten10 border-primary-darken10 text-primary-darken10">
+            <QuickFilterSmaller className={classNames(
+                data.status ==99?
+                "bg-error-light border-error text-error"
+                :
+                "bg-primary-lighten10 border-primary-darken10 text-primary-darken10"
+                )}
+            >
                 <Body2>
                     {data.status_detail[`${role}_value`]}
                 </Body2>

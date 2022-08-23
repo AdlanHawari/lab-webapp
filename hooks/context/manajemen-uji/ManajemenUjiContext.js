@@ -11,6 +11,7 @@ export default function ManajemenUjiContextProvider({children}){
     const [regisBapetenPopUp, setRegisBapetenPopUp] = useState(false)
     const [sertifLukPopUp, setSertifLukPopUp] = useState(false)
     const [ubahLaporanUjiPopUp, setUbahLaporanUjiPopUp] = useState(false)
+    const [cancelUjiPopUp, setCancelUjiPopUp] = useState(false)
 
     const contextValue = useMemo(() => {
         return {
@@ -27,7 +28,9 @@ export default function ManajemenUjiContextProvider({children}){
             sertifLukPopUp, 
             setSertifLukPopUp,
             ubahLaporanUjiPopUp, 
-            setUbahLaporanUjiPopUp
+            setUbahLaporanUjiPopUp,
+            cancelUjiPopUp, 
+            setCancelUjiPopUp
             
         }
     }, [
@@ -44,7 +47,9 @@ export default function ManajemenUjiContextProvider({children}){
         sertifLukPopUp, 
         setSertifLukPopUp,
         ubahLaporanUjiPopUp, 
-        setUbahLaporanUjiPopUp
+        setUbahLaporanUjiPopUp,
+        cancelUjiPopUp, 
+        setCancelUjiPopUp
     ])
 
     return(

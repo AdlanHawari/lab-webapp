@@ -5,6 +5,7 @@ import Section1 from 'components/big/detail-section/Section1'
 import Section2 from 'components/big/detail-section/Section2'
 import SectionFee from 'components/big/detail-section/SectionFee'
 import DetailModal from 'components/big/DetailModal'
+import FormCancelUji from 'components/big/FormCancelUji'
 import FormModal from 'components/big/FormModal'
 import FormBuatPenawaranUji from 'components/big/manajemen/permohonan-uji/FormBuatPenawaranUji'
 import FormKonfirmPembayaranUji from 'components/big/manajemen/permohonan-uji/FormKonfirmPembayaranUji'
@@ -13,7 +14,7 @@ import ButtonSmall from 'components/small/button_small/ButtonSmall'
 import Table1 from 'components/small/typography/Table1'
 import Table2 from 'components/small/typography/Table2'
 import { permohonanUjiStatus } from 'constants/filter-status/ManajemenUjiStatus'
-import { form_buat_penawaran_uji_id } from 'constants/FormUtils'
+import { form_batal_permohonan_uji_id, form_buat_penawaran_uji_id } from 'constants/FormUtils'
 import { permohonanUjiTableHead } from 'constants/table/RowTitle'
 import { useManajemenPermohonanUjiContext } from 'hooks/context/permohonan-uji/PermohonanUjiContext'
 import { useDetailUji } from 'hooks/fetcher/detail-uji/useDetailUji'
@@ -30,7 +31,9 @@ export default function PermohonanUjiTable({data, mutate}) {
         buatPenawaranPopUp, 
         setBuatPenawaranPopUp,
         konfirmPembayaranPopUp, 
-        setKonfirmPembayaranPopUp
+        setKonfirmPembayaranPopUp,
+        cancelUjiPopUp, 
+        setCancelUjiPopUp
     } = useManajemenPermohonanUjiContext()
     const [submitState, setSubmitState] = useState(false)
     const [reqSent, setreqSent] = useState(false);
@@ -55,7 +58,8 @@ export default function PermohonanUjiTable({data, mutate}) {
         if(reqSent){
           setSubmitState(false)
           setBuatPenawaranPopUp(false)
-          setKonfirmPembayaranPopUp(false)
+          setKonfirmPembayaranPopUp(false) 
+          setCancelUjiPopUp(false)
           setreqSent(false)
           mutate()
         }
@@ -148,7 +152,7 @@ export default function PermohonanUjiTable({data, mutate}) {
           status={permohonanUjiStatus}
           current_status={dataSelected.status}
           data={dataSelected}
-          
+          setCancelPopUp={setCancelUjiPopUp}
           buttonSide = {
           <>
             {dataSelected.status<3 &&
@@ -273,6 +277,36 @@ export default function PermohonanUjiTable({data, mutate}) {
         </FormModal>
 
         }
+        {cancelUjiPopUp && 
+        <FormModal
+        title="Batalkan Permohonan"
+        bgColor="error"
+        isOpen={cancelUjiPopUp}
+        setIsOpen={setCancelUjiPopUp}
+        buttonSide={
+            <Button
+            // buttonStyle="primary_default"
+            className="bg-error"
+            buttonStyle={submitState?"primary_disabled":"primary_default"}
+            type="submit"                 
+            disabled={submitState? true:false}
+            form={form_batal_permohonan_uji_id}
+            >
+                Batalkan Permohonan
+
+            </Button>
+        }
+        >
+            <FormCancelUji
+            id={form_batal_permohonan_uji_id}
+            data={dataSelected}
+            submitState={submitState}
+            setSubmitState={setSubmitState}
+            setreqSent={setreqSent}
+            />
+
+        </FormModal>
+    }
     </>
   )
 }

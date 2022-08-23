@@ -18,6 +18,7 @@ import { ACCESS_CODE } from "constants/Access_Code";
 import { useAuth } from "hooks/fetcher/auth/useAuth";
 import { userType } from "constants/UserType";
 import { delay } from "utils/delay";
+import { useSWRConfig } from "swr";
 
 export default function LoginPage() {
   const auth = useAuth()
@@ -27,22 +28,62 @@ export default function LoginPage() {
   const router = useRouter()
   const [showPass, setShowPass] = useState(false)
   const [token, setToken] = useState("")
+  const [code, setCode] = useState("")
+
+  const {mutate} = useSWRConfig()
+
   
 
   //  async function handleLogin(formData){
   //   const res =  await auth.login(formData);
   //   return res
   // }
+  // let code = ""
 
-  // useEffect(() => {
-  //   if(token.length>0)
-  //   {
-  //     localStorage.setItem('jwt_user',token)
-  //     delay(5000)
+  useEffect(() => {
+    console.log("useEf")
+    if(token)
+    {
+      localStorage.setItem('jwt_user',token)
+      console.log("udah ganti tokennya")
+      console.log("kode",code)
+      mutate("/users/profile")
+      // delay(5000)
+      // setCode()
+      redirectPage(code)
+      // router.replace("/")
+      
+    }
+  }, [token,code])
+
+  function redirectPage(code){
+    if(code){
+      if(code == ACCESS_CODE.ADMIN){
+        router.replace("/login/welcomeSU")
+      }
+      if(code == ACCESS_CODE.CLIENT){
+        router.replace(`/${userType.client}/uji`)
+      }
+      if(code == ACCESS_CODE.PERSONNEL){
+        router.replace(`/${userType.personnel}/uji`)
+      }
+      if(code == ACCESS_CODE.PERSONNEL_PEERS){
+        router.replace(`/${userType.personnel}/uji`)
+      }
+
+      if(code == ACCESS_CODE.KEPALA_LAB){
+        router.replace(`/${userType.management}/summary`)
+      }
+      if(code == ACCESS_CODE.MANAGEMENT_KAL){
+        router.replace(`/${userType.management}/summary`)
+      }
+      if(code == ACCESS_CODE.MANAGEMENT_UJI){
+        router.replace(`/${userType.management}/summary`)
+      }
+    }
+
+  }
   
-  //     router.replace("/")
-  //   }
-  // }, [token])
   
     
   return(
@@ -76,41 +117,45 @@ export default function LoginPage() {
             setErrorMsg('')
           }
           const data = response.data
-          const code = data.user.role.access_code
+          // code = data.user.role.access_code
+          setCode(data.user.role.access_code)
           // console.log("response:", response)
           console.log("data:", data)
           console.log("code:", code)
-          localStorage.setItem('jwt_user',data.token)
+          // localStorage.setItem('jwt_user',data.token)
           // a = JSON.stringify(data)
-          // console.log("token",data.token)
+          console.log("token",data.token)
           // console.log("role",data.user.role.access_code)
-          // setToken(data.token)
+          setToken(data.token)
+          
+          // delay(5000)
+          // redirectPage(code)
   
           
   
           // role detector
-          if(code == ACCESS_CODE.ADMIN){
-            router.replace("/login/welcomeSU")
-          }
-          if(code == ACCESS_CODE.CLIENT){
-            router.replace(`/${userType.client}/uji`)
-          }
-          if(code == ACCESS_CODE.PERSONNEL){
-            router.replace(`/${userType.personnel}/uji`)
-          }
-          if(code == ACCESS_CODE.PERSONNEL_PEERS){
-            router.replace(`/${userType.personnel}/uji`)
-          }
+          // if(code == ACCESS_CODE.ADMIN){
+          //   router.replace("/login/welcomeSU")
+          // }
+          // if(code == ACCESS_CODE.CLIENT){
+          //   router.replace(`/${userType.client}/uji`)
+          // }
+          // if(code == ACCESS_CODE.PERSONNEL){
+          //   router.replace(`/${userType.personnel}/uji`)
+          // }
+          // if(code == ACCESS_CODE.PERSONNEL_PEERS){
+          //   router.replace(`/${userType.personnel}/uji`)
+          // }
   
-          if(code == ACCESS_CODE.KEPALA_LAB){
-            router.replace(`/${userType.management}/summary`)
-          }
-          if(code == ACCESS_CODE.MANAGEMENT_KAL){
-            router.replace(`/${userType.management}/summary`)
-          }
-          if(code == ACCESS_CODE.MANAGEMENT_UJI){
-            router.replace(`/${userType.management}/summary`)
-          }
+          // if(code == ACCESS_CODE.KEPALA_LAB){
+          //   router.replace(`/${userType.management}/summary`)
+          // }
+          // if(code == ACCESS_CODE.MANAGEMENT_KAL){
+          //   router.replace(`/${userType.management}/summary`)
+          // }
+          // if(code == ACCESS_CODE.MANAGEMENT_UJI){
+          //   router.replace(`/${userType.management}/summary`)
+          // }
           
           
           

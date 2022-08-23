@@ -5,6 +5,7 @@ import { userType } from "constants/UserType";
 import useUser from "hooks/fetcher/auth/useUser";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { delay } from "utils/delay";
 
 export default function WelcomeSUPage() {
   const { user, loading,error, mutate } = useUser()
@@ -12,20 +13,23 @@ export default function WelcomeSUPage() {
   const router = useRouter()
   useEffect(() => {
     console.log("entering superadmin")
-    // delay(1000)
-    if(user){
-      console.log("user", user)
-      if(user.data.role.access_code != ACCESS_CODE.ADMIN){
+    delay(2000)
+    if(!loading){
+
+      if(user){
+        console.log("user", user)
+        if(user.data.role.access_code != ACCESS_CODE.ADMIN){
+          router.replace("/")
+        }
+        else{
+          setRender(true)
+        }
+      }
+  
+      if(error&& !user){
+        console.log("error", error)
         router.replace("/")
       }
-      else{
-        setRender(true)
-      }
-    }
-
-    if(error&& !user){
-      console.log("error", error)
-      router.replace("/")
     }
     // else{
     //   router.replace("/")

@@ -5,19 +5,24 @@ const manajemenPermohonanUjiContext = createContext()
 export default function ManajemenPermohonanUjiContextProvider({children}){
     const [buatPenawaranPopUp, setBuatPenawaranPopUp] = useState(false)
     const [konfirmPembayaranPopUp, setKonfirmPembayaranPopUp] = useState(false)
+    const [cancelUjiPopUp, setCancelUjiPopUp] = useState(false)
 
     const contextValue = useMemo(()=> {
         return {
             buatPenawaranPopUp, 
             setBuatPenawaranPopUp,
             konfirmPembayaranPopUp,
-            setKonfirmPembayaranPopUp
+            setKonfirmPembayaranPopUp,
+            cancelUjiPopUp, 
+            setCancelUjiPopUp
         }
     },[
         buatPenawaranPopUp, 
         setBuatPenawaranPopUp,
         konfirmPembayaranPopUp,
-        setKonfirmPembayaranPopUp
+        setKonfirmPembayaranPopUp,
+        cancelUjiPopUp, 
+        setCancelUjiPopUp
     ])
 
     return(

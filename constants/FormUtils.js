@@ -11,5 +11,6 @@ export const form_create_institution_id = "CreateInstitutionForm";
 export const form_bap_id = "BeritaAcaraPekerjaanForm";
 export const form_laporan_hasil_uji_id = "LaporanHasilUjiForm";
 export const form_tolak_laporan_uji_id = "TolakLaporanUjiForm";
+export const form_batal_permohonan_uji_id = "BatalPermohonanUjiForm";
 export const form_input_regis_bapeten_id = "InputNoRegisBapetenForm";
 export const form_edit_sertif_luk_id = "EditSertifLUKForm";

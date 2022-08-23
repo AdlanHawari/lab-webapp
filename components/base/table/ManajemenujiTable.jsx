@@ -17,7 +17,7 @@ import FormModal from "components/big/FormModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import FormPemilihanJadwalPenguji from "components/big/manajemen/manajemen-uji/FormPemilihanJadwalPenguji";
-import { form_dokumen_penugasan_id, form_edit_sertif_luk_id, form_input_regis_balis, form_input_regis_bapeten_id, form_pemilihan_jadwal_penguji_id } from "constants/FormUtils";
+import { form_batal_permohonan_uji_id, form_dokumen_penugasan_id, form_edit_sertif_luk_id, form_input_regis_balis, form_input_regis_bapeten_id, form_pemilihan_jadwal_penguji_id } from "constants/FormUtils";
 import { PersonnelProvider } from "hooks/fetcher/personnel/usePersonnelFetcher";
 import FormDokumenPenugasan from "components/big/manajemen/manajemen-uji/FormDokumenPenugasan";
 import FormInputTanggalRegisBalis from "components/big/manajemen/manajemen-uji/FormInputTanggalRegisBalis";
@@ -31,6 +31,7 @@ import FormEditSertifLuk from "components/big/manajemen/manajemen-uji/FormEditSe
 import XRayDetector from "utils/XRayDetector";
 import { SingleFileDownloader, ZipFileDownloader } from 'utils/FileDownloader'
 import { DOCTYPE } from "constants/DocType";
+import FormCancelUji from "components/big/FormCancelUji";
 
 
 export default function ManajemenujiTable({data, mutate}) {
@@ -56,7 +57,9 @@ export default function ManajemenujiTable({data, mutate}) {
         sertifLukPopUp, 
         setSertifLukPopUp,
         ubahLaporanUjiPopUp, 
-        setUbahLaporanUjiPopUp
+        setUbahLaporanUjiPopUp,
+        cancelUjiPopUp, 
+        setCancelUjiPopUp
     } = useManajemenUjiContext()
 
     const {
@@ -77,6 +80,7 @@ export default function ManajemenujiTable({data, mutate}) {
             setSertifLukPopUp(false)
             setRegisBapetenPopUp(false)
             setUbahLaporanUjiPopUp(false)
+            setCancelUjiPopUp(false)
             setreqSent(false)
             mutate()
         }
@@ -223,6 +227,7 @@ export default function ManajemenujiTable({data, mutate}) {
           status={manajemenUjiStatus}
           current_status={dataSelected.status}
           data={dataSelected}
+          setCancelPopUp= {setCancelUjiPopUp}
           buttonSide=
           {
             <div className="block space-y-4">
@@ -697,6 +702,37 @@ export default function ManajemenujiTable({data, mutate}) {
 
         </FormModal>
       }
+
+      {cancelUjiPopUp && 
+        <FormModal
+        title="Batalkan Permohonan"
+        bgColor="error"
+        isOpen={cancelUjiPopUp}
+        setIsOpen={setCancelUjiPopUp}
+        buttonSide={
+            <Button
+            // buttonStyle="primary_default"
+            className="bg-error"
+            buttonStyle={submitState?"primary_disabled":"primary_default"}
+            type="submit"                 
+            disabled={submitState? true:false}
+            form={form_batal_permohonan_uji_id}
+            >
+                Batalkan Permohonan
+
+            </Button>
+        }
+        >
+            <FormCancelUji
+            id={form_batal_permohonan_uji_id}
+            data={dataSelected}
+            submitState={submitState}
+            setSubmitState={setSubmitState}
+            setreqSent={setreqSent}
+            />
+
+        </FormModal>
+    }
 
       </>
   )

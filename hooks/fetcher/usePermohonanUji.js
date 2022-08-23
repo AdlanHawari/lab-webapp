@@ -42,29 +42,36 @@ async function getPermohonanUji(
 }
 
 export default function usePermohonanUji(
-    start_date,
-    end_date,
+    start_date="",
+    end_date="",
     page,
     status_filter="",
     dashboard="",
     arsipDoc= {
         doc_number: "",
-        institution: "",
+        institution_id: "",
         test_type: ""
     }
 
 ){
-    // if(!status_filter){
-    //     status_filter=""
-    // }
-    // if(!dashboard){
-    //     dashboard=""
-    // }
+    if(!status_filter){
+        status_filter=""
+    }
+    if(!dashboard){
+        dashboard=""
+    }
+    if(!arsipDoc.institution_id){
+        arsipDoc.institution_id=""
+    }
+    // arsipDoc.institution_id=""
+    // console.log("ins id", arsipDoc.institution_id)
     
     // console.log("docnum", arsipDoc.doc_number)
     // const {data, mutate, error} = useSWR("/test-applications", getPermohonanUji)
+    // let query = 
     const {data, mutate, error} = useSWR(
-        `/test-applications?${start_date&&`start_date=${start_date}`}${end_date&&`&end_date=${end_date}`}${page&&`&page=${page}`}${status_filter&&`&status=${status_filter}`}${dashboard&&`&dashboard=${dashboard}`}${arsipDoc.doc_number&&`&doc_number=${arsipDoc.doc_number}`}${arsipDoc.institution&&`&institution=${arsipDoc.institution}`}${arsipDoc.test_type&&`&test_type=${arsipDoc.test_type}`}`, 
+        `/test-applications?${page&&`page=${page}`}${start_date&&`&start_date=${start_date}`}${end_date&&`&end_date=${end_date}`}${status_filter&&`&status=${status_filter}`}${dashboard&&`&dashboard=${dashboard}`}${arsipDoc.institution_id&&`&institution_id=${arsipDoc.institution_id}`}${arsipDoc.test_type&&`&test_type=${arsipDoc.test_type}`}${arsipDoc.doc_number&&`&doc_number=${arsipDoc.doc_number}`}`, 
+        // `/test-applications?${page&&`page=${page}`}${start_date&&`&start_date=${start_date}`}${end_date&&`&end_date=${end_date}`}${status_filter&&`&status=${status_filter}`}${dashboard&&`&dashboard=${dashboard}`}${arsipDoc.test_type&&`&test_type=${arsipDoc.test_type}`}&institution_id=${arsipDoc.institution_id}`, 
         getPermohonanUji)
 
     const loading = !data && !error;
