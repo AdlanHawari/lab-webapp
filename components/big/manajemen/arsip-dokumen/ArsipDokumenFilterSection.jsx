@@ -13,8 +13,12 @@ export default function ArsipDokumenFilterSection() {
     <div className="flex items-center space-x-4">
       
       <DocumentNoFilter/>
+
+      <div className="">
+
+        <DateFilter/>
+      </div>
       
-      <DateFilter/>
       
 
       

@@ -13,7 +13,7 @@ export default function Topbar({children}) {
   return(
     // <div className="max-h-screen overflow-auto block w-full pt-10 divide-y divide-grey-200 pl-11 pr-10 bg-background">
     <div className="max-h-screen overflow-auto block w-full pl-11 pr-10 bg-background">
-        <div className="z-50 fixed w-4/5 pt-10 pr-10 h-18 border-b border-grey-200 bg-background">
+        <div className="z-10 fixed w-4/5 pt-10 pr-10 h-18 border-b border-grey-200 bg-background">
             <div className="flex pb-8 items-center justify-between">
                 <div className="flex items-center space-x-11">
                     <h1 className='capitalize'>{title}</h1>
