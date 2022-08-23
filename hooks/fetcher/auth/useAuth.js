@@ -94,14 +94,8 @@ function useProvideAuth(){
             },
             redirect: 'follow'
           };
-        const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, requestOptions)
-        if(!req.ok){
-          const error = new Error('An error occurred while fetching the data.')
-    // Attach extra info to the error object.
-          error.info = await req.json()
-          error.status = req.statusCode
-          throw error
-        }
+          // console.log("start fetch")
+          const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, requestOptions)
         return req.json()
         // let error
 

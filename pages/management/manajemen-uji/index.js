@@ -27,7 +27,7 @@ export default function ManajemenManajemenUjiPage() {
   // const [subTitle, setSubtitle] = useState(subMenu.PENGUJI)
   const [title,setTitle, subTitle,setSubtitle] = useTitleContext();
   const router = useRouter()
-  const { user, loading,error, mutate } = useUser()
+  const { user, loading,error, isValidating } = useUser()
   const [render, setRender] = useState(false)
 
 
@@ -36,24 +36,27 @@ export default function ManajemenManajemenUjiPage() {
   })
 
   useEffect(() => {
-    if(user){
-      console.log("user", user)
-      if(user.data.role.access_code != ACCESS_CODE.MANAGEMENT_KAL && user.data.role.access_code != ACCESS_CODE.MANAGEMENT_UJI && user.data.role.access_code != ACCESS_CODE.KEPALA_LAB &&  user.data.role.access_code != ACCESS_CODE.ADMIN){
+    if(!isValidating){
+      if(user){
+        console.log("user", user)
+        if(user.data.role.access_code != ACCESS_CODE.MANAGEMENT_KAL && user.data.role.access_code != ACCESS_CODE.MANAGEMENT_UJI && user.data.role.access_code != ACCESS_CODE.KEPALA_LAB &&  user.data.role.access_code != ACCESS_CODE.ADMIN){
+          router.replace("/")
+        }
+        else{
+          setRender(true)
+          // router.push("management/summary")
+        }
+      }
+      if(error&& !user){
+        console.log("error", error)
         router.replace("/")
       }
-      else{
-        setRender(true)
-        // router.push("management/summary")
-      }
-    }
-    if(error&& !user){
-      console.log("error", error)
-      router.replace("/")
+
     }
     // else{
     //   router.replace("/")
     // }
-  }, [user,error])
+  }, [user,error, isValidating])
 
 
   return(

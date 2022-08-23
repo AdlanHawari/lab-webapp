@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { delay } from "utils/delay";
 
 export default function WelcomeSUPage() {
-  const { user, loading,error, mutate , unAuthorized} = useUser()
+  const { user, loading,error, isValidating} = useUser()
   const [render, setRender] = useState(false)
   const router = useRouter()
   useEffect(() => {
@@ -16,6 +16,7 @@ export default function WelcomeSUPage() {
     // console.log("please wait 10 sec")
     // delay(10000)
     
+    if(!isValidating){
 
       if(user){
         console.log("user", user)
@@ -25,7 +26,18 @@ export default function WelcomeSUPage() {
         else{
           setRender(true)
         }
+        // if(error){
+        //   console.log("error", error)
+        //   router.replace("/")
+        // }
       }
+      
+      if(error&& !user){
+        console.log("error user")
+        console.log("error", error)
+        router.replace("/") 
+      }
+    }
   
       // if(unAuthorized&& !user){
       //   console.log("error user")
@@ -40,16 +52,16 @@ export default function WelcomeSUPage() {
       // if(error){
       //   console.log("status",error.status)
       // }
-      if(error&& !user){
-        console.log("error", error)
-        router.replace("/")
-      }
+      // if(error&& !user){
+      //   console.log("error", error)
+      //   router.replace("/")
+      // }
     
     // else{
     //   router.replace("/")
     // }
   
-  }, [user,error])
+  }, [user,error, isValidating])
 
   return (
     <>

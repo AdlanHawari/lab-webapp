@@ -14,10 +14,10 @@ import { delay } from 'utils/delay'
 
 export default function Home() {
 
-  const { user, loading,error, mutate } = useUser()
-  const auth = useAuth()
+  const { user, loading,error, isValidating } = useUser()
+  // const auth = useAuth()
   const router = useRouter()
-  const [role, setRole] = useState("")
+  // const [role, setRole] = useState("")
 
   // async function wewe(){
   //   const a = await auth.isLoggedIn('/get-profile')
@@ -29,50 +29,53 @@ export default function Home() {
 
 
   useEffect(() => {
-    delay(3000)
-    if(user){
-      // setRole(user.role.name)
-      console.log("user", user)
-      // console.log(user.data.role.access_code)
-      // const role = user.data?.role.access_code
-      // console.log("user ni")
-      
-      if(user.data){
+    // delay(3000)
+    if(!isValidating){
+
+      if(user){
+        // setRole(user.role.name)
+        console.log("user", user)
+        // console.log(user.data.role.access_code)
+        // const role = user.data?.role.access_code
+        // console.log("user ni")
         
-        const code = user.data.role.access_code
-        console.log(code)
-        // delay(1500)
-        if(code == ACCESS_CODE.ADMIN){
-          router.push("/login/welcomeSU")
+        if(user.data){
+          
+          const code = user.data.role.access_code
+          console.log(code)
+          // delay(1500)
+          if(code == ACCESS_CODE.ADMIN){
+            router.push("/login/welcomeSU")
+          }
+          if(code == ACCESS_CODE.CLIENT){
+            router.push(`/${userType.client}/uji`)
+          }
+          if(code == ACCESS_CODE.PERSONNEL){
+            router.push(`/${userType.personnel}/uji`)
+          }
+          if(code == ACCESS_CODE.PERSONNEL_PEERS){
+            router.push(`/${userType.personnel}/uji`)
+          }
+  
+          if(code == ACCESS_CODE.KEPALA_LAB){
+            router.push(`/${userType.management}/summary`)
+          }
+          if(code == ACCESS_CODE.MANAGEMENT_KAL){
+            router.push(`/${userType.management}/summary`)
+          }
+          if(code == ACCESS_CODE.MANAGEMENT_UJI){
+            router.push(`/${userType.management}/summary`)
+          }
         }
-        if(code == ACCESS_CODE.CLIENT){
-          router.push(`/${userType.client}/uji`)
-        }
-        if(code == ACCESS_CODE.PERSONNEL){
-          router.push(`/${userType.personnel}/uji`)
-        }
-        if(code == ACCESS_CODE.PERSONNEL_PEERS){
-          router.push(`/${userType.personnel}/uji`)
-        }
-
-        if(code == ACCESS_CODE.KEPALA_LAB){
-          router.push(`/${userType.management}/summary`)
-        }
-        if(code == ACCESS_CODE.MANAGEMENT_KAL){
-          router.push(`/${userType.management}/summary`)
-        }
-        if(code == ACCESS_CODE.MANAGEMENT_UJI){
-          router.push(`/${userType.management}/summary`)
-        }
+        
+        
       }
-      
-      
-    }
-    if(error && !user){
-      router.replace("/login")
+      if(error && !user){
+        router.replace("/login")
+      }
     }
 
-  }, [user,error])
+  }, [user,error, isValidating])
 
   // useEffect(() => {
   //   if(error){

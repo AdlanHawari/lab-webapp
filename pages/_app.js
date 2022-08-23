@@ -3,6 +3,7 @@ import StatusFilterContextProvider from 'hooks/context/filter-status/StatusConte
 import NotifContextProvider from 'hooks/context/notif/NotifContext'
 import PageContextProvider from 'hooks/context/pagination/PageContext'
 import { AuthProvider } from 'hooks/fetcher/auth/useAuth'
+import NotificationFetcher from 'hooks/fetcher/notification/NotificationFetcher'
 import Head from 'next/head'
 import '../styles/globals.css'
 
@@ -11,15 +12,21 @@ function MyApp({ Component, pageProps }) {
   const getLayout = Component.getLayout || ((page)=> page)
 
   return getLayout(
-    // <TitleContextProvider>
+    <>
+    
+    {/* <TitleContextProvider> */}
     <AuthProvider>
-      <NotifContextProvider>
+      {/* <NotifContextProvider> */}
+      {/* <NotificationFetcher> */}
+
 
         <Component {...pageProps} />
-      </NotifContextProvider>
+      {/* </NotificationFetcher> */}
+      {/* </NotifContextProvider> */}
     </AuthProvider>
 
-    // </TitleContextProvider>
+    {/* </TitleContextProvider> */}
+    </>
   )
 
   // return (

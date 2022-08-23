@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 export default function ClientProfilePage() {
   const [title, setTitle] = useTitleContext();
   const router = useRouter()
-  const { user, loading,error, mutate } = useUser()
+  const { user, loading,error, isValidating } = useUser()
   const [render, setRender] = useState(false)
 
   useEffect(() => {
@@ -18,21 +18,24 @@ export default function ClientProfilePage() {
   })
 
   useEffect(() => {
-    if(user){
-      console.log("user", user)
-      if(user.data.role.access_code != ACCESS_CODE.CLIENT &&  user.data.role.access_code != ACCESS_CODE.ADMIN){
+    if(!isValidating){
+      if(user){
+        console.log("user", user)
+        if(user.data.role.access_code != ACCESS_CODE.CLIENT &&  user.data.role.access_code != ACCESS_CODE.ADMIN){
+          router.replace("/")
+        }
+        else{
+          setRender(true)
+        }
+      }
+      if(error&& !user){
+        console.log("error", error)
         router.replace("/")
       }
-      else{
-        setRender(true)
-      }
-    }
-    if(error&& !user){
-      console.log("error", error)
-      router.replace("/")
+
     }
   
-  }, [user,error])
+  }, [user,error, isValidating])
 
 
   return(

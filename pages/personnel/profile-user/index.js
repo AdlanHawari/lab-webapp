@@ -9,7 +9,7 @@ import React, { useEffect, useState } from 'react';
 export default function PersonelProfilePage() {
   const [title, setTitle] = useTitleContext();
   const router = useRouter()
-  const { user, loading,error, mutate } = useUser()
+  const { user, loading,error, isValidating } = useUser()
   const [render, setRender] = useState(false)
 
   useEffect(() => {
@@ -17,21 +17,24 @@ export default function PersonelProfilePage() {
   })
 
   useEffect(() => {
-    if(user){
-      console.log("user", user)
-      if(user.data.role.access_code != ACCESS_CODE.PERSONNEL && user.data.role.access_code != ACCESS_CODE.PERSONNEL_PEERS &&  user.data.role.access_code != ACCESS_CODE.ADMIN){
+    if(!isValidating){
+      if(user){
+        console.log("user", user)
+        if(user.data.role.access_code != ACCESS_CODE.PERSONNEL && user.data.role.access_code != ACCESS_CODE.PERSONNEL_PEERS &&  user.data.role.access_code != ACCESS_CODE.ADMIN){
+          router.replace("/")
+        }
+        else{
+          setRender(true)
+        }
+      }
+      if(error&& !user){
+        console.log("error", error)
         router.replace("/")
       }
-      else{
-        setRender(true)
-      }
-    }
-    if(error&& !user){
-      console.log("error", error)
-      router.replace("/")
+
     }
   
-  }, [user,error])
+  }, [user,error, isValidating])
 
   return(
     <ProfileSection/>
