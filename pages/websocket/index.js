@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { io } from 'socket.io-client'
 
-export default function index() {
+export default function WebSocketPage() {
   const uuid = "7daea38e-8f07-44f0-aa43-ee7d67fefb2f"
   
   const domain_websocket = `http://api.play1.musagreen.com/v1/users/notification/${uuid}`
