@@ -25,16 +25,24 @@ import { useKonfirmLaporanUjiContext } from 'hooks/context/manajemen-uji/Konfirm
 import FormKonfirmLaporanUji from 'components/big/manajemen/manajemen-uji/FormKonfirmLaporanUji'
 import XRayDetector from 'utils/XRayDetector'
 import HMinus from 'utils/HMinus'
+import { DOCTYPE } from 'constants/DocType'
+import { SingleFileDownloader, ZipFileDownloader } from 'utils/FileDownloader'
+import { useDetailUji } from 'hooks/fetcher/detail-uji/useDetailUji'
+import ErrorModal from 'components/big/ErrorModal'
 
 export default function PersonnelUjiTable({data, mutate}) {
     const [isDetailOpen, setIsDetailOpen] = useState(false)
   const [selected, setSelected] = useState()
   const [dataSelected, setDataSelected] = useState({})
+  const [dokumenPenugasanState, setDokumenPenugasanState] = useState(false)
+  const [emptyDokumenPenugasanState, setEmptyDokumenPenugasanState] = useState(false)
   const {readable} = DateFormatter()
   const [submitState, setSubmitState] = useState(false)
     const [reqSent, setreqSent] = useState(false);
 
     const { user, loading,error } = useUser()
+
+    const {downloadZipFile}= useDetailUji()
 
   const {
     beritaAcaraPopUp, 
@@ -59,6 +67,7 @@ export default function PersonnelUjiTable({data, mutate}) {
             setBeritaAcaraPopUp(false)
             setLaporanUjiPopUp(false)
             setKonfirmLaporanUjiPopUp(false)
+            setDokumenPenugasanState(false)
             setreqSent(false)
             mutate()
         }
@@ -66,11 +75,33 @@ export default function PersonnelUjiTable({data, mutate}) {
     
     }, [reqSent])
 
+    function checkDokumenPenugasan(documents){
+        documents.map(item => {
+            if(item.group == DOCTYPE.DOCGROUP.ASSIGNMENT){
+                setDokumenPenugasanState(true)
+            }
+        })
+
+    }
+
     // useEffect(()=>{
     //     if(user){
     //         console.log("role",user.data.role.access_code)
     //     }
     // }, [user])
+    useEffect(() => {
+      
+        if(dataSelected && dataSelected.documents){
+            checkDokumenPenugasan(dataSelected.documents)
+        }
+    }, [dataSelected])
+
+    useEffect(() => {
+      
+        console.log("dokpenstate", dokumenPenugasanState)
+    }, [dokumenPenugasanState])
+    
+    
     
 
 
@@ -206,6 +237,14 @@ export default function PersonnelUjiTable({data, mutate}) {
             <div className="block space-y-4">
                 <Button
                 buttonStyle="primary_default"
+                onClick={
+                    dokumenPenugasanState ?
+                    ()=>ZipFileDownloader(downloadZipFile, dataSelected.id, DOCTYPE.DOCGROUP.ASSIGNMENT, "Dokumen_Penugasan.zip")
+                    :
+                    ()=>setEmptyDokumenPenugasanState(true)
+
+
+                }
                 >
                     Unduh Dokumen Penugasan
                 </Button>
@@ -386,6 +425,18 @@ export default function PersonnelUjiTable({data, mutate}) {
             />
 
         </FormModal>
+    }
+    {emptyDokumenPenugasanState &&
+        <ErrorModal
+        bgColor="warning"
+        isOpen={emptyDokumenPenugasanState}
+        setIsOpen={setEmptyDokumenPenugasanState}
+        >
+            <div className='block pb-10'>
+                <h3 className='text-black-400'>Dokumen penugasan belum tersedia</h3>
+            </div>
+
+        </ErrorModal>
     }
     </>
   )

@@ -85,10 +85,8 @@ function useProvideAuth(){
     }
 
     async function isLoggedIn(url){
-        let error
-
-        const token = GetToken()
-          var requestOptions = {
+       const token = GetToken()
+        var requestOptions = {
             method:'GET'  ,
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -96,14 +94,55 @@ function useProvideAuth(){
             },
             redirect: 'follow'
           };
-          try {
-            const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, requestOptions)
-            const res = await req.json()
-            return res
+        const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, requestOptions)
+        if(!req.ok){
+          const error = new Error('An error occurred while fetching the data.')
+    // Attach extra info to the error object.
+          error.info = await req.json()
+          error.status = req.statusCode
+          throw error
+        }
+        return req.json()
+        // let error
 
-          } catch (e) {
-              throw e
-          }
+        // const token = GetToken()
+        // if(token){console.log("token ada di fetcher", token)}
+        //   var requestOptions = {
+        //     method:'GET'  ,
+        //     headers: {
+        //         'Authorization': `Bearer ${token}`,
+        //         // 'Content-Type': 'application/json'
+        //     },
+        //     redirect: 'follow'
+        //   };
+
+        //   const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, requestOptions)
+        //     if(req.ok){
+        //       const res = await req.json()
+        //       return res
+        //     }
+        //       // if(req.s==401){
+        //     else{    
+        //       console.log("status", req.status)
+        //       throw new Error("here is the error")
+        //     }
+          // try {
+          //   const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, requestOptions)
+          //   if(req.ok){
+          //     const res = await req.json()
+          //     return res
+          //   }
+          //   if(req.status==401){
+          //     console.log("status", req.status)
+          //   }
+
+          // } catch (e) {
+          //     const err = new Error("An error occured when fetching user data")
+          //     err.status = 401
+          //     console.log("error di isloggedin",e)
+          //     // console.log("error stat",e)
+          //     throw err
+          // }
 
         
             // const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, requestOptions)

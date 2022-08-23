@@ -48,15 +48,15 @@ export default function ProfileSection() {
               </Body2>
             </li>
             <li>
-              {user.data.phone.length>0 ?
+              {user.data.phone?
                 <Body2 className="text-black-400">
-                  {user.data.phone.length}
+                  {user.data.phone}
                 
                 </Body2>
                 :
                 <div className="">
                   <Body2 className="text-black-400">
-                    kosong
+                    -
                   </Body2>
                 </div>
               }

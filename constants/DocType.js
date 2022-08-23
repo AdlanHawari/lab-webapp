@@ -3,6 +3,8 @@ export const DOCTYPE = {
     INVOICE: "INVOICE",
     CERTIFICATE: "CERTIFICATE",
     DOCGROUP: {
-        REPORT: "REPORT"
-    }
+        REPORT: "REPORT",
+        ASSIGNMENT: "assignment"
+    },
+
 }

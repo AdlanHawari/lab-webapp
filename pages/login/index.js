@@ -47,7 +47,7 @@ export default function LoginPage() {
       localStorage.setItem('jwt_user',token)
       console.log("udah ganti tokennya")
       console.log("kode",code)
-      mutate("/users/profile")
+      // mutate("/users/profile")
       // delay(5000)
       // setCode()
       redirectPage(code)
