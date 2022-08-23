@@ -91,9 +91,10 @@ export default function PersonnelUjiTable({data, mutate}) {
     // }, [user])
     useEffect(() => {
       
-        if(dataSelected && dataSelected.documents){
-            checkDokumenPenugasan(dataSelected.documents)
-        }
+        // if(dataSelected && dataSelected.documents){
+        //     checkDokumenPenugasan(dataSelected.documents)
+        // }
+        console.log()
     }, [dataSelected])
 
     useEffect(() => {
