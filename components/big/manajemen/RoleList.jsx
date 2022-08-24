@@ -13,7 +13,7 @@ export default function RoleList() {
             Penguji
             </h3>
             <Body1>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aliquam sequi atque vitae, deserunt laborum obcaecati fuga saepe officiis libero quis.
+            Role untuk pelaksana pengujian terhadap alat-alat kesehatan
             </Body1>
 
         </div>
@@ -26,7 +26,7 @@ export default function RoleList() {
             Manajemen
             </h3>
             <Body1>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aliquam sequi atque vitae, deserunt laborum obcaecati fuga saepe officiis libero quis.
+            Role untuk pihak- pihak yang bertanggung jawab atas jalannya pengujian alat-alat kesehatan dari PT. Sri Intan Perkasa
             </Body1>
 
         </div>
@@ -36,10 +36,10 @@ export default function RoleList() {
         <UserIcon className="h-14 w-14 cursor-pointer text-primary" aria-hidden="true"/>
         <div className="block space-y-1.5">
             <h3 className=''>
-            Kepala LUK
+            Kepala Lab
             </h3>
             <Body1>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aliquam sequi atque vitae, deserunt laborum obcaecati fuga saepe officiis libero quis.
+            Role untuk pemangku kepentingan dalam hal melakukan pengecekan administrasi permohonan alat-alat yang akan dilakukan pengujian (sebagai approval terhadap pengujian alat)
             </Body1>
 
         </div>
@@ -52,7 +52,7 @@ export default function RoleList() {
             Super Admin
             </h3>
             <Body1>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aliquam sequi atque vitae, deserunt laborum obcaecati fuga saepe officiis libero quis.
+            Role untuk masuk sebagai semua role user yang terdaftar
             </Body1>
 
         </div>
@@ -65,24 +65,24 @@ export default function RoleList() {
             Klien
             </h3>
             <Body1>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aliquam sequi atque vitae, deserunt laborum obcaecati fuga saepe officiis libero quis.
+            "Role untuk masuk sebagai user baru yang melakukan permohonan uji / sebagai klien dari PT. Sri Intan Perkasa"
             </Body1>
 
         </div>
         </div>
 
-        <div className="flex items-center space-x-7 px-9 py-5 bg-primary-lighten10 rounded-2xl">
-        <UserIcon className="h-14 w-14 cursor-pointer text-primary" aria-hidden="true"/>
-        <div className="block space-y-1.5">
-            <h3 className=''>
-            Second Klien
-            </h3>
-            <Body1>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aliquam sequi atque vitae, deserunt laborum obcaecati fuga saepe officiis libero quis.
-            </Body1>
+        {/* <div className="flex items-center space-x-7 px-9 py-5 bg-primary-lighten10 rounded-2xl">
+            <UserIcon className="h-14 w-14 cursor-pointer text-primary" aria-hidden="true"/>
+            <div className="block space-y-1.5">
+                <h3 className=''>
+                Second Klien
+                </h3>
+                <Body1>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aliquam sequi atque vitae, deserunt laborum obcaecati fuga saepe officiis libero quis.
+                </Body1>
 
-        </div>
-        </div>
+            </div>
+        </div> */}
     </div>
   )
 }
