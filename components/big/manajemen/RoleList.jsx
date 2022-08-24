@@ -65,7 +65,7 @@ export default function RoleList() {
             Klien
             </h3>
             <Body1>
-            "Role untuk masuk sebagai user baru yang melakukan permohonan uji / sebagai klien dari PT. Sri Intan Perkasa"
+            Role untuk masuk sebagai user baru yang melakukan permohonan uji / sebagai klien dari PT. Sri Intan Perkasa
             </Body1>
 
         </div>
