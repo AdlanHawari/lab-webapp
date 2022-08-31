@@ -375,6 +375,31 @@ function useProvideDetailUjiFetcher(){
         }
     }
 
+    async function downloadSummary(start_date="", end_date="", institution_id="", test_type=""){
+        var requestOptions = {
+            method: 'GET',
+            encoding: 'binary',
+            responseType: 'blob',
+            headers:{
+                'Authorization': `Bearer ${token}`
+            },
+            // body: formData,
+            redirect: 'follow'
+        }
+
+        try{
+            const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/documents/download/summary-dashboard?start_date=${start_date}&end_date=${end_date}${institution_id&&`&institution_id=${institution_id}`}${test_type&&`&test_type=${test_type}`}`, requestOptions)
+
+            const fileBlob = await req.blob()
+            return fileBlob
+
+        }
+        catch(e){
+            console.log("error",e)
+            return e
+        }
+    }
+
     return{
         confirmTestApp,
         createPenawaranUji,
@@ -390,6 +415,7 @@ function useProvideDetailUjiFetcher(){
         tolakLaporanUji,
         editSertifLUK,
         downloadZipFile,
-        cancelUji
+        cancelUji,
+        downloadSummary,
     }
 }

@@ -43,7 +43,7 @@ export default function ClientUjiMainSection() {
 
 
     useEffect(()=> {
-        console.log("reqsent", reqSent)
+        // console.log("reqsent", reqSent)
         if(reqSent){
           
           setCreateUjiPopUp(false)

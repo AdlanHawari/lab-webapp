@@ -2,9 +2,12 @@ import BaseLayout from 'components/base/BaseLayout'
 import DashboardAlatUkurFilterSection from 'components/big/manajemen/dashboard-alat-ukur/DashboardAlatUkurFilterSection';
 import DashboardAlatUkurMainSection from 'components/big/manajemen/dashboard-alat-ukur/DashboardAlatUkurMainSection';
 import { ACCESS_CODE } from 'constants/Access_Code';
+import JenisAlatFilterContextProvider from 'hooks/context/filter-jenis-alat/JenisAlatFilter';
 import StatusFilterContextProvider from 'hooks/context/filter-status/StatusContext';
 import FormCreateAlatUkurContextProvider from 'hooks/context/form-create-alat-ukur/FormCreateAlatUkurContext';
+import PageContextProvider from 'hooks/context/pagination/PageContext';
 import useUser from 'hooks/fetcher/auth/useUser';
+import { AlatUkurFetcherProvider } from 'hooks/fetcher/management-alat-ukur/useAlatUkurFetcher';
 import { useTitleContext } from 'hooks/TitleContext';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
@@ -20,7 +23,7 @@ export default function DashboardAlatUkurPage() {
     })
   
     useEffect(() => {
-      console.log("entering client uji")
+      // console.log("entering client uji")
       // delay(1000)
       if(!isValidating){
         if(user){
@@ -54,14 +57,23 @@ export default function DashboardAlatUkurPage() {
     </div>
     :
     render &&
-      <StatusFilterContextProvider>
-        <FormCreateAlatUkurContextProvider>  
-          <div className="flex flex-col space-y-5">
-            <DashboardAlatUkurFilterSection/>
-            <DashboardAlatUkurMainSection/>
-          </div>
-        </FormCreateAlatUkurContextProvider>
-      </StatusFilterContextProvider>
+    <AlatUkurFetcherProvider>
+      <PageContextProvider>
+
+        <StatusFilterContextProvider>
+          <FormCreateAlatUkurContextProvider>  
+            <JenisAlatFilterContextProvider>
+
+              <div className="flex flex-col space-y-5">
+                <DashboardAlatUkurFilterSection/>
+                <DashboardAlatUkurMainSection/>
+              </div>
+            </JenisAlatFilterContextProvider>
+          </FormCreateAlatUkurContextProvider>
+        </StatusFilterContextProvider>
+
+      </PageContextProvider>
+    </AlatUkurFetcherProvider>
     }
     </>
 

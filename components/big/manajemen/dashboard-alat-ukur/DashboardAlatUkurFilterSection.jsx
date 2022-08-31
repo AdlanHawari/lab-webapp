@@ -1,16 +1,31 @@
 import { PlusIcon } from '@heroicons/react/outline'
+import JenisAlatFilter from 'components/base/filter/JenisAlatFilter'
 import StatusFilter from 'components/base/filter/StatusFilter'
 import { dashboardAlatUkurStatus, manajemenUjiStatus } from 'constants/filter-status/ManajemenUjiStatus'
 import { useFormCreateAlatUkurContext } from 'hooks/context/form-create-alat-ukur/FormCreateAlatUkurContext'
-import React from 'react'
+import useGetToolTypes from 'hooks/fetcher/management-alat-ukur/useGetToolTypes'
+import React, { useEffect } from 'react'
 
 export default function DashboardAlatUkurFilterSection() {
 
   const {setCreateAlatUkurPopUp} = useFormCreateAlatUkurContext()
+  const {tool_type, loading, error } = useGetToolTypes()
+
+  useEffect(() => {
+    console.log("tool", tool_type)
+  
+  }, [tool_type])
+  
   return (
     <div className="block space-y-6">
         <div className="flex justify-between">
           <div className="">
+            {tool_type&&
+              <JenisAlatFilter
+                itemLists={tool_type}
+              />
+
+            }
               
           </div>
           <button className="flex items-center space-x-2 bg-primary button-base text-white px-5 py-2 rounded-xl"

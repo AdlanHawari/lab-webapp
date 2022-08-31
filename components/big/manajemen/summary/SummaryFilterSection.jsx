@@ -2,21 +2,25 @@ import DateFilter from 'components/base/filter/DateFilter'
 import InstansiFilter from 'components/base/filter/InstansiFilter'
 import JenisPekerjaanFilter from 'components/base/filter/JenisPekerjaanFilter'
 import Button from 'components/small/button_fixed/Button'
+import { useDetailUji } from 'hooks/fetcher/detail-uji/useDetailUji'
 import useInstitutionsList from 'hooks/fetcher/management-summary/useInstitutionsList'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
+import { SummaryDownloader } from 'utils/FileDownloader'
 
 export default function SummaryFilterSection() {
 
   const {institutionLists, loading, error, mutate} = useInstitutionsList()
   const router = useRouter()
+
+  const {downloadSummary} = useDetailUji()
   
-  useEffect(() => {
-    if(error){
-      mutate(nul)
-      router.reload()
-    }
-  }, [error])
+  // useEffect(() => {
+  //   if(error){
+  //     mutate()
+  //     router.reload()
+  //   }
+  // }, [error])
   
   
   return (
@@ -69,8 +73,12 @@ export default function SummaryFilterSection() {
 
 
         <div className="w-[7.5rem]">
-          <Button buttonStyle="primary_default" className="w-full px-5 py-0.5">
-              Export
+          <Button buttonStyle="primary_default" className="w-full px-5 py-0.5"
+          onClick={()=> SummaryDownloader(downloadSummary(),"")
+            
+          }
+          >
+              Download
           </Button>
         </div>
 

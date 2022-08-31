@@ -17,6 +17,7 @@ import DateFilterUjiContextProvider, { useDateFilterUjiContext } from 'hooks/con
 import InstitutionFilterContextProvider from 'hooks/context/filter-institution/InstitutionFilter';
 import JenisPekerjaanFilterContextProvider, { useJenisPekerjaanFilterContext } from 'hooks/context/filter-jenisPekerjaan/JenisPekerjaanFilter';
 import useUser from 'hooks/fetcher/auth/useUser';
+import { DetailUjiFetcherProvider } from 'hooks/fetcher/detail-uji/useDetailUji';
 import useSummary from 'hooks/fetcher/management-summary/useSummary';
 import { SummaryProvider, useSummaryFetcher } from 'hooks/fetcher/management-summary/useSummaryFetcher';
 import { useTitleContext } from "hooks/TitleContext";
@@ -70,8 +71,10 @@ export default function ManajemenSummaryPage() {
                 <InstitutionFilterContextProvider>
 
                   <div className="space-y-6">
-                    
-                    <SummaryFilterSection/>
+                    <DetailUjiFetcherProvider>
+
+                      <SummaryFilterSection/>
+                    </DetailUjiFetcherProvider>
 
                     <SummaryMainSection/>
                   </div>

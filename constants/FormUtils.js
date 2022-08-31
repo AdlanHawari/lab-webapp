@@ -14,3 +14,4 @@ export const form_tolak_laporan_uji_id = "TolakLaporanUjiForm";
 export const form_batal_permohonan_uji_id = "BatalPermohonanUjiForm";
 export const form_input_regis_bapeten_id = "InputNoRegisBapetenForm";
 export const form_edit_sertif_luk_id = "EditSertifLUKForm";
+export const form_create_alat_ukur_id = "CreateAlatUkurForm";
