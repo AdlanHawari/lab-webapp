@@ -14,7 +14,7 @@ export default function DatePickerInput({
     setFormikValue,
     id,
     name,
-    
+    placeholder,
     onBlur
 }) {
     const [open, setOpen] = useState(false)
@@ -58,6 +58,7 @@ export default function DatePickerInput({
         setOpen={setOpen}
         selectedDate={selectedDate}
         dateFormatter={dateFormatter}
+        placeholder={placeholder}
     />}
     // placeholderText={placeholder}
     renderCustomHeader={({
@@ -127,7 +128,7 @@ export default function DatePickerInput({
 const DateInput = forwardRef(({
     
     setOpen, 
-    
+    placeholder,
     selectedDate,
     dateFormatter},
     { value, onClick }, ref) => (
@@ -156,7 +157,6 @@ const DateInput = forwardRef(({
         dateFormatter.filter(selectedDate)
         :
         <Title3Med className="text-grey-500">
-
             Pilih Tanggal
         </Title3Med>
         }

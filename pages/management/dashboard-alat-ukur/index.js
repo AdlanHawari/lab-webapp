@@ -58,21 +58,21 @@ export default function DashboardAlatUkurPage() {
     :
     render &&
     <AlatUkurFetcherProvider>
-      <PageContextProvider>
 
-        <StatusFilterContextProvider>
-          <FormCreateAlatUkurContextProvider>  
-            <JenisAlatFilterContextProvider>
+      <StatusFilterContextProvider>
+        <FormCreateAlatUkurContextProvider>  
+          <JenisAlatFilterContextProvider>
+            <PageContextProvider>
 
-              <div className="flex flex-col space-y-5">
-                <DashboardAlatUkurFilterSection/>
-                <DashboardAlatUkurMainSection/>
-              </div>
-            </JenisAlatFilterContextProvider>
-          </FormCreateAlatUkurContextProvider>
-        </StatusFilterContextProvider>
+            <div className="flex flex-col space-y-5">
+              <DashboardAlatUkurFilterSection/>
+              <DashboardAlatUkurMainSection/>
+            </div>
+            </PageContextProvider>
+          </JenisAlatFilterContextProvider>
+        </FormCreateAlatUkurContextProvider>
+      </StatusFilterContextProvider>
 
-      </PageContextProvider>
     </AlatUkurFetcherProvider>
     }
     </>

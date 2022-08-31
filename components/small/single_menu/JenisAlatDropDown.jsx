@@ -16,8 +16,8 @@ export default function JenisAlatDropDown({
     initValue
 }) {
     // const [selected, setSelected] = useState({})
-    // const [selected, setSelected] = useState(initValue? initValue: "")
-    const [selected, setSelected] = useState("")
+    const [selected, setSelected] = useState(initValue? initValue: "")
+    // const [selected, setSelected] = useState("")
     const [query, setQuery] = useState('')
 
     const filteredItemLists =

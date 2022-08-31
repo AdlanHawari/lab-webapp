@@ -2,7 +2,9 @@ import { PlusIcon } from '@heroicons/react/outline'
 import JenisAlatFilter from 'components/base/filter/JenisAlatFilter'
 import StatusFilter from 'components/base/filter/StatusFilter'
 import { dashboardAlatUkurStatus, manajemenUjiStatus } from 'constants/filter-status/ManajemenUjiStatus'
+import { useJenisAlatFilterContext } from 'hooks/context/filter-jenis-alat/JenisAlatFilter'
 import { useFormCreateAlatUkurContext } from 'hooks/context/form-create-alat-ukur/FormCreateAlatUkurContext'
+import { usePageContext } from 'hooks/context/pagination/PageContext'
 import useGetToolTypes from 'hooks/fetcher/management-alat-ukur/useGetToolTypes'
 import React, { useEffect } from 'react'
 
@@ -10,11 +12,19 @@ export default function DashboardAlatUkurFilterSection() {
 
   const {setCreateAlatUkurPopUp} = useFormCreateAlatUkurContext()
   const {tool_type, loading, error } = useGetToolTypes()
+  const {jenisAlatState, setJenisAlatState} = useJenisAlatFilterContext()
+  const {currentPage, setCurrentPage} = usePageContext();
+
 
   useEffect(() => {
-    console.log("tool", tool_type)
+    
+  setCurrentPage(1)
+  }, [jenisAlatState])
+
+  // useEffect(() => {
+  //   console.log("tool", tool_type)
   
-  }, [tool_type])
+  // }, [tool_type])
   
   return (
     <div className="block space-y-6">

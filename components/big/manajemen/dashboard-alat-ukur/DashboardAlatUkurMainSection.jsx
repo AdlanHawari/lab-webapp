@@ -17,7 +17,7 @@ export default function DashboardAlatUkurMainSection() {
 
   const [submitState, setSubmitState] = useState(false)
     const [reqSent, setreqSent] = useState(false);
-    const {currentPage, setLastPage} = usePageContext();
+    const {currentPage, setLastPage, setCurrentPage} = usePageContext();
     const {jenisAlatState, setJenisAlatState} = useJenisAlatFilterContext()
     const {tools, loading, error, mutate} = useGetTools(
       jenisAlatState,
@@ -27,7 +27,8 @@ export default function DashboardAlatUkurMainSection() {
     useEffect(()=> {
       // console.log("reqsent", reqSent)
       if(reqSent){
-        
+        setCurrentPage(1)
+        setJenisAlatState("")
         setCreateAlatUkurPopUp(false)
         
         mutate()
@@ -51,7 +52,7 @@ export default function DashboardAlatUkurMainSection() {
         }
         {tools &&
         tools.data.length>0 ?
-          <AlatUkurTable data={tools.data}/>
+          <AlatUkurTable data={tools.data} mutate={mutate}/>
           :
           !loading&&
           <div className="relative w-full h-96 ">

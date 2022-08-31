@@ -96,13 +96,44 @@ function useProvideAlatUkur(){
 
     }
 
-    async function deleteTool(){
+    async function deleteTool(id){
+        var requestOptions = {
+            method:'DELETE'  ,
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                // 'Content-Type': 'application/json'
+            },
+            redirect: 'follow'
+            };
+        
+        const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tools/${id}`, requestOptions)
+        const res = await req.json()
 
+        return res
+    }
+
+    async function editTool(formData, id){
+        var requestOptions = {
+            method:'PUT'  ,
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                // 'Content-Type': 'application/json'
+            },
+            body: formData,
+            redirect: 'follow'
+            };
+
+        const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tools/${id}`, requestOptions)
+        const res = await req.json()
+
+        return res
     }
 
     return {
         getTools,
         createAlat,
-        getToolTypes
+        getToolTypes,
+        deleteTool,
+        editTool
     }
 }
