@@ -1,6 +1,11 @@
 import BaseLayout from 'components/base/BaseLayout'
+import LogAlatUkurFilterSection from 'components/big/manajemen/log-alat-ukur/LogAlatUkurFilterSection';
+import LogAlatUkurMainSection from 'components/big/manajemen/log-alat-ukur/LogAlatUkurMainSection';
 import { ACCESS_CODE } from 'constants/Access_Code';
+import DateFilterUjiContextProvider from 'hooks/context/filter-date/DateFilterUjiContext';
+import PageContextProvider from 'hooks/context/pagination/PageContext';
 import useUser from 'hooks/fetcher/auth/useUser';
+import { LogAlatUkurProvider } from 'hooks/fetcher/log-alat-ukur/useLogAlatUkurFetcher';
 import { useTitleContext } from 'hooks/TitleContext';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
@@ -50,8 +55,19 @@ export default function LogAlatUkurPage() {
     </div>
     :
     render &&
+    // <div>LogAlatUkur</div>
+    <LogAlatUkurProvider>
+      <PageContextProvider>
+        <DateFilterUjiContextProvider>
+          <div className="flex flex-col  space-y-5">
+            <LogAlatUkurFilterSection/>
+            <LogAlatUkurMainSection/>      
+          </div>
+        </DateFilterUjiContextProvider>
+      </PageContextProvider>
+    </LogAlatUkurProvider>
     
-    <div>LogAlatUkur</div>
+    
   }
   </>
   )

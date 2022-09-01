@@ -8,6 +8,17 @@ export const logtableHead = [
     "Pilihan"
 ]
 
+export const logAlatUkurTableHead = [
+    "Tanggal",
+    "Alat",
+    "Merk",
+    "No. Seri/ID",
+    "Tipe Notifikasi",
+    "Pekerjaan",
+    "Petugas",
+    "Menu"
+]
+
 export const manajemenUjiTableHead = [
     "Nama Instansi",
     "Alamat Instansi",
