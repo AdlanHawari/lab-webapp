@@ -13,6 +13,7 @@ import { permohonanUjiInitVal, tool_details } from "helper/initial-formik-values
 import { useClient } from "hooks/fetcher/useClient";
 import handleFormData from "utils/HandleFormData";
 import { XIcon } from "@heroicons/react/solid";
+import JenisAlatDropDown from "components/small/single_menu/JenisAlatDropDown";
 
 export default function FormPermohonanUji({
     id,
@@ -150,7 +151,7 @@ export default function FormPermohonanUji({
                                                     </Body1>
                                                     <div className="block">
 
-                                                        <CustomComboBox
+                                                        {/* <CustomComboBox
                                                             // selected={formik.values.type}
                                                             selected={tool.tool_name}
                                                             setSelected={formik.setFieldValue}
@@ -167,7 +168,14 @@ export default function FormPermohonanUji({
                                                                 jenisAlatUkes
                                                                 :
                                                                 jenisAlatKalibrasi
-                                                            }/>
+                                                            }/> */}
+                                                             {/* <JenisAlatDropDown
+                                                                itemLists={tool_type}
+                                                                id={`tools.${index}.tool_name`}
+                                                                name={`tools.${index}.tool_name`}
+                                                                setFormikValue={formik.setFieldValue}
+                                                                placeholder="Pilih Jenis Alat"
+                                                                /> */}
                                                             <ErrorMessage name={`tools.${index}.tool_name`} component={ValidationMessage}/>
                                                             {/* {formik.touched.type && formik.errors.type ? 
                                                                 <p className="text-error">{formik.errors.type}</p>

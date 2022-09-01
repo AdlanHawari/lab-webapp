@@ -12,6 +12,7 @@ import { useStatusFilterContext } from 'hooks/context/filter-status/StatusContex
 import { useFormCreateUjiClientContext } from 'hooks/context/form-createUji-client/FormCreateUjiClientContext'
 import { usePageContext } from 'hooks/context/pagination/PageContext'
 import { DetailUjiFetcherProvider } from 'hooks/fetcher/detail-uji/useDetailUji'
+import { AlatUkurFetcherProvider } from 'hooks/fetcher/management-alat-ukur/useAlatUkurFetcher'
 import usePermohonanUji from 'hooks/fetcher/usePermohonanUji'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -149,6 +150,8 @@ export default function ClientUjiMainSection() {
         
         }
     >
+      <AlatUkurFetcherProvider>
+
         <FormPermohonanUji 
         id={form_permohonan_uji_id} 
         // id="ujibaru"
@@ -160,7 +163,8 @@ export default function ClientUjiMainSection() {
         setErrorMsg={setErrorMsg}
         setIsUjiOpen={setCreateUjiPopUp}
         />
-        </FormModal>
+      </AlatUkurFetcherProvider>
+    </FormModal>
     }
     </>
   )

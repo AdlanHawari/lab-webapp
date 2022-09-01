@@ -96,10 +96,11 @@ export default function LogTable({data, mutate}) {
                             </Table1>
                         </td>
                         <td className="w-48 py-2 px-4">
-                            {item.test_application.tools&&
+                            {item.test_application.tools.length>0&&
+                            
                                 <Table1 className="leading-4 text-black-500">
-                                    
-                                    {item.test_application.tools[0].name}
+                                    {/* wew */}
+                                    {item.test_application.tools[0].tool.type}
                                 </Table1>
                             }
                         </td>
