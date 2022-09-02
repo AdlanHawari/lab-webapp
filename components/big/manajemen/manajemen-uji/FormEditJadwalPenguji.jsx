@@ -82,7 +82,7 @@ export default function FormEditJadwalPenguji({
             
             let formData = handleFormData(finalValues)
             // console.log(finalValues)
-            fetchData(formData, data.id)
+            fetchData(formData, data.assignment_id)
             // console.log(data.id)
         }
         // fetchData(values)

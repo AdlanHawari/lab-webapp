@@ -63,8 +63,6 @@ export default function SummaryFilterSection() {
             <JenisPekerjaanFilter/>
           </div>
 
-          
-
           {/* <div className=''>
             <input
             className=" inline-flex justify-start w-72 px-3 py-2 text-sm font-medium text-grey-700 bg-white border border-grey-300 rounded-xl shadow-sm hover:bg-grey-50 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-secondary"
