@@ -33,6 +33,7 @@ import { SingleFileDownloader, ZipFileDownloader } from 'utils/FileDownloader'
 import { DOCTYPE } from "constants/DocType";
 import FormCancelUji from "components/big/FormCancelUji";
 import FormEditJadwalPenguji from "components/big/manajemen/manajemen-uji/FormEditJadwalPenguji";
+import FormEditLaporanHasilUji from "components/big/manajemen/manajemen-uji/FormEditLaporanHasilUji";
 
 
 export default function ManajemenujiTable({data, mutate}) {
@@ -130,8 +131,7 @@ export default function ManajemenujiTable({data, mutate}) {
         <tbody className="bg-white divide-y divide-table-divider">
             {data.map((item,index)=>(
                 <tr key={index} className={classNames(
-                    selected == index &&
-                    "bg-warning-light"
+                    selected == index &&"bg-warning-light"
                 )}
                 onClick={()=>setSelected(index)}
                 >
@@ -277,8 +277,9 @@ export default function ManajemenujiTable({data, mutate}) {
             <>
             {dataSelected.status <=7 ?
                  <Button
-                 buttonStyle="primary_default"
+                 buttonStyle={dataSelected.balis_registration_date? "primary_disabled" :"primary_default"}
                  onClick={()=> setTanggalRegisBalisPopUp(true)}
+                 disabled={dataSelected.balis_registration_date? true:false}
                 >
                     Input Tanggal Registrasi Balis
                 </Button>
@@ -315,7 +316,7 @@ export default function ManajemenujiTable({data, mutate}) {
                     <Button
                     buttonStyle="primary_default"
                     // onClick={()=> SingleFileDownloader(downloadDoc, dataSelected.id, DOCTYPE.TEST_REPORT, testFileName)}
-                    onClick={()=> ZipFileDownloader(downloadZipFile, dataSelected.id, DOCTYPE.DOCGROUP.REPORT, testFileName)}
+                    onClick={()=> ZipFileDownloader(downloadZipFile, dataSelected.id, `${dataSelected.doc_number}-report.zip`,DOCTYPE.DOCGROUP.REPORT)}
                     >
                         Unduh Laporan Uji
                     </Button>
@@ -346,6 +347,7 @@ export default function ManajemenujiTable({data, mutate}) {
 
             <Button
                 buttonStyle="secondary_default"
+                onClick={()=> SingleFileDownloader(downloadDoc, dataSelected.id, DOCTYPE.BAP, `SIP_BAP_${dataSelected.doc_number}`)}
             >
                 Unduh Berita Acara Pekerjaan
             </Button>
@@ -751,12 +753,13 @@ export default function ManajemenujiTable({data, mutate}) {
 
       {ubahLaporanUjiPopUp && 
         <FormModal
-        title="Cetak Sertifikat LUK"
+        title="Ubah Laporan Hasil Uji"
         bgColor="primary"
         isOpen={ubahLaporanUjiPopUp}
         setIsOpen={setUbahLaporanUjiPopUp}
         buttonSide={<></>}
         >
+            <FormEditLaporanHasilUji/>
 
         </FormModal>
       }

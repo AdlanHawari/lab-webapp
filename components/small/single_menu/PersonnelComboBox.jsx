@@ -1,7 +1,7 @@
 import { Combobox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/solid'
 import classNames from 'classnames'
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 
 export default function PersonnelComboBox(props) {
     let {
@@ -32,6 +32,18 @@ export default function PersonnelComboBox(props) {
           
       )
 
+      useEffect(() => {
+        console.log("selected", selected)
+        // if(setContext){
+        //     setContext(selected)
+        // }
+        if(setFormikValue){
+            setFormikValue(name, selected.id)
+        }
+        // setInstitutionState(selected.id)
+      }, [selected])
+
+
   return (
     <div className="w-full">
         <Combobox
@@ -39,7 +51,7 @@ export default function PersonnelComboBox(props) {
             onChange={ value => {
                 console.log("id", value.id)
                 setSelected(value)
-                setFormikValue(id,value.id)
+                // setFormikValue(id,value.id)
             }}
         >
             <div className="relative">

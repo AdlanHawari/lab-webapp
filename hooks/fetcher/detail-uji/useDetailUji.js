@@ -354,7 +354,7 @@ function useProvideDetailUjiFetcher(){
     }
 
 
-    async function downloadZipFile(id, docGroup){
+    async function downloadZipFile(id, docGroup=""){
         var requestOptions = {
             method: 'GET',
             encoding: 'binary',

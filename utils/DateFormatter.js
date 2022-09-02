@@ -16,8 +16,18 @@ export default function DateFormatter(){
         return format(new Date(date), 'dd/MM/yyyy')
     }
 
+    function shorterReadable(date){
+        if(date=="0001-01-01T00:00:00Z"){
+            return "-"
+        }
+        return format(new Date(date), 'd-MMM-yy', {
+            locale: id
+        })
+    }
+
     return{
         readable,
-        filter
+        filter,
+        shorterReadable
     }
 }

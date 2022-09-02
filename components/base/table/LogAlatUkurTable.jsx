@@ -1,5 +1,6 @@
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { TrashIcon } from '@heroicons/react/outline'
 import classNames from 'classnames'
 import AssuranceModal from 'components/big/AssuranceModal'
 import Button from 'components/small/button_fixed/Button'
@@ -11,13 +12,14 @@ import { useLogAlatUkurFetcher } from 'hooks/fetcher/log-alat-ukur/useLogAlatUku
 import React, { useEffect, useState } from 'react'
 import DateFormatter from 'utils/DateFormatter'
 
-export default function LogAlatUkurTable(
+export default function LogAlatUkurTable({ 
     data,
     mutate
-) {
+}) {
     const [onDelete, setOnDelete] = useState(false)
     const [dataSelected, setDataSelected] = useState({})
-    const {readable} = DateFormatter()
+    const [selected, setSelected] = useState()
+    const {readable, shorterReadable} = DateFormatter()
     const [submitState, setSubmitState] = useState(false)
     const [reqSent, setreqSent] = useState(false);
 
@@ -31,6 +33,8 @@ export default function LogAlatUkurTable(
             mutate()
         }
     }, [reqSent])
+
+    console.log("datatable",data)
 
   return (
     <>
@@ -51,12 +55,59 @@ export default function LogAlatUkurTable(
             </thead>
             <tbody className="bg-white divide-y divide-table-divider">
                 {data.map((item,index)=>(
-                    <tr key={index} className="h-16">
+                    <tr key={index} className={classNames("h-16",
+                    selected == index &&
+                    "bg-warning-light"
+                    )}
+                    onClick={()=>setSelected(index)}
+                    >
                         <td className="w-48 py-2 px-4">
                             <Table1 className="text-black-500">
-                                {/* {readable(item.)} */}
-                                contoh tanggal
+                                {shorterReadable(item.updated_at)}
                             </Table1>
+                        </td>
+                        <td className="w-48 py-2 px-4">
+                            <Table1 className="text-black-500">
+                                {item.tool.type}
+                            </Table1>
+                        </td>
+                        <td className="w-48 py-2 px-4">
+                            <Table1 className="text-black-500">
+                                {item.tool.brand}
+                            </Table1>
+                        </td>
+                        <td className="w-48 py-2 px-4">
+                            <Table1 className="text-black-500">
+                                {item.tool["serial/id"]}
+                            </Table1>
+                        </td>
+                        <td className="w-48 py-2 px-4">
+                            <Table1 className="text-black-500">
+                                {item.notification_type}
+                            </Table1>
+                        </td>
+                        <td className="w-48 py-2 px-4">
+                            <Table1 className="text-black-500">
+                                {item.action}
+                            </Table1>
+                        </td>
+                        <td className="w-48 py-2 px-4">
+                            <Table1 className="text-black-500">
+                                {item.user.name}
+                            </Table1>
+                        </td>
+                        <td className="w-48 py-2 px-4">
+                            <div className="flex items-center justify-center">
+                                <button 
+                                className="flex items-center justify-center py-2 px-2 bg-error rounded-lg"
+                                onClick={()=> {
+                                    setOnDelete(true)
+                                    setDataSelected(item)
+                                }}
+                                >
+                                    <TrashIcon className="w-4 h-5 text-white " aria-hidden="true"/>
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 ))}

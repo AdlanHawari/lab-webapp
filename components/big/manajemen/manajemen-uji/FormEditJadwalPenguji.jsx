@@ -34,25 +34,57 @@ export default function FormEditJadwalPenguji({
     
     }, [personnel])
 
+    function formEntry(values){
+        let updatedVal = {}
+        for (let [key, value] of Object.entries(values)) {
+            if(key =="test_date" && value != ""){
+                updatedVal[key] = value
+            }
+            if(key =="tester_user_id" && values.tester_user_id != data.assignment_detail.tester_id){
+            // if(key =="tester_user_id"){
+                updatedVal[key] = value
+                // console.log("value",values.tester_user_id)
+                // console.log("data",data.assignment_detail.tester_id)
+            }
+            
+        }
+        return updatedVal
+    }
+
   return (
     <Formik
     initialValues={formPemilhanJadwalPengujiInitValues}
     // validationSchema={FormPemilihanJadwalPengujiValidationSchema(Yup)}
     onSubmit={(values)=>{
-        console.log(values)
-        // async function fetchData(values){
-        //     const finalValues = Object.assign(values, 
-        //         {test_application_id: data.id}
-        //         )
-        //     console.log(finalValues)
-        //     let formData = handleFormData(finalValues)
-        //     const response = await createTestAssignment(formData)
-        //     console.log("respons", response)
-        //     if(response.header.response_code==200){
-        //         setStoreData(true)
-        //     }
-        // }
+        // console.log(values)
+        console.log("tester", data.assignment_detail.tester_id)
+        const finalValues = formEntry(values)
+        console.log("finalValues",finalValues)
 
+        async function fetchData(formData,id){
+            
+            const response = await updateAssignment(formData,id)
+            console.log("respons", response)
+            if(response.header.response_code==200){
+                setreqSent(true)
+            }
+            else{
+                setSubmitState(false)
+            }
+        }
+
+        if(Object.keys(finalValues).length === 0 && finalValues.constructor === Object){
+            console.log("no change")
+            // setEmptyVal(true)
+        }
+        else{
+            setSubmitState(true)
+            
+            let formData = handleFormData(finalValues)
+            // console.log(finalValues)
+            fetchData(formData, data.id)
+            // console.log(data.id)
+        }
         // fetchData(values)
     }}
     >{formik => {

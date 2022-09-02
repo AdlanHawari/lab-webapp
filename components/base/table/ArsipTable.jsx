@@ -49,7 +49,7 @@ export default function ArsipTable({data}) {
                     </td>
                     <td className="w-48 py-2 px-4">
                         <Table1 className="text-black-500 leading-normal">
-                            {XRayDetector(item.tools[0].name)}
+                            {XRayDetector(item.tools[0].tool.type)}
                         </Table1>
                         
                     </td>

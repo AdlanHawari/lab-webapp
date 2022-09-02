@@ -146,7 +146,7 @@ export default function PersonnelUjiTable({data, mutate}) {
           </td>
           <td className="max-w-24 p-4">
               <Table1 className="text-black-500 leading-normal">
-              {XRayDetector(item.tools[0].name)}
+              {XRayDetector(item.tools[0].tool_type)}
               </Table1>
           </td>
           <td className="max-w-24 p-4">
@@ -239,10 +239,11 @@ export default function PersonnelUjiTable({data, mutate}) {
                 <Button
                 buttonStyle="primary_default"
                 onClick={
-                    dokumenPenugasanState ?
-                    ()=>ZipFileDownloader(downloadZipFile, dataSelected.id, DOCTYPE.DOCGROUP.ASSIGNMENT, "Dokumen_Penugasan.zip")
-                    :
-                    ()=>setEmptyDokumenPenugasanState(true)
+                    // dokumenPenugasanState ?
+                    // ()=>ZipFileDownloader(downloadZipFile, dataSelected.id, DOCTYPE.DOCGROUP.ASSIGNMENT, "Dokumen_Penugasan.zip")
+                    ()=>ZipFileDownloader(downloadZipFile, dataSelected.id, `${dataSelected.doc_number}-dokumen_penugasan.zip`, DOCTYPE.DOCGROUP.ASSIGNMENT)
+                    // :
+                    // ()=>setEmptyDokumenPenugasanState(true)
 
 
                 }

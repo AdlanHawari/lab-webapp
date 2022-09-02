@@ -81,7 +81,7 @@ export default function FormBeritaAcaraPekerjaan({
                             Jabatan
                         </Body1>
                         <Body2 className="text-black-500">
-                            {}
+                            {data.assignment_detail.tester.position}
                         </Body2>
                     </div>
                     <div className="grid grid-cols-2 gap-y-3 py-3">
@@ -89,19 +89,19 @@ export default function FormBeritaAcaraPekerjaan({
                             Jenis Pesawat/Ruang Lingkup
                         </Body1>
                         <Body2 className="text-black-500">
-                            {data.tools[0].name}
+                            {data.tools[0].tool.type}
                         </Body2>
                         <Body1 className="text-black-400">
                             Merk Alat
                         </Body1>
                         <Body2 className="text-black-500">
-                            {data.tools[0].brand}
+                            {data.tools[0].tool.brand}
                         </Body2>
                         <Body1 className="text-black-400">
                             Tipe Alat
                         </Body1>
                         <Body2 className="text-black-500">
-                            {data.tools[0].type}
+                            {data.tools[0].tool_type}
                         </Body2>
                         <Body1 className="text-black-400">
                             Nomor Seri Generator
