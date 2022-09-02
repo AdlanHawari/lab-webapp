@@ -17,8 +17,8 @@ export async function ZipFileDownloader(fetcher, id, fileName, docGroup){
     tempLink.remove()
 }
 
-export async function SummaryDownloader(fetcher, fileName){
-    const file = await fetcher()
+export async function SummaryDownloader(fetcher, fileName, start_date, end_date, institution_id, test_type){
+    const file = await fetcher(start_date, end_date, institution_id, test_type)
     const tempLink = document.createElement('a');
     tempLink.href = window.URL.createObjectURL(file)
     tempLink.download = fileName
