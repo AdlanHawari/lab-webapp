@@ -32,12 +32,14 @@ import XRayDetector from "utils/XRayDetector";
 import { SingleFileDownloader, ZipFileDownloader } from 'utils/FileDownloader'
 import { DOCTYPE } from "constants/DocType";
 import FormCancelUji from "components/big/FormCancelUji";
+import FormEditJadwalPenguji from "components/big/manajemen/manajemen-uji/FormEditJadwalPenguji";
 
 
 export default function ManajemenujiTable({data, mutate}) {
     const [isDetailOpen, setIsDetailOpen] = useState(false)
     const [selected, setSelected] = useState()
     const [dataSelected, setDataSelected] = useState({})
+    const [isAssignmentExist, setIsAssignmentExist] = useState(false)
     const [submitState, setSubmitState] = useState(false)
     const [testFileName, setTestFileName] = useState("")
     const [reqSent, setreqSent] = useState(false);
@@ -59,7 +61,9 @@ export default function ManajemenujiTable({data, mutate}) {
         ubahLaporanUjiPopUp, 
         setUbahLaporanUjiPopUp,
         cancelUjiPopUp, 
-        setCancelUjiPopUp
+        setCancelUjiPopUp,
+        editJadwalPopUp, 
+        setEditJadwalPopUp
     } = useManajemenUjiContext()
 
     const {
@@ -82,6 +86,7 @@ export default function ManajemenujiTable({data, mutate}) {
             setUbahLaporanUjiPopUp(false)
             setCancelUjiPopUp(false)
             setreqSent(false)
+            setEditJadwalPopUp(false)
             mutate()
         }
       
@@ -89,10 +94,15 @@ export default function ManajemenujiTable({data, mutate}) {
     }, [reqSent])
 
     useEffect(() => {
+        setIsAssignmentExist(false)
         dataSelected.documents?.map((item)=>{
             if(item.type==DOCTYPE.TEST_REPORT){
                 setTestFileName(item.file_name)
 
+            }
+
+            if(item.group=="assignment"){
+                setIsAssignmentExist(true)
             }
         })
       
@@ -137,7 +147,7 @@ export default function ManajemenujiTable({data, mutate}) {
                     </td>
                     <td className="max-w-24 p-4">
                         <Table1 className="text-black-500 leading-normal">
-                            {XRayDetector(item.tools[0].name)}
+                            {XRayDetector(item.tools[0].tool.type)}
                         </Table1>
                     </td>
                     <td className="max-w-24 p-4">
@@ -246,14 +256,18 @@ export default function ManajemenujiTable({data, mutate}) {
             <>
                 <Button
                 buttonStyle="primary_default"
-                onClick={()=> setDokumenPenugasanPopUp(true)}
+                onClick={
+                    ()=> setDokumenPenugasanPopUp(true)
+                    
+                }
                 >
                     Dokumen Penugasan
                 </Button>
+
                 <Button
                 // buttonStyle="primary_default"
                 className="bg-secondary text-white"
-                // onClick={}
+                onClick={()=> setEditJadwalPopUp(true)}
                 >
                     Ubah Jadwal &amp; Penguji
                 </Button>
@@ -464,7 +478,10 @@ export default function ManajemenujiTable({data, mutate}) {
 
             <SectionSchedule data={dataSelected}/>
 
+            {dataSelected.cost_detail.cost!=0 &&
             <SectionFee data={dataSelected} cost_detail={dataSelected.cost_detail} current_status={dataSelected.status}/>
+            }
+            {/* <SectionFee data={dataSelected} cost_detail={dataSelected.cost_detail} current_status={dataSelected.status}/> */}
 
           </DetailModal>
       }
@@ -527,6 +544,10 @@ export default function ManajemenujiTable({data, mutate}) {
 
             <Button
             className="bg-secondary text-white" 
+            onClick={()=>{
+                ZipFileDownloader(downloadZipFile, dataSelected.id, `${dataSelected.doc_number}-assignment.zip`, DOCTYPE.DOCGROUP.ASSIGNMENT)
+                console.log(dataSelected.id)
+            }}
             >
                 Cetak Surat Tugas
             </Button>
@@ -546,6 +567,43 @@ export default function ManajemenujiTable({data, mutate}) {
         
         </FormModal>
       }
+      {editJadwalPopUp&&
+        <FormModal
+        title="Ubah Jadwal &amp; Penguji"
+        bgColor="primary"
+        isOpen={editJadwalPopUp}
+        setIsOpen={setEditJadwalPopUp}
+        buttonSide={<>
+        <Button 
+                className="bg-primary" 
+                buttonStyle={submitState?"primary_disabled":"primary_default"}
+                type="submit"                 
+                disabled={submitState? true:false}
+                form={form_pemilihan_jadwal_penguji_id}
+                >
+                    { submitState &&
+                    <FontAwesomeIcon icon={faSpinner} className="animate-spin"/>
+                    }
+                    Ubah Jadwal dan Personil
+                </Button>
+
+        </>}
+        >
+            <PersonnelProvider>
+                <FormEditJadwalPenguji
+                id={form_pemilihan_jadwal_penguji_id}
+                data={dataSelected}
+                submitState={submitState}
+                setSubmitState={setSubmitState}
+                reqSent={reqSent}
+                setreqSent={setreqSent}
+                />
+            </PersonnelProvider>
+        </FormModal>
+
+      }
+
+
       {tanggalRegisBalisPopUp &&
         <FormModal
         title="Input Tanggal Registrasi Balis"

@@ -6,6 +6,7 @@ function FormPermohononanUjiValidationSchema(yup){
                 type: yup.string().required("Harap diisi"),
                 brand: yup.string().required("Harap diisi"),
                 tool_name: yup.string().required("Harap diisi"),
+                serial: yup.string().required("Harap diisi"),
                 quantity: yup
                             .number("nomor")
                             .min(1,"Minimal 1")

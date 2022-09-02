@@ -1,3 +1,4 @@
+
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import { buatPenawaranUjiInitValues } from 'helper/initial-formik-values/BuatPenawaranUjiInitValues'
 import BuatPenawaranUjiValidationSchema from 'helper/yup/BuatPenawaranUjiValidationSchema'
@@ -17,7 +18,7 @@ import { useDetailUji } from 'hooks/fetcher/detail-uji/useDetailUji'
 import { delay } from 'utils/delay'
 import { useManajemenPermohonanUjiContext } from 'hooks/context/permohonan-uji/PermohonanUjiContext'
 
-export default function FormBuatPenawaranUji({
+export default function FormEditPenawaranUji({
   id,
   data,
   submitState,
@@ -32,65 +33,61 @@ export default function FormBuatPenawaranUji({
   const [update, setUpdate] = useState(false)
   const [storePrice, setStorePrice] = useState(false)
 
-  useEffect(() => {
-    if(storePrice && update){
-    //   console.log("submit done")
-    setreqSent(true)
-    // console.log("storePrice",storePrice)
-    // console.log("update",update)
-
+  function formEntry(values){
+    let updatedVal = {}
+    for (let [key, value] of Object.entries(values)) {
+        if(value && value != ""){
+        updatedVal[key] = value
+        }
     }
-  }, [storePrice, update])
-  // useEffect(() => {
-  //   // if(storePrice && update){
-  //   //   console.log("submit done")
-  //   //   setBuatPenawaranPopUp(false)
-  //   console.log("storePrice",storePrice)
-  //   console.log("update",update)
-
-  //   // }
-  // }, [update])
+    return updatedVal
+}
   
   
   return (
     <Formik
     initialValues={buatPenawaranUjiInitValues}
-    validationSchema={BuatPenawaranUjiValidationSchema(Yup)}
-    onSubmit={async (values)=>{
-      setSubmitState(true)
-      const finalValues = Object.assign(values, 
-        {test_application_id: data.id}
-        )
-      console.log(finalValues)
-      let formData = handleFormData(finalValues)
-      const response = await fetcher.createPenawaranUji(formData)
-      const resStat = await fetcher.confirmTestApp(data.id)
-      // console.log("resp stat", response)
-      console.log("resStat", resStat)
-      console.log("respons", response)
+    // validationSchema={BuatPenawaranUjiValidationSchema(Yup)}
+    onSubmit={(values)=>{
+    //   setSubmitState(true)
 
-      if(resStat.header.response_code==200){
-        setUpdate(true)
-        // delay(1500)
-      }
+      const updatedVal = formEntry(values)
+    //   console.log(updatedVal)
+    //   const finalValues = Object.assign(updatedVal, 
+    //     {test_application_id: data.id}
+    //     )
+    //   console.log(finalValues)
+    //   let formData = handleFormData(finalValues)
 
-      if(response.header.response_code==201){
-        setStorePrice(true)
-        // delay(1500)
-        // const resStat = await fetcher.confirmTestApp(data.id)
-        // if(resStat.header.response_code==201){
-        //   console.log("resStat", resStat)
-        //   setUpdate(true)
-        //   // delay(1500)
-        // }
-        
-        
-      }
-      
-      else{
-          // setErrorMsg('Terjadi kesalahan')
-          setSubmitState(false)
-      }
+      async function fetchData(formData){
+          const response = await fetcher.editPenawaranUji(formData, data.id)
+       
+          console.log("respons", response)
+    
+    
+          if(response.header.response_code==200){
+            setreqSent(true)
+          }
+          
+          else{
+              setSubmitState(false)
+          }
+        }
+
+        if(Object.keys(updatedVal).length === 0 && updatedVal.constructor === Object){
+            console.log("no change")
+            // setEmptyVal(true)
+        }
+        else{
+            setSubmitState(true)
+            // const finalValues = Object.assign(updatedVal, 
+            //     {test_application_id: data.id}
+            // )
+            console.log(updatedVal)
+            let formData = handleFormData(updatedVal)
+            fetchData(formData)
+            }
+
       }}
     >
       {formik => {
@@ -103,17 +100,21 @@ export default function FormBuatPenawaranUji({
               <Body1 className="text-black-400">
                   Nomor Surat
               </Body1>
-              <div className="block">
+              <Body2 className="text-black-500">
+              {data.cost_detail.invoice_no}
+              </Body2>
+
+              {/* <div className="block">
                   <Field
                       className="w-96 border-none focus:ring-0 py-2 px-3 text-sm leading-5 text-gray-900 rounded-lg shadow-md"
                       id="invoice_no"
                       name="invoice_no"
                       type="text"
                       
-                      placeholder="Masukkan nomor surat"
+                      placeholder={data.cost_detail.invoice_no}
                       />
-                  {/* <ErrorMessage name="invoice_no" component={ValidationMessage}/> */}
-              </div>
+                  <ErrorMessage name="invoice_no" component={ValidationMessage}/>
+              </div> */}
 
             {/* </div> */}
               
@@ -153,7 +154,7 @@ export default function FormBuatPenawaranUji({
                     id="cost_offered"
                     name="cost_offered"
                     type="number"
-                    placeholder="Masukkan harga penawaran"
+                    placeholder={data.cost_detail.cost}
                     />
                 {/* <ErrorMessage name="cost_offered" component={ValidationMessage}/> */}
             </div>

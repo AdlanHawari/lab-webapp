@@ -30,7 +30,7 @@ export default function ContentSectionFormPraUji({data}) {
                                 Jenis Alat
                             </Body1>
                             <Body2 className="text-black-500">
-                                {item.name}
+                                {item.tool.type}
                             </Body2>
                             <Body1 className="text-black-400">
                                 Jenis Uji
@@ -44,13 +44,13 @@ export default function ContentSectionFormPraUji({data}) {
                                 Merk Alat
                             </Body1>
                             <Body2 className="text-black-500">
-                                {item.brand}
+                                {item.tool.brand}
                             </Body2>
                             <Body1 className="text-black-400">
                                 Tipe Alat
                             </Body1>
                             <Body2 className="text-black-500">
-                                {item.type}
+                                {item.tool_type}
                             </Body2>
                             
                             <Body1 className="text-black-400">

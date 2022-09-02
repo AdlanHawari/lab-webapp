@@ -10,7 +10,7 @@ import { manajemenUjiStatus } from "constants/filter-status/ManajemenUjiStatus";
 import { usePersPenawaranContext } from "hooks/context/form-persetujuan-penawaran/PersPenawaranFormContext";
 
 import FormModal from "components/big/FormModal";
-import { form_kaji_ulang_upload_dokumen_id, form_persetujuan_penawaran, form_pra_uji, form_pra_uji_id } from "constants/FormUtils";
+import { form_batal_permohonan_uji_id, form_kaji_ulang_upload_dokumen_id, form_persetujuan_penawaran, form_pra_uji, form_pra_uji_id } from "constants/FormUtils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import PersetujuanPenawaranUji from "components/big/client/PersetujuanPenawaranUji";
@@ -27,6 +27,8 @@ import FormPraUji from "components/big/client/FormPraUji";
 import { jenisPekerjaan } from "constants/JenisPekerjaan";
 import DateFormatter from "utils/DateFormatter";
 import NumberFormat from "react-number-format";
+import FormCancelUji from "components/big/FormCancelUji";
+import classNames from "classnames";
 
 
 export default function SmallCard({data, mutate}) {
@@ -37,7 +39,9 @@ export default function SmallCard({data, mutate}) {
         formPraUjiOpen,
         setFormPraUjiOpen,
         uploadDokumenOpen, 
-        setUploadDokumenOpen
+        setUploadDokumenOpen,
+        cancelUjiPopUp, 
+        setCancelUjiPopUp
     } = useDetailUjiClientContext()
 
     const detailUjiFetcher = useDetailUji()
@@ -53,6 +57,7 @@ export default function SmallCard({data, mutate}) {
             setPersPenawaranOpen(false)
             setFormPraUjiOpen(false)
             setUploadDokumenOpen(false)
+            setCancelUjiPopUp(false)
             setReqSent(false)
             mutate()
         }
@@ -65,6 +70,8 @@ export default function SmallCard({data, mutate}) {
     
 
   return (
+    <>
+    
     <div className="block w-full border border-cardStrokes rounded-2xl p-5 space-y-5 bg-white">
         
         <div className="flex items-center space-x-6 divide-x divide-x-black-400 ">
@@ -74,8 +81,15 @@ export default function SmallCard({data, mutate}) {
                     {data.test_type}
                 </div>
 
-                <div className="border border-primary-darken10 rounded-lg bg-primary-lighten10 px-2">
-                    <Title1 className="text-primary-darken10">
+                <div className={classNames(
+                    "border  rounded-lg  px-2",
+                    data.status==99 ? "border-error bg-error-light" : "border-primary-darken10 bg-primary-lighten10"
+
+                    )}
+                >
+                    <Title1 className={classNames(
+                        data.status==99 ? "text-error":"text-primary-darken10"
+                        )}>
                         {data.status_detail.client_value}
                     </Title1>
                 </div>
@@ -90,7 +104,8 @@ export default function SmallCard({data, mutate}) {
         <h3 className="text-black-500">
             {/* {data.TestApplicationTool[0]?.Tool.name} {data.TestApplicationTool[0]?.Tool.brand} - {data.TestApplicationTool[0]?.Tool.type} */}
             {/* Nama alat */}
-            {data.tools[0].name} - {data.tools[0].brand} {data.tools[0].type}
+            {/* {data.tools[0].name} - {data.tools[0].brand} {data.tools[0].type} */}
+            {data.tools[0].tool.type} - {data.tools[0].tool.brand} {data.tools[0].tool_type}
             
         </h3>
 
@@ -170,7 +185,7 @@ export default function SmallCard({data, mutate}) {
             status={clientUjiStatus}
             current_status={data.status}
             data={data}
-            //   status={manajemenUjiStatus}
+            setCancelPopUp={setCancelUjiPopUp}
             buttonSide = {
                 <>
                 
@@ -350,7 +365,39 @@ export default function SmallCard({data, mutate}) {
 
         }
     
+    {cancelUjiPopUp && 
+        <FormModal
+        title="Batalkan Permohonan"
+        bgColor="error"
+        isOpen={cancelUjiPopUp}
+        setIsOpen={setCancelUjiPopUp}
+        buttonSide={
+            <Button
+            // buttonStyle="primary_default"
+            className="bg-error"
+            buttonStyle={submitState?"primary_disabled":"primary_default"}
+            type="submit"                 
+            disabled={submitState? true:false}
+            form={form_batal_permohonan_uji_id}
+            >
+                Batalkan Permohonan
+
+            </Button>
+        }
+        >
+            <FormCancelUji
+            id={form_batal_permohonan_uji_id}
+            data={data}
+            submitState={submitState}
+            setSubmitState={setSubmitState}
+            setreqSent={setReqSent}
+            />
+
+        </FormModal>
+    }
     </div>
+
+    </>
   )
 }
 

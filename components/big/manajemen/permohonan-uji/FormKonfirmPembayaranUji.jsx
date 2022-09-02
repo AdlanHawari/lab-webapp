@@ -39,19 +39,19 @@ export default function FormKonfirmPembayaranUji({
                   Jenis Alat
               </Body1>
               <Body2 className="text-black-500">
-                {data.tools[0].name}
+                {data.tools[0].tool.type}
               </Body2>
               <Body1 className="text-black-400">
                   Merk Alat
               </Body1>
               <Body2 className="text-black-500">
-                {data.tools[0].brand}
+                {data.tools[0].tool.brand}
               </Body2>
               <Body1 className="text-black-400">
                   Tipe Alat
               </Body1>
               <Body2 className="text-black-500">
-                  {data.tools[0].type}
+                  {data.tools[0].tool_type}
               </Body2>
         </div>
 
@@ -71,7 +71,7 @@ export default function FormKonfirmPembayaranUji({
             </div>
 
             <div className="w-3/5 space-y-3">
-                <SectionPaymentProof invoice={invoice}/>
+                <SectionPaymentProof invoice={invoice} data={data}/>
             </div>
 
 

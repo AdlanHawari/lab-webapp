@@ -14,12 +14,13 @@ export default function PersonnelComboBox(props) {
         setFormikValue,
         // selected, 
         // setSelected,
-        disabled
+        disabled,
+        initValue
       } = props
 
       const [query, setQuery] = useState('')
-      const [selected, setSelected] = useState({})
-  
+      const [selected, setSelected] = useState(initValue? initValue: {})
+//   console.log("initval",initValue)
       const filteredItemLists =
       query === ''
       ? itemLists

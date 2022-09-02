@@ -4,21 +4,21 @@ import { CheckIcon } from '@heroicons/react/solid'
 import classNames from 'classnames'
 import React, { Fragment, useEffect, useState } from 'react'
 
-export default function JenisAlatDropDown({
-    itemLists,
-    setContext,
+export default function BrandDrowDown({
+    data,
+    filter,
     setFormikValue,
     formikName,
     placeholder,
-    onBlur,
     name,
     id,
-    initValue,
     disabled
 }) {
-    // const [selected, setSelected] = useState({})
-    const [selected, setSelected] = useState(initValue? initValue: "")
-    // const [selected, setSelected] = useState("")
+    // console.log("data dibdd",data)
+    // console.log("filter dibdd",filter)
+    const [selected, setSelected] = useState("")
+    const [itemLists, setItemLists] = useState([])
+
     const [query, setQuery] = useState('')
 
     const filteredItemLists =
@@ -34,16 +34,31 @@ export default function JenisAlatDropDown({
 
     useEffect(() => {
         console.log("selected", selected)
-        if(setContext){
-            setContext(selected)
-        }
+        // if(setContext){
+        //     setContext(selected)
+        // }
         if(setFormikValue){
             setFormikValue(formikName, selected)
         }
         // setInstitutionState(selected.id)
       }, [selected])
 
-//    console.log("formikName", formikName)
+    
+    useEffect(() => {
+        console.log("tools",data)
+        let temp = []
+        if(data&& data.length>0){
+            data.map((item,index)=>{
+                if(item.type==filter){
+                    temp.push(item.brand)
+                    // console.log("alat", item)
+                }
+            })
+            setItemLists(temp)
+            console.log("temp dbdd", temp)
+        }
+    }, [data, filter])
+
   return (
     <div className="w-full">
         <Combobox 

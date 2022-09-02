@@ -5,6 +5,7 @@ const manajemenUjiContext = createContext()
 export default function ManajemenUjiContextProvider({children}){
 
     const [pemilihanJadwalPopUp, setPemilihanJadwalPopUp] = useState(false)
+    const [editJadwalPopUp, setEditJadwalPopUp] = useState(false)
     const [dokumenPenugasanPopUp, setDokumenPenugasanPopUp] = useState(false)
     const [tanggalRegisBalisPopUp, setTanggalRegisBalisPopUp] = useState(false)
     const [konfirmLaporanUjiPopUp, setKonfirmLaporanUjiPopUp] = useState(false)
@@ -30,7 +31,9 @@ export default function ManajemenUjiContextProvider({children}){
             ubahLaporanUjiPopUp, 
             setUbahLaporanUjiPopUp,
             cancelUjiPopUp, 
-            setCancelUjiPopUp
+            setCancelUjiPopUp,
+            editJadwalPopUp, 
+            setEditJadwalPopUp
             
         }
     }, [
@@ -49,7 +52,9 @@ export default function ManajemenUjiContextProvider({children}){
         ubahLaporanUjiPopUp, 
         setUbahLaporanUjiPopUp,
         cancelUjiPopUp, 
-        setCancelUjiPopUp
+        setCancelUjiPopUp,
+        editJadwalPopUp,
+        setEditJadwalPopUp
     ])
 
     return(

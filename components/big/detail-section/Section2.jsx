@@ -15,19 +15,19 @@ export default function Section2({data}) {
             Jenis Alat
         </Body1>
         <Body2 className="text-black-500">
-            {data.tools[0].name}
+            {data.tools[0].tool.type}
         </Body2>
         <Body1 className="text-black-400">
             Merk Alat
         </Body1>
         <Body2 className="text-black-500">
-            {data.tools[0].brand}
+            {data.tools[0].tool.brand}
         </Body2>
         <Body1 className="text-black-400">
             Tipe Alat
         </Body1>
         <Body2 className="text-black-500">
-            {data.tools[0].type}
+            {data.tools[0].tool_type}
         </Body2>
 
 
@@ -52,7 +52,7 @@ export default function Section2({data}) {
                         index>0 &&
 
                             <li key={index}>
-                            {item.name} - {item.brand} {item.type} - {item.quantity} buah
+                            {item.tool.type} - {item.tool.brand} {item.tool_type} - {item.quantity} buah
                             </li>
                         
                         // <li>Alat B - Kesesuaian - 25 Buah</li>
@@ -65,6 +65,7 @@ export default function Section2({data}) {
     
     } */}
     {data.status>3 &&
+      data.permit_holder &&
         <SectionFormPraUji data={data}/>
     }
     </div>

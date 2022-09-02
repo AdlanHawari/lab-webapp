@@ -66,6 +66,33 @@ function useProvideDetailUjiFetcher(){
         }
 
     }
+    
+    async function editPenawaranUji(formData, id){
+        let error
+
+        var requestOptions = {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                // 'Content-Type': 'application/json'
+            },
+            body: formData,
+            redirect: 'follow'
+          };
+
+          try{
+            const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/costs/${id}`, requestOptions)
+          //   console.log("req", req)
+            const res = await req.json()
+            console.log("res", res)
+            return res
+
+        }catch(e){
+            console.log("error",e)
+          return e
+        }
+
+    }
 
     async function inputFormPraUji(formData, id){
         var requestOptions = {
@@ -155,7 +182,7 @@ function useProvideDetailUjiFetcher(){
         }
     }
     
-    async function laporAlatKeluar(formData, assignmentId){
+    async function updateAssignment(formData, assignmentId){
         var requestOptions = {
             method: 'PUT',
             headers:{
@@ -343,6 +370,8 @@ function useProvideDetailUjiFetcher(){
             const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/documents/download/all?test_application_id=${id}${docGroup&&`&docGroup=${docGroup}`}`, requestOptions)
 
             const fileBlob = await req.blob()
+            console.log("blob",fileBlob)
+            // console.log("head",await req.json())
             return fileBlob
 
         }
@@ -403,11 +432,12 @@ function useProvideDetailUjiFetcher(){
     return{
         confirmTestApp,
         createPenawaranUji,
+        editPenawaranUji,
         inputFormPraUji,
         uploadDokumenPraUji,
         createTestAssignment,
         uploadDokumenPenugasan,
-        laporAlatKeluar,
+        updateAssignment,
         updateTestApp,
         downloadDoc,
         createBAPReport,

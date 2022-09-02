@@ -14,7 +14,7 @@ import React, { useEffect, useState } from 'react'
 import handleFormData from 'utils/HandleFormData'
 import * as Yup from 'yup'
 
-export default function FormPemilihanJadwalPenguji({
+export default function FormEditJadwalPenguji({
     id,
     data,
     submitState,
@@ -22,11 +22,11 @@ export default function FormPemilihanJadwalPenguji({
     setreqSent
 
 }) {
-    const [update, setUpdate] = useState(false)
-    const [storeData, setStoreData] = useState(false)
+    // const [update, setUpdate] = useState(false)
+    // const [storeData, setStoreData] = useState(false)
     const {personnel, loading, error} = usePersonnelStatus()
-    const {createTestAssignment, confirmTestApp} = useDetailUji()
-
+    const {updateAssignment} = useDetailUji()
+// console.log("init", data)
     useEffect(() => {
         if(personnel){
             console.log("personnel", personnel.data)
@@ -34,43 +34,26 @@ export default function FormPemilihanJadwalPenguji({
     
     }, [personnel])
 
-    useEffect(() => {
-        if(storeData && update){
-        setreqSent(true)
-        }
-      }, [storeData, update])
-    
-
   return (
     <Formik
     initialValues={formPemilhanJadwalPengujiInitValues}
-    validationSchema={FormPemilihanJadwalPengujiValidationSchema(Yup)}
+    // validationSchema={FormPemilihanJadwalPengujiValidationSchema(Yup)}
     onSubmit={(values)=>{
-        async function fetchData(values){
-            const finalValues = Object.assign(values, 
-                {test_application_id: data.id}
-                )
-            console.log(finalValues)
-            let formData = handleFormData(finalValues)
-            const response = await createTestAssignment(formData)
-            const resStat = await confirmTestApp(data.id)
-            
-            console.log("resStat", resStat)
-            console.log("respons", response)
+        console.log(values)
+        // async function fetchData(values){
+        //     const finalValues = Object.assign(values, 
+        //         {test_application_id: data.id}
+        //         )
+        //     console.log(finalValues)
+        //     let formData = handleFormData(finalValues)
+        //     const response = await createTestAssignment(formData)
+        //     console.log("respons", response)
+        //     if(response.header.response_code==200){
+        //         setStoreData(true)
+        //     }
+        // }
 
-            if(resStat.header.response_code==200){
-                setUpdate(true)
-            }
-            if(response.header.response_code==201){
-                setStoreData(true)
-            }
-            if(resStat.header.response_code!=200 && response.header.response_code!=201){
-                // setErrorMsg('Terjadi kesalahan')
-                setSubmitState(false)
-            }
-        }
-
-        fetchData(values)
+        // fetchData(values)
     }}
     >{formik => {
         return <Form id={id}>
@@ -154,6 +137,7 @@ export default function FormPemilihanJadwalPenguji({
                             onBlur={formik.handleBlur}
                             placeholder="Pilih Personil"
                             itemLists={personnel.data}
+                            initValue={data.assignment_detail.tester}
                             />
                             <ErrorMessage name="tester_user_id" component={ValidationMessage}/>
                         </>

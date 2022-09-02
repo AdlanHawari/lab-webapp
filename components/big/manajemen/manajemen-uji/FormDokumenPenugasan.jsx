@@ -24,7 +24,7 @@ export default function FormDokumenPenugasan({
     setreqSent,
 }) {
 
-    const { uploadDokumenPenugasan, laporAlatKeluar } = useDetailUji()
+    const { uploadDokumenPenugasan, updateAssignment } = useDetailUji()
 
     const [upload, setUpload] = useState(false)
     const [updateAlat, setUpdateAlat] = useState(false)
@@ -41,7 +41,7 @@ export default function FormDokumenPenugasan({
   return (
     <Formik
     initialValues={dokumenPenugasanInitValues}
-    validationSchema={DokumenPenugasanValidationSchema(Yup)}
+    // validationSchema={DokumenPenugasanValidationSchema(Yup)}
     onSubmit={(values)=>{
         setSubmitState(true)
         // console.log(values)
@@ -84,7 +84,7 @@ export default function FormDokumenPenugasan({
 
         async function fetchData(){
             const responseUpload = await uploadDokumenPenugasan(uploadFormData, data.id)
-            const responseAlatKeluar = await laporAlatKeluar(alatKeluarFormData, data.assignment_id)
+            const responseAlatKeluar = await updateAssignment(alatKeluarFormData, data.assignment_id)
 
             console.log("responseUpload", responseUpload)
             console.log("responseAlatKeluar", responseAlatKeluar)

@@ -8,6 +8,7 @@ import DetailModal from 'components/big/DetailModal'
 import FormCancelUji from 'components/big/FormCancelUji'
 import FormModal from 'components/big/FormModal'
 import FormBuatPenawaranUji from 'components/big/manajemen/permohonan-uji/FormBuatPenawaranUji'
+import FormEditPenawaranUji from 'components/big/manajemen/permohonan-uji/FormEditPenawaranUji'
 import FormKonfirmPembayaranUji from 'components/big/manajemen/permohonan-uji/FormKonfirmPembayaranUji'
 import Button from 'components/small/button_fixed/Button'
 import ButtonSmall from 'components/small/button_small/ButtonSmall'
@@ -33,7 +34,9 @@ export default function PermohonanUjiTable({data, mutate}) {
         konfirmPembayaranPopUp, 
         setKonfirmPembayaranPopUp,
         cancelUjiPopUp, 
-        setCancelUjiPopUp
+        setCancelUjiPopUp,
+        editPenawaranPopUp, 
+        setEditPenawaranPopUp
     } = useManajemenPermohonanUjiContext()
     const [submitState, setSubmitState] = useState(false)
     const [reqSent, setreqSent] = useState(false);
@@ -60,6 +63,7 @@ export default function PermohonanUjiTable({data, mutate}) {
           setBuatPenawaranPopUp(false)
           setKonfirmPembayaranPopUp(false) 
           setCancelUjiPopUp(false)
+          setEditPenawaranPopUp(false)
           setreqSent(false)
           mutate()
         }
@@ -99,12 +103,12 @@ export default function PermohonanUjiTable({data, mutate}) {
                     </td>
                     <td className="w-48 py-2 px-4 ">
                         <Table1 className="text-black-500 leading-normal">
-                            {item.tools[0].name} - {item.tools[0].type}
+                            {item.tools[0].tool.type} - {item.tools[0].tool_type} 
                         </Table1>
                     </td>
                     <td className="w-48 py-2 px-4">
                         <Table1 className="text-black-500 leading-normal">
-                            {item.tools[0].brand}
+                        {item.tools[0].tool.brand}
                         </Table1>
                         
                     </td>
@@ -169,9 +173,10 @@ export default function PermohonanUjiTable({data, mutate}) {
                 dataSelected.status <4 &&
                     <Button 
                     buttonStyle="primary_default"
-                    //  onClick={
-                    //     ()=> setPersPenawaranOpen(true)
-                    // }
+                     onClick={
+                        ()=> setEditPenawaranPopUp(true)
+                    }
+                    
                     >
                     Ubah Penawaran
                     </Button>
@@ -201,6 +206,47 @@ export default function PermohonanUjiTable({data, mutate}) {
             }
 
           </DetailModal>
+        }
+
+    
+
+        {editPenawaranPopUp &&
+            <FormModal
+            title="Ubah Penawaran"
+            bgColor="primary"
+            isOpen={editPenawaranPopUp}
+            setIsOpen={setEditPenawaranPopUp}
+            buttonSide={<>
+                <Button 
+                    className="bg-primary" 
+                    buttonStyle={submitState?"primary_disabled":"primary_default"}
+                    
+                    type="submit" 
+                    
+                    
+                    disabled={submitState? true:false}
+                    form={form_buat_penawaran_uji_id}
+                    
+                    >
+                    { submitState &&
+                        <FontAwesomeIcon icon={faSpinner} className="animate-spin"/>
+                    }
+                        Ubah Penawaran
+                </Button>
+            </>}
+            >
+                <FormEditPenawaranUji 
+                id={form_buat_penawaran_uji_id}
+                data={dataSelected}
+                submitState={submitState}
+                setSubmitState={setSubmitState}
+                reqSent={reqSent}
+                setreqSent={setreqSent}
+                
+                />
+
+            </FormModal>
+
         }
 
         {buatPenawaranPopUp &&

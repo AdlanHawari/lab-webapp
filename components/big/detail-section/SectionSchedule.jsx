@@ -74,7 +74,7 @@ export default function SectionSchedule({data}) {
                     Data X-Ray
                 </Body1>
                 <Body2 className="text-black-500">
-                    {XRayDetector(data.tools[0].name)}
+                    {XRayDetector(data.tools[0].tool.type)}
                 </Body2>
 
                 <Body1 className="text-black-400">

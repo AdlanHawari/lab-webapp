@@ -14,7 +14,11 @@ export default function SectionPaymentProof({data, invoice}) {
   return (
       <button 
       className="flex justify-between items-center w-full py-2 px-2.5 bg-primary rounded-xl shadow-sm"
-      onClick={()=> SingleFileDownloader(downloadDoc, data.id, DOCTYPE.INVOICE, invoice.file_name)}
+      onClick={()=> {
+        SingleFileDownloader(downloadDoc, data.id, DOCTYPE.INVOICE, invoice.file_name)
+        // console.log("downloading")
+        // console.log("id", data.id)
+    }}
       >
               
           <Body2 className="text-white">

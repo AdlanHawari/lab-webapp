@@ -6,6 +6,7 @@ export default function ManajemenPermohonanUjiContextProvider({children}){
     const [buatPenawaranPopUp, setBuatPenawaranPopUp] = useState(false)
     const [konfirmPembayaranPopUp, setKonfirmPembayaranPopUp] = useState(false)
     const [cancelUjiPopUp, setCancelUjiPopUp] = useState(false)
+    const [editPenawaranPopUp, setEditPenawaranPopUp] = useState(false)
 
     const contextValue = useMemo(()=> {
         return {
@@ -14,7 +15,9 @@ export default function ManajemenPermohonanUjiContextProvider({children}){
             konfirmPembayaranPopUp,
             setKonfirmPembayaranPopUp,
             cancelUjiPopUp, 
-            setCancelUjiPopUp
+            setCancelUjiPopUp,
+            editPenawaranPopUp, 
+            setEditPenawaranPopUp
         }
     },[
         buatPenawaranPopUp, 
@@ -22,7 +25,9 @@ export default function ManajemenPermohonanUjiContextProvider({children}){
         konfirmPembayaranPopUp,
         setKonfirmPembayaranPopUp,
         cancelUjiPopUp, 
-        setCancelUjiPopUp
+        setCancelUjiPopUp,
+        editPenawaranPopUp, 
+        setEditPenawaranPopUp
     ])
 
     return(

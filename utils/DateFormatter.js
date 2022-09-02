@@ -4,6 +4,9 @@ import { id } from "date-fns/locale";
 export default function DateFormatter(){
 
     function readable(date){
+        if(date=="0001-01-01T00:00:00Z"){
+            return "-"
+        }
         return format(new Date(date), 'd MMMM yyyy', {
             locale: id
         })

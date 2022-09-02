@@ -2,6 +2,7 @@ export const tool_details = {
     type: "",
     brand: "",
     tool_name: "",
+    serial: "",
     quantity: null
 
 }
