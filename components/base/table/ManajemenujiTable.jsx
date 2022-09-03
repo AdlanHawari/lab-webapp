@@ -17,7 +17,7 @@ import FormModal from "components/big/FormModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import FormPemilihanJadwalPenguji from "components/big/manajemen/manajemen-uji/FormPemilihanJadwalPenguji";
-import { form_batal_permohonan_uji_id, form_dokumen_penugasan_id, form_edit_sertif_luk_id, form_input_regis_balis, form_input_regis_bapeten_id, form_pemilihan_jadwal_penguji_id } from "constants/FormUtils";
+import { form_batal_permohonan_uji_id, form_dokumen_penugasan_id, form_edit_sertif_luk_id, form_input_regis_balis, form_input_regis_bapeten_id, form_laporan_hasil_uji_id, form_pemilihan_jadwal_penguji_id } from "constants/FormUtils";
 import { PersonnelProvider } from "hooks/fetcher/personnel/usePersonnelFetcher";
 import FormDokumenPenugasan from "components/big/manajemen/manajemen-uji/FormDokumenPenugasan";
 import FormInputTanggalRegisBalis from "components/big/manajemen/manajemen-uji/FormInputTanggalRegisBalis";
@@ -757,9 +757,27 @@ export default function ManajemenujiTable({data, mutate}) {
         bgColor="primary"
         isOpen={ubahLaporanUjiPopUp}
         setIsOpen={setUbahLaporanUjiPopUp}
-        buttonSide={<></>}
+        buttonSide={<>
+        <Button 
+            className="bg-primary" 
+            buttonStyle={submitState?"primary_disabled":"primary_default"}
+            type="submit"                 
+            disabled={submitState? true:false}
+            form={form_laporan_hasil_uji_id}
+            >
+                { submitState &&
+                <FontAwesomeIcon icon={faSpinner} className="animate-spin"/>
+                }
+                Ubah Laporan Uji
+            </Button></>}
         >
-            <FormEditLaporanHasilUji/>
+            <FormEditLaporanHasilUji
+             id={form_laporan_hasil_uji_id}
+             data={dataSelected}
+             submitState={submitState}
+             setSubmitState={setSubmitState}
+             setreqSent={setreqSent}
+             />
 
         </FormModal>
       }

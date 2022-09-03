@@ -20,6 +20,7 @@ export default function DashboardAlatUkurMainSection() {
     const {currentPage, setLastPage, setCurrentPage} = usePageContext();
     const {jenisAlatState, setJenisAlatState} = useJenisAlatFilterContext()
     const {tools, loading, error, mutate} = useGetTools(
+      "Uji Kesesuaian",
       jenisAlatState,
       currentPage
     )

@@ -164,19 +164,19 @@ export default function FormEditSertifLuk({
                 Jenis Alat
             </Body1>
             <Body2 className="text-black-500">
-                {data.tools[0].name}
+                {data.tools[0].tool.type}
             </Body2>
             <Body1 className="text-black-400">
                 Merk Alat
             </Body1>
             <Body2 className="text-black-500">
-                {data.tools[0].brand}
+                {data.tools[0].tool.brand}
             </Body2>
             <Body1 className="text-black-400">
                 Tipe Alat
             </Body1>
             <Body2 className="text-black-500">
-                {data.tools[0].type}
+                {data.tools[0].tool_type}
             </Body2>
           </div>
 
@@ -204,7 +204,7 @@ export default function FormEditSertifLuk({
                 {/* {data.tools[0].name.includes("X-Ray") &&
                 "X-Ray Stasioner 200 mA"
                 } */}
-                {XRayDetector(data.tools[0].name)}
+                {XRayDetector(data.tools[0].tool.type)}
               </Body2>
               <Body1 className="text-black-400">
                   Submit Terakhir
@@ -216,7 +216,7 @@ export default function FormEditSertifLuk({
                   Tanggal Registrasi
               </Body1>
               <Body2 className="text-black-500">
-                  
+                  isinya apa
               </Body2>
               <Body1 className="text-black-400">
                   Nomor Registrasi

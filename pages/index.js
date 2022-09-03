@@ -57,7 +57,10 @@ export default function Home() {
             router.push(`/${userType.personnel}/uji`)
           }
   
-          if(code == ACCESS_CODE.KEPALA_LAB){
+          if(code == ACCESS_CODE.KEPALA_LAB_UJI){
+            router.push(`/${userType.management}/summary`)
+          }
+          if(code == ACCESS_CODE.KEPALA_LAB_KAL){
             router.push(`/${userType.management}/summary`)
           }
           if(code == ACCESS_CODE.MANAGEMENT_KAL){

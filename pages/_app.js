@@ -1,6 +1,5 @@
 import DateFilterUjiContextProvider from 'hooks/context/filter-date/DateFilterUjiContext'
 import StatusFilterContextProvider from 'hooks/context/filter-status/StatusContext'
-import NotifContextProvider from 'hooks/context/notif/NotifContext'
 import PageContextProvider from 'hooks/context/pagination/PageContext'
 import { AuthProvider } from 'hooks/fetcher/auth/useAuth'
 import NotificationFetcher from 'hooks/fetcher/notification/NotificationFetcher'

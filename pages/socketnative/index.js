@@ -6,36 +6,49 @@ export default function SocketNative() {
     //     // let ws = new WebSocket('ws://localhost:50000');
     // }
     const uuid = "7daea38e-8f07-44f0-aa43-ee7d67fefb2f"
+    // const [socket, setsocket] = useState()
     var socket
-    
 
-    // const [pesan, setPesan] = useState("")
+    const [pesan, setPesan] = useState("")
     // const [clicked, setClicked] = useState(false)
+
+    let connect = (socket) => {
+        console.log("Attempting Connection...");
+    
+        socket.onopen = () => {
+            console.log("Successfully Connected");
+        };
+    
+        socket.onmessage = msg => {
+            console.log(msg);
+            setPesan(msg.data)
+        };
+    
+        socket.onclose = event => {
+            console.log("Socket Closed Connection: ", event);
+        };
+    
+        socket.onerror = error => {
+            console.log("Socket Error: ", error);
+        };
+        };
+
     useEffect(() => {
         socket = new WebSocket(`ws://api.play1.musagreen.com/v1/users/notification/${uuid}/ws`);
-        let connect = () => {
-            console.log("Attempting Connection...");
         
-            socket.onopen = () => {
-                console.log("Successfully Connected");
-            };
-        
-            socket.onmessage = msg => {
-                console.log(msg);
-                setPesan(msg.data)
-            };
-        
-            socket.onclose = event => {
-                console.log("Socket Closed Connection: ", event);
-            };
-        
-            socket.onerror = error => {
-                console.log("Socket Error: ", error);
-            };
-            };
-        connect()
+        // connect()
    
     }, [])
+    
+    useEffect(() => {
+        // socket = new WebSocket(`ws://api.play1.musagreen.com/v1/users/notification/${uuid}/ws`);
+        if(socket){
+
+            connect(socket)
+        }
+   
+    }, [socket])
+
    
 
    
@@ -63,11 +76,19 @@ export default function SocketNative() {
         //     send()
         //     setClicked(true)
         //   }}>
-        onClick={send}
+        onClick={()=>{
+            // send()
+            console.log("sending msg:", "0");
+            socket.send("0");
+            setPesan(0)
+        }}
         >
             Hit
         </button>
-        {/* <h1>{pesan}</h1> */}
+            <h1>notif: {pesan}</h1>
+            <div className={classNames('h-32 w-32',
+             pesan=="1"?'bg-error':"bg-secondary")}>
+            </div>
         </div>
       )
 }

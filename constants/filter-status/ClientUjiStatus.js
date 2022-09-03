@@ -47,6 +47,10 @@ export const clientUjiStatus=
         status:7
     },
     {
+        title:"Dalam Pengolahan",
+        status:8
+    },
+    {
         title:"Submit Balis",
         status:9
     },

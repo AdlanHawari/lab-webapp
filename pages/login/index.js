@@ -71,7 +71,10 @@ export default function LoginPage() {
         router.replace(`/${userType.personnel}/uji`)
       }
 
-      if(code == ACCESS_CODE.KEPALA_LAB){
+      if(code == ACCESS_CODE.KEPALA_LAB_UJI){
+        router.replace(`/${userType.management}/summary`)
+      }
+      if(code == ACCESS_CODE.KEPALA_LAB_KAL){
         router.replace(`/${userType.management}/summary`)
       }
       if(code == ACCESS_CODE.MANAGEMENT_KAL){
