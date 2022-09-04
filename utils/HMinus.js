@@ -8,7 +8,7 @@ export default function HMinus(targetDate) {
         return formatDistanceToNowStrict(new Date(targetDate),
         {
             locale: id,
-            addSuffix: true
+            // addSuffix: true
         })
     }
     return "-"

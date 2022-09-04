@@ -247,8 +247,8 @@ export default function FormPraUji({
                                                     Merk Alat
                                                 </Body1>
                                                 <Body2 className="text-black-500">
-                                                    {item.tool.brand}
-                                                    {item.test_type==jenisPekerjaan[0]?item.tools[0].tool.brand:item.tools[0].tool_brand}
+                                                    {/* {item.tool.brand} */}
+                                                    {data.test_type==jenisPekerjaan[0]?item.tool.brand:item.tool_brand}
                                                 </Body2>
                                                 <Body1 className="text-black-400">
                                                     Tipe Alat

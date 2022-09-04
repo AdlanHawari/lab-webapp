@@ -122,7 +122,7 @@ export default function FormDokumenPenugasan({
                             Jadwal &amp; Penguji
                         </Body3>
                         <div className="grid grid-cols-2 gap-y-3 py-3">
-                            <Body1 className="text-black-400">
+                            {/* <Body1 className="text-black-400">
                                 Akomodasi
                             </Body1>
                             <div className="block">
@@ -151,7 +151,7 @@ export default function FormDokumenPenugasan({
                                 />
                                 <ErrorMessage name="transportation" component={ValidationMessage}/>
 
-                            </div>
+                            </div> */}
                             {/* <Body1 className="text-black-400">
                                 Dokumen Uji
                             </Body1>

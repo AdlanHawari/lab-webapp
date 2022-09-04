@@ -1,5 +1,6 @@
 import Body1 from 'components/small/typography/Body1'
 import Body2 from 'components/small/typography/Body2'
+import { jenisPekerjaan } from 'constants/JenisPekerjaan'
 import React from 'react'
 
 export default function ContentSectionFormPraUji({data}) {

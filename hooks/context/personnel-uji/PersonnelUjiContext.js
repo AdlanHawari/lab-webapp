@@ -5,6 +5,7 @@ const personnelUjiContext = createContext()
 export default function PersonnelUjiContextProvider({children}){
     const [beritaAcaraPopUp, setBeritaAcaraPopUp] = useState(false)
     const [laporanUjiPopUp, setLaporanUjiPopUp] = useState(false)
+    const [editLaporanUjiPopUp, setEditLaporanUjiPopUp] = useState(false)
     const [konfirmlaporanUjiPopUp, setKonfirmLaporanUjiPopUp] = useState(false)
 
     const contextValue = useMemo(() => {
@@ -14,7 +15,9 @@ export default function PersonnelUjiContextProvider({children}){
             laporanUjiPopUp, 
             setLaporanUjiPopUp,
             konfirmlaporanUjiPopUp,
-            setKonfirmLaporanUjiPopUp 
+            setKonfirmLaporanUjiPopUp,
+            editLaporanUjiPopUp, 
+            setEditLaporanUjiPopUp
             
         }
     }, [
@@ -23,7 +26,9 @@ export default function PersonnelUjiContextProvider({children}){
         laporanUjiPopUp, 
         setLaporanUjiPopUp,
         konfirmlaporanUjiPopUp, 
-        setKonfirmLaporanUjiPopUp
+        setKonfirmLaporanUjiPopUp,
+        editLaporanUjiPopUp, 
+        setEditLaporanUjiPopUp
     ])
 
     return(

@@ -29,6 +29,7 @@ import { DOCTYPE } from 'constants/DocType'
 import { SingleFileDownloader, ZipFileDownloader } from 'utils/FileDownloader'
 import { useDetailUji } from 'hooks/fetcher/detail-uji/useDetailUji'
 import ErrorModal from 'components/big/ErrorModal'
+import FormEditLaporanHasilUji from 'components/big/manajemen/manajemen-uji/FormEditLaporanHasilUji'
 
 export default function PersonnelUjiTable({data, mutate}) {
     const [isDetailOpen, setIsDetailOpen] = useState(false)
@@ -50,7 +51,9 @@ export default function PersonnelUjiTable({data, mutate}) {
     laporanUjiPopUp, 
     setLaporanUjiPopUp,
     konfirmlaporanUjiPopUp, 
-    setKonfirmLaporanUjiPopUp
+    setKonfirmLaporanUjiPopUp,
+    editLaporanUjiPopUp, 
+    setEditLaporanUjiPopUp
     } = usePersonnelUjiContext()
 
     const {
@@ -68,6 +71,7 @@ export default function PersonnelUjiTable({data, mutate}) {
             setLaporanUjiPopUp(false)
             setKonfirmLaporanUjiPopUp(false)
             setDokumenPenugasanState(false)
+            setEditLaporanUjiPopUp(false)
             setreqSent(false)
             mutate()
         }
@@ -275,13 +279,15 @@ export default function PersonnelUjiTable({data, mutate}) {
             <div className="block space-y-4">
                 <Button
                 buttonStyle="primary_default"
+                onClick={()=> ZipFileDownloader(downloadZipFile, dataSelected.id, `${dataSelected.doc_number}-report.zip`,DOCTYPE.DOCGROUP.REPORT)}
                 >
                     Unduh Laporan Uji
                 </Button>
                 
-                {dataSelected.status<10 &&
+                {dataSelected.status<9 &&
                 <Button
                 className="bg-secondary text-white"
+                onClick={()=>setEditLaporanUjiPopUp(true)}
                 >
                     Ubah Laporan Uji
                 </Button>
@@ -387,6 +393,40 @@ export default function PersonnelUjiTable({data, mutate}) {
 
     </FormModal>
     }
+
+    {editLaporanUjiPopUp &&
+        <FormModal
+        title="Ubah Laporan Hasil Uji"
+        bgColor="primary"
+        isOpen={editLaporanUjiPopUp}
+        setIsOpen={setEditLaporanUjiPopUp}
+        buttonSide={<>
+            <Button 
+            className="bg-primary" 
+            buttonStyle={submitState?"primary_disabled":"primary_default"}
+            type="submit"                 
+            disabled={submitState? true:false}
+            form={form_laporan_hasil_uji_id}
+            >
+                { submitState &&
+                <FontAwesomeIcon icon={faSpinner} className="animate-spin"/>
+                }
+                Upload Laporan Uji
+            </Button>
+        </>
+    }>
+        <FormEditLaporanHasilUji
+            id={form_laporan_hasil_uji_id}
+            data={dataSelected}
+            submitState={submitState}
+            setSubmitState={setSubmitState}
+            setreqSent={setreqSent}
+        />
+
+    </FormModal>
+    }
+
+    
 
     {konfirmlaporanUjiPopUp && 
         <FormModal
