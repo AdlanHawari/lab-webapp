@@ -19,7 +19,6 @@ import useGetToolTypes from "hooks/fetcher/management-alat-ukur/useGetToolTypes"
 import useGetTools from "hooks/fetcher/management-alat-ukur/useGetTools";
 import useGetToolsBrand from "hooks/fetcher/management-alat-ukur/useGetToolsBrand";
 import BrandDropDown from "components/small/single_menu/BrandDropDown";
-import BrandDrowDown from "components/small/single_menu/BrandDropDown";
 import SerialIDDropDown from "components/small/single_menu/SerialIDDropDown";
 
 export default function FormPermohonanUji({
@@ -32,8 +31,8 @@ export default function FormPermohonanUji({
     setErrorMsg,
     setIsUjiOpen
     }) {
-    const [test_typeSelected, setTest_TypeSelected] = useState()
-    const [typeSelected, setTypeSelected] = useState()
+    // const [test_typeSelected, setTest_TypeSelected] = useState("")
+    // const [typeSelected, setTypeSelected] = useState("")
     
     const client = useClient()
     // const [submitState, setSubmitState] = useState(false)
@@ -45,6 +44,7 @@ export default function FormPermohonanUji({
             tool_type: "",
             // brand: "",
             // tool_name: "",
+            tool_brand: "",
             tool_id: "",
             quantity: ""
         }
@@ -60,6 +60,11 @@ export default function FormPermohonanUji({
                 result.tool_type = result.tool_type + ","
             }
             result.tool_type = result.tool_type.concat(tool.type)
+
+            if(result.tool_brand.length>0){
+                result.tool_brand = result.tool_brand + ","
+            }
+            result.tool_brand = result.tool_brand.concat(tool.brand)
             
             if(result.tool_id.length>0){
                 result.tool_id = result.tool_id + ","
@@ -81,14 +86,23 @@ export default function FormPermohonanUji({
         return result
     }
 
-    const {loading, tool_type, error} = useGetToolTypes()
+    // const {loading, tool_type, error, mutate} = useGetToolTypes(typeSelected)
+    const tool_type_uji = useGetToolTypes("Uji Kesesuaian")
+    const tool_type_kal = useGetToolTypes("Kalibrasi")
     const {tools, loading_toolbrand, error_toolbrand} = useGetToolsBrand()
     const [brandList, setBrandList] = useState([])
 
 
-    useEffect(() => {
-      console.log("tool_type",tool_type)
-    }, [tool_type])
+    // useEffect(() => {
+    //   console.log("tool_type",tool_type)
+    // }, [tool_type])
+
+    // useEffect(() => {
+    //   console.log("ukes",tool_type_uji.tool_type)
+    //   console.log("kal",tool_type_kal.tool_type)
+    // }, [tool_type_uji, tool_type_kal])
+    
+    
 
     
     
@@ -124,19 +138,36 @@ export default function FormPermohonanUji({
             // console.log(rearrangeObject(values))
             console.log("submitting")
             
-            setSubmitState(true)
+            // setSubmitState(true)
             values.tools.map((item)=>{
 
-                tools.data.map(tool=>{
-                    if(tool.type==item.tool_name && tool.brand== item.brand && tool["serial/id"]==item.serial ){
-                        console.log("sama")
-                        // console.log(tool["serial/id"])
-                        console.log("id",tool.id)
-                        item["tool_id"] = tool.id
-                        
+                if(values.test_type==jenisPekerjaan[0]){
+                    tools.data.map(tool=>{
+                        if(tool.type==item.tool_name && tool.brand== item.brand && tool["serial/id"]==item.serial ){
+                            console.log("sama")
+                            // console.log(tool["serial/id"])
+                            console.log("id",tool.id)
+                            item["tool_id"] = tool.id
+                            
+    
+                        }
+                    })
 
-                    }
-                })
+                }
+                if(values.test_type==jenisPekerjaan[1]){
+                    tools.data.map(tool=>{
+                        if(tool.type==item.tool_name){
+                            console.log("sama")
+                            // console.log(tool["serial/id"])
+                            console.log("id",tool.id)
+                            item["tool_id"] = tool.id
+                            item["tool_brand"] = tool.brand
+                            
+    
+                        }
+                    })
+                }
+        
             })
             console.log(values)
 
@@ -149,10 +180,10 @@ export default function FormPermohonanUji({
                 const response = await client.createPermohonanUji(formData)
                 if(response.header.response_code==201){
                     setreqSent(true)
-                    setSubmitState(false)
-                    setErrorMsg('')
+                    // setSubmitState(false)
+                    // setErrorMsg('')
                     console.log("submit sent")
-                    setIsUjiOpen(false)
+                    // setIsUjiOpen(false)
                 }
                 else{
                     setErrorMsg('Terjadi kesalahan')
@@ -183,7 +214,7 @@ export default function FormPermohonanUji({
                             name="test_type"
                             type="text"
                             onBlur={formik.handleBlur}
-                            
+                            // onChange={setTest_TypeSelected(formik.values.test_type)}
                             placeholder="Pilih Jenis Uji" 
                             itemLists={jenisPekerjaan}/>
                             <ErrorMessage name="test_type" component={ValidationMessage}/>
@@ -236,19 +267,30 @@ export default function FormPermohonanUji({
                                                                 jenisAlatKalibrasi
                                                             }/> */}
                                                             
-                                                            <JenisAlatDropDown
-                                                            itemLists={formik.values.test_type == jenisPekerjaan[0] ?
-                                                                tool_type
-                                                                :
-                                                                jenisAlatKalibrasi
+                                                            {tool_type_kal.tool_type && tool_type_uji.tool_type &&
+                                                                <JenisAlatDropDown
+
+                                                                itemLists={
+                                                                    
+                                                                    formik.values.test_type == jenisPekerjaan[0] ?
+                                                                    tool_type_uji.tool_type
+                                                                    :
+                                                                    tool_type_kal.tool_type
+                                                                }
+                                                                // itemLists={formik.values.test_type == jenisPekerjaan[0] ?
+                                                                //     tool_type
+                                                                //     :
+                                                                //     jenisAlatKalibrasi
+                                                                // }
+                                                                disabled={formik.values.test_type?false:true}
+                                                                id={`tools.${index}.tool_name`}
+                                                                name={`tools.${index}.tool_name`}
+                                                                formikName={`tools.${index}.tool_name`}
+                                                                setFormikValue={formik.setFieldValue}
+                                                                placeholder="Pilih Jenis Alat"
+                                                                /> 
                                                             }
-                                                            disabled={formik.values.test_type?false:true}
-                                                            id={`tools.${index}.tool_name`}
-                                                            name={`tools.${index}.tool_name`}
-                                                            formikName={`tools.${index}.tool_name`}
-                                                            setFormikValue={formik.setFieldValue}
-                                                            placeholder="Pilih Jenis Alat"
-                                                            />
+                                                            
                                                             
 
                                                             
@@ -267,17 +309,27 @@ export default function FormPermohonanUji({
                                                         Merk Alat
                                                     </Body1>
                                                         <div className="block w-96">
-                                                            {tools?.data &&
-                                                            <BrandDrowDown
-                                                            data={tools.data}
-                                                            filter={formik.values.tools[index].tool_name}
-                                                            setFormikValue={formik.setFieldValue}
-                                                            formikName={`tools.${index}.brand`}
-                                                            placeholder="Pilih Merk Alat"
-                                                            name={`tools.${index}.brand`}
-                                                            id={`tools.${index}.brand`}
-                                                            disabled={formik.values.tools[index].tool_name?false:true}
-                                                            />
+                                                            {formik.values.test_type == jenisPekerjaan[0] ? 
+                                                                tools?.data &&
+                                                                    <BrandDropDown
+                                                                    data={tools.data}
+                                                                    filter={formik.values.tools[index].tool_name}
+                                                                    setFormikValue={formik.setFieldValue}
+                                                                    formikName={`tools.${index}.brand`}
+                                                                    placeholder="Pilih Merk Alat"
+                                                                    name={`tools.${index}.brand`}
+                                                                    id={`tools.${index}.brand`}
+                                                                    disabled={formik.values.tools[index].tool_name?false:true}
+                                                                    />
+                                                                :
+                                                                    <Field
+                                                                    className="placeholder:text-grey-500 form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300"
+                                                                    // className="w-96 border-none focus:ring-0 py-2 px-3 text-sm leading-5 text-gray-900 rounded-lg shadow-md"
+                                                                    id={`tools.${index}.brand`}
+                                                                    name={`tools.${index}.brand`}
+                                                                    type="text"
+                                                                    placeholder="Isi Merk Alat"
+                                                                    /> 
                                                             }
                                                             {/* <BrandDropDown
                                                             tool_type={formik.values.tools[index].tool_name}
@@ -309,28 +361,31 @@ export default function FormPermohonanUji({
                                                 </div>
 
 
-                                                <div className='flex items-center justify-between'>
-                                                    <Body1>
-                                                        Serial/ID
-                                                    </Body1>
-                                                    <div className="block w-96">
-                                                    {tools?.data &&
-                                                        <SerialIDDropDown
-                                                        data={tools.data}
-                                                        filterType={formik.values.tools[index].tool_name}
-                                                        filterBrand={formik.values.tools[index].brand}
-                                                        setFormikValue={formik.setFieldValue}
-                                                        formikName={`tools.${index}.serial`}
-                                                        placeholder="Pilih No. Seri/ID"
-                                                        name={`tools.${index}.serial`}
-                                                        id={`tools.${index}.serial`}
-                                                        disabled={formik.values.tools[index].brand?false:true}
-                                                        />
-                                                    }
-                                                        <ErrorMessage name={`tools.${index}.serial`} component={ValidationMessage}/>
+                                                {formik.values.test_type == jenisPekerjaan[0] &&
+                                                    <div className='flex items-center justify-between'>
+                                                        <Body1>
+                                                            Serial/ID
+                                                        </Body1>
+                                                        <div className="block w-96">
+                                                        {tools?.data &&
+                                                            <SerialIDDropDown
+                                                            data={tools.data}
+                                                            filterType={formik.values.tools[index].tool_name}
+                                                            filterBrand={formik.values.tools[index].brand}
+                                                            setFormikValue={formik.setFieldValue}
+                                                            formikName={`tools.${index}.serial`}
+                                                            placeholder="Pilih No. Seri/ID"
+                                                            name={`tools.${index}.serial`}
+                                                            id={`tools.${index}.serial`}
+                                                            disabled={formik.values.tools[index].brand?false:true}
+                                                            />
+                                                        }
+                                                            <ErrorMessage name={`tools.${index}.serial`} component={ValidationMessage}/>
+                                                        </div>
+
                                                     </div>
 
-                                                </div>
+                                                }
 
                                                 <div className='flex items-center justify-between'>
                                                     <Body1>

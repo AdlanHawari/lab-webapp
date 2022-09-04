@@ -6,6 +6,7 @@ import Button from 'components/small/button_fixed/Button'
 import Pagination from 'components/small/pagination/Pagination'
 import { form_create_alat_ukur_id } from 'constants/FormUtils'
 import { useJenisAlatFilterContext } from 'hooks/context/filter-jenis-alat/JenisAlatFilter'
+import { useStatusFilterContext } from 'hooks/context/filter-status/StatusContext'
 import { useFormCreateAlatUkurContext } from 'hooks/context/form-create-alat-ukur/FormCreateAlatUkurContext'
 import { usePageContext } from 'hooks/context/pagination/PageContext'
 import useGetTools from 'hooks/fetcher/management-alat-ukur/useGetTools'
@@ -19,10 +20,12 @@ export default function DashboardAlatUkurMainSection() {
     const [reqSent, setreqSent] = useState(false);
     const {currentPage, setLastPage, setCurrentPage} = usePageContext();
     const {jenisAlatState, setJenisAlatState} = useJenisAlatFilterContext()
+    const {statusFilter} = useStatusFilterContext();
     const {tools, loading, error, mutate} = useGetTools(
       "Uji Kesesuaian",
       jenisAlatState,
-      currentPage
+      currentPage,
+      statusFilter
     )
 
     useEffect(()=> {

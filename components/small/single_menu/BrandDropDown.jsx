@@ -4,7 +4,7 @@ import { CheckIcon } from '@heroicons/react/solid'
 import classNames from 'classnames'
 import React, { Fragment, useEffect, useState } from 'react'
 
-export default function BrandDrowDown({
+export default function BrandDropDown({
     data,
     filter,
     setFormikValue,

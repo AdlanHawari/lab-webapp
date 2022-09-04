@@ -14,7 +14,8 @@ import { Fragment, useState, useEffect } from "react";
       type,
       selected, 
       setSelected,
-      disabled
+      disabled,
+      onChange
     } = props
 
     // const { values, setFieldValue } = useFormikContext();
@@ -49,6 +50,7 @@ import { Fragment, useState, useEffect } from "react";
         // console.log("id", id)
         // setFieldValue(id,value)
         setSelected(id,value)
+        onChange
       }
         // setSelected
         // setSelected
@@ -94,9 +96,9 @@ import { Fragment, useState, useEffect } from "react";
                   Nothing found.
                 </div>
               ) : (
-                filteredItemLists.map((item) => (
+                filteredItemLists.map((item,index) => (
                   <Combobox.Option
-                    key={item.id}
+                    key={index}
                     className={({ active }) =>
                       `cursor-default select-none relative py-2 pl-10 pr-4 ${
                         active ? 'text-secondary bg-teal-600' : 'text-gray-900'

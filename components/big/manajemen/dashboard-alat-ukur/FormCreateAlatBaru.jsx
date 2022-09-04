@@ -21,7 +21,7 @@ export default function FormCreateAlatBaru({
     setreqSent,
 }) {
 
-    const {tool_type} = useGetToolTypes()
+    const {tool_type} = useGetToolTypes("Uji Kesesuaian")
     const {createAlat} = useAlatUkurFetcher()
     // useEffect(() => {
     //   console.log("tool create", tool_type)

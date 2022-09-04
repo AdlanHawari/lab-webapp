@@ -48,6 +48,8 @@ export default function ClientUjiMainSection() {
         if(reqSent){
           
           setCreateUjiPopUp(false)
+          setSubmitState(false)
+          setreqSent(false)
           mutate()
         }
       }, [reqSent])

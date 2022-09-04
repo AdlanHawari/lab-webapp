@@ -14,6 +14,7 @@ import { alatUkurTableHead } from 'constants/table/RowTitle'
 import { useAlatUkurFetcher } from 'hooks/fetcher/management-alat-ukur/useAlatUkurFetcher'
 import React, { useEffect, useState } from 'react'
 import DateFormatter from 'utils/DateFormatter'
+import IntervalDate from 'utils/IntervalDate'
 
 export default function AlatUkurTable({
   data,
@@ -24,7 +25,7 @@ export default function AlatUkurTable({
   const [onDelete, setOnDelete] = useState(false)
   const [onEdit, setOnEdit] = useState(false)
   const [dataSelected, setDataSelected] = useState({})
-  const {readable} = DateFormatter()
+  const {shorterReadable} = DateFormatter()
   const [submitState, setSubmitState] = useState(false)
   const [reqSent, setreqSent] = useState(false);
 
@@ -85,15 +86,18 @@ export default function AlatUkurTable({
                           </td>
                           <td className="max-w-24 p-4">
                               <Table1 className="text-black-500 leading-normal">
-                                  {readable(item.calibration_date)}
+                                  {shorterReadable(item.calibration_date)}
                               </Table1>
                           </td>
                           <td className="max-w-24 p-4">
                               <Table1 className="text-black-500 leading-normal">
-                                  {readable(item.recalibration_date)}
+                                  {shorterReadable(item.recalibration_date)}
                               </Table1>
                           </td>
                           <td>
+                            <Table1 className="text-black-500 leading-normal">
+                                {IntervalDate(item.recalibration_date,item.calibration_date)}
+                            </Table1>
                             
                           </td>
                           <td scope="col" className="" >
