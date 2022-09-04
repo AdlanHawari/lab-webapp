@@ -14,10 +14,12 @@ import Button from 'components/small/button_fixed/Button'
 import ButtonSmall from 'components/small/button_small/ButtonSmall'
 import Table1 from 'components/small/typography/Table1'
 import Table2 from 'components/small/typography/Table2'
+import { ACCESS_CODE } from 'constants/Access_Code'
 import { permohonanUjiStatus } from 'constants/filter-status/ManajemenUjiStatus'
 import { form_batal_permohonan_uji_id, form_buat_penawaran_uji_id } from 'constants/FormUtils'
 import { permohonanUjiTableHead } from 'constants/table/RowTitle'
 import { useManajemenPermohonanUjiContext } from 'hooks/context/permohonan-uji/PermohonanUjiContext'
+import useUser from 'hooks/fetcher/auth/useUser'
 import { useDetailUji } from 'hooks/fetcher/detail-uji/useDetailUji'
 import { usePermohonanUjiManajemenFetcher } from 'hooks/fetcher/permohonan-uji/usePermohonanUjiFetcher'
 import usePermohonanUji from 'hooks/fetcher/usePermohonanUji'
@@ -28,6 +30,8 @@ export default function PermohonanUjiTable({data, mutate}) {
     const [isDetailOpen, setIsDetailOpen] = useState(false)
     const dateFormatter = DateFormatter()
     const [dataSelected, setDataSelected] = useState({})
+    const [permission_KA_LAB, setPermission_KA_LAB] = useState(false)
+
     const {
         buatPenawaranPopUp, 
         setBuatPenawaranPopUp,
@@ -42,6 +46,8 @@ export default function PermohonanUjiTable({data, mutate}) {
     const [reqSent, setreqSent] = useState(false);
 
     const {confirmTestApp} = useDetailUji()
+
+    const {user} = useUser()
 
     // useEffect(() => {
     //   console.log("popUp changed")
@@ -68,6 +74,15 @@ export default function PermohonanUjiTable({data, mutate}) {
           mutate()
         }
       }, [reqSent])
+
+      useEffect(() => {
+        
+      console.log("user di perm uji table",user.data.role.access_code)
+        if(user.data.role.access_code == ACCESS_CODE.ADMIN || user.data.role.access_code == ACCESS_CODE.KEPALA_LAB_KAL || user.data.role.access_code == ACCESS_CODE.KEPALA_LAB_UJI){
+            setPermission_KA_LAB(true)
+        }
+      }, [user])
+      
     
     
   return (
@@ -158,9 +173,12 @@ export default function PermohonanUjiTable({data, mutate}) {
           data={dataSelected}
           setCancelPopUp={setCancelUjiPopUp}
           buttonSide = {
+            
           <>
-            {dataSelected.status<3 &&
+            {
+            dataSelected.status<3 && 
                 dataSelected.status <2 ?
+                    permission_KA_LAB &&
                     <Button 
                     buttonStyle="primary_default"
                      onClick={
@@ -182,7 +200,7 @@ export default function PermohonanUjiTable({data, mutate}) {
                     </Button>
                 
             }
-            {dataSelected.status == 4 &&
+            {dataSelected.status == 4 && permission_KA_LAB &&
                 <Button 
                 buttonStyle="primary_default"
                 onClick={

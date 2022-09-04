@@ -34,6 +34,8 @@ import { DOCTYPE } from "constants/DocType";
 import FormCancelUji from "components/big/FormCancelUji";
 import FormEditJadwalPenguji from "components/big/manajemen/manajemen-uji/FormEditJadwalPenguji";
 import FormEditLaporanHasilUji from "components/big/manajemen/manajemen-uji/FormEditLaporanHasilUji";
+import useUser from "hooks/fetcher/auth/useUser";
+import { ACCESS_CODE } from "constants/Access_Code";
 
 
 export default function ManajemenujiTable({data, mutate}) {
@@ -46,6 +48,8 @@ export default function ManajemenujiTable({data, mutate}) {
     const [reqSent, setreqSent] = useState(false);
     const {confirmTestApp, downloadDoc, downloadZipFile} = useDetailUji()
     const {readable} = DateFormatter()
+    const {user} = useUser()
+    const [permission_KA_LAB, setPermission_KA_LAB] = useState(false)
     const {
         pemilihanJadwalPopUp,
         setPemilihanJadwalPopUp,
@@ -108,6 +112,14 @@ export default function ManajemenujiTable({data, mutate}) {
         })
       
     }, [dataSelected])
+
+    useEffect(() => {
+        
+        console.log("user di perm uji table",user.data.role.access_code)
+          if(user.data.role.access_code == ACCESS_CODE.ADMIN || user.data.role.access_code == ACCESS_CODE.KEPALA_LAB_KAL || user.data.role.access_code == ACCESS_CODE.KEPALA_LAB_UJI){
+              setPermission_KA_LAB(true)
+          }
+        }, [user])
     
 
   return (
@@ -286,6 +298,7 @@ export default function ManajemenujiTable({data, mutate}) {
                 :
                 <>
                     {dataSelected.status==9 &&
+                    permission_KA_LAB &&
                         <>
                             <Button
                             buttonStyle="primary_default"
@@ -305,6 +318,7 @@ export default function ManajemenujiTable({data, mutate}) {
                     }
 
                     {dataSelected.status==100 &&
+                        permission_KA_LAB &&
                         <Button
                         className="bg-secondary text-white"
                         onClick={()=> SingleFileDownloader(downloadDoc, dataSelected.id, DOCTYPE.CERTIFICATE, `SIP_CERT_${dataSelected.doc_number}`)}
@@ -322,6 +336,7 @@ export default function ManajemenujiTable({data, mutate}) {
                     </Button>
 
                     {dataSelected.status==8 &&
+                    permission_KA_LAB &&
                     <>
                         <Button
                         className="bg-secondary text-white"

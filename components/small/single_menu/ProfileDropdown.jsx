@@ -45,16 +45,19 @@ export default function ProfileDropdown() {
   const [title, setTitle] = useTitleContext();
   // const { user, loading,error,mutate } = useUser()
   // const auth = useAuth()
-  const {mutate} = useSWRConfig()
+  // const {mutate} = useSWRConfig()
+  const {mutate}= useUser()
 
   function handleLogout(){
     localStorage.clear()
     // delay(5000)
-    mutate("/users/profile")
+    // mutate("/users/profile")
+    mutate()
     // delay(5000)
     // delay(3000)
-    // router.reload()
-    router.replace("/login")
+    router.reload()
+    // router.replace("/login")
+    // router.replace("/")
     
   }
   
