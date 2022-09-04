@@ -5,6 +5,7 @@ import TitleContextProvider from 'hooks/TitleContext'
 import Topbar from 'components/base/topbar/Topbar'
 import NotificationFetcher from 'hooks/fetcher/notification/NotificationFetcher'
 import { AuthProvider } from 'hooks/fetcher/auth/useAuth'
+import NotifContextProvider from 'hooks/context/notif-context/NotifContext'
 
 export default function BaseLayout({children}) {
 
@@ -13,7 +14,10 @@ export default function BaseLayout({children}) {
     <AuthProvider>
 
     
-    <NotificationFetcher>
+    {/* <NotificationFetcher> */}
+        {/* <NotifContextProvider> */}
+
+        
 
     
     <TitleContextProvider>
@@ -39,7 +43,8 @@ export default function BaseLayout({children}) {
             
         </div>
     </TitleContextProvider>
-    </NotificationFetcher>
+    {/* </NotifContextProvider> */}
+    {/* </NotificationFetcher> */}
     </AuthProvider>
   )
 }
