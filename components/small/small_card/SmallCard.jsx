@@ -105,7 +105,7 @@ export default function SmallCard({data, mutate}) {
             {/* {data.TestApplicationTool[0]?.Tool.name} {data.TestApplicationTool[0]?.Tool.brand} - {data.TestApplicationTool[0]?.Tool.type} */}
             {/* Nama alat */}
             {/* {data.tools[0].name} - {data.tools[0].brand} {data.tools[0].type} */}
-            {data.tools[0].tool.type} - {data.tools[0].tool.brand} {data.tools[0].tool_type}
+            {data.tools[0].tool.type} - {data.test_type==jenisPekerjaan[0]?data.tools[0].tool.brand:data.tools[0].tool_brand} {data.tools[0].tool_type}
             
         </h3>
 

@@ -17,6 +17,7 @@ import { useDetailUjiClientContext } from 'hooks/context/detail-uji-client/Detai
 import { useDetailUji } from 'hooks/fetcher/detail-uji/useDetailUji'
 import { delay } from 'utils/delay'
 import { useManajemenPermohonanUjiContext } from 'hooks/context/permohonan-uji/PermohonanUjiContext'
+import { jenisPekerjaan } from 'constants/JenisPekerjaan'
 
 export default function FormEditPenawaranUji({
   id,
@@ -131,7 +132,8 @@ export default function FormEditPenawaranUji({
                   Merk Alat
               </Body1>
               <Body2 className="text-black-500">
-                {data.tools[0].tool.brand}
+                {/* {data.tools[0].tool.brand} */}
+                {data.test_type==jenisPekerjaan[0]?data.tools[0].tool.brand:data.tools[0].tool_brand}
               </Body2>
               <Body1 className="text-black-400">
                   Tipe Alat

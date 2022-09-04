@@ -1,5 +1,6 @@
 import Body1 from 'components/small/typography/Body1'
 import Body2 from 'components/small/typography/Body2'
+import { jenisPekerjaan } from 'constants/JenisPekerjaan'
 import React from 'react'
 import SectionFormPraUji from './SectionFormPraUji'
 
@@ -21,7 +22,8 @@ export default function Section2({data}) {
             Merk Alat
         </Body1>
         <Body2 className="text-black-500">
-            {data.tools[0].tool.brand}
+            {/* {data.tools[0].tool.brand} */}
+            {data.test_type==jenisPekerjaan[0]?data.tools[0].tool.brand:data.tools[0].tool_brand}
         </Body2>
         <Body1 className="text-black-400">
             Tipe Alat
@@ -52,7 +54,8 @@ export default function Section2({data}) {
                         index>0 &&
 
                             <li key={index}>
-                            {item.tool.type} - {item.tool.brand} {item.tool_type} - {item.quantity} buah
+                                
+                            {item.tool.type} - {item.test_type==jenisPekerjaan[0]?item.tools[0].tool.brand:item.tools[0].tool_brand} {item.tool_type} - {item.quantity} buah
                             </li>
                         
                         // <li>Alat B - Kesesuaian - 25 Buah</li>

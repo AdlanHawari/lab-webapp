@@ -15,8 +15,10 @@ import ButtonSmall from 'components/small/button_small/ButtonSmall'
 import Table1 from 'components/small/typography/Table1'
 import Table2 from 'components/small/typography/Table2'
 import { ACCESS_CODE } from 'constants/Access_Code'
+import { DOCTYPE } from 'constants/DocType'
 import { permohonanUjiStatus } from 'constants/filter-status/ManajemenUjiStatus'
 import { form_batal_permohonan_uji_id, form_buat_penawaran_uji_id } from 'constants/FormUtils'
+import { jenisPekerjaan } from 'constants/JenisPekerjaan'
 import { permohonanUjiTableHead } from 'constants/table/RowTitle'
 import { useManajemenPermohonanUjiContext } from 'hooks/context/permohonan-uji/PermohonanUjiContext'
 import useUser from 'hooks/fetcher/auth/useUser'
@@ -82,6 +84,8 @@ export default function PermohonanUjiTable({data, mutate}) {
             setPermission_KA_LAB(true)
         }
       }, [user])
+
+
       
     
     
@@ -123,7 +127,8 @@ export default function PermohonanUjiTable({data, mutate}) {
                     </td>
                     <td className="w-48 py-2 px-4">
                         <Table1 className="text-black-500 leading-normal">
-                        {item.tools[0].tool.brand}
+                        {/* {item.tools[0].tool.brand} */}
+                        {item.test_type==jenisPekerjaan[0]?item.tools[0].tool.brand:item.tools[0].tool_brand}
                         </Table1>
                         
                     </td>
@@ -138,11 +143,18 @@ export default function PermohonanUjiTable({data, mutate}) {
                         </Table1>
                     </td>
                     <td className="w-48 py-2 px-4">
-                    {item.bukti_pembayaran &&
+                    
                         <div className="text-xs font-bold text-primary-darken10 underline underline-offset-2 leading-normal">
-                            {item.bukti_pembayaran}
+                            {item.documents.map((file,index)=>{
+                                if(file.type==DOCTYPE.INVOICE){
+                                    console.log("nama file",file.file_name)
+                                    return file.file_name
+                                }
+                                return ""
+                            })}
+                            {/* {item.test_type} */}
                         </div>
-                    }
+                    
                     </td>
                     <td className="px-2">
                         <ButtonSmall

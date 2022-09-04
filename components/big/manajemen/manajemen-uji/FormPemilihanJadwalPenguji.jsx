@@ -5,6 +5,7 @@ import Body1 from 'components/small/typography/Body1'
 import Body2 from 'components/small/typography/Body2'
 import Body3 from 'components/small/typography/Body3'
 import ValidationMessage from 'components/small/validation_form/ValidationMessage'
+import { jenisPekerjaan } from 'constants/JenisPekerjaan'
 import { ErrorMessage, Form, Formik } from 'formik'
 import { formPemilhanJadwalPengujiInitValues } from 'helper/initial-formik-values/FormPemilihanJadwalPengujiInitValues'
 import FormPemilihanJadwalPengujiValidationSchema from 'helper/yup/FormPemilihanJadwalPengujiValidationSchema'
@@ -107,7 +108,8 @@ export default function FormPemilihanJadwalPenguji({
                             Merk Alat
                         </Body1>
                         <Body2 className="text-black-500">
-                            {data.tools[0].tool.brand}
+                            {/* {data.tools[0].tool.brand} */}
+                            {data.test_type==jenisPekerjaan[0]?data.tools[0].tool.brand:data.tools[0].tool_brand}
                         </Body2>
                         <Body1 className="text-black-400">
                             Tipe Alat
