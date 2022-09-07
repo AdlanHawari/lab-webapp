@@ -1,8 +1,10 @@
 import LogTable from 'components/base/table/LogTable';
 import Pagination from 'components/small/pagination/Pagination';
 import { useDateFilterUjiContext } from 'hooks/context/filter-date/DateFilterUjiContext';
+import { useNotifContext } from 'hooks/context/notif-context/NotifContext';
 import { usePageContext } from 'hooks/context/pagination/PageContext';
 import useLog from 'hooks/fetcher/log/useLog';
+import { useNotifFetcher } from 'hooks/fetcher/notification/NotificationFetcher';
 import React, { useEffect } from 'react'
 
 export default function LogMainSection() {
@@ -13,6 +15,18 @@ export default function LogMainSection() {
     endDateFilter,
     currentPage
   )
+
+
+  const socket  = useNotifFetcher()
+  const {setNewNotif} = useNotifContext()
+
+  useEffect(() => {
+    socket.send("0")
+    setNewNotif(false)
+  }, [])
+  
+
+  
 
   useEffect(() => {
     if(data){

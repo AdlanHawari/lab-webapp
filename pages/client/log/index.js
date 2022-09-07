@@ -5,9 +5,11 @@ import LogMainSection from "components/big/log/LogMainSection";
 import { ACCESS_CODE } from "constants/Access_Code";
 import { clientLogs } from "constants/test_objects/clientLog"
 import DateFilterUjiContextProvider from "hooks/context/filter-date/DateFilterUjiContext";
+import { useNotifContext } from "hooks/context/notif-context/NotifContext";
 import PageContextProvider from "hooks/context/pagination/PageContext";
 import useUser from "hooks/fetcher/auth/useUser";
 import { LogProvider } from "hooks/fetcher/log/useLogFetcher";
+import { useNotifFetcher } from "hooks/fetcher/notification/NotificationFetcher";
 import { useTitleContext } from "hooks/TitleContext";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -21,6 +23,8 @@ export default function ClientLogPage() {
   useEffect(() => {
     setTitle('Log')
   })
+
+  
 
   useEffect(() => {
     if(!isValidating){

@@ -1,4 +1,4 @@
-import NotifIcon from '/components/base/NotifIcon'
+import NotifIcon from 'components/base/NotifIcon'
 import { useTitleContext } from 'hooks/TitleContext'
 import ProfileDropdown from 'components/small/single_menu/ProfileDropdown';
 import { UserCircleIcon } from '@heroicons/react/solid';
@@ -6,11 +6,14 @@ import { subMenu, subPageManajemenUji } from 'constants/SubmenuManajemenUji';
 import classNames from 'classnames';
 import ManajemenSubMenuButton from './ManajemenSubMenuButton';
 import { useNotifFetcher } from 'hooks/fetcher/notification/NotificationFetcher';
+import { useEffect } from 'react';
+import { useNotifContext } from 'hooks/context/notif-context/NotifContext';
 
 export default function Topbar({children}) {
 
     const [title,setTitle] = useTitleContext();
-    // const ws = useNotifFetcher()
+   
+
   return(
     // <div className="max-h-screen overflow-auto block w-full pt-10 divide-y divide-grey-200 pl-11 pr-10 bg-background">
     <div className="max-h-screen overflow-auto block w-full pl-11 pr-10 bg-background">

@@ -13,6 +13,7 @@ import useUser from 'hooks/fetcher/auth/useUser'
 import { useAuth } from 'hooks/fetcher/auth/useAuth'
 import { mutate, useSWRConfig } from 'swr'
 import { delay } from 'utils/delay'
+import { useNotifFetcher } from 'hooks/fetcher/notification/NotificationFetcher'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -47,8 +48,10 @@ export default function ProfileDropdown() {
   // const auth = useAuth()
   // const {mutate} = useSWRConfig()
   const {mutate}= useUser()
+  const socket  = useNotifFetcher()
 
   function handleLogout(){
+    socket.close()
     localStorage.clear()
     // delay(5000)
     // mutate("/users/profile")
