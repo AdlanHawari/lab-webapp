@@ -17,12 +17,16 @@ export default function LogMainSection() {
   )
 
   const socket  = useNotifFetcher()
-  const {setNewNotif} = useNotifContext()
+  const {newNotif, setNewNotif} = useNotifContext()
 
   useEffect(() => {
-    socket.send("0")
-    setNewNotif(false)
-  }, [])
+    if(socket && newNotif){
+      socket.send("0")
+      setNewNotif(false)
+
+    }
+  }, [socket, newNotif])
+
   useEffect(() => {
     if(data){
       setLastPage(data.header.total_page)
@@ -35,7 +39,7 @@ export default function LogMainSection() {
       }
       {data&&
         data.data.length>0 ?
-        <LogTable data={data.data} mutate={mutate}/>
+          <LogTable data={data.data} mutate={mutate}/>
         :
             !loading&&
             <div className="relative w-full h-96 ">

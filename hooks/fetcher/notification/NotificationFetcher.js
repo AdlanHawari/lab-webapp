@@ -9,7 +9,7 @@ export default function NotificationFetcherProvider({children}) {
     
     useEffect(() => {
         if(!isValidating && user){
-            console.log("user di context notif", user)
+            console.debug("user di context notif", user)
             setSocket(new WebSocket(`${process.env.NEXT_PUBLIC_WEBSOCKET_NOTIF}/${user.data.uuid}/ws`))
         }
     }, [user, isValidating])
