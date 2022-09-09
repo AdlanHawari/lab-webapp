@@ -7,5 +7,4 @@ export const ACCESS_CODE = {
     MANAGEMENT_KAL: "MNG-KAL",
     KEPALA_LAB_UJI: "LAB-UJI",
     KEPALA_LAB_KAL: "LAB-KAL",
-
 }

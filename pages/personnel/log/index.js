@@ -26,7 +26,6 @@ export default function PersonelLogPage() {
   useEffect(() => {
     if(!isValidating){
       if(user){
-        console.log("user", user)
         if(user.data.role.access_code != ACCESS_CODE.PERSONNEL && user.data.role.access_code != ACCESS_CODE.PERSONNEL_PEERS &&  user.data.role.access_code != ACCESS_CODE.ADMIN){
           router.replace("/")
         }
@@ -35,7 +34,6 @@ export default function PersonelLogPage() {
         }
       }
       if(error&& !user){
-        console.log("error", error)
         router.replace("/")
       }
 
@@ -60,8 +58,6 @@ export default function PersonelLogPage() {
           <div className="flex flex-col  space-y-5">
             <LogFilterSection/>
             <LogMainSection/>
-
-            {/* <LogSection/> */}
           </div>
         </DateFilterUjiContextProvider>
       </PageContextProvider>

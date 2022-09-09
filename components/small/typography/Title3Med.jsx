@@ -5,10 +5,8 @@ export default function Title3Med({className, children}) {
     <div className={classNames(
         "title-3-med",
         className
-
     )}>
         {children}
-
     </div>
     )
 }

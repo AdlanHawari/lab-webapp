@@ -14,9 +14,7 @@ import * as Yup from 'yup'
 export default function FormBeritaAcaraPekerjaan({
     id,
     data,
-    submitState,
     setSubmitState,
-    reqSent,
     setreqSent,
 }) {
 
@@ -29,7 +27,6 @@ export default function FormBeritaAcaraPekerjaan({
             setreqSent(true)
         }
     }, [storeBAP, confirm])
-    
 
   return (
     <Formik
@@ -37,14 +34,11 @@ export default function FormBeritaAcaraPekerjaan({
     validationSchema={BapValidationSchema(Yup)}
     onSubmit={(values)=> {
         setSubmitState(true)
-        console.log(values)
         let formData = handleFormData(values)
 
         async function fetchData(){
             const response = await createBAPReport(formData, data.id)
             const respConf = await confirmTestApp( data.id)
-            console.log(response)
-
             if(response.header.response_code == 201){
                 setStoreBAP(true)
             }
@@ -52,7 +46,6 @@ export default function FormBeritaAcaraPekerjaan({
                 setConfirm(true)
             }
         }
-
         fetchData()
     }}
     >
@@ -96,7 +89,6 @@ export default function FormBeritaAcaraPekerjaan({
                             Merk Alat
                         </Body1>
                         <Body2 className="text-black-500">
-                            {/* {data.tools[0].tool.brand} */}
                             {data.test_type==jenisPekerjaan[0]?data.tools[0].tool.brand:data.tools[0].tool_brand}
                         </Body2>
                         <Body1 className="text-black-400">
@@ -114,7 +106,6 @@ export default function FormBeritaAcaraPekerjaan({
                                 id="generator_serial_number"
                                 name="generator_serial_number"
                                 type="text"
-                                
                                 placeholder="Isi Input"
                                 />
                             <ErrorMessage name="generator_serial_number" component={ValidationMessage}/>
@@ -128,7 +119,6 @@ export default function FormBeritaAcaraPekerjaan({
                                 id="tube_container_serial_number"
                                 name="tube_container_serial_number"
                                 type="text"
-                                
                                 placeholder="Isi Input"
                                 />
                             <ErrorMessage name="tube_container_serial_number" component={ValidationMessage}/>
@@ -142,7 +132,6 @@ export default function FormBeritaAcaraPekerjaan({
                                 id="insertion_tube_serial_number"
                                 name="insertion_tube_serial_number"
                                 type="text"
-                                
                                 placeholder="Isi Input"
                                 />
                             <ErrorMessage name="insertion_tube_serial_number" component={ValidationMessage}/>
@@ -182,7 +171,6 @@ export default function FormBeritaAcaraPekerjaan({
                                 />
                             <ErrorMessage name="remarks" component={ValidationMessage}/>
                         </div>
-
                     </div>
                     <div className="grid grid-cols-2 gap-y-3 py-3">
                         <Body1 className="text-black-400">
@@ -198,14 +186,11 @@ export default function FormBeritaAcaraPekerjaan({
                                 placeholder="Upload Document"
                             />
                             <ErrorMessage name="bap" component={ValidationMessage}/>
-
                         </div>
                     </div>
                 </div>
-
             </Form>
         }}
-
     </Formik>
   )
 }

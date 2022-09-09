@@ -5,10 +5,8 @@ export default function Body1({className, children}) {
     <div className={classNames(
         "body1",
         className
-
     )}>
         {children}
-
     </div>
     )
 }

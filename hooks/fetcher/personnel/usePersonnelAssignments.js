@@ -7,9 +7,7 @@ export default function usePersonnelAssignments(id){
         `/test-applications?tester_user_id=${id}`,
         personnel.getAssignments
     )
-
     const loading = !data && !error
-
     return {
         loading,
         error,

@@ -5,74 +5,35 @@ import { userType } from "constants/UserType";
 import useUser from "hooks/fetcher/auth/useUser";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { delay } from "utils/delay";
 
 export default function WelcomeSUPage() {
   const { user, loading,error, isValidating} = useUser()
   const [render, setRender] = useState(false)
   const router = useRouter()
-  useEffect(() => {
-    console.log("entering superadmin")
-    // console.log("please wait 10 sec")
-    // delay(10000)
-    
+  useEffect(() => { 
     if(!isValidating){
-
       if(user){
-        console.log("user", user)
         if(user.data.role.access_code != ACCESS_CODE.ADMIN){
           router.replace("/")
         }
         else{
           setRender(true)
         }
-        // if(error){
-        //   console.log("error", error)
-        //   router.replace("/")
-        // }
       }
-      
       if(error&& !user){
-        console.log("error user")
-        console.log("error", error)
         router.replace("/") 
       }
     }
-  
-      // if(unAuthorized&& !user){
-      //   console.log("error user")
-      //   // console.log("error", error)
-      //   router.replace("/")
-      // }
-      // if(error&& !user){
-      //   console.log("error user")
-      //   console.log("error", error)
-      //   router.replace("/") 
-      // }
-      // if(error){
-      //   console.log("status",error.status)
-      // }
-      // if(error&& !user){
-      //   console.log("error", error)
-      //   router.replace("/")
-      // }
-    
-    // else{
-    //   router.replace("/")
-    // }
-  
   }, [user,error, isValidating])
 
   return (
     <>
     {loading ?
     <div className="">
-
       <h3>Loading...</h3>
     </div>
     :
     render &&
-    
     <div className="flex flex-col space-y-6 h-screen w-screen justify-center items-center">
         <h1>
           Welcome! 
@@ -96,11 +57,8 @@ export default function WelcomeSUPage() {
               Personel
             </Button>
           </MyLink>
-        {/* </div> */}
-
-      </div>
-
-   </div>
+        </div>
+    </div>
     }
    </>
   )

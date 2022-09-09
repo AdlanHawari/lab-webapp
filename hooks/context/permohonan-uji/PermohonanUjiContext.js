@@ -7,7 +7,6 @@ export default function ManajemenPermohonanUjiContextProvider({children}){
     const [konfirmPembayaranPopUp, setKonfirmPembayaranPopUp] = useState(false)
     const [cancelUjiPopUp, setCancelUjiPopUp] = useState(false)
     const [editPenawaranPopUp, setEditPenawaranPopUp] = useState(false)
-
     const contextValue = useMemo(()=> {
         return {
             buatPenawaranPopUp, 
@@ -29,7 +28,6 @@ export default function ManajemenPermohonanUjiContextProvider({children}){
         editPenawaranPopUp, 
         setEditPenawaranPopUp
     ])
-
     return(
         <manajemenPermohonanUjiContext.Provider value={contextValue}>
             {children}

@@ -1,17 +1,9 @@
 import { Disclosure, Transition } from '@headlessui/react'
-import { LightningBoltIcon } from '@heroicons/react/outline'
 import { ChevronDownIcon } from '@heroicons/react/solid'
 import classNames from 'classnames'
-import { MyLink } from 'components/general/MyLink'
 import Body2 from 'components/small/typography/Body2'
-import Title1 from 'components/small/typography/Title1'
-import Title2Med from 'components/small/typography/Title2Med'
-import { useTitleContext } from 'hooks/TitleContext'
-import { useEffect } from 'react'
 
 export default function SectionPaymentStep() {
-
-
   return (
     <Disclosure as="div" className="">
       {({open}) => (
@@ -20,10 +12,7 @@ export default function SectionPaymentStep() {
           "flex justify-between items-center w-full py-2 px-2.5 bg-primary rounded-xl shadow-sm"
           )}
           >
-        {/* <Disclosure.Button className="flex justify-between items-center w-48 h-11 py-2.5"> */}
           <div className="flex items-center space-x-5">
-
-            
             <Body2 className="text-white">
                 Ketentuan Jasa dan Langkah Pembayaran
             </Body2>
@@ -43,8 +32,6 @@ export default function SectionPaymentStep() {
               leaveFrom="transform scale-100 opacity-100"
               leaveTo="transform scale-95 opacity-0"
             >
-
-            
           <Disclosure.Panel as='ul' static className=
             "pt-2 list-inside list-disc space-y-2"
           >
@@ -52,27 +39,7 @@ export default function SectionPaymentStep() {
                 <div className="">
                   Lorem, ipsum dolor sit amet consectetur adipisicing elit. Qui neque deserunt debitis consequatur nihil enim mollitia sint unde amet voluptate?
                 </div>
-            //   <>
-            //   {object.map((item,index)=>(
-            //     <li key={index} className={classNames(
-            //       "pl-10 h-11 py-2.5 ",
-            //       page == item.path && "bg-sidebar-submenu rounded-lg"
-            //       // "bg-sidebar-submenu rounded-lg"
-            //     )}
-            //     >
-            //       <MyLink href={item.path} className="title-2-med" onClick={()=> {
-            //         close()
-            //         setTitle(item.title)
-            //         }}>
-            //         {/* <Title2Med>{item.title}</Title2Med> */}
-            //         {item.title}
-            //         {/* {page} */}
-            //       </MyLink>
-            //     </li>
-            //   ))}
-            //   </>
             )}
-            
           </Disclosure.Panel>
         </Transition>
       </>

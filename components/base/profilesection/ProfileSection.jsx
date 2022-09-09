@@ -3,22 +3,12 @@ import Body1 from 'components/small/typography/Body1'
 import Body2 from 'components/small/typography/Body2'
 import { profile } from 'constants/Profile'
 import useUser from 'hooks/fetcher/auth/useUser'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 export default function ProfileSection() {
-
   const { user, loading,error,mutate } = useUser()
-  // console.log("data",user.data)
-  // useEffect(() => {
-  //   if(!user){
-  //     mutate()
-  //   }
-  // })
-  
 
   return (
-   
-
     <BigCard className="border-2 border-solid border-cardStrokes shadow-lg">
       <div className="grid grid-flow-col grid-cols-2 ">
         <ul className="space-y-8">
@@ -51,7 +41,6 @@ export default function ProfileSection() {
               {user.data.phone?
                 <Body2 className="text-black-400">
                   {user.data.phone}
-                
                 </Body2>
                 :
                 <div className="">
@@ -70,6 +59,5 @@ export default function ProfileSection() {
           }
       </div>
     </BigCard>
-
   )
 }

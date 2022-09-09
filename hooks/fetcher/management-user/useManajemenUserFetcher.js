@@ -14,23 +14,18 @@ export const useManajemenUserFetcherContext = () => {
 
 function useProvideManajemenUser(){
     const token = GetToken()
-    
     async function getUsers(url){
         let error
-
-        
-        var requestOptions = {
+        let requestOptions = {
         method:'GET'  ,
         headers: {
-            'Authorization': `Bearer ${token}`,
-            // 'Content-Type': 'application/json'
+            'Authorization': `Bearer ${token}`
         },
         redirect: 'follow'
         };
 
         const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, requestOptions)
         const res = await req.json()
-        console.log('response', res)
 
         if(res.header.response_code == 200){
             const data = res.data
@@ -60,8 +55,7 @@ function useProvideManajemenUser(){
         var requestOptions = {
             method:'POST'  ,
             headers: {
-                'Authorization': `Bearer ${token}`,
-                // 'Content-Type': 'application/json'
+                'Authorization': `Bearer ${token}`
             },
             body: formData,
             redirect: 'follow'
@@ -69,60 +63,50 @@ function useProvideManajemenUser(){
 
         const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/institutions`, requestOptions)
         const res = await req.json()
-
         return res
     }
 
     async function createUser(formData){
-        var requestOptions = {
+        let requestOptions = {
             method:'POST'  ,
             headers: {
-                'Authorization': `Bearer ${token}`,
-                // 'Content-Type': 'application/json'
+                'Authorization': `Bearer ${token}`
             },
             body: formData,
             redirect: 'follow'
             };
-
         const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, requestOptions)
         const res = await req.json()
-
         return res
     }
 
     async function deleteUser(id){
-        var requestOptions = {
+        let requestOptions = {
             method:'DELETE'  ,
             headers: {
-                'Authorization': `Bearer ${token}`,
-                // 'Content-Type': 'application/json'
+                'Authorization': `Bearer ${token}`
             },
             redirect: 'follow'
             };
-
         const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${id}`, requestOptions)
         const res = await req.json()
-
         return res
     }
 
     async function editUser(formData){
-        var requestOptions = {
+        let requestOptions = {
             method:'PUT'  ,
             headers: {
-                'Authorization': `Bearer ${token}`,
-                // 'Content-Type': 'application/json'
+                'Authorization': `Bearer ${token}`
             },
             body: formData,
             redirect: 'follow'
             };
-
         const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, requestOptions)
         const res = await req.json()
-
         return res
     }
-
+    
     return {
         getUsers,
         createInstitution,

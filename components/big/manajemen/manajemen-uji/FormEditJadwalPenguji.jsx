@@ -8,32 +8,20 @@ import ValidationMessage from 'components/small/validation_form/ValidationMessag
 import { jenisPekerjaan } from 'constants/JenisPekerjaan'
 import { ErrorMessage, Form, Formik } from 'formik'
 import { formPemilhanJadwalPengujiInitValues } from 'helper/initial-formik-values/FormPemilihanJadwalPengujiInitValues'
-import FormPemilihanJadwalPengujiValidationSchema from 'helper/yup/FormPemilihanJadwalPengujiValidationSchema'
 import { useDetailUji } from 'hooks/fetcher/detail-uji/useDetailUji'
 import usePersonnelStatus from 'hooks/fetcher/personnel/usePersonnelStatus'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import handleFormData from 'utils/HandleFormData'
-import * as Yup from 'yup'
 
 export default function FormEditJadwalPenguji({
     id,
     data,
-    submitState,
     setSubmitState,
     setreqSent
 
 }) {
-    // const [update, setUpdate] = useState(false)
-    // const [storeData, setStoreData] = useState(false)
     const {personnel, loading, error} = usePersonnelStatus()
     const {updateAssignment} = useDetailUji()
-// console.log("init", data)
-    useEffect(() => {
-        if(personnel){
-            console.log("personnel", personnel.data)
-        }
-    
-    }, [personnel])
 
     function formEntry(values){
         let updatedVal = {}
@@ -42,12 +30,8 @@ export default function FormEditJadwalPenguji({
                 updatedVal[key] = value
             }
             if(key =="tester_user_id" && values.tester_user_id != data.assignment_detail.tester_id){
-            // if(key =="tester_user_id"){
                 updatedVal[key] = value
-                // console.log("value",values.tester_user_id)
-                // console.log("data",data.assignment_detail.tester_id)
             }
-            
         }
         return updatedVal
     }
@@ -55,17 +39,12 @@ export default function FormEditJadwalPenguji({
   return (
     <Formik
     initialValues={formPemilhanJadwalPengujiInitValues}
-    // validationSchema={FormPemilihanJadwalPengujiValidationSchema(Yup)}
     onSubmit={(values)=>{
-        // console.log(values)
-        console.log("tester", data.assignment_detail.tester_id)
+        console.debug("tester", data.assignment_detail.tester_id)
         const finalValues = formEntry(values)
-        console.log("finalValues",finalValues)
-
         async function fetchData(formData,id){
             
             const response = await updateAssignment(formData,id)
-            console.log("respons", response)
             if(response.header.response_code==200){
                 setreqSent(true)
             }
@@ -75,18 +54,13 @@ export default function FormEditJadwalPenguji({
         }
 
         if(Object.keys(finalValues).length === 0 && finalValues.constructor === Object){
-            console.log("no change")
-            // setEmptyVal(true)
+            console.debug("no change")
         }
         else{
             setSubmitState(true)
-            
             let formData = handleFormData(finalValues)
-            // console.log(finalValues)
             fetchData(formData, data.assignment_id)
-            // console.log(data.id)
         }
-        // fetchData(values)
     }}
     >{formik => {
         return <Form id={id}>
@@ -123,7 +97,6 @@ export default function FormEditJadwalPenguji({
                             Merk Alat
                         </Body1>
                         <Body2 className="text-black-500">
-                            {/* {data.tools[0].tool.brand} */}
                             {data.test_type==jenisPekerjaan[0]?data.tools[0].tool.brand:data.tools[0].tool_brand}
                         </Body2>
                         <Body1 className="text-black-400">
@@ -135,7 +108,6 @@ export default function FormEditJadwalPenguji({
                     </div>
                     <SectionFormPraUji data={data}/>
                 </div>
-
                 <div className="block py-3">
                     <Body3 className="text-black-400">
                         Jadwal &amp; Penguji
@@ -151,19 +123,15 @@ export default function FormEditJadwalPenguji({
                             name="test_date"
                             onBlur={formik.handleBlur}
                             />
-                            
                             <ErrorMessage name="test_date" component={ValidationMessage}/>
                         </div>
-
                         <Body1 className="text-black-400">
                             Nama Penguji
                         </Body1>
                         <div className="block">
-                           
                         {personnel &&
                         <>
                             <PersonnelComboBox
-                            // selected={formik.values.tester_user_id}
                             setFormikValue={formik.setFieldValue}
                             id = "tester_user_id"
                             name="tester_user_id"
@@ -175,16 +143,11 @@ export default function FormEditJadwalPenguji({
                             />
                             <ErrorMessage name="tester_user_id" component={ValidationMessage}/>
                         </>
-
                         }
                         </div>
                     </div>
-
-
                 </div>
-
             </div>
-
         </Form>
     }}
     </Formik>

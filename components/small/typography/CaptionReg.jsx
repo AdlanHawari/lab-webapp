@@ -5,10 +5,8 @@ export default function CaptionReg({className, children}) {
     <div className={classNames(
         "caption-reg",
         className
-
     )}>
         {children}
-
     </div>
     )
 }

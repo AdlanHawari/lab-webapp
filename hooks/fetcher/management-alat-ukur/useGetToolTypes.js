@@ -10,7 +10,6 @@ export default function useGetToolTypes(
         getToolTypes
     )
     const loading = !data && !error;
-    // console.log("ini swr nya")
   return {
     loading,
     error,

@@ -11,54 +11,36 @@ import * as Yup from 'yup'
 export default function FormRegisBapeten({
     id,
     data,
-    submitState,
     setSubmitState,
-    reqSent,
     setreqSent,
 }) {
-
     const {updateTestApp, confirmTestApp} = useDetailUji()
-
     const [bapetenState, setBapetenState] = useState(false)
     const [confirm, setConfirm] = useState(false)
 
     useEffect(() => {
-      
-    
         if(confirm && bapetenState){
             setreqSent(true)
         }
     }, [confirm, bapetenState])
     
-
-
   return (
     <Formik
     initialValues={inputNoRegisBalisInitValues}
     validationSchema={NoRegisBalisValidationSchema(Yup)}
     onSubmit={(values)=> {
         setSubmitState(true)
-        console.log(values)
-
         let formData = handleFormData(values)
         async function fetchData(formData, id){
             const responseReg = await updateTestApp(formData, id)
             const responseConf = await confirmTestApp(id)
-            console.log("responseReg",responseReg)
-            console.log("responseConf",responseConf)
-
             if(responseReg.header.response_code == 200){
-                // setreqSent(true)
                 setBapetenState(true)
               }
             if(responseConf.header.response_code == 200){
-                // setreqSent(true)
                 setConfirm(true)
               }
-
-
         }
-
         fetchData(formData, data.id)
     }}
     >
@@ -73,16 +55,12 @@ export default function FormRegisBapeten({
                       id="bapeten_no"
                       name="bapeten_no"
                       type="text"
-                      
                       placeholder="No. Registrasi Balis"
                       />
                   <ErrorMessage name="bapeten_no" component={ValidationMessage}/>
               </div>
-
             </div>
-
         </Form>
-
     </Formik>
   )
 }

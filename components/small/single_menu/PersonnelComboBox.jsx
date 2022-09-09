@@ -10,17 +10,12 @@ export default function PersonnelComboBox(props) {
         placeholder,
         id,
         name,
-        type,
         setFormikValue,
-        // selected, 
-        // setSelected,
-        disabled,
         initValue
       } = props
 
       const [query, setQuery] = useState('')
       const [selected, setSelected] = useState(initValue? initValue: {})
-//   console.log("initval",initValue)
       const filteredItemLists =
       query === ''
       ? itemLists
@@ -29,29 +24,20 @@ export default function PersonnelComboBox(props) {
           .toLowerCase()
           .replace(/\s+/g, '')
           .includes(query.toLowerCase().replace(/\s+/g, ''))
-          
       )
 
       useEffect(() => {
-        console.log("selected", selected)
-        // if(setContext){
-        //     setContext(selected)
-        // }
         if(setFormikValue){
             setFormikValue(name, selected.id)
         }
-        // setInstitutionState(selected.id)
       }, [selected])
-
 
   return (
     <div className="w-full">
         <Combobox
             value={selected}
             onChange={ value => {
-                console.log("id", value.id)
                 setSelected(value)
-                // setFormikValue(id,value.id)
             }}
         >
             <div className="relative">
@@ -130,12 +116,9 @@ export default function PersonnelComboBox(props) {
                             )
                         }
                     </Combobox.Options>
-
                 </Transition>
             </div>
-
         </Combobox>
-
     </div>
   )
 }

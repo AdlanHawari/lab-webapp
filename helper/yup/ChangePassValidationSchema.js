@@ -13,7 +13,6 @@ function ChangePassValidationSchema(yup){
             .oneOf([yup.ref('new_password'), null], 'Password tidak sama')
             .required("Password tidak sama")
         })
-
     )
 }
 

@@ -1,7 +1,5 @@
-import ManajemenujiTable from 'components/base/table/ManajemenujiTable'
 import PersonnelUjiTable from 'components/base/table/PersonnelUjiTable'
 import Pagination from 'components/small/pagination/Pagination'
-import { manajemenUjiData } from 'constants/test_objects/manajemenUji'
 import { useDateFilterUjiContext } from 'hooks/context/filter-date/DateFilterUjiContext'
 import { useStatusFilterContext } from 'hooks/context/filter-status/StatusContext'
 import KonfirmLaporanUjiContextProvider from 'hooks/context/manajemen-uji/KonfirmLaporanUjiContext'
@@ -25,24 +23,18 @@ export default function UjiPersonnelMainSection() {
       "pengujian"
 
     )
-
-    console.log("data",data)
     
-
     useEffect(() => {
       if(data){
         setLastPage(data.header.total_page)
-        console.log("datanya",data.data)
       }
-      
   },[data])
   return (
     <div className="pt-5 space-y-5">
       {loading &&
         <h2>Loading</h2>
       }
-        {/* <ManajemenujiTable data={manajemenUjiData}/> */}
-        {data &&
+      {data &&
       data.data.length>0 ? 
         <DetailUjiFetcherProvider>
             <KonfirmLaporanUjiContextProvider>
@@ -63,7 +55,6 @@ export default function UjiPersonnelMainSection() {
           :
           !loading&&
           <></>
-        
       }
     </div>
   )

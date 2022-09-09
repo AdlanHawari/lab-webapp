@@ -3,7 +3,6 @@ import { useDocNumberFilterContext } from 'hooks/context/filter-docNumber/Docume
 import React from 'react'
 
 export default function DocumentNoFilter() {
-
   const {docNumState, setDocNumState} = useDocNumberFilterContext()
   return (
     <div className="items-center flex">
@@ -20,7 +19,6 @@ export default function DocumentNoFilter() {
             </div>
           </div>
       </div>
-
     </div>
   )
 }

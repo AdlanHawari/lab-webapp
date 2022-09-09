@@ -18,7 +18,6 @@ export default function PersonnelUjiContextProvider({children}){
             setKonfirmLaporanUjiPopUp,
             editLaporanUjiPopUp, 
             setEditLaporanUjiPopUp
-            
         }
     }, [
         beritaAcaraPopUp, 

@@ -39,13 +39,10 @@ export default function ContentSectionFormPraUji({data}) {
                             <Body2 className="text-black-500">
                                 {data.test_type}
                             </Body2>
-                        
-                    
                             <Body1 className="text-black-400">
                                 Merk Alat
                             </Body1>
                             <Body2 className="text-black-500">
-                                {/* {item.tool.brand} */}
                                 {data.test_type==jenisPekerjaan[0]?item.tool.brand:item.tool_brand}
                             </Body2>
                             <Body1 className="text-black-400">
@@ -54,21 +51,18 @@ export default function ContentSectionFormPraUji({data}) {
                             <Body2 className="text-black-500">
                                 {item.tool_type}
                             </Body2>
-                            
                             <Body1 className="text-black-400">
                                 Buatan/Pabrik
                             </Body1>
                             <Body2 className="text-black-500">
                                 {item.manufactured}
                             </Body2>
-
                             <Body1 className="text-black-400">
                                 No. Seri Kontrol Panel
                             </Body1>
                             <Body2 className="text-black-500">
                                 {item.control_panel_serial}
                             </Body2>
-
                             <Body1 className="text-black-400">
                                 No. Seri Wadah Tabung
                             </Body1>
@@ -79,7 +73,6 @@ export default function ContentSectionFormPraUji({data}) {
                     </div>
                 ))}
             </div>
-
         </div>
     </div>
   )

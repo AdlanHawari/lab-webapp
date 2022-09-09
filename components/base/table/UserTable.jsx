@@ -8,7 +8,6 @@ import ErrorModal from 'components/big/ErrorModal'
 import FormModal from 'components/big/FormModal'
 import FormEditUser from 'components/big/manajemen/manajemen-user/FormEditUser'
 import Button from 'components/small/button_fixed/Button'
-import ButtonSmall from 'components/small/button_small/ButtonSmall'
 import Body3 from 'components/small/typography/Body3'
 import Table1 from 'components/small/typography/Table1'
 import Table2 from 'components/small/typography/Table2'
@@ -16,7 +15,6 @@ import { form_edit_user_id } from 'constants/FormUtils'
 import { userTableHead } from 'constants/table/RowTitle'
 import { useManajemenUserFetcherContext } from 'hooks/fetcher/management-user/useManajemenUserFetcher'
 import React, { useEffect, useState } from 'react'
-import { useSWRConfig } from 'swr'
 
 export default function UserTable({data, mutate, institutionList}) {
     const [onDelete, setOnDelete] = useState(false)
@@ -25,9 +23,7 @@ export default function UserTable({data, mutate, institutionList}) {
     const [dataSelected, setDataSelected] = useState({})
     const [submitState, setSubmitState] = useState(false)
     const [reqSent, setreqSent] = useState(false);
-
     const {deleteUser} = useManajemenUserFetcherContext()
-    
 
     useEffect(() => {
         if(reqSent){
@@ -55,7 +51,6 @@ export default function UserTable({data, mutate, institutionList}) {
                     </th>
                 ))}
             </tr>
-
         </thead>
         <tbody className='bg-white divide-y divide-table-divider'>
         {data.map((item,index)=>(
@@ -79,7 +74,6 @@ export default function UserTable({data, mutate, institutionList}) {
                     <Table1 className="text-black-500 leading-normal">
                         {item.email}
                     </Table1>
-                    
                 </td>
                 <td className="w-48 py-2 px-4">
                     <Table1 className="text-black-500 leading-normal">
@@ -107,44 +101,29 @@ export default function UserTable({data, mutate, institutionList}) {
                             <TrashIcon className="w-4 h-5 text-white " aria-hidden="true"/>
                         </button>
                     </div>
-                    
                 </td>
-
             </tr>
-            
-
         ))}
-
         </tbody>
     </table>
-
-
-    {onDelete&& 
-    
+    {onDelete&&
         <AssuranceModal
         title="Hapus User"
         bgColor="warning"
         isOpen={onDelete}
         setIsOpen={setOnDelete}
         confirmButton={
-            
                 <Button
                 className={classNames(submitState?"w-64":"bg-error w-64 hover:bg-error-dark")}
                 buttonStyle={submitState ? "primary_disabled" :"primary_default"}
-                // buttonStyle="primary_default"
                 disabled={submitState ? true:false}
                 type='button'
                 onClick={()=> {
-                    // console.log("id", dataSelected.id)
                     setSubmitState(true)
                     
                     async function fetchData(id){
                         const responseDel = await deleteUser(id)
-
-                        console.log("responseDel", responseDel)
-
                         if(responseDel.header.response_code==200){
-                            // setSubmitState(false)
                             setreqSent(true)
                         }
                         if(responseDel.header.response_code==400){
@@ -160,7 +139,6 @@ export default function UserTable({data, mutate, institutionList}) {
                         }
                     }
                     fetchData(dataSelected.id)
-                    
                 }}
                 >
                     <Body3>
@@ -170,14 +148,11 @@ export default function UserTable({data, mutate, institutionList}) {
                         Hapus
                     </Body3>
                 </Button>
-               
         }
         >
-
             <div className="block pb-10">
                 <Body3 className="text-black-400">Hapus <strong className='text-black-400 underline'>{dataSelected.name}</strong> dari daftar user?</Body3>
             </div>
-
         </AssuranceModal>
     }
 
@@ -191,8 +166,6 @@ export default function UserTable({data, mutate, institutionList}) {
             <div className="block pb-10 text-center">
                 <Body3 className="text-black-400">User <strong className='text-black-400 underline'>{dataSelected.name}</strong> tidak dapat dihapus karena sudah melakukan pengajuan uji</Body3>
             </div>
-
-
         </ErrorModal>
     }
 
@@ -204,7 +177,6 @@ export default function UserTable({data, mutate, institutionList}) {
         setIsOpen={setOnEdit}
         buttonSide={
             <>
-            {/* <Button className="bg-primary" buttonStyle="primary_default" type="submit" form={form_permohonan_uji_id}> */}
             <Button 
             className="bg-primary"  
             buttonStyle={
@@ -220,29 +192,17 @@ export default function UserTable({data, mutate, institutionList}) {
             </Button>
             </>
         }
-        
-        >
-            <FormEditUser
-            institutionList={institutionList}
-            id={form_edit_user_id}
-            data={dataSelected}
-            submitState={submitState}
-            setSubmitState={setSubmitState}
-            setreqSent={setreqSent}
-            />
-        
-        
-            {/* <FormCreateUser 
-            institutionList={ institutionFetcher.institutionLists.data}
-            id={form_create_user_id}
-            setSubmitState={setSubmitState}
-            setreqSent={setreqSent}
-            submitState={submitState}
-            /> */}
-
-            
-        </FormModal>
-    }
-</>
+            >
+                <FormEditUser
+                institutionList={institutionList}
+                id={form_edit_user_id}
+                data={dataSelected}
+                submitState={submitState}
+                setSubmitState={setSubmitState}
+                setreqSent={setreqSent}
+                />
+            </FormModal>
+        }
+    </>
   )
 }

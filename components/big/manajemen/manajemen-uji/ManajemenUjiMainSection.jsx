@@ -1,6 +1,5 @@
 import ManajemenujiTable from 'components/base/table/ManajemenujiTable'
 import Pagination from 'components/small/pagination/Pagination'
-import { manajemenUjiData } from 'constants/test_objects/manajemenUji'
 import { useDateFilterUjiContext } from 'hooks/context/filter-date/DateFilterUjiContext';
 import { useStatusFilterContext } from 'hooks/context/filter-status/StatusContext';
 import KonfirmLaporanUjiContextProvider from 'hooks/context/manajemen-uji/KonfirmLaporanUjiContext';
@@ -22,13 +21,11 @@ export default function ManajemenUjiMainSection() {
       currentPage,
       statusFilter,
       "pengujian"
-
     )
 
     useEffect(() => {
       if(data){
         setLastPage(data.header.total_page)
-        console.log("datanya",data.data)
       }
   },[data])
 
@@ -37,15 +34,12 @@ export default function ManajemenUjiMainSection() {
       {loading &&
         <h2>Loading</h2>
       }
-
       {data &&
       data.data.length>0 ?
       <DetailUjiFetcherProvider>
-        {/* <ManajemenujiTable data={manajemenUjiData}/> */}
         <KonfirmLaporanUjiContextProvider>
           <ManajemenujiTable data={data.data} mutate={mutate}/>
         </KonfirmLaporanUjiContextProvider>
-
       </DetailUjiFetcherProvider>
       :
       !loading&&
@@ -54,16 +48,13 @@ export default function ManajemenUjiMainSection() {
               <h1>Belum ada data</h1>
           </div>
         </div>
-
       }
-
       {data && 
         data.data.length>0 ?
           <Pagination/>
           :
           !loading&&
           <></>
-        
       }
     </div>
   )

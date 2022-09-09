@@ -11,7 +11,6 @@ export default function EditUserValidationSchema(yup) {
           }
           return true
          }),
-
         phone_number: yup.string().test(
         'minimum char when not empty',
         "Harap isi dengan nomor Hp aktif",
@@ -26,7 +25,6 @@ export default function EditUserValidationSchema(yup) {
           }
           return true
         }),
-
       password: yup.string(),
       password_confirmation: yup.string().when('password', {
         is: (password) => password != null ,

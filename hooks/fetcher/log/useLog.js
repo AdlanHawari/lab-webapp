@@ -11,9 +11,7 @@ export default function useLog(
         `/logs?start_date=${start_date}&end_date=${end_date}&page=${page}`,
         userLog.getUserLog
     )
-
     const loading = !data && !error;
-
     return{
         loading,
         error,

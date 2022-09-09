@@ -13,19 +13,14 @@ export default function FormKonfirmPembayaranUji({
 
     useEffect(() => {
         if(data.documents.length>0){
-            
             data.documents.map((item,index)=>{
                 if(item.type=="INVOICE"){
                     setInvoice(item)
                 }
             })
         }
-    
     })
 
-    useEffect(() => {
-      console.log(invoice)
-    }, [invoice])
 
   return (
     <div className="flex flex-col divide-y divide-grey-200  w-full pl-10 pr-32">
@@ -46,7 +41,6 @@ export default function FormKonfirmPembayaranUji({
                   Merk Alat
               </Body1>
               <Body2 className="text-black-500">
-                {/* {data.tools[0].tool.brand} */}
                 {data.test_type==jenisPekerjaan[0]?data.tools[0].tool.brand:data.tools[0].tool_brand}
               </Body2>
               <Body1 className="text-black-400">
@@ -56,7 +50,6 @@ export default function FormKonfirmPembayaranUji({
                   {data.tools[0].tool_type}
               </Body2>
         </div>
-
         <div className="block py-3">
             <Body3 className="text-black-500">
             Verifikasi bahwa pembayaran berikut telah dilakukan dan uji lanjut ke tahap penjadwalan?
@@ -66,19 +59,13 @@ export default function FormKonfirmPembayaranUji({
                     Total
                 </Body2>
                 <Body3 className="text-black-500">
-                {/* Rp14.300.000 */}
-                <NumberFormat value={data.cost_detail.cost_with_ppn} displayType={'text'} thousandSeparator=',' prefix={'Rp'} /> 
-                
+                    <NumberFormat value={data.cost_detail.cost_with_ppn} displayType={'text'} thousandSeparator=',' prefix={'Rp'} />
                 </Body3>
             </div>
-
             <div className="w-3/5 space-y-3">
                 <SectionPaymentProof invoice={invoice} data={data}/>
             </div>
-
-
         </div>
-
     </div>
   )
 }

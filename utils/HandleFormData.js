@@ -3,7 +3,5 @@ export default function handleFormData(objects){
       for (let item in objects){
         formData.append(item, objects[item])
       }
-      
-
-      return formData
+    return formData
 }

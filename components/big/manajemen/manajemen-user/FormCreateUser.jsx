@@ -1,19 +1,16 @@
-import classNames from 'classnames'
 import Button from 'components/small/button_fixed/Button'
 import InstansiDropDown from 'components/small/single_menu/InstansiDropDown'
 import UserRoleDropDown from 'components/small/single_menu/UserRoleDropDown'
 import Body1 from 'components/small/typography/Body1'
-import Body2 from 'components/small/typography/Body2'
 import CaptionReg from 'components/small/typography/CaptionReg'
 import ValidationMessage from 'components/small/validation_form/ValidationMessage'
-import { form_create_user_id } from 'constants/FormUtils'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import { createUserInitValues } from 'helper/initial-formik-values/CreateUserInitValues'
 import CreateInstValidationSchema from 'helper/yup/CreateInstValidationSchema'
 import CreateUserValidationSchema from 'helper/yup/CreateUserValidationSchema'
 import { useManajemenUserContext } from 'hooks/context/manajemen-user/ManajemenUserContext'
 import { useManajemenUserFetcherContext } from 'hooks/fetcher/management-user/useManajemenUserFetcher'
-import React, { useState } from 'react'
+import React from 'react'
 import { useSWRConfig } from 'swr'
 import handleFormData from 'utils/HandleFormData'
 import * as Yup from 'yup'
@@ -21,34 +18,26 @@ import CreateInstitutionForm from './CreateInstitutionForm'
 
 export default function FormCreateUser({
     id,
-    data,
     institutionList,
     submitState,
     setSubmitState,
     setreqSent
 }) {
-
     const {
         createInstForm, 
         setCreateInstForm } = useManajemenUserContext()
-
     const {createInstitution, createUser} = useManajemenUserFetcherContext()
-
     const {mutate} = useSWRConfig()
 
   return (
     <Formik
     initialValues={createUserInitValues}
     validationSchema={createInstForm? CreateInstValidationSchema(Yup):CreateUserValidationSchema(Yup)}
-    // validationSchema={CreateUserValidationSchema(Yup)}
     onSubmit={(values)=> {
         setSubmitState(true)
         async function createInstFunction(formData){
             const response = await createInstitution(formData)
-
-            // console.log("response", response)
             if(response.header.response_code==201){
-                // setStoreData(true)
                 mutate('/institutions')
                 setSubmitState(false)
                 setCreateInstForm(false)
@@ -62,15 +51,11 @@ export default function FormCreateUser({
             if(response.header.response_code==422){
                 setSubmitState(false)
             }
-
         }
         
         async function createUserFunction(formData){
             const response = await createUser(formData)
-
-            console.log("response", response)
             if(response.header.response_code==201){
-                // setSubmitState(false)
                 setreqSent(true)
             }
             if(response.header.response_code==400){
@@ -82,7 +67,6 @@ export default function FormCreateUser({
             if(response.header.response_code==422){
                 setSubmitState(false)
             }
-
         }
         let sendValues = {}
         if(createInstForm){
@@ -91,14 +75,10 @@ export default function FormCreateUser({
             createInstFunction(formData)
         }
         else{
-            // fetcher = createUser
             sendValues = values.user_create
             let formData = handleFormData(sendValues)
             createUserFunction(formData)
         }
-        // console.log(sendValues)
-
-        
     }}
 
     >{formik => {
@@ -117,9 +97,7 @@ export default function FormCreateUser({
                             placeholder="Isi Nama"
                             />
                         <ErrorMessage name="user_create.name" component={ValidationMessage}/>
-                        
                     </div>
-
                     <Body1 className="text-black-400">
                         Role
                     </Body1>
@@ -131,7 +109,6 @@ export default function FormCreateUser({
                         />
                         <ErrorMessage name="user_create.role_id" component={ValidationMessage}/>
                     </div>
-
                     <Body1 className="text-black-400">
                         Jabatan
                     </Body1>
@@ -144,9 +121,7 @@ export default function FormCreateUser({
                             placeholder="Isi Nama"
                             />
                         <ErrorMessage name="user_create.position" component={ValidationMessage}/>
-                        
                     </div>
-
                     <Body1 className="text-black-400">
                         Instansi
                     </Body1>
@@ -158,19 +133,15 @@ export default function FormCreateUser({
                         bottomButton={
                             <Button
                             type="button"
-                            // buttonStyle="secondary_default"
                             className="bg-secondary text-white rounded-none hover:bg-secondary-darker20"
                             onClick={()=> setCreateInstForm(true)}
-                            // onClick={()=> formik.setFieldValue("isCreateInst",true)}
                             >
                                 Buat Instansi Baru
                             </Button>
                         }
                         />
-                        
                     </div>
                 </div>
-
                 {createInstForm &&
                 <CreateInstitutionForm 
                 id={id} 
@@ -179,9 +150,6 @@ export default function FormCreateUser({
                 setSubmitState={setSubmitState}
                 />
                 }
-
-                
-                
                 <div className="grid grid-cols-2 gap-y-3 py-3">
                     <Body1 className="text-black-400">
                         Email
@@ -196,7 +164,6 @@ export default function FormCreateUser({
                             />
                         <ErrorMessage name="user_create.email" component={ValidationMessage}/>
                     </div>
-
                     <Body1 className="text-black-400">
                         No.Hp
                     </Body1>
@@ -210,7 +177,6 @@ export default function FormCreateUser({
                             />
                         <ErrorMessage name="user_create.phone" component={ValidationMessage}/>
                     </div>
-
                     <Body1 className="text-black-400">
                         Password<br/>
                         <CaptionReg className="italic">
@@ -241,16 +207,11 @@ export default function FormCreateUser({
                             placeholder="Isi Password"
                             />
                         <ErrorMessage name="user_create.password_confirmation" component={ValidationMessage}/>
-                        
                     </div>
-
-
                 </div>
             </div>
-
         </Form>
     }}
-
     </Formik>
   )
 }

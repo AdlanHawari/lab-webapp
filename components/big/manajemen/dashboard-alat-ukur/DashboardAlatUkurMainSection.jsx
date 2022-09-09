@@ -15,7 +15,6 @@ import FormCreateAlatBaru from './FormCreateAlatBaru'
 
 export default function DashboardAlatUkurMainSection() {
   const {createAlatUkurPopUp, setCreateAlatUkurPopUp} = useFormCreateAlatUkurContext()
-
   const [submitState, setSubmitState] = useState(false)
     const [reqSent, setreqSent] = useState(false);
     const {currentPage, setLastPage, setCurrentPage} = usePageContext();
@@ -29,12 +28,10 @@ export default function DashboardAlatUkurMainSection() {
     )
 
     useEffect(()=> {
-      // console.log("reqsent", reqSent)
       if(reqSent){
         setCurrentPage(1)
         setJenisAlatState("")
         setCreateAlatUkurPopUp(false)
-        
         mutate()
       }
     }, [reqSent])
@@ -42,12 +39,8 @@ export default function DashboardAlatUkurMainSection() {
     useEffect(() => {
       if(tools){
         setLastPage(tools.header.total_page)
-        // console.log("total",tools.header.total_page)
-        console.log("datanya",tools.data)
       }
   },[tools])
-    
-    
   return (
     <>
       <div className="pt-5 space-y-5">
@@ -65,17 +58,14 @@ export default function DashboardAlatUkurMainSection() {
             </div>
           </div>
         }
-
         {tools && 
           tools.data.length>0 ?
             <Pagination/>
             :
             !loading&&
             <></>
-          
         }
       </div>
-
     {createAlatUkurPopUp &&
       <FormModal
       title="Alat Ukur Baru"
@@ -86,7 +76,6 @@ export default function DashboardAlatUkurMainSection() {
         <Button
         className="bg-primary" 
         buttonStyle={submitState?"primary_disabled":"primary_default"}
-        // buttonStyle="primary_default"
         type="submit" 
         disabled={submitState? true:false}
         form={form_create_alat_ukur_id}
@@ -96,7 +85,6 @@ export default function DashboardAlatUkurMainSection() {
             }
             Buat Alat Ukur Baru
         </Button>
-    
     }
       >
         <FormCreateAlatBaru
@@ -106,11 +94,8 @@ export default function DashboardAlatUkurMainSection() {
         reqSent={reqSent}
         setreqSent={setreqSent}
         />
-
-
       </FormModal>
     }
-
     </>
   )
 }

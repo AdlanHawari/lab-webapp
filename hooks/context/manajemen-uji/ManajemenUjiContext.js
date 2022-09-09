@@ -3,7 +3,6 @@ import { createContext, useContext, useMemo, useState } from "react";
 const manajemenUjiContext = createContext()
 
 export default function ManajemenUjiContextProvider({children}){
-
     const [pemilihanJadwalPopUp, setPemilihanJadwalPopUp] = useState(false)
     const [editJadwalPopUp, setEditJadwalPopUp] = useState(false)
     const [dokumenPenugasanPopUp, setDokumenPenugasanPopUp] = useState(false)
@@ -13,7 +12,6 @@ export default function ManajemenUjiContextProvider({children}){
     const [sertifLukPopUp, setSertifLukPopUp] = useState(false)
     const [ubahLaporanUjiPopUp, setUbahLaporanUjiPopUp] = useState(false)
     const [cancelUjiPopUp, setCancelUjiPopUp] = useState(false)
-
     const contextValue = useMemo(() => {
         return {
             pemilihanJadwalPopUp, 
@@ -34,7 +32,6 @@ export default function ManajemenUjiContextProvider({children}){
             setCancelUjiPopUp,
             editJadwalPopUp, 
             setEditJadwalPopUp
-            
         }
     }, [
         pemilihanJadwalPopUp,
@@ -56,7 +53,6 @@ export default function ManajemenUjiContextProvider({children}){
         editJadwalPopUp,
         setEditJadwalPopUp
     ])
-
     return(
         <manajemenUjiContext.Provider value={contextValue}>
             {children}

@@ -1,26 +1,17 @@
-import { LightningBoltIcon } from "@heroicons/react/outline";
-import Title1 from "components/small/typography/Title1";
 import { client_menu, management_menu, personel_menu } from "constants/Menu";
 import { useEffect, useState } from "react";
 import MenuItem from "components/base/sidemenu/MenuItem";
 import { useRouter } from "next/router";
 import UrlSplitter from "utils/UrlSplitter";
 import DisclosureMenu from "components/small/single_menu/disclosure/DisclosureMenu";
-import { MENU_ITEM } from "constants/MenuItemConst";
 import { userType } from "constants/UserType";
 
-
 export default function SideMenu() {
-  // const [selectedIndex, setSelectedIndex] = useState(0);
-  // const [title,setTitle] = useTitleContext();
   const router = useRouter();
   const splittedUrl = UrlSplitter(router.pathname)
   const user_type = splittedUrl[1];
   const page = splittedUrl[2];
   const [menu, setMenu] = useState([]);
-
-  // console.log("user_type",user_type)
-  // console.log("router pathname", router.pathname)
 
   useEffect(() => {
     if(user_type == userType.client){
@@ -32,23 +23,14 @@ export default function SideMenu() {
     if(user_type == userType.personnel){
       setMenu(personel_menu)
     }
-    // setMenu(client_menu)
   }, [user_type]);
-
-  // console.log("rpath",router.pathname)
-  // console.log("contain",router.pathname.includes())
-
 
   return(
     <div className="block space-y-2">
         { menu.length>0 &&
         menu.map((item,index)=>(
-
           <div key={index}>
-
-         
             {item.submenu?
-              
               <DisclosureMenu
               type={item.id}
               object={item.submenu}
@@ -66,13 +48,10 @@ export default function SideMenu() {
                 textclassName={router.pathname==item.path ? "text-black-500" : "text-black-300"}
                 bgclassName={router.pathname==item.path && "bg-sidebar-menu rounded-lg"}
                 iconclassName={router.pathname==item.path ? "text-primary" : "text-black-300"}
-                
                 >
                 {item.title}
               </MenuItem>
-          }
-
-            
+          } 
           </div>
         ))}
     </div>

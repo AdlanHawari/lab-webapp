@@ -3,34 +3,19 @@ import Title1 from 'components/small/typography/Title1'
 import Title2Med from 'components/small/typography/Title2Med'
 import { subMenu } from 'constants/SubmenuManajemenUji'
 import { userType } from 'constants/UserType'
-import { usePersPenawaranContext } from 'hooks/context/form-persetujuan-penawaran/PersPenawaranFormContext'
-import { usePersonnelFetcher } from 'hooks/fetcher/personnel/usePersonnelFetcher'
 import usePersonnelStatus from 'hooks/fetcher/personnel/usePersonnelStatus'
 import { useTitleContext } from 'hooks/TitleContext'
 import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 export default function SummaryPersonnelStatus() {
   
     const router =useRouter()
-
-    
     const {personnel,error,mutate,loading} = usePersonnelStatus()
     const [title,setTitle, subTitle,setSubtitle] = useTitleContext();
-    // console.log("personnel ", personnel)
-    // const  = usePersonnelFetcher()
-
-    useEffect(() => {
-      if(personnel){
-        console.log("personel", personnel)
-      }
-    
-    }, [personnel])
-    
 
   return (
     <div className="block w-96 p-9 bg-white border border-grey-300 rounded-2xl shadow divide-y divide-grey-300">
-              
         <div className="flex justify-between pb-4">
         <h3>Status Pekerja</h3>
         <button onClick={()=>{
@@ -47,38 +32,26 @@ export default function SummaryPersonnelStatus() {
             Loading
           </h3>
           }
-
           {personnel&&
             personnel.data.map((item,index)=>(
               item.personnel_status &&
                 <div key={index}>
                   <DisclosurePekerja bgButton="bg-primary" data={item}/>
-                  {/* <h3>{item.name}</h3> */}
                 </div>
             ))
           }
-          
-          
-         
-
         </div>
-
         <div className="block py-4 space-y-1">
           <Title2Med>Standby</Title2Med>
-          {/* <DisclosurePekerja bgButton="bg-secondary"/>
-          <DisclosurePekerja bgButton="bg-secondary"/> */}
           {personnel&&
             personnel.data.map((item,index)=>(
               !item.personnel_status &&
                 <div key={index}>
                   <DisclosurePekerja bgButton="bg-primary" data={item}/>
-                  {/* <h3>{item.name}</h3> */}
                 </div>
             ))
           }
-        
         </div>
-        
     </div>
   )
 }

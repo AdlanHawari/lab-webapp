@@ -7,9 +7,7 @@ export default function usePersonnelStatus(){
         "/users?role_id=3",
         personnel.getPersonnelActivity
     )
-
     const loading = !data && !error
-
     return {
         loading,
         error,

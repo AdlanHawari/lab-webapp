@@ -10,26 +10,19 @@ export default function ClientPage() {
   const { user, loading,error, isValidating } = useUser()
   const [render, setRender] = useState(false)
 
-  // useEffect(() => {
-  //   router.push("client/uji")
-  // })
   useEffect(() => {
     if(!isValidating){
       if(user){
-        console.log("user", user)
         if(user.data.role.access_code != ACCESS_CODE.CLIENT &&  user.data.role.access_code != ACCESS_CODE.ADMIN){
           router.replace("/")
         }
         else{
-          // setRender(true)
           router.push("client/uji")
         }
       }
       if(error&& !user){
-        console.log("error", error)
         router.replace("/")
       }
-
     }
   }, [user,error, isValidating])
   
@@ -37,20 +30,12 @@ export default function ClientPage() {
     <>
      {loading &&
     <div className="">
-
       <h3>Loading...</h3>
     </div>
     }
-
     </>
-    // <div className="">
-
-    //   <h1>client page</h1>
-    // </div>
-
   )
 }
-
 
 ClientPage.getLayout = function getLayout(page) {
     return (

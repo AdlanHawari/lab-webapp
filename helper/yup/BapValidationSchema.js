@@ -11,6 +11,5 @@ export default function BapValidationSchema(yup) {
         .required("Harap masukkan berita acara fisik")
         ,
     })
- 
   )
 }

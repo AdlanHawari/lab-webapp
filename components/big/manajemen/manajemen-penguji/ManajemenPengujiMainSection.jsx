@@ -1,6 +1,5 @@
 import ManajemenPengujiTable from 'components/base/table/ManajemenPengujiTable'
 import Pagination from 'components/small/pagination/Pagination'
-import { pengujiData } from 'constants/test_objects/penguji'
 import { useDateFilterUjiContext } from 'hooks/context/filter-date/DateFilterUjiContext';
 import { useStatusFilterContext } from 'hooks/context/filter-status/StatusContext';
 import { usePageContext } from 'hooks/context/pagination/PageContext';
@@ -16,13 +15,11 @@ export default function ManajemenPengujiMainSection() {
     endDateFilter,
     currentPage,
     statusFilter,
-
   )
 
   useEffect(() => {
     if(data){
       setLastPage(data.header.total_page)
-      console.log("datanya",data.data)
     }
 },[data])
 
@@ -31,10 +28,8 @@ export default function ManajemenPengujiMainSection() {
       {loading &&
         <h2>Loading</h2>
       }
-
       {data &&
       data.data.length>0 ?
-      // <ManajemenPengujiTable data={pengujiData}/>
       <ManajemenPengujiTable data={data.data}/>
       :
       !loading&&
@@ -44,14 +39,12 @@ export default function ManajemenPengujiMainSection() {
           </div>
         </div>
       }
-
       {data && 
         data.data.length>0 ?
           <Pagination/>
           :
           !loading&&
           <></>
-        
       }
     </div>
   )

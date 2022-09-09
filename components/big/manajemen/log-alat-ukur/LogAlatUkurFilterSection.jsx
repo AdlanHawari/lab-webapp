@@ -5,10 +5,8 @@ export default function LogAlatUkurFilterSection() {
   return (
     <div>
         <div className="w-48">
-
             <DateFilter/>
         </div>
-
     </div>
   )
 }

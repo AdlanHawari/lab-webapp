@@ -4,11 +4,7 @@ export default function LaporanHasilUjiValidationSchema(yup) {
         test_report: yup
           .mixed()
           .nullable()
-          .required("Harap masukkan laporan hasil uji"),
-        // additional_doc: yup
-        //   .mixed()
-        //   .nullable()
-        //   .required("Harap masukkan dokumen tambahan")
+          .required("Harap masukkan laporan hasil uji")
         
     })
   )

@@ -29,19 +29,10 @@ export default function FormPemilihanJadwalPenguji({
     const {createTestAssignment, confirmTestApp} = useDetailUji()
 
     useEffect(() => {
-        if(personnel){
-            console.log("personnel", personnel.data)
-        }
-    
-    }, [personnel])
-
-    useEffect(() => {
         if(storeData && update){
         setreqSent(true)
         }
       }, [storeData, update])
-    
-
   return (
     <Formik
     initialValues={formPemilhanJadwalPengujiInitValues}
@@ -51,14 +42,10 @@ export default function FormPemilihanJadwalPenguji({
             const finalValues = Object.assign(values, 
                 {test_application_id: data.id}
                 )
-            console.log(finalValues)
             let formData = handleFormData(finalValues)
             const response = await createTestAssignment(formData)
             const resStat = await confirmTestApp(data.id)
             
-            console.log("resStat", resStat)
-            console.log("respons", response)
-
             if(resStat.header.response_code==200){
                 setUpdate(true)
             }
@@ -66,11 +53,9 @@ export default function FormPemilihanJadwalPenguji({
                 setStoreData(true)
             }
             if(resStat.header.response_code!=200 && response.header.response_code!=201){
-                // setErrorMsg('Terjadi kesalahan')
                 setSubmitState(false)
             }
         }
-
         fetchData(values)
     }}
     >{formik => {
@@ -108,7 +93,6 @@ export default function FormPemilihanJadwalPenguji({
                             Merk Alat
                         </Body1>
                         <Body2 className="text-black-500">
-                            {/* {data.tools[0].tool.brand} */}
                             {data.test_type==jenisPekerjaan[0]?data.tools[0].tool.brand:data.tools[0].tool_brand}
                         </Body2>
                         <Body1 className="text-black-400">
@@ -120,7 +104,6 @@ export default function FormPemilihanJadwalPenguji({
                     </div>
                     <SectionFormPraUji data={data}/>
                 </div>
-
                 <div className="block py-3">
                     <Body3 className="text-black-400">
                         Jadwal &amp; Penguji
@@ -136,19 +119,15 @@ export default function FormPemilihanJadwalPenguji({
                             name="test_date"
                             onBlur={formik.handleBlur}
                             />
-                            
                             <ErrorMessage name="test_date" component={ValidationMessage}/>
                         </div>
-
                         <Body1 className="text-black-400">
                             Nama Penguji
                         </Body1>
                         <div className="block">
-                           
                         {personnel &&
                         <>
                             <PersonnelComboBox
-                            // selected={formik.values.tester_user_id}
                             setFormikValue={formik.setFieldValue}
                             id = "tester_user_id"
                             name="tester_user_id"
@@ -159,16 +138,11 @@ export default function FormPemilihanJadwalPenguji({
                             />
                             <ErrorMessage name="tester_user_id" component={ValidationMessage}/>
                         </>
-
                         }
                         </div>
                     </div>
-
-
                 </div>
-
             </div>
-
         </Form>
     }}
     </Formik>

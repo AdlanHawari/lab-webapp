@@ -5,10 +5,8 @@ export default function Title3Reg({className, children}) {
     <div className={classNames(
         "title-3-reg",
         className
-
     )}>
         {children}
-
     </div>
     )
 }

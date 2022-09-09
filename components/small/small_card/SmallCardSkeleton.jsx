@@ -2,7 +2,6 @@ import React from 'react'
 
 export default function SmallCardSkeleton() {
   return (
-    
     <div className="animate-pulse block h-80 w-full border border-cardStrokes rounded-2xl p-5 space-y-5 bg-white">
         <div className="relative h-8 w-1/2 bg-grey-300 rounded-xl"></div>
         <div className="relative h-4 w-2/5 bg-grey-300 rounded-xl"></div>
@@ -15,7 +14,6 @@ export default function SmallCardSkeleton() {
                 <li className='h-3 bg-grey-300 rounded-xl'></li>
                 <li className='h-3 bg-grey-300 rounded-xl'></li>
             </ul>
-            {/* <div className="relative  w-52 bg-grey-300 rounded-xl"></div> */}
         </div>
     </div>
   )

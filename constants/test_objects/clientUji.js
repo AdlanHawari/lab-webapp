@@ -47,7 +47,4 @@ export const clientUji = [
         ],
         total_cost: "Rp17,000,000.-"
     },
-    
-
-
 ]

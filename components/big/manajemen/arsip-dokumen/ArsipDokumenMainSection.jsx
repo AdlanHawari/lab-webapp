@@ -8,7 +8,6 @@ import { usePageContext } from 'hooks/context/pagination/PageContext';
 import { DetailUjiFetcherProvider } from 'hooks/fetcher/detail-uji/useDetailUji';
 import usePermohonanUji from 'hooks/fetcher/usePermohonanUji';
 import React, { useEffect } from 'react'
-// import arsipData from 'constants/test_objects/arsipDokumen'
 
 export default function ArsipDokumenMainSection() {
   const {jenisPekerjaanState, setjenisPekerjaanState}= useJenisPekerjaanFilterContext()
@@ -32,29 +31,10 @@ export default function ArsipDokumenMainSection() {
       }
     )
 
-    // console.log("data",docNumState,institutionState,jenisPekerjaanState)
-
-    // useEffect(() => {
-    //   console.log("docnum", docNumState)
-    
-    // }, [docNumState])
-    
-
     useEffect(() => {
       if(data){
         setLastPage(data.header.total_page)
-        console.log(data.header.total_page)
       }
-      
-      // if(error){
-      //   console.log("error",error)
-      //   console.log("data pas error",data)
-      //   mutate(null)
-      //   router.replace("/")
-      //   // mutate()
-      // }
-      console.log("perm uji", data)
-  
     },[data, error])
   return (
     <div className="pt-5 space-y-5">
@@ -74,7 +54,6 @@ export default function ArsipDokumenMainSection() {
         </div>
       </div>
       }
-
       {data && 
         data.data.length>0 ?
           <Pagination/>

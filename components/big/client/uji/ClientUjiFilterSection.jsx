@@ -9,7 +9,6 @@ export default function ClientUjiFilterSection() {
   const {setCreateUjiPopUp} = useFormCreateUjiClientContext();
   return (
     <div className="block space-y-6">
-
         <div className="flex justify-between">
           <div className="">
               <DateFilter/>

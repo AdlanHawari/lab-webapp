@@ -4,11 +4,9 @@ const statusFilterContext = createContext();
 
 export default function StatusFilterContextProvider({children}){
     const [statusFilter, setStatusFilter] = useState()
-
     const contextValue = useMemo(()=> {
         return {statusFilter, setStatusFilter}
     }, [statusFilter, setStatusFilter])
-
     return(
         <statusFilterContext.Provider value={contextValue}>
             {children}

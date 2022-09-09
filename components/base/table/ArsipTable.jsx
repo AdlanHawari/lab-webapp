@@ -9,7 +9,6 @@ import { ZipFileDownloader } from 'utils/FileDownloader'
 import XRayDetector from 'utils/XRayDetector'
 
 export default function ArsipTable({data}) {
-
     const {downloadZipFile} = useDetailUji()
   return (
     <>
@@ -27,7 +26,6 @@ export default function ArsipTable({data}) {
                         </th>
                     ))}
                 </tr>
-
             </thead>
             <tbody className='bg-white divide-y divide-table-divider'>
             {data.map((item,index)=>(
@@ -51,7 +49,6 @@ export default function ArsipTable({data}) {
                         <Table1 className="text-black-500 leading-normal">
                             {XRayDetector(item.tools[0].tool.type)}
                         </Table1>
-                        
                     </td>
                     <td className="w-48 py-2 px-4">
                         <Table1 className="text-black-500 leading-normal">
@@ -70,12 +67,8 @@ export default function ArsipTable({data}) {
                             Download Dokumen
                         </ButtonSmall>
                     </td>
-
                 </tr>
-                
-
             ))}
-
             </tbody>
         </table>
     </>

@@ -15,7 +15,6 @@ export default function FormTolakLaporanUji({
     setSubmitState,
     setreqSent
 }) {
-
     const {tolakLaporanUji}= useDetailUji()
 
   return (
@@ -24,14 +23,9 @@ export default function FormTolakLaporanUji({
     validationSchema={TolakLaporanUjiValidationSchema(Yup)}
     onSubmit={(values)=> {
         setSubmitState(true)
-        // console.log(values)
-        // console.log("id", data.id)
         let formData = handleFormData(values)
-
         async function fetchData(){
             const responseReject = await tolakLaporanUji(formData, data.id)
-
-            console.log("responseReject", responseReject)
             if(responseReject.header.response_code == 201){
                 setreqSent(true)
             }
@@ -49,7 +43,6 @@ export default function FormTolakLaporanUji({
                 <div className="block py-3">
                     <Field as="textarea"
                     className="form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300  h-36 placeholder:body1 placeholder:text-grey-500"
-                    
                     name="decline_remarks"
                     type="text"
                     placeholder="Isi dengan alasan penolakan dokumen"
@@ -57,11 +50,8 @@ export default function FormTolakLaporanUji({
                     <ErrorMessage name="decline_remarks" component={ValidationMessage}/>
                 </div>
             </div>
-
         </Form>
-    }
-    }
-
+    }}
     </Formik>
   )
 }

@@ -1,70 +1,36 @@
-/* This example requires Tailwind CSS v2.0+ */
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { UserCircleIcon } from '@heroicons/react/solid'
-import { ChevronDownIcon } from '@heroicons/react/solid'
 import Body1 from '../typography/Body1'
 import { accountMenu } from 'constants/AccountMenu'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTitleContext } from 'hooks/TitleContext'
 import { MyLink } from 'components/general/MyLink'
 import useUser from 'hooks/fetcher/auth/useUser'
-import { useAuth } from 'hooks/fetcher/auth/useAuth'
-import { mutate, useSWRConfig } from 'swr'
-import { delay } from 'utils/delay'
 import { useNotifFetcher } from 'hooks/fetcher/notification/NotificationFetcher'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-// function MyLink(props) {
-//   let { href,
-//      children,
-//      onClick,
-//       ...rest 
-//     } = props
-//   return (
-//     <Link href={href}>
-//       <a {...rest} onClick={onClick}>{children}</a>
-//     </Link>
-//   )
-// }
-
 function constructLink(path, direction){
   const text = path.split("/");
-  // console.log(text)
   return text[0]+"/"+text[1]+direction
 }
-
-
 
 export default function ProfileDropdown() {
 
   const router =  useRouter();
   const [title, setTitle] = useTitleContext();
-  // const { user, loading,error,mutate } = useUser()
-  // const auth = useAuth()
-  // const {mutate} = useSWRConfig()
   const {mutate}= useUser()
   const socket  = useNotifFetcher()
 
   function handleLogout(){
     socket.close()
     localStorage.clear()
-    // delay(5000)
-    // mutate("/users/profile")
     mutate()
-    // delay(5000)
-    // delay(3000)
     router.reload()
-    // router.replace("/login")
-    // router.replace("/")
-    
   }
-  
-
   return (
     <Menu as="div" className="relative inline-block text-left z-50">
       <div className='flex items-center'>
@@ -72,7 +38,6 @@ export default function ProfileDropdown() {
           <UserCircleIcon className="h-10 w-10 text-grey-500 cursor-pointer" aria-hidden="true"/>
         </Menu.Button>
       </div>
-
       <Transition
         as={Fragment}
         enter="transition ease-out duration-100"
@@ -83,37 +48,14 @@ export default function ProfileDropdown() {
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items className="origin-top-right absolute right-0 mt-2 py-1  w-60 rounded-lg shadow-lg bg-white ring-1 ring-grey-300 ring-opacity-5 focus:outline-none z-50">
-          
-          {/* {accountMenu.map((item,index)=>(
-            <div key={index} className="py-1">
-              <Menu.Item>
-                 
-                  <MyLink href={index>0? item.link : constructLink(router.pathname,item.link)}
-                  onClick={()=>setTitle(item.title)}
-                  >
-                    <Body1 className={classNames(
-                      "px-6 py-2 text-black-500 hover:bg-grey-500 hover:text-grey-50",
-                 
-                      )
-                    }
-                    >
-                    {item.title}
-                    </Body1>
-                  </MyLink>
-              </Menu.Item>
-            </div>
-          ))} */}
-
             <div className="py-1">
               <Menu.Item>
-                  <MyLink 
-                  // href={index>0? item.link : constructLink(router.pathname,item.link)}
+                  <MyLink
                   href={constructLink(router.pathname,accountMenu[0].link)}
                   onClick={()=>setTitle(accountMenu[0].title)}
                   >
                     <Body1 className={classNames(
                       "px-6 py-2 text-black-500 hover:bg-grey-500 hover:text-grey-50",
-                 
                       )
                     }
                     >
@@ -122,7 +64,6 @@ export default function ProfileDropdown() {
                   </MyLink>
               </Menu.Item>
             </div>
-
             <div className="py-1">
               <Menu.Item>
                 <button 
@@ -137,21 +78,8 @@ export default function ProfileDropdown() {
                     {accountMenu[1].title}
                     </Body1>
                 </button>
-                  {/* <MyLink 
-                  href={constructLink(router.pathname,accountMenu[1].link)}
-                  onClick={
-                    handleLogout}
-                  >
-                    <Body1 className={classNames(
-                      "px-6 py-2 text-black-500 hover:bg-grey-500 hover:text-grey-50",
-                      )}
-                    >
-                    {accountMenu[1].title}
-                    </Body1>
-                  </MyLink> */}
               </Menu.Item>
             </div>
-
         </Menu.Items>
       </Transition>
     </Menu>

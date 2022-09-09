@@ -14,27 +14,18 @@ export const useLogFetcher = ()=> {
 
 function useProvideLog(){
     const token = GetToken()
-
     async function getUserLog(url){
         let error
-    
-        
-    
-        var requestOptions = {
+        let requestOptions = {
             method:'GET'  ,
             headers: {
-                'Authorization': `Bearer ${token}`,
-                // 'Content-Type': 'application/json'
+                'Authorization': `Bearer ${token}`
             },
             redirect: 'follow'
         };
-
         const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, requestOptions)
-    
         const res = await req.json()
-    
         if(res.header.response_code == 200){
-            // console.log("200")
             const data = res.data
             const header = res.header
             return {
@@ -42,15 +33,11 @@ function useProvideLog(){
                 data
             }
         }
-
         if(res.header.response_code == 401){
             error = new Error(res.error)
             error.status = res.header.response_code
             error.info = res
-            // console.log("the error", error)
-            // console.log("wedew")
             throw error
-            // return error
         }
     }
 
@@ -58,20 +45,14 @@ function useProvideLog(){
         var requestOptions = {
             method:'DELETE'  ,
             headers: {
-                'Authorization': `Bearer ${token}`,
-                // 'Content-Type': 'application/json'
+                'Authorization': `Bearer ${token}`
             },
             redirect: 'follow'
         };
-
         const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/logs/${id}`, requestOptions)
-    
         const res = await req.json()
-
         return res
-
     }
-
     return {
         getUserLog,
         deleteLog

@@ -1,9 +1,7 @@
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import LoginLayout from "/components/auth/LoginLayout"
 import Body1 from "/components/small/typography/Body1";
 import Button from "/components/small/button_fixed/Button";
-import Input from "/components/small/input/Input"
 import { MyLink } from "components/general/MyLink";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from 'yup'
@@ -15,17 +13,14 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "hooks/fetcher/auth/useAuth";
 
 export default function ForgotPassPage() {
-    // const [email, setEmail] = useState('');
     const auth = useAuth()
     const [submitState, setSubmitState] = useState(false)
     const [errorMsg, setErrorMsg] = useState('')
-
     const [reqSent, setreqSent] = useState(false);
 
     return (
         <>
             <h1 className="pb-3.5">Lupa Password</h1>
-
             <Body1 className="">
                 {!reqSent ?
                 "Masukkan Email yang anda gunakan di bawah ini, kami akan mengirimkan link untuk merubah password."
@@ -36,18 +31,6 @@ export default function ForgotPassPage() {
 
             {!reqSent ?
                     <div className="">
-
-                        {/* <form className="pt-11 pb-3 block space-y-20" action="">
-
-                            <Input  type="email" placeholder="Masukkan email anda" id="email" state={email} setState={setEmail}/>
-                            
-
-                            <Button buttonStyle="primary_default"
-                            disabled={false}
-                            onClick={(e)=>setreqSent(!reqSent)}
-                            >Ubah Password</Button>
-                        </form> */}
-
                         <Formik
                         initialValues={{
                             email: ""
@@ -65,13 +48,10 @@ export default function ForgotPassPage() {
                                 setErrorMsg('')
                             }
                             if(response.header.response_code==404){
-                                // setreqSent(true)
                                 setErrorMsg('Email tidak terdaftar')
                                 setSubmitState(false)
                             }
-
                             }}
-                        
                         >
                             <Form className="pt-11 pb-3 block space-y-20">
                                 <div>
@@ -87,11 +67,8 @@ export default function ForgotPassPage() {
                                         type="email"
                                         placeholder="Masukkan email anda"
                                     />
-
                                     <ErrorMessage name="email" component={ValidationMessage}/>
-                                    
                                 </div>
-
                                 <Button 
                                 type="submit" 
                                 disabled={submitState? true:false}
@@ -99,7 +76,6 @@ export default function ForgotPassPage() {
                                 >
                                     { submitState &&
                                     <FontAwesomeIcon icon={faSpinner} className="animate-spin"/>
-                                    
                                     }
                                 Ubah Password
                                 </Button>
@@ -112,23 +88,14 @@ export default function ForgotPassPage() {
 
                     </div>
             }   
-
             <MyLink href='/login'>
                 <div className="">
                     <Button buttonStyle="secondary_default">Kembali ke halaman awal</Button>
                 </div>
-
             </MyLink>
-            {/* <Link href='/login'>
-                <div className="">
-                    <Button type="secondary_default">Kembali ke halaman awal</Button>
-                </div>
-                
-            </Link> */}
         </>
     )
 }
-
 
 ForgotPassPage.getLayout = function getLayout(page) {
     return (

@@ -12,15 +12,13 @@ export const useClient = () => {
 }
 
 function useProvideClient(){
-    
     let token
     if (typeof window !== 'undefined') {
         token = localStorage.getItem(`${process.env.NEXT_PUBLIC_LOCAL_TOKEN_KEY}`)
     }
     
     async function createPermohonanUji(formData){
-
-        var requestOptions = {
+        let requestOptions = {
             method: 'POST',
             headers:{
                 'Authorization': `Bearer ${token}`
@@ -31,7 +29,6 @@ function useProvideClient(){
 
         try{
             const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/test-applications`, requestOptions)
-
             const res = await req.json()
             return res
         }
@@ -41,11 +38,7 @@ function useProvideClient(){
         }
     }
 
-    
-
     return {
-        createPermohonanUji,
-        
+        createPermohonanUji
     }
-
 }

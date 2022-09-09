@@ -1,15 +1,13 @@
-import CustomComboBox from 'components/small/single_menu/CustomComboBox'
 import DatePickerInput from 'components/small/single_menu/DatePickerInput'
 import JenisAlatDropDown from 'components/small/single_menu/JenisAlatDropDown'
 import Body1 from 'components/small/typography/Body1'
-import Body2 from 'components/small/typography/Body2'
 import ValidationMessage from 'components/small/validation_form/ValidationMessage'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import { createAlatUkurInitValues } from 'helper/initial-formik-values/CreateAlatUkurInitValues'
 import CreateAlatUkurBaruValidationSchema from 'helper/yup/CreateAlatUkurBaruValidationSchema'
 import { useAlatUkurFetcher } from 'hooks/fetcher/management-alat-ukur/useAlatUkurFetcher'
 import useGetToolTypes from 'hooks/fetcher/management-alat-ukur/useGetToolTypes'
-import React, { useEffect } from 'react'
+import React from 'react'
 import handleFormData from 'utils/HandleFormData'
 import * as Yup from 'yup'
 
@@ -20,12 +18,8 @@ export default function FormCreateAlatBaru({
     reqSent,
     setreqSent,
 }) {
-
     const {tool_type} = useGetToolTypes("Uji Kesesuaian")
     const {createAlat} = useAlatUkurFetcher()
-    // useEffect(() => {
-    //   console.log("tool create", tool_type)
-    // }, [tool_type])
     
   return (
     <Formik
@@ -33,17 +27,13 @@ export default function FormCreateAlatBaru({
     validationSchema={CreateAlatUkurBaruValidationSchema(Yup)}
     onSubmit={(values)=> {
         setSubmitState(true)
-        console.log(values)
         let formData = handleFormData(values)
 
         async function fetchData(){
             const resp = await createAlat(formData)
-            console.log("resp", resp)
-
             if(resp.header.response_code == 201){
                 setreqSent(true)
             }
-
         }
         fetchData()
     }}
@@ -65,7 +55,6 @@ export default function FormCreateAlatBaru({
                             />
                             <ErrorMessage name="tool_type" component={ValidationMessage}/>
                         </>
-
                         }
                     </div>
                     <Body1 className="text-black-400">
@@ -80,7 +69,6 @@ export default function FormCreateAlatBaru({
                             placeholder="Isi merk alat"
                             />
                         <ErrorMessage name="brand" component={ValidationMessage}/>
-
                     </div>
                     <Body1 className="text-black-400">
                         No. Seri/ID
@@ -107,7 +95,6 @@ export default function FormCreateAlatBaru({
                         onBlur={formik.handleBlur}
                         />
                         <ErrorMessage name="calibration_date" component={ValidationMessage}/>
-
                     </div>
                     <Body1 className="text-black-400">
                         Interval Kalibrasi (dalam tahun)
@@ -121,14 +108,11 @@ export default function FormCreateAlatBaru({
                             placeholder="Isi Interval Kalibrasi"
                             />
                         <ErrorMessage name="interval" component={ValidationMessage}/>
-
                     </div>
                 </div>
             </div>
-
         </Form>
     }}
-
     </Formik>
   )
 }

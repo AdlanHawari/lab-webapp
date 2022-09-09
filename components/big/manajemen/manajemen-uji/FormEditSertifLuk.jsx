@@ -2,9 +2,8 @@ import { PencilIcon } from '@heroicons/react/outline'
 import QuickFilterSmaller from 'components/small/button_small/QuickFilterSmaller'
 import Body1 from 'components/small/typography/Body1'
 import Body2 from 'components/small/typography/Body2'
-import ValidationMessage from 'components/small/validation_form/ValidationMessage'
 import { jenisPekerjaan } from 'constants/JenisPekerjaan'
-import { ErrorMessage, Field, Form, Formik } from 'formik'
+import { Field, Form, Formik } from 'formik'
 import { useDetailUji } from 'hooks/fetcher/detail-uji/useDetailUji'
 import React, { useState } from 'react'
 import DateFormatter from 'utils/DateFormatter'
@@ -17,12 +16,9 @@ export default function FormEditSertifLuk({
     setSubmitState,
     setreqSent
 }) {
-
   const [editName, setEditName] = useState(false)
   const [editAddress, setEditAddress] = useState(false)
-
   const {editSertifLUK} = useDetailUji()
-
   const {readable} = DateFormatter()
   return (
     <Formik
@@ -32,27 +28,18 @@ export default function FormEditSertifLuk({
     }}
     onSubmit={(values)=>{
       setSubmitState(true)
-      console.log(data.id)
-      console.log(values)
-
       let formData = handleFormData(values)
 
       async function fetchData(){
         const response = await editSertifLUK(formData, data.id)
-        console.log("response", response)
-
         if(response.header.response_code == 200){
           setreqSent(true)
-
         }
-
-
       }
       fetchData()
     }}
     >
       <Form id={id}>
-
         <div className="flex flex-col divide-y divide-grey-200 space-y-3  w-full pl-10 pr-32">
           <h3 className='text-black-400'>
             Konfirmasi informasi pada sertifikat di bawah ini
@@ -110,7 +97,6 @@ export default function FormEditSertifLuk({
                 <PencilIcon className='w-4' aria-hidden="true"/>
               </button>
             </div>
-
             }
             <Body1 className="text-black-400">
                 Alamat pada Sertifikat
@@ -141,7 +127,6 @@ export default function FormEditSertifLuk({
               </button>
             </div>
             }
-            
             <Body1 className="text-black-400">
                 Status
             </Body1>
@@ -159,7 +144,6 @@ export default function FormEditSertifLuk({
                 {data.test_type}
             </Body2>
           </div>
-
           <div className="grid grid-cols-2 gap-y-3 py-3">
             <Body1 className="text-black-400">
                 Jenis Alat
@@ -171,7 +155,6 @@ export default function FormEditSertifLuk({
                 Merk Alat
             </Body1>
             <Body2 className="text-black-500">
-                {/* {data.tools[0].tool.brand} */}
                 {data.test_type==jenisPekerjaan[0]?data.tools[0].tool.brand:data.tools[0].tool_brand}
             </Body2>
             <Body1 className="text-black-400">
@@ -181,7 +164,6 @@ export default function FormEditSertifLuk({
                 {data.tools[0].tool_type}
             </Body2>
           </div>
-
           <div className="block py-3">
             <h3 className='text-black-500'>
               Informasi Pengujian
@@ -203,9 +185,6 @@ export default function FormEditSertifLuk({
                   Data X-Ray
               </Body1>
               <Body2 className="text-black-500">
-                {/* {data.tools[0].name.includes("X-Ray") &&
-                "X-Ray Stasioner 200 mA"
-                } */}
                 {XRayDetector(data.tools[0].tool.type)}
               </Body2>
               <Body1 className="text-black-400">
@@ -227,13 +206,9 @@ export default function FormEditSertifLuk({
                 {data.bapeten_registration_no}
               </Body2>
             </div>
-
-
           </div>
         </div>
       </Form>
-
-
     </Formik>
   )
 }

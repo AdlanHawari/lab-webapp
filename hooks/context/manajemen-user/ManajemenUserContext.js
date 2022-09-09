@@ -1,5 +1,4 @@
 import { createContext, useContext, useMemo, useState } from "react";
-import GetToken from "utils/GetToken";
 
 const manajemenUserContext = createContext()
 
@@ -7,7 +6,6 @@ export default function ManajemenUserContextProvider({children}){
     const [rolePopUp, setRolePopUp] = useState(false)
     const [isCreateUserOpen, setIsCreateUserOpen] = useState(false)
     const [createInstForm, setCreateInstForm ] = useState(false)
-
     const contextValue = useMemo(()=> {
         return {
             rolePopUp,
@@ -26,7 +24,6 @@ export default function ManajemenUserContextProvider({children}){
         createInstForm, 
         setCreateInstForm
     ])
-
     return(
         <manajemenUserContext.Provider value={contextValue}>
             {children}

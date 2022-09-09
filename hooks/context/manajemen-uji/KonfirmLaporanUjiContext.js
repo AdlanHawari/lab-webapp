@@ -5,7 +5,6 @@ const konfirmLaporanUjiContext = createContext()
 export default function KonfirmLaporanUjiContextProvider({children}){
     const [terimaPopUp, setTerimaPopUp] = useState(false)
     const [tolakPopUp, setTolakPopUp] = useState(false)
-
     const contextValue = useMemo(() => {
         return {
             terimaPopUp,
@@ -18,9 +17,7 @@ export default function KonfirmLaporanUjiContextProvider({children}){
         setTerimaPopUp,
         tolakPopUp,
         setTolakPopUp
-
     ])
-
     return(
         <konfirmLaporanUjiContext.Provider value={contextValue}>
             {children}

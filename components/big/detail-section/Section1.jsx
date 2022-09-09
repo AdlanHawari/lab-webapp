@@ -2,7 +2,6 @@ import classNames from 'classnames'
 import QuickFilterSmaller from 'components/small/button_small/QuickFilterSmaller'
 import Body1 from 'components/small/typography/Body1'
 import Body2 from 'components/small/typography/Body2'
-import { format } from 'date-fns'
 import { useRouter } from 'next/router'
 import React from 'react'
 import DateFormatter from 'utils/DateFormatter'
@@ -10,15 +9,11 @@ import UrlSplitter from 'utils/UrlSplitter'
 
 export default function Section1({data}) {
     const route = useRouter()
-    console.log(route)
     const a = UrlSplitter(route.pathname)
     const role = a[1]
-
     const {readable} = DateFormatter()
-    // console.log()
   return (
-    <div className="grid grid-cols-2 gap-y-3 py-3">
-                                            
+    <div className="grid grid-cols-2 gap-y-3 py-3">       
         <Body1 className="text-black-400">
             Nomor Surat Penawaran
         </Body1>
@@ -30,26 +25,19 @@ export default function Section1({data}) {
         </Body1>
         <Body2 className="text-black-500">
             {readable(data.created_at)}
-
         </Body2>
-    
-    
         <Body1 className="text-black-400">
             Nama Instansi
         </Body1>
         <Body2 className="text-black-500">
             {data.user.institution.name}
         </Body2>
-    
-    
         <Body1 className="text-black-400">
             Alamat Instansi
         </Body1>
         <Body2 className="text-black-500">
         {data.user.institution.address}
         </Body2>
-    
-    
         <Body1 className="text-black-400">
             Status
         </Body1>
@@ -66,16 +54,12 @@ export default function Section1({data}) {
                 </Body2>
             </QuickFilterSmaller>
         </div>
-    
-    
         <Body1 className="text-black-400">
             Jenis Uji
         </Body1>
         <Body2 className="text-black-500">
             {data.test_type}
         </Body2>
-        
-        
     </div>
   )
 }

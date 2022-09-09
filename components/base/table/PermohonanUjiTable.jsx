@@ -23,8 +23,6 @@ import { permohonanUjiTableHead } from 'constants/table/RowTitle'
 import { useManajemenPermohonanUjiContext } from 'hooks/context/permohonan-uji/PermohonanUjiContext'
 import useUser from 'hooks/fetcher/auth/useUser'
 import { useDetailUji } from 'hooks/fetcher/detail-uji/useDetailUji'
-import { usePermohonanUjiManajemenFetcher } from 'hooks/fetcher/permohonan-uji/usePermohonanUjiFetcher'
-import usePermohonanUji from 'hooks/fetcher/usePermohonanUji'
 import {useEffect, useState} from 'react'
 import DateFormatter from 'utils/DateFormatter'
 
@@ -33,7 +31,6 @@ export default function PermohonanUjiTable({data, mutate}) {
     const dateFormatter = DateFormatter()
     const [dataSelected, setDataSelected] = useState({})
     const [permission_KA_LAB, setPermission_KA_LAB] = useState(false)
-
     const {
         buatPenawaranPopUp, 
         setBuatPenawaranPopUp,
@@ -46,26 +43,10 @@ export default function PermohonanUjiTable({data, mutate}) {
     } = useManajemenPermohonanUjiContext()
     const [submitState, setSubmitState] = useState(false)
     const [reqSent, setreqSent] = useState(false);
-
     const {confirmTestApp} = useDetailUji()
-
     const {user} = useUser()
 
-    // useEffect(() => {
-    //   console.log("popUp changed")
-    
-    // }, [buatPenawaranPopUp])
-
-    // const {mutate} = usePermohonanUji(
-    //       startDateFilter,
-    //       endDateFilter,
-    //       currentPage,
-    //       statusFilter
-    
-    //     )
-
     useEffect(()=> {
-        console.log("reqsent", reqSent)
         if(reqSent){
           setSubmitState(false)
           setBuatPenawaranPopUp(false)
@@ -78,17 +59,10 @@ export default function PermohonanUjiTable({data, mutate}) {
       }, [reqSent])
 
       useEffect(() => {
-        
-      console.log("user di perm uji table",user.data.role.access_code)
         if(user.data.role.access_code == ACCESS_CODE.ADMIN || user.data.role.access_code == ACCESS_CODE.KEPALA_LAB_KAL || user.data.role.access_code == ACCESS_CODE.KEPALA_LAB_UJI){
             setPermission_KA_LAB(true)
         }
       }, [user])
-
-
-      
-    
-    
   return (
     <>
         <table className='bg-primary-lighten10 min-w-full shadow-lg rounded-lg'>
@@ -105,7 +79,6 @@ export default function PermohonanUjiTable({data, mutate}) {
                         </th>
                     ))}
                 </tr>
-
             </thead>
             <tbody className='bg-white divide-y divide-table-divider'>
             {data.map((item,index)=>(
@@ -127,10 +100,8 @@ export default function PermohonanUjiTable({data, mutate}) {
                     </td>
                     <td className="w-48 py-2 px-4">
                         <Table1 className="text-black-500 leading-normal">
-                        {/* {item.tools[0].tool.brand} */}
                         {item.test_type==jenisPekerjaan[0]?item.tools[0].tool.brand:item.tools[0].tool_brand}
                         </Table1>
-                        
                     </td>
                     <td className="w-48 py-2 px-4">
                         <Table1 className="text-black-500 leading-normal">
@@ -143,7 +114,6 @@ export default function PermohonanUjiTable({data, mutate}) {
                         </Table1>
                     </td>
                     <td className="w-48 py-2 px-4">
-                    
                         <div className="text-xs font-bold text-primary-darken10 underline underline-offset-2 leading-normal">
                             {item.documents.map((file,index)=>{
                                 if(file.type==DOCTYPE.INVOICE){
@@ -152,9 +122,7 @@ export default function PermohonanUjiTable({data, mutate}) {
                                 }
                                 return ""
                             })}
-                            {/* {item.test_type} */}
                         </div>
-                    
                     </td>
                     <td className="px-2">
                         <ButtonSmall
@@ -165,17 +133,11 @@ export default function PermohonanUjiTable({data, mutate}) {
                             Lihat Detail
                         </ButtonSmall>
                     </td>
-                    
-
                 </tr>
-                
-
             ))}
-
             </tbody>
         </table>
         {isDetailOpen &&
-        // <DetailUjiModalPersonel isOpen={isDetailOpen} setIsOpen={setIsDetailOpen}/>
         <DetailModal 
           title="Detail Permohonan" 
           isOpen={isDetailOpen} 
@@ -185,7 +147,6 @@ export default function PermohonanUjiTable({data, mutate}) {
           data={dataSelected}
           setCancelPopUp={setCancelUjiPopUp}
           buttonSide = {
-            
           <>
             {
             dataSelected.status<3 && 
@@ -206,11 +167,9 @@ export default function PermohonanUjiTable({data, mutate}) {
                      onClick={
                         ()=> setEditPenawaranPopUp(true)
                     }
-                    
                     >
                     Ubah Penawaran
                     </Button>
-                
             }
             {dataSelected.status == 4 && permission_KA_LAB &&
                 <Button 
@@ -226,20 +185,14 @@ export default function PermohonanUjiTable({data, mutate}) {
           }
           >
             <Section1 data={dataSelected}/>
-
             <Section2 data={dataSelected}/>
-
             {dataSelected.status>2 &&
                 <>
                     <SectionFee data={dataSelected} cost_detail={dataSelected.cost_detail} current_status={dataSelected.status}/>
                 </>
             }
-
           </DetailModal>
         }
-
-    
-
         {editPenawaranPopUp &&
             <FormModal
             title="Ubah Penawaran"
@@ -250,13 +203,9 @@ export default function PermohonanUjiTable({data, mutate}) {
                 <Button 
                     className="bg-primary" 
                     buttonStyle={submitState?"primary_disabled":"primary_default"}
-                    
                     type="submit" 
-                    
-                    
                     disabled={submitState? true:false}
                     form={form_buat_penawaran_uji_id}
-                    
                     >
                     { submitState &&
                         <FontAwesomeIcon icon={faSpinner} className="animate-spin"/>
@@ -272,13 +221,9 @@ export default function PermohonanUjiTable({data, mutate}) {
                 setSubmitState={setSubmitState}
                 reqSent={reqSent}
                 setreqSent={setreqSent}
-                
                 />
-
             </FormModal>
-
         }
-
         {buatPenawaranPopUp &&
             <FormModal
             title="Buat Penawaran"
@@ -289,13 +234,9 @@ export default function PermohonanUjiTable({data, mutate}) {
                 <Button 
                     className="bg-primary" 
                     buttonStyle={submitState?"primary_disabled":"primary_default"}
-                    
                     type="submit" 
-                    
-                    
                     disabled={submitState? true:false}
                     form={form_buat_penawaran_uji_id}
-                    
                     >
                     { submitState &&
                         <FontAwesomeIcon icon={faSpinner} className="animate-spin"/>
@@ -311,13 +252,9 @@ export default function PermohonanUjiTable({data, mutate}) {
                 setSubmitState={setSubmitState}
                 reqSent={reqSent}
                 setreqSent={setreqSent}
-                
                 />
-
             </FormModal>
-
         }
-
         {konfirmPembayaranPopUp &&
         <FormModal
             title="Konfirmasi Pembayaran"
@@ -349,9 +286,7 @@ export default function PermohonanUjiTable({data, mutate}) {
             <FormKonfirmPembayaranUji
                 data={dataSelected}
             />
-
         </FormModal>
-
         }
         {cancelUjiPopUp && 
         <FormModal
@@ -361,7 +296,6 @@ export default function PermohonanUjiTable({data, mutate}) {
         setIsOpen={setCancelUjiPopUp}
         buttonSide={
             <Button
-            // buttonStyle="primary_default"
             className="bg-error"
             buttonStyle={submitState?"primary_disabled":"primary_default"}
             type="submit"                 
@@ -369,7 +303,6 @@ export default function PermohonanUjiTable({data, mutate}) {
             form={form_batal_permohonan_uji_id}
             >
                 Batalkan Permohonan
-
             </Button>
         }
         >
@@ -380,7 +313,6 @@ export default function PermohonanUjiTable({data, mutate}) {
             setSubmitState={setSubmitState}
             setreqSent={setreqSent}
             />
-
         </FormModal>
     }
     </>

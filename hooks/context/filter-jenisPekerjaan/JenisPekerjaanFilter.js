@@ -4,11 +4,9 @@ const jenisPekerjaanFilterContext = createContext();
 
 export default function JenisPekerjaanFilterContextProvider({children}){
     const [jenisPekerjaanState, setjenisPekerjaanState] = useState("")
-
     const contextValue = useMemo(() => {
         return {jenisPekerjaanState, setjenisPekerjaanState}
     }, [jenisPekerjaanState, setjenisPekerjaanState])
-
     return(
         <jenisPekerjaanFilterContext.Provider value={contextValue}>
             {children}

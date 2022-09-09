@@ -4,5 +4,4 @@ export const createAlatUkurInitValues = {
     serial_id: "",
     calibration_date: "",
     interval: ""
-
 }

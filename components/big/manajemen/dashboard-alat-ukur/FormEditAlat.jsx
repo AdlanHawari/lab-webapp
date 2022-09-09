@@ -1,4 +1,3 @@
-import { data } from 'autoprefixer'
 import DatePickerInput from 'components/small/single_menu/DatePickerInput'
 import JenisAlatDropDown from 'components/small/single_menu/JenisAlatDropDown'
 import Body1 from 'components/small/typography/Body1'
@@ -8,20 +7,14 @@ import { createAlatUkurInitValues } from 'helper/initial-formik-values/CreateAla
 import { useAlatUkurFetcher } from 'hooks/fetcher/management-alat-ukur/useAlatUkurFetcher'
 import useGetToolTypes from 'hooks/fetcher/management-alat-ukur/useGetToolTypes'
 import React from 'react'
-import DateFormatter from 'utils/DateFormatter'
 import handleFormData from 'utils/HandleFormData'
 
 export default function FormEditAlat({
     id,
     data,
-    submitState,
     setSubmitState,
-    reqSent,
     setreqSent,
 }) {
-
-    const {readable} = DateFormatter()
-
     function formEntry(values){
         let updatedVal = {}
         for (let [key, value] of Object.entries(values)) {
@@ -37,14 +30,10 @@ export default function FormEditAlat({
               if(key == "calibration_date" && values.calibration_date){
                   updatedVal[key]=value
               }
-            //   if(key == "calibration_date" && values.calibration_date != readable(data.calibration_date)){
-            //       updatedVal[key]=value
-            //   }
             }
         }
         return updatedVal
     }
-
     const {tool_type} = useGetToolTypes()
     const {editTool} = useAlatUkurFetcher()
     
@@ -52,15 +41,10 @@ export default function FormEditAlat({
     <Formik
     initialValues={createAlatUkurInitValues}
     onSubmit={(values)=>{
-        // console.log("before",values)
         const finalValues = formEntry(values)
-        // console.log("after",finalValues)
-
         async function fetchData(form, id){
             const response = await editTool(form,id )
-            console.log("response", response)
             if(response.header.response_code==200){
-                // setSubmitState(false)
                 setreqSent(true)
             }
             if(response.header.response_code==400){
@@ -73,19 +57,14 @@ export default function FormEditAlat({
                 setSubmitState(false)
             }
         }
-
         if(Object.keys(finalValues).length === 0 && finalValues.constructor === Object){
-            console.log("no change")
-            // setEmptyVal(true)
+            console.debug("no change")
         }
         else{
             setSubmitState(true)
-            
             let formData = handleFormData(finalValues)
-            console.log(finalValues)
             fetchData(formData, data.id)
         }
-
     }}
     >{formik=>{
         return <Form id={id}>
@@ -120,7 +99,6 @@ export default function FormEditAlat({
                     placeholder={data.brand}
                     />
                 <ErrorMessage name="brand" component={ValidationMessage}/>
-
             </div>
             <Body1 className="text-black-400">
                 No. Seri/ID
@@ -134,7 +112,6 @@ export default function FormEditAlat({
                     placeholder={data["serial/id"]}
                     />
                 <ErrorMessage name="serial_id" component={ValidationMessage}/>
-
             </div>
             <Body1 className="text-black-400">
                 Tanggal Kalibrasi
@@ -146,7 +123,6 @@ export default function FormEditAlat({
                 name="calibration_date"
                 onBlur={formik.handleBlur}/>
                 <ErrorMessage name="calibration_date" component={ValidationMessage}/>
-
             </div>
             <Body1 className="text-black-400">
                 Interval Kalibrasi (dalam tahun)
@@ -160,11 +136,9 @@ export default function FormEditAlat({
                     placeholder="Isi Interval Kalibrasi"
                     />
                 <ErrorMessage name="interval" component={ValidationMessage}/>
-
             </div>
         </div>
     </div>
-
         </Form>
     }}
     </Formik>

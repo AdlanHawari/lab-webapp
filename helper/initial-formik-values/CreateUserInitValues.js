@@ -1,13 +1,4 @@
-// export const createInstInitValues = {
-//     name:"",
-//     address: "",
-//     email: "",
-//     phone_number: "",
-//     mobile_phone_number: ""
-// }
-
 export const createUserInitValues = {
-    // isCreateInst:false,
     user_create: 
     {
         name: "",
@@ -19,7 +10,6 @@ export const createUserInitValues = {
         password: "",
         password_confirmation: "",
     },
-    // institution_create: createInstInitValues
     institution_create: 
     {
         name:"",    

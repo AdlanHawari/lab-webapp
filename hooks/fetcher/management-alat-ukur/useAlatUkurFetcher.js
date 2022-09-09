@@ -13,34 +13,29 @@ export const useAlatUkurFetcher = () => {
 }
 
 function useProvideAlatUkur(){
-
     const token = GetToken()
 
     async function getTools(url){
-        var requestOptions = {
+        let requestOptions = {
             method:'GET'  ,
             headers: {
-                'Authorization': `Bearer ${token}`,
-                // 'Content-Type': 'application/json'
+                'Authorization': `Bearer ${token}`
             },
             redirect: 'follow'
             };
 
         const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, requestOptions)
         const res = await req.json()
-        console.log('response', res)
 
         if(res.header.response_code == 200){
             return res
         }
-
         if(res.header.response_code == 401){
             error = new Error(res.message)
             error.status = res.status_code
             error.info = res
             throw error
         }
-
         if(res.header.response_code == 422){
             error = new Error(res.message)
             error.status = res.status_code
@@ -50,65 +45,52 @@ function useProvideAlatUkur(){
     }
 
     async function createAlat(formData){
-        var requestOptions = {
+        let requestOptions = {
             method:'POST'  ,
             headers: {
-                'Authorization': `Bearer ${token}`,
-                // 'Content-Type': 'application/json'
+                'Authorization': `Bearer ${token}`
             },
             body: formData,
             redirect: 'follow'
             };
-
             try {
                 const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tools`, requestOptions)
                 const res = await req.json()
-        
                 return res
-                
             } catch (error) {
                 throw error
             }
     }
 
     async function getToolTypes(url){
-        var requestOptions = {
+        let requestOptions = {
             method:'GET'  ,
             headers: {
-                'Authorization': `Bearer ${token}`,
-                // 'Content-Type': 'application/json'
+                'Authorization': `Bearer ${token}`
             },
-            // body: formData,
             redirect: 'follow'
             };
-
-            // console.log("masuk")
             try{
                 const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, requestOptions)
                 const res = await req.json()
                 return res
             }
             catch(e){
-                console.log("error",e)
                 throw e
-
             }
-
     }
 
     async function deleteTool(id){
-        var requestOptions = {
+        let requestOptions = {
             method:'DELETE'  ,
             headers: {
-                'Authorization': `Bearer ${token}`,
-                // 'Content-Type': 'application/json'
+                'Authorization': `Bearer ${token}`
             },
             redirect: 'follow'
             };
         
         const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tools/${id}`, requestOptions)
         const res = await req.json()
-
         return res
     }
 
@@ -116,8 +98,7 @@ function useProvideAlatUkur(){
         var requestOptions = {
             method:'PUT'  ,
             headers: {
-                'Authorization': `Bearer ${token}`,
-                // 'Content-Type': 'application/json'
+                'Authorization': `Bearer ${token}`
             },
             body: formData,
             redirect: 'follow'
@@ -125,7 +106,6 @@ function useProvideAlatUkur(){
 
         const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tools/${id}`, requestOptions)
         const res = await req.json()
-
         return res
     }
 

@@ -7,7 +7,7 @@ import { ErrorMessage, FieldArray, Form, Formik } from 'formik'
 import { laporanHasilUjiInitValues } from 'helper/initial-formik-values/LaporanHasilUjiInitValues'
 import LaporanHasilUjiValidationSchema from 'helper/yup/LaporanHasilUjiValidationSchema'
 import { useDetailUji } from 'hooks/fetcher/detail-uji/useDetailUji'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import handleFormData from 'utils/HandleFormData'
 import ObjectReducer from 'utils/ObjectReducer'
 import RearrangeFileObject from 'utils/RearrangeFileObject'
@@ -21,16 +21,7 @@ export default function FormEditLaporanHasilUji({
     reqSent,
     setreqSent,
 }) {
-
     const { uploadLaporanHasilUji} = useDetailUji()
-    // const [storeFile, setStoreFile] = useState(false)
-    // const [confirm, setConfirm] = useState(false)
-
-    // useEffect(() => {
-    //     if(storeFile && confirm){
-    //         setreqSent(true)
-    //     }
-    // }, [storeFile, confirm])
 
   return (
     <Formik
@@ -38,29 +29,18 @@ export default function FormEditLaporanHasilUji({
     validationSchema={LaporanHasilUjiValidationSchema(Yup)}
     onSubmit={(values)=> {
         setSubmitState(true)
-        console.log(values)
-        
         const rearrangedFiles = RearrangeFileObject(values.additional_doc, "additional_doc_")
         const mandatoryValues = ObjectReducer(values, "additional_doc")
         const uploadValues = Object.assign(mandatoryValues, rearrangedFiles)
-        console.log("uploadValues",uploadValues)
         let formData = handleFormData(uploadValues)
 
         async function fetchData(){
             const response = await uploadLaporanHasilUji(formData, data.id)
-            // const respConf = await confirmTestApp( data.id)
-            console.log("upload",response)
-            // console.log("conf",respConf)
             if(response.header.response_code == 200){
-                // setStoreFile(true)
                 setreqSent(true)
             }
-            // if(respConf.header.response_code == 200){
-            //     setConfirm(true)
-            // }
 
         }
-
         fetchData()
     }}
     >{formik => {
@@ -80,23 +60,7 @@ export default function FormEditLaporanHasilUji({
                             placeholder="Upload Document"
                         />
                         <ErrorMessage name="test_report" component={ValidationMessage}/>
-
                     </div>
-                    {/* <Body1 className="text-black-400">
-                        Dokumen Pendukung
-                    </Body1>
-                    <div className="block">
-                        <InputFileUpload
-                            id="additional_doc"   
-                            name="additional_doc"
-                            formikValue={formik.values.additional_doc}
-                            setFormikValue={formik.setFieldValue}
-                            accept="application/pdf"
-                            placeholder="Upload Document"
-                        />
-                        <ErrorMessage name="additional_doc" component={ValidationMessage}/>
-
-                    </div> */}
                 </div>
 
                 <FieldArray name="additional_doc">
@@ -111,11 +75,8 @@ export default function FormEditLaporanHasilUji({
                                             </Body1>
                                             :
                                             <Body1 className="text-black-400">
-                                                
                                             </Body1>
-                                            
                                         }
-
                                         <InputFileUpload
                                             id={`additional_doc.${index}`}
                                             name={`additional_doc.${index}`}
@@ -126,9 +87,7 @@ export default function FormEditLaporanHasilUji({
                                         />
                                     </div>
                                 ))}
-
                             </div>
-
                             <div className="w-full flex justify-end py-3">
                                 <Button 
                                 className="w-auto px-4 py-2 flex items-center space-x-2" 
@@ -142,19 +101,13 @@ export default function FormEditLaporanHasilUji({
                                     <PlusSmIcon className="w-6" aria-hidden="true"/>
                                     Tambah Dokumen
                                 </Button>
-
                             </div>
                         </div>
                     )}
                 </FieldArray>
-
-
-
-               
             </div>
         </Form>
     }}
-
     </Formik>
   )
 }

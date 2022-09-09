@@ -5,7 +5,6 @@ import React from 'react'
 import DateFormatter from 'utils/DateFormatter'
 
 export default function ManajemenPengujiTable({data}) {
-
     const {readable} = DateFormatter()
   return (
     <>
@@ -20,12 +19,10 @@ export default function ManajemenPengujiTable({data}) {
                         </th>
                     ))}
                 </tr>
-
             </thead>
             <tbody className='bg-white divide-y divide-table-divider'>
             {data.map((personel,pIndex)=>(
                 personel.test_applications.map((item,index)=>(
-                    
                     <tr key={index} className="h-16 ">
                         <td className="w-48 py-7 px-4">
                             <Table1 className="text-black-500">
@@ -50,22 +47,15 @@ export default function ManajemenPengujiTable({data}) {
                             <Table1 className="text-black-500">
                                 {readable(item.assignment_detail.test_date)}
                             </Table1>
-                            
                         </td>
                         <td className="w-48 py-7 px-4">
                             <Table1 className="text-black-500">
                                 {item.status_detail.management_value}
                             </Table1>
                         </td>
-                        
-                        
-
                 </tr>
                 ))
-                
-
             ))}
-
             </tbody>
         </table>
     </>

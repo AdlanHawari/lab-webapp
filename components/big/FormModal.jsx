@@ -1,14 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/solid'
 import classNames from 'classnames'
-import Button from 'components/small/button_fixed/Button'
-import CustomComboBox from 'components/small/single_menu/CustomComboBox'
-import Body1 from 'components/small/typography/Body1'
-import { form_permohonan_uji_id } from 'constants/FormUtils'
-import { jenisAlatUkes } from 'constants/jenis-alat/JenisAlatUkes'
-import { jenisPekerjaan } from 'constants/JenisPekerjaan'
 import { Fragment } from 'react'
-import FormPermohonanUji from './client/FormPermohonanUji'
 
 export default function FormModal({
     title,
@@ -21,7 +14,6 @@ export default function FormModal({
     function closeModal() {
         setIsOpen(false)
       }
-    
       function openModal() {
         setIsOpen(true)
       }
@@ -29,7 +21,6 @@ export default function FormModal({
     <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
-          // className="fixed inset-0 z-10 overflow-y-auto"
           className="fixed inset-0 z-10 overflow-hidden"
           onClose={closeModal}
         >
@@ -44,12 +35,8 @@ export default function FormModal({
               leaveTo="opacity-0"
             >
               <Dialog.Overlay className="fixed inset-0 bg-grey-500 opacity-75" />
-              {/* <Dialog.Overlay/> */}
             </Transition.Child>
-
-            {/* This element is to trick the browser into centering the modal contents. */}
             <span
-            //   className="inline-block h-screen align-middle"
               className="inline-block h-screen align-middle"
               aria-hidden="true"
             >
@@ -64,13 +51,10 @@ export default function FormModal({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-50"
             >
-              {/* <div className="z-50 inline-block w-full h-screen pt-20 text-left align-middle transition-all transform"> */}
               <div className="z-50 inline-block w-full h-detailModal py-4 transition-all transform">
-                {/* <div className="inline-block w-full h-5/6 overflow-hidden text-left bg-secondary-50s shadow-xl rounded-2xl"> */}
                 <div className="inline-block w-full h-detailModal overflow-hidden text-left bg-secondary-50s shadow-xl rounded-2xl">
                     <div className={classNames(
                         `flex items-center justify-between bg-primary py-6 px-8 bg-${bgColor}`,
-                        
                         )}
                     >
                         <Dialog.Title
@@ -88,13 +72,10 @@ export default function FormModal({
                           <div className="max-h-innerFormModal overflow-auto pb-20">
                               {children}
                           </div>
-                          {/* <FormPermohonanUji id={form_permohonan_uji_id}/> */}
                         </div>
                           {!hideButton && 
                             <div className="w-1/5 mt-4 space-y-4 px-4" >
-
                                 {buttonSide}
-                                
                                 <button className={`block w-full py-2.5 rounded-xl text-xs font-semibold border-solid border-2 bg-white text-${bgColor} border-${bgColor}`}
                                 onClick={closeModal}>
                                     Kembali
@@ -104,7 +85,6 @@ export default function FormModal({
                     </div>
                 </div>
               </div>
-                  
             </Transition.Child>
           </div>
         </Dialog>

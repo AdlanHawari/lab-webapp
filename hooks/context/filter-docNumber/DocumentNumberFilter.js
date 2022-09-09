@@ -7,7 +7,6 @@ export default function DocNumberFilterContextProvider({children}){
     const contextValue = useMemo(() => {
         return {docNumState, setDocNumState}
     }, [docNumState, setDocNumState])
-
     return(
         <docNumberFilterContext.Provider value={contextValue}>{children}</docNumberFilterContext.Provider>
     )

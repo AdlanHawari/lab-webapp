@@ -16,7 +16,6 @@ export default function ManajemenSubMenuButton() {
             index>0?
             "rounded-r-xl":
             "rounded-l-xl"
-
         )}
         onClick={()=>setSubtitle(item)}
         disabled={item==subTitle}>
@@ -25,7 +24,6 @@ export default function ManajemenSubMenuButton() {
             </div>
         </button>
     ))}
-</div>
-    
+    </div>
   )
 }

@@ -3,10 +3,9 @@ import ButtonSmall from "components/small/button_small/ButtonSmall";
 import Table1 from "components/small/typography/Table1";
 import Table2 from "components/small/typography/Table2";
 import { manajemenUjiTableHead } from "constants/table/RowTitle";
-import DetailUjiModalPersonel from "components/big/personel/DetailUjiModalPersonel";
 import {useEffect, useState} from 'react';
 import DetailModal from "components/big/DetailModal";
-import { manajemenUjiStatus, permohonanUjiStatus } from "constants/filter-status/ManajemenUjiStatus";
+import { manajemenUjiStatus } from "constants/filter-status/ManajemenUjiStatus";
 import { useManajemenUjiContext } from "hooks/context/manajemen-uji/ManajemenUjiContext";
 import { useDetailUji } from "hooks/fetcher/detail-uji/useDetailUji";
 import DateFormatter from "utils/DateFormatter";
@@ -36,7 +35,6 @@ import FormEditJadwalPenguji from "components/big/manajemen/manajemen-uji/FormEd
 import FormEditLaporanHasilUji from "components/big/manajemen/manajemen-uji/FormEditLaporanHasilUji";
 import useUser from "hooks/fetcher/auth/useUser";
 import { ACCESS_CODE } from "constants/Access_Code";
-
 
 export default function ManajemenujiTable({data, mutate}) {
     const [isDetailOpen, setIsDetailOpen] = useState(false)
@@ -70,14 +68,12 @@ export default function ManajemenujiTable({data, mutate}) {
         editJadwalPopUp, 
         setEditJadwalPopUp
     } = useManajemenUjiContext()
-
     const {
         terimaPopUp,
         setTerimaPopUp,
         tolakPopUp,
         setTolakPopUp
     } = useKonfirmLaporanUjiContext()
-
 
     useEffect(() => {
         if(reqSent){
@@ -94,8 +90,6 @@ export default function ManajemenujiTable({data, mutate}) {
             setEditJadwalPopUp(false)
             mutate()
         }
-      
-    
     }, [reqSent])
 
     useEffect(() => {
@@ -103,24 +97,18 @@ export default function ManajemenujiTable({data, mutate}) {
         dataSelected.documents?.map((item)=>{
             if(item.type==DOCTYPE.TEST_REPORT){
                 setTestFileName(item.file_name)
-
             }
-
             if(item.group=="assignment"){
                 setIsAssignmentExist(true)
             }
         })
-      
     }, [dataSelected])
 
     useEffect(() => {
-        
-        console.log("user di perm uji table",user.data.role.access_code)
           if(user.data.role.access_code == ACCESS_CODE.ADMIN || user.data.role.access_code == ACCESS_CODE.KEPALA_LAB_KAL || user.data.role.access_code == ACCESS_CODE.KEPALA_LAB_UJI){
               setPermission_KA_LAB(true)
           }
         }, [user])
-    
 
   return (
       <>
@@ -134,10 +122,7 @@ export default function ManajemenujiTable({data, mutate}) {
                 </Table2>
 
               </th>
-
-            ))
-
-            }
+            ))}
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-table-divider">
@@ -154,7 +139,7 @@ export default function ManajemenujiTable({data, mutate}) {
                     </td>
                     <td className="max-w-24 p-4">
                         <Table1 className="text-black-500 leading-normal">
-                        {item.user.institution.address}
+                            {item.user.institution.address}
                         </Table1>
                     </td>
                     <td className="max-w-24 p-4">
@@ -196,12 +181,7 @@ export default function ManajemenujiTable({data, mutate}) {
                         <Table1 className="text-black-500 leading-normal">
                             {
                                 HMinus(item.balis_registration_date)
-                                
                             }
-                            {/* {item.balis_registration_date ?
-                                HMinus(item.balis_registration_date) :
-                                "-"
-                            } */}
                         </Table1>
                     </td>
                     <td className="max-w-24 p-4">
@@ -236,12 +216,9 @@ export default function ManajemenujiTable({data, mutate}) {
                     </td>
                 </tr>
             ))}
-          
         </tbody>
-
       </table>
       {isDetailOpen &&
-        // <DetailUjiModalPersonel isOpen={isDetailOpen} setIsOpen={setIsDetailOpen}/>
         <DetailModal 
           title="Detail Uji" 
           isOpen={isDetailOpen} 
@@ -263,246 +240,105 @@ export default function ManajemenujiTable({data, mutate}) {
                     Pemilihan Jadwal &amp; Penguji
                 </Button>
             :
-
             dataSelected.status <=6 ? 
             <>
                 <Button
                 buttonStyle="primary_default"
                 onClick={
                     ()=> setDokumenPenugasanPopUp(true)
-                    
                 }
                 >
                     Dokumen Penugasan
                 </Button>
-
                 <Button
-                // buttonStyle="primary_default"
                 className="bg-secondary text-white"
                 onClick={()=> setEditJadwalPopUp(true)}
                 >
                     Ubah Jadwal &amp; Penguji
                 </Button>
-            </>
-                
+            </>  
             :
             <>
-            {dataSelected.status <=7 ?
-                 <Button
-                 buttonStyle={dataSelected.balis_registration_date? "primary_disabled" :"primary_default"}
-                 onClick={()=> setTanggalRegisBalisPopUp(true)}
-                 disabled={dataSelected.balis_registration_date? true:false}
-                >
-                    Input Tanggal Registrasi Balis
-                </Button>
-                :
-                <>
-                    {dataSelected.status==9 &&
-                    permission_KA_LAB &&
-                        <>
-                            <Button
-                            buttonStyle="primary_default"
-                            onClick={()=> setRegisBapetenPopUp(true)}
-                            >
-                                Isi No. Registrasi Bapeten
-                            </Button>
+                {dataSelected.status <=7 ?
+                    <Button
+                    buttonStyle={dataSelected.balis_registration_date? "primary_disabled" :"primary_default"}
+                    onClick={()=> setTanggalRegisBalisPopUp(true)}
+                    disabled={dataSelected.balis_registration_date? true:false}
+                    >
+                        Input Tanggal Registrasi Balis
+                    </Button>
+                    :
+                    <>
+                        {dataSelected.status==9 &&
+                        permission_KA_LAB &&
+                            <>
+                                <Button
+                                buttonStyle="primary_default"
+                                onClick={()=> setRegisBapetenPopUp(true)}
+                                >
+                                    Isi No. Registrasi Bapeten
+                                </Button>
+                                <Button
+                                className="bg-secondary text-white"
+                                onClick={()=> setSertifLukPopUp(true)}
+                                >
+                                    Edit Sertifikasi LUK
+                                </Button>
+                            </>
+                        }
+                        {dataSelected.status==100 &&
+                            permission_KA_LAB &&
                             <Button
                             className="bg-secondary text-white"
-                            onClick={()=> setSertifLukPopUp(true)}
+                            onClick={()=> SingleFileDownloader(downloadDoc, dataSelected.id, DOCTYPE.CERTIFICATE, `SIP_CERT_${dataSelected.doc_number}`)}
                             >
-                                Edit Sertifikasi LUK
+                                Cetak Sertifikasi LUK
                             </Button>
-
-                        </>
-
-                    }
-
-                    {dataSelected.status==100 &&
+                        }
+                        <Button
+                        buttonStyle="primary_default"
+                        onClick={()=> ZipFileDownloader(downloadZipFile, dataSelected.id, `${dataSelected.doc_number}-report.zip`,DOCTYPE.DOCGROUP.REPORT)}
+                        >
+                            Unduh Laporan Uji
+                        </Button>
+                        {dataSelected.status==8 &&
                         permission_KA_LAB &&
-                        <Button
-                        className="bg-secondary text-white"
-                        onClick={()=> SingleFileDownloader(downloadDoc, dataSelected.id, DOCTYPE.CERTIFICATE, `SIP_CERT_${dataSelected.doc_number}`)}
-                        >
-                            Cetak Sertifikasi LUK
-                        </Button>
-                    }
-
-                    <Button
-                    buttonStyle="primary_default"
-                    // onClick={()=> SingleFileDownloader(downloadDoc, dataSelected.id, DOCTYPE.TEST_REPORT, testFileName)}
-                    onClick={()=> ZipFileDownloader(downloadZipFile, dataSelected.id, `${dataSelected.doc_number}-report.zip`,DOCTYPE.DOCGROUP.REPORT)}
-                    >
-                        Unduh Laporan Uji
-                    </Button>
-
-                    {dataSelected.status==8 &&
-                    permission_KA_LAB &&
-                    <>
-                        <Button
-                        className="bg-secondary text-white"
-                        onClick={()=> setKonfirmLaporanUjiPopUp(true)}
-                        >
-                            Konfirmasi Laporan Uji
-                        </Button>
-
-                        <Button
-                            buttonStyle="secondary_default"
-                            onClick={()=> setUbahLaporanUjiPopUp(true)}
-                            
-                        >
-                            Ubah Laporan Uji
-                        </Button>
+                        <>
+                            <Button
+                            className="bg-secondary text-white"
+                            onClick={()=> setKonfirmLaporanUjiPopUp(true)}
+                            >
+                                Konfirmasi Laporan Uji
+                            </Button>
+                            <Button
+                                buttonStyle="secondary_default"
+                                onClick={()=> setUbahLaporanUjiPopUp(true)}
+                            >
+                                Ubah Laporan Uji
+                            </Button>
+                        </>
+                        }
                     </>
-                    }
-                </>
-
-            }
-
-
-
-            <Button
-                buttonStyle="secondary_default"
-                onClick={()=> SingleFileDownloader(downloadDoc, dataSelected.id, DOCTYPE.BAP, `SIP_BAP_${dataSelected.doc_number}`)}
-            >
-                Unduh Berita Acara Pekerjaan
-            </Button>
-            </>
-            
-            
-
-
-            }
-            {/* {dataSelected.status==5 &&
-                <Button
-                buttonStyle="primary_default"
-                onClick={
-                    ()=>{setPemilihanJadwalPopUp(true)}
                 }
+                <Button
+                    buttonStyle="secondary_default"
+                    onClick={()=> SingleFileDownloader(downloadDoc, dataSelected.id, DOCTYPE.BAP, `SIP_BAP_${dataSelected.doc_number}`)}
                 >
-                    Pemilihan Jadwal &amp; Penguji
+                    Unduh Berita Acara Pekerjaan
                 </Button>
+                </>
             }
-
-            {dataSelected.status>5 &&
-                <div className="block space-y-4">
-                    {dataSelected.status==6 &&
-                    <>
-                        <Button
-                        buttonStyle="primary_default"
-                        onClick={()=> setDokumenPenugasanPopUp(true)}
-                        >
-                            Dokumen Penugasan
-                        </Button>
-                        <Button
-                        // buttonStyle="primary_default"
-                        className="bg-secondary text-white"
-                        // onClick={}
-                        >
-                            Ubah Jadwal &amp; Penguji
-                        </Button>
-                    </>
-                    }
-
-                    {dataSelected.status==7 &&
-                    <>
-                        <Button
-                            buttonStyle="primary_default"
-                            onClick={()=> setTanggalRegisBalisPopUp(true)}
-                        >
-                            Input Tanggal Registrasi Balis
-                        </Button>
-                        
-                        <Button
-                            buttonStyle="secondary_default"
-                        >
-                            Unduh Berita Acara Pekerjaan
-                        </Button>
-                    </>
-
-                    }
-
-                    {dataSelected.status == 8 &&
-                    <>
-                        <Button
-                        buttonStyle="primary_default"
-                        onClick={()=> SingleFileDownloader(downloadDoc, dataSelected.id, DOCTYPE.TEST_REPORT, testFileName)}
-                        >
-                            Unduh Laporan Uji
-                        </Button>
-                        <Button
-                        // buttonStyle="primary_default"
-                        className="bg-secondary text-white"
-                        onClick={()=> setKonfirmLaporanUjiPopUp(true)}
-                        >
-                            Konfirmasi Laporan Uji
-                        </Button>
-                        <Button
-                            buttonStyle="secondary_default"
-                        >
-                            Ubah Laporan Uji
-                        </Button>
-                        <Button
-                            buttonStyle="secondary_default"
-                        >
-                            Unduh Berita Acara Pekerjaan
-                        </Button>
-                    </>
-                    }
-
-                    {dataSelected.status == 9 &&
-                    <>
-                        <Button
-                        buttonStyle="primary_default"
-                        onClick={()=> setRegisBapetenPopUp(true)}
-                        >
-                            Isi No. Registrasi Bapeten
-                        </Button>
-                        <Button
-                        // buttonStyle="primary_default"
-                        className="bg-secondary text-white"
-                        onClick={()=> setSertifLukPopUp(true)}
-                        >
-                            Edit Sertifikasi LUK
-                        </Button>
-                        <Button
-                            buttonStyle="primary_default"
-                            onClick={()=> {
-                                // console.log("id", dataSelected.id)
-                                // console.log("file name", testFileName)
-                                SingleFileDownloader(downloadDoc, dataSelected.id, DOCTYPE.TEST_REPORT, testFileName)
-                            }}
-                        >
-                            Unduh Laporan Uji
-                        </Button>
-                        <Button
-                            buttonStyle="secondary_default"
-                        >
-                            Unduh Berita Acara Pekerjaan
-                        </Button>
-                    </>
-                    }
-
-                </div>
-
-            } */}
-
             </div>
           }
           >
             <Section1 data={dataSelected} />
-
             <Section2 data={dataSelected}/>
-
             <SectionSchedule data={dataSelected}/>
-
             {dataSelected.cost_detail.cost!=0 &&
-            <SectionFee data={dataSelected} cost_detail={dataSelected.cost_detail} current_status={dataSelected.status}/>
+                <SectionFee data={dataSelected} cost_detail={dataSelected.cost_detail} current_status={dataSelected.status}/>
             }
-            {/* <SectionFee data={dataSelected} cost_detail={dataSelected.cost_detail} current_status={dataSelected.status}/> */}
-
           </DetailModal>
       }
-
       {pemilihanJadwalPopUp && 
       <FormModal
         title="Pemilihan Jadwal &amp; Penguji"
@@ -522,7 +358,6 @@ export default function ManajemenujiTable({data, mutate}) {
                   }
                   Konfirmasi Jadwal dan Personil
                 </Button>
-
         </>}
       >
         <PersonnelProvider>
@@ -537,7 +372,6 @@ export default function ManajemenujiTable({data, mutate}) {
         </PersonnelProvider>
       </FormModal>
       }
-
       {dokumenPenugasanPopUp &&
         <FormModal  
         title="Dokumen Penugasan"
@@ -558,18 +392,14 @@ export default function ManajemenujiTable({data, mutate}) {
                   }
                   Simpan Dokumen
             </Button>
-
             <Button
             className="bg-secondary text-white" 
             onClick={()=>{
                 ZipFileDownloader(downloadZipFile, dataSelected.id, `${dataSelected.doc_number}-assignment.zip`, DOCTYPE.DOCGROUP.ASSIGNMENT)
-                console.log(dataSelected.id)
             }}
             >
                 Cetak Surat Tugas
             </Button>
-        
-
         </div>
         }
         >
@@ -581,7 +411,6 @@ export default function ManajemenujiTable({data, mutate}) {
                 reqSent={reqSent}
                 setreqSent={setreqSent}
             />
-        
         </FormModal>
       }
       {editJadwalPopUp&&
@@ -603,7 +432,6 @@ export default function ManajemenujiTable({data, mutate}) {
                     }
                     Ubah Jadwal dan Personil
                 </Button>
-
         </>}
         >
             <PersonnelProvider>
@@ -617,10 +445,7 @@ export default function ManajemenujiTable({data, mutate}) {
                 />
             </PersonnelProvider>
         </FormModal>
-
       }
-
-
       {tanggalRegisBalisPopUp &&
         <FormModal
         title="Input Tanggal Registrasi Balis"
@@ -641,7 +466,6 @@ export default function ManajemenujiTable({data, mutate}) {
                   }
                   Konfirm Tanggal Registrasi
             </Button>
-
         </>
         }
         >
@@ -653,10 +477,8 @@ export default function ManajemenujiTable({data, mutate}) {
             reqSent={reqSent}
             setreqSent={setreqSent}
             />
-            
         </FormModal>
       }
-
       {konfirmLaporanUjiPopUp&&
         <FormModal
         title="Konfirmasi Laporan Uji"
@@ -667,13 +489,11 @@ export default function ManajemenujiTable({data, mutate}) {
         <div className="block space-y-3">
             <Button 
             buttonStyle="primary_default"
-            type="button"                 
-            // form={}
+            type="button"  
             onClick={()=> setTerimaPopUp(true)}
             >
                   Setujui Laporan
             </Button>
-
             <Button
             className="bg-warning text-white"
             type="button" 
@@ -681,11 +501,8 @@ export default function ManajemenujiTable({data, mutate}) {
             >
                 Tolak Laporan
             </Button>
-        
-
         </div>
-        }>
-            
+        }> 
             <FormKonfirmLaporanUji
             data={dataSelected}
             submitState={submitState}
@@ -695,7 +512,6 @@ export default function ManajemenujiTable({data, mutate}) {
             />
         </FormModal>
       }
-
       {regisBapetenPopUp &&
         <FormModal
         title="Isi No Registrasi Bapeten"
@@ -715,8 +531,6 @@ export default function ManajemenujiTable({data, mutate}) {
                   }
                   Konfirm Nomor Registrasi
             </Button>
-
-            
         }
         >
             <FormRegisBapeten
@@ -727,13 +541,8 @@ export default function ManajemenujiTable({data, mutate}) {
             reqSent={reqSent}
             setreqSent={setreqSent}
             />
-
         </FormModal> 
-
-            
-
       }
-
       {sertifLukPopUp &&
         <FormModal
         title="Cetak Sertifikat LUK"
@@ -753,7 +562,6 @@ export default function ManajemenujiTable({data, mutate}) {
                   }
                   Simpan Sertifikat
             </Button>
-
         }
         >
             <FormEditSertifLuk
@@ -762,10 +570,8 @@ export default function ManajemenujiTable({data, mutate}) {
                 setSubmitState={setSubmitState}
                 setreqSent={setreqSent}
             />
-
         </FormModal> 
       }
-
       {ubahLaporanUjiPopUp && 
         <FormModal
         title="Ubah Laporan Hasil Uji"
@@ -793,10 +599,8 @@ export default function ManajemenujiTable({data, mutate}) {
              setSubmitState={setSubmitState}
              setreqSent={setreqSent}
              />
-
         </FormModal>
       }
-
       {cancelUjiPopUp && 
         <FormModal
         title="Batalkan Permohonan"
@@ -805,7 +609,6 @@ export default function ManajemenujiTable({data, mutate}) {
         setIsOpen={setCancelUjiPopUp}
         buttonSide={
             <Button
-            // buttonStyle="primary_default"
             className="bg-error"
             buttonStyle={submitState?"primary_disabled":"primary_default"}
             type="submit"                 
@@ -813,7 +616,6 @@ export default function ManajemenujiTable({data, mutate}) {
             form={form_batal_permohonan_uji_id}
             >
                 Batalkan Permohonan
-
             </Button>
         }
         >
@@ -824,10 +626,8 @@ export default function ManajemenujiTable({data, mutate}) {
             setSubmitState={setSubmitState}
             setreqSent={setreqSent}
             />
-
         </FormModal>
     }
-
       </>
   )
 }

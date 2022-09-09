@@ -19,7 +19,7 @@ export default function PersonelProfilePage() {
   useEffect(() => {
     if(!isValidating){
       if(user){
-        console.log("user", user)
+        
         if(user.data.role.access_code != ACCESS_CODE.PERSONNEL && user.data.role.access_code != ACCESS_CODE.PERSONNEL_PEERS &&  user.data.role.access_code != ACCESS_CODE.ADMIN){
           router.replace("/")
         }
@@ -28,7 +28,7 @@ export default function PersonelProfilePage() {
         }
       }
       if(error&& !user){
-        console.log("error", error)
+        
         router.replace("/")
       }
 

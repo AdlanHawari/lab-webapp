@@ -7,8 +7,6 @@ export default function DetailUjiClientContextProvider({children}){
     const [formPraUjiOpen, setFormPraUjiOpen] = useState(false)
     const [uploadDokumenOpen, setUploadDokumenOpen] = useState(false)
     const [cancelUjiPopUp, setCancelUjiPopUp] = useState(false)
-    
-
     const contextValue = useMemo(() => {
         return {
             persPenawaranOpen, 

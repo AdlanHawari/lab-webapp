@@ -1,7 +1,6 @@
 import { BellIcon } from '@heroicons/react/solid'
 import { MyLink } from 'components/general/MyLink'
 import { useNotifContext } from 'hooks/context/notif-context/NotifContext';
-import { useNotifFetcher } from 'hooks/fetcher/notification/NotificationFetcher';
 import { useTitleContext } from 'hooks/TitleContext';
 import { useRouter } from 'next/router'
 import { useEffect } from 'react';
@@ -12,18 +11,12 @@ export default function NotifIcon() {
   const [title, setTitle] = useTitleContext();
   const {newNotif}= useNotifContext()
   useEffect(() => {
-    console.log("newnotif notificon", newNotif)
+    console.debug("newnotif notificon", newNotif)
   }, [newNotif])
   
   return (
     <MyLink href={constructLink(router.pathname,"/log")}
     onClick={()=> {
-      // setReadState(true)
-      // if(newNotif){
-      //   socket.send("0")
-      //   setNewNotif(false)
-        
-      // }
       setTitle("Log")
     }}>
       <div className="relative">
@@ -37,5 +30,4 @@ export default function NotifIcon() {
       </div>
     </MyLink>
   )
-  
 }

@@ -11,7 +11,6 @@ import Button from 'components/small/button_fixed/Button'
 import Section1 from 'components/big/detail-section/Section1'
 import Section2 from 'components/big/detail-section/Section2'
 import SectionSchedule from 'components/big/detail-section/SectionSchedule'
-import SectionFee from 'components/big/detail-section/SectionFee'
 import { usePersonnelUjiContext } from 'hooks/context/personnel-uji/PersonnelUjiContext'
 import FormModal from 'components/big/FormModal'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -26,23 +25,21 @@ import FormKonfirmLaporanUji from 'components/big/manajemen/manajemen-uji/FormKo
 import XRayDetector from 'utils/XRayDetector'
 import HMinus from 'utils/HMinus'
 import { DOCTYPE } from 'constants/DocType'
-import { SingleFileDownloader, ZipFileDownloader } from 'utils/FileDownloader'
+import { ZipFileDownloader } from 'utils/FileDownloader'
 import { useDetailUji } from 'hooks/fetcher/detail-uji/useDetailUji'
 import ErrorModal from 'components/big/ErrorModal'
 import FormEditLaporanHasilUji from 'components/big/manajemen/manajemen-uji/FormEditLaporanHasilUji'
 
 export default function PersonnelUjiTable({data, mutate}) {
     const [isDetailOpen, setIsDetailOpen] = useState(false)
-  const [selected, setSelected] = useState()
-  const [dataSelected, setDataSelected] = useState({})
-  const [dokumenPenugasanState, setDokumenPenugasanState] = useState(false)
-  const [emptyDokumenPenugasanState, setEmptyDokumenPenugasanState] = useState(false)
-  const {readable} = DateFormatter()
-  const [submitState, setSubmitState] = useState(false)
+    const [selected, setSelected] = useState()
+    const [dataSelected, setDataSelected] = useState({})
+    const [dokumenPenugasanState, setDokumenPenugasanState] = useState(false)
+    const [emptyDokumenPenugasanState, setEmptyDokumenPenugasanState] = useState(false)
+    const {readable} = DateFormatter()
+    const [submitState, setSubmitState] = useState(false)
     const [reqSent, setreqSent] = useState(false);
-
     const { user, loading,error } = useUser()
-
     const {downloadZipFile}= useDetailUji()
 
   const {
@@ -63,7 +60,6 @@ export default function PersonnelUjiTable({data, mutate}) {
         setTolakPopUp
     } = useKonfirmLaporanUjiContext()
 
-
     useEffect(() => {
         if(reqSent){
             setSubmitState(false)
@@ -75,40 +71,7 @@ export default function PersonnelUjiTable({data, mutate}) {
             setreqSent(false)
             mutate()
         }
-      
-    
     }, [reqSent])
-
-    function checkDokumenPenugasan(documents){
-        documents.map(item => {
-            if(item.group == DOCTYPE.DOCGROUP.ASSIGNMENT){
-                setDokumenPenugasanState(true)
-            }
-        })
-
-    }
-
-    // useEffect(()=>{
-    //     if(user){
-    //         console.log("role",user.data.role.access_code)
-    //     }
-    // }, [user])
-    useEffect(() => {
-      
-        // if(dataSelected && dataSelected.documents){
-        //     checkDokumenPenugasan(dataSelected.documents)
-        // }
-        console.log()
-    }, [dataSelected])
-
-    useEffect(() => {
-      
-        console.log("dokpenstate", dokumenPenugasanState)
-    }, [dokumenPenugasanState])
-    
-    
-    
-
 
   return (
     <>
@@ -120,14 +83,10 @@ export default function PersonnelUjiTable({data, mutate}) {
               <Table2 className="text-black-500 text-left leading-normal">
                   {rowTitle}  
               </Table2>
-
             </th>
-
           ))
-
           }
         </tr>
-
       </thead>
       <tbody className="bg-white divide-y divide-table-divider">
         {data.map((item,index)=>(
@@ -225,10 +184,7 @@ export default function PersonnelUjiTable({data, mutate}) {
       ))}
       </tbody>
     </table>
-
-
     {isDetailOpen && 
-
     <DetailModal
         title="Detail Uji"
         isOpen={isDetailOpen} 
@@ -243,38 +199,26 @@ export default function PersonnelUjiTable({data, mutate}) {
                 <Button
                 buttonStyle="primary_default"
                 onClick={
-                    // dokumenPenugasanState ?
-                    // ()=>ZipFileDownloader(downloadZipFile, dataSelected.id, DOCTYPE.DOCGROUP.ASSIGNMENT, "Dokumen_Penugasan.zip")
                     ()=>ZipFileDownloader(downloadZipFile, dataSelected.id, `${dataSelected.doc_number}-dokumen_penugasan.zip`, DOCTYPE.DOCGROUP.ASSIGNMENT)
-                    // :
-                    // ()=>setEmptyDokumenPenugasanState(true)
-
-
                 }
                 >
                     Unduh Dokumen Penugasan
                 </Button>
-
                 <Button
                 className="bg-secondary text-white"
                 onClick={()=> setBeritaAcaraPopUp(true)}
                 >
                     Isi Berita Acara Pekerjaan
                 </Button>
-
             </div>
-
             }
-
             {dataSelected.status == 7 && 
             <Button
             buttonStyle="primary_default"
             onClick={()=> setLaporanUjiPopUp(true)}>
                 Isi Laporan Hasil Uji
             </Button>
-
             }
-
             {dataSelected.status>7 && dataSelected.status <50 && 
             <div className="block space-y-4">
                 <Button
@@ -283,7 +227,6 @@ export default function PersonnelUjiTable({data, mutate}) {
                 >
                     Unduh Laporan Uji
                 </Button>
-                
                 {dataSelected.status<9 &&
                 <Button
                 className="bg-secondary text-white"
@@ -292,9 +235,7 @@ export default function PersonnelUjiTable({data, mutate}) {
                     Ubah Laporan Uji
                 </Button>
                 }
-
                 {dataSelected.status == 8 && user.data.role.access_code == ACCESS_CODE.ADMIN ? 
-
                 <Button
                 className="bg-secondary text-white"
                 onClick={()=> setKonfirmLaporanUjiPopUp(true)}
@@ -309,27 +250,17 @@ export default function PersonnelUjiTable({data, mutate}) {
                 >
                     Konfirmasi Laporan Uji
                 </Button>
-
             }
-
             </div>
             }
             </>
         }
     >
-
         <Section1 data={dataSelected} />
-
         <Section2 data={dataSelected}/>
-
         <SectionSchedule data={dataSelected}/>
-        
-        {/* <SectionFee data={dataSelected} cost_detail={dataSelected.cost_detail} current_status={dataSelected.status}/> */}
-
     </DetailModal>
-
     }
-
     {beritaAcaraPopUp && 
     <FormModal
     title="Berita Acara Pekerjaan"
@@ -361,7 +292,6 @@ export default function PersonnelUjiTable({data, mutate}) {
         />
     </FormModal>
     }
-
     {laporanUjiPopUp &&
         <FormModal
         title="Laporan Hasil Uji"
@@ -390,10 +320,8 @@ export default function PersonnelUjiTable({data, mutate}) {
             setSubmitState={setSubmitState}
             setreqSent={setreqSent}
         />
-
     </FormModal>
     }
-
     {editLaporanUjiPopUp &&
         <FormModal
         title="Ubah Laporan Hasil Uji"
@@ -422,12 +350,8 @@ export default function PersonnelUjiTable({data, mutate}) {
             setSubmitState={setSubmitState}
             setreqSent={setreqSent}
         />
-
     </FormModal>
     }
-
-    
-
     {konfirmlaporanUjiPopUp && 
         <FormModal
         title="Konfirmasi Laporan Uji"
@@ -438,13 +362,11 @@ export default function PersonnelUjiTable({data, mutate}) {
             <div className="block space-y-3">
             <Button 
             buttonStyle="primary_default"
-            type="button"                 
-            // form={}
+            type="button"
             onClick={()=> setTerimaPopUp(true)}
             >
                   Setujui Laporan
             </Button>
-
             <Button
             className="bg-warning text-white"
             type="button" 
@@ -452,8 +374,6 @@ export default function PersonnelUjiTable({data, mutate}) {
             >
                 Tolak Laporan
             </Button>
-        
-
         </div>
         }
         >
@@ -465,7 +385,6 @@ export default function PersonnelUjiTable({data, mutate}) {
              setreqSent={setreqSent}
              asPeers="true"
             />
-
         </FormModal>
     }
     {emptyDokumenPenugasanState &&
@@ -477,7 +396,6 @@ export default function PersonnelUjiTable({data, mutate}) {
             <div className='block pb-10'>
                 <h3 className='text-black-400'>Dokumen penugasan belum tersedia</h3>
             </div>
-
         </ErrorModal>
     }
     </>

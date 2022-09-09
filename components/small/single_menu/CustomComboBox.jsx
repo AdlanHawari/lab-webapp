@@ -1,27 +1,20 @@
 import { Combobox, Transition } from "@headlessui/react";
-import { ArrowDownIcon, CheckIcon, ChevronDownIcon } from "@heroicons/react/solid";
-import { useFormikContext } from "formik";
-import { Fragment, useState, useEffect } from "react";
+import { CheckIcon, ChevronDownIcon } from "@heroicons/react/solid";
+import { Fragment, useState } from "react";
 
   export default function CustomComboBox(props) {
-
     let {
       itemLists,
       onBlur,
       placeholder,
       id,
       name,
-      type,
       selected, 
       setSelected,
       disabled,
       onChange
     } = props
-
-    // const { values, setFieldValue } = useFormikContext();
-    // const [selected, setSelected] = useState()
     const [query, setQuery] = useState('')
-  
     const filteredItemLists =
     query === ''
       ? itemLists
@@ -30,42 +23,23 @@ import { Fragment, useState, useEffect } from "react";
             .toLowerCase()
             .replace(/\s+/g, '')
             .includes(query.toLowerCase().replace(/\s+/g, ''))
-        )
-
-        // useEffect(() => {
-        //   setFieldValue(id,selected)
-        // }, [selected])
-        
+        )    
       
   return (
     
     <div className="w-96 ">
-      
       <Combobox 
       disabled={disabled}
       value={selected} 
-      // value={values.id} 
       onChange={ value => {
-        // console.log("value", value)
-        // console.log("id", id)
-        // setFieldValue(id,value)
         setSelected(id,value)
         onChange
       }
-        // setSelected
-        // setSelected
-        // onChange
        }>
-         
-
-         
-         
         <div className="relative">
           <div className="relative w-full text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-primary focus-visible:ring-offset-2 sm:text-sm overflow-hidden">
               <Combobox.Input
               className="w-full border-none focus:ring-0 py-2 pl-3 pr-10 text-sm leading-5 text-grey-900"
-              // displayValue={(item) => item}
-                
               id={id}
               name={name}
               onChange={
@@ -113,7 +87,6 @@ import { Fragment, useState, useEffect } from "react";
                             selected ? 'font-medium' : 'font-normal'
                           }`}
                         >
-                          {/* {item.name} */}
                           {item}
                         </span>
                         {selected ? (
@@ -131,12 +104,9 @@ import { Fragment, useState, useEffect } from "react";
                 ))
               )}
             </Combobox.Options>
-
           </Transition>
         </div>
-         
       </Combobox>
-
     </div>
   )
 }

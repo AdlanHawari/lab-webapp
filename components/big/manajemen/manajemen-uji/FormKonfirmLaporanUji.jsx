@@ -1,6 +1,5 @@
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { data } from 'autoprefixer'
 import classNames from 'classnames'
 import FormModal from 'components/big/FormModal'
 import Button from 'components/small/button_fixed/Button'
@@ -12,7 +11,6 @@ import { useDetailUji } from 'hooks/fetcher/detail-uji/useDetailUji'
 import React, { useEffect, useState } from 'react'
 import FormTolakLaporanUji from './FormTolakLaporanUji'
 
-
 export default function FormKonfirmLaporanUji({
     data,
     submitState,
@@ -21,35 +19,28 @@ export default function FormKonfirmLaporanUji({
     setreqSent,
     asPeers
 }) {
-
     const {
         terimaPopUp,
         setTerimaPopUp,
         tolakPopUp,
         setTolakPopUp
     } = useKonfirmLaporanUjiContext()
-
     const [fileName, setFileName] = useState("")
-
     const {confirmTestApp} = useDetailUji()
-
     async function SetujuiLaporan(testAppId){
         setSubmitState(true)
         const resp = await confirmTestApp(testAppId)
         if(resp.header.response_code == 200){
-            // setSubmitState(false)
             setreqSent(true)
         }
     }
 
     useEffect(() => {
-        
         data.documents.map((item)=>{
             if(item.type=="TEST_REPORT"){
                 setFileName(item.file_name)
             }
         })
-    
     }, [])
     
   return (
@@ -61,39 +52,15 @@ export default function FormKonfirmLaporanUji({
                 </h3>
                 <button 
                 className="flex justify-between items-center w-full py-2 px-2.5 bg-primary rounded-xl shadow-sm"
-                
-                >
-                        
+                >      
                     <Body2 className="text-white">
                         Laporan Uji
                     </Body2>
                     <Body2 className="text-white underline underline-offset-2">
                         {fileName}
-                        
                     </Body2>
-                    
                 </button>
-                {/* {data.documents.map((item,index)=>(
-                    item.type=="TEST_REPORT" &&
-            
-                        <button 
-                        className="flex justify-between items-center w-full py-2 px-2.5 bg-primary rounded-xl shadow-sm"
-                        
-                        >
-                                
-                            <Body2 className="text-white">
-                                Laporan Uji
-                            </Body2>
-                            <Body2 className="text-white underline underline-offset-2">
-                                {item.file_name}
-                                
-                            </Body2>
-                            
-                        </button>
-
-                ))} */}
             </div>
-
         </div>
         {terimaPopUp &&
          <FormModal
@@ -118,11 +85,8 @@ export default function FormKonfirmLaporanUji({
                     </Body3>
                 </div>
             </div>
-
          </FormModal>
-
         }
-
         {tolakPopUp &&
          <FormModal
          title="Tolak Laporan"
@@ -153,9 +117,7 @@ export default function FormKonfirmLaporanUji({
             reqSent={reqSent}
             setreqSent={setreqSent}
             />
-
          </FormModal>
-
         }
     </>
   )

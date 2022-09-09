@@ -22,7 +22,6 @@ export default function CreateInstitutionForm({
             onClick={()=> setCreateInstForm(false)}>
                 <XIcon className="w-4 h-5 text-white " aria-hidden="true"/>
             </button>
-
         </div>
         <Body2 className="text-black-400 pb-3.5">
             Instansi Baru
@@ -41,7 +40,6 @@ export default function CreateInstitutionForm({
                     />
                 <ErrorMessage name="institution_create.name" component={ValidationMessage}/>
             </div>
-
             <Body1 className="text-black-400">
                 Nama Kontak Instansi
             </Body1>
@@ -55,7 +53,6 @@ export default function CreateInstitutionForm({
                     />
                 <ErrorMessage name="institution_create.contact_name" component={ValidationMessage}/>
             </div>
-
             <Body1 className="text-black-400">
                 Alamat Instansi
             </Body1>
@@ -68,9 +65,7 @@ export default function CreateInstitutionForm({
                     placeholder="Isi Alamat Instansi"
                     />
                 <ErrorMessage name="institution_create.address" component={ValidationMessage}/>
-                
             </div>
-
             <Body1 className="text-black-400">
                 Email Instansi
             </Body1>
@@ -83,9 +78,7 @@ export default function CreateInstitutionForm({
                     placeholder="Isi Email Instansi"
                     />
                 <ErrorMessage name="institution_create.email" component={ValidationMessage}/>
-            
             </div>
-
             <Body1 className="text-black-400">
                 No. Telp Instansi
             </Body1>
@@ -98,9 +91,7 @@ export default function CreateInstitutionForm({
                     placeholder="Isi No. Telp Instansi"
                     />
                 <ErrorMessage name="institution_create.phone_number" component={ValidationMessage}/>
-            
             </div>
-
             <Body1 className="text-black-400">
                 No. Hp Instansi
             </Body1>
@@ -113,13 +104,9 @@ export default function CreateInstitutionForm({
                     placeholder="Isi No. Hp Instansi"
                     />
                 <ErrorMessage name="institution_create.mobile_phone_number" component={ValidationMessage}/>
-            
             </div>
-
         </div>
-
         <div className="flex w-full justify-end pt-4">
-            {/* {submitButton} */}
             <div className="w-64">
                 <Button 
                 className="bg-primary"  
@@ -135,8 +122,6 @@ export default function CreateInstitutionForm({
                 </Button>
             </div>
         </div>
-
-
     </div>
   )
 }

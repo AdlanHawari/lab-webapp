@@ -5,10 +5,8 @@ export default function TableSmall({className, children}) {
     <div className={classNames(
         "table-small",
         className
-
     )}>
         {children}
-
     </div>
     )
 }

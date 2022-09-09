@@ -22,62 +22,45 @@ export default function DashboardAlatUkurPage() {
     setTitle('Manajemen Alat Ukur')
     })
   
-    useEffect(() => {
-      // console.log("entering client uji")
-      // delay(1000)
-      if(!isValidating){
-        if(user){
-          console.log("user", user)
-          if(user.data.role.access_code != ACCESS_CODE.MANAGEMENT_KAL && user.data.role.access_code != ACCESS_CODE.MANAGEMENT_UJI && user.data.role.access_code != ACCESS_CODE.KEPALA_LAB_KAL && user.data.role.access_code != ACCESS_CODE.KEPALA_LAB_UJI &&  user.data.role.access_code != ACCESS_CODE.ADMIN){
-            router.replace("/")
-          }
-          else{
-            setRender(true)
-          }
-        }
-    
-        if(error&& !user){
-          console.log("error", error)
+  useEffect(() => {
+    if(!isValidating){
+      if(user){
+        if(user.data.role.access_code != ACCESS_CODE.MANAGEMENT_KAL && user.data.role.access_code != ACCESS_CODE.MANAGEMENT_UJI && user.data.role.access_code != ACCESS_CODE.KEPALA_LAB_KAL && user.data.role.access_code != ACCESS_CODE.KEPALA_LAB_UJI &&  user.data.role.access_code != ACCESS_CODE.ADMIN){
           router.replace("/")
         }
-
+        else{
+          setRender(true)
+        }
       }
-    
-    }, [user,error, isValidating])
-    
-
-
+      if(error&& !user){
+        router.replace("/")
+      }
+    }
+  }, [user,error, isValidating])
   return (
     <>
-  
     {loading ?
     <div className="">
-
       <h3>Loading...</h3>
     </div>
     :
     render &&
     <AlatUkurFetcherProvider>
-
       <StatusFilterContextProvider>
         <FormCreateAlatUkurContextProvider>  
           <JenisAlatFilterContextProvider>
             <PageContextProvider>
-
-            <div className="flex flex-col space-y-5">
-              <DashboardAlatUkurFilterSection/>
-              <DashboardAlatUkurMainSection/>
-            </div>
+              <div className="flex flex-col space-y-5">
+                <DashboardAlatUkurFilterSection/>
+                <DashboardAlatUkurMainSection/>
+              </div>
             </PageContextProvider>
           </JenisAlatFilterContextProvider>
         </FormCreateAlatUkurContextProvider>
       </StatusFilterContextProvider>
-
     </AlatUkurFetcherProvider>
     }
     </>
-
-    
   )
 }
 

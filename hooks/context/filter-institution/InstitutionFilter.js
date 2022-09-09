@@ -4,11 +4,9 @@ const institutionFilterContext = createContext()
 
 export default function InstitutionFilterContextProvider({children}){
     const [institutionState, setInstitutionState] = useState(-1)
-
     const contextValue = useMemo(() => {
         return {institutionState, setInstitutionState}
     }, [institutionState, setInstitutionState])
-
     return(
         <institutionFilterContext.Provider value={contextValue}>
             {children}

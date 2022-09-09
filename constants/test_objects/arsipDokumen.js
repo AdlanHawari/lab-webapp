@@ -11,7 +11,6 @@ const generateLog = () => {
     let data = []
     for(let i = 0; i<9; i++){
         data.push(log)
-        
     }
     return data
 }

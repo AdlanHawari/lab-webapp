@@ -22,7 +22,6 @@ export default function ManajemenArsipPage() {
   const { user, loading,error, isValidating } = useUser()
   const [render, setRender] = useState(false)
 
-  // console.log(clientLogs)
   useEffect(() => {
     setTitle('Arsip Dokumen')
   })
@@ -30,63 +29,45 @@ export default function ManajemenArsipPage() {
   useEffect(() => {
     if(!isValidating){
       if(user){
-        console.log("user", user)
         if(user.data.role.access_code != ACCESS_CODE.MANAGEMENT_KAL && user.data.role.access_code != ACCESS_CODE.MANAGEMENT_UJI && user.data.role.access_code != ACCESS_CODE.KEPALA_LAB_KAL && user.data.role.access_code != ACCESS_CODE.KEPALA_LAB_UJI &&  user.data.role.access_code != ACCESS_CODE.ADMIN){
           router.replace("/")
         }
         else{
           setRender(true)
         }
-        
       }
       if(error&& !user){
-        console.log("error", error)
         router.replace("/")
       }
-
     }
-    
   }, [user,error, isValidating])
 
   return(
-
     <>
       {loading ?
         <div className="">
-
           <h3>Loading...</h3>
         </div>
         :
         render &&
-
           <DateFilterUjiContextProvider>
             <PageContextProvider>
-
-            <SummaryProvider>
-              <DocNumberFilterContextProvider>
-                <InstitutionFilterContextProvider>
-                  <JenisPekerjaanFilterContextProvider>
-                    <div className="flex flex-col space-y-5">
-                      <ArsipDokumenFilterSection/>
-                      <ArsipDokumenMainSection/>
-                    </div>
-                  </JenisPekerjaanFilterContextProvider>
-                </InstitutionFilterContextProvider>
-              </DocNumberFilterContextProvider>
-            </SummaryProvider>
+              <SummaryProvider>
+                <DocNumberFilterContextProvider>
+                  <InstitutionFilterContextProvider>
+                    <JenisPekerjaanFilterContextProvider>
+                      <div className="flex flex-col space-y-5">
+                        <ArsipDokumenFilterSection/>
+                        <ArsipDokumenMainSection/>
+                      </div>
+                    </JenisPekerjaanFilterContextProvider>
+                  </InstitutionFilterContextProvider>
+                </DocNumberFilterContextProvider>
+              </SummaryProvider>
             </PageContextProvider>
           </DateFilterUjiContextProvider>
-
       }
-
     </>
-    // <div className="block space-y-7">
-
-    //   <div className="flex">
-    //       <DateFilter/>
-    //   </div>
-    //   <ArsipTable data={arsipData}/>
-    // </div>
   )
 }
 
@@ -95,4 +76,3 @@ ManajemenArsipPage.getLayout = function getLayout(page) {
         <BaseLayout>{page}</BaseLayout>
     )
   }
-

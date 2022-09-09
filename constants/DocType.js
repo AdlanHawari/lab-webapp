@@ -7,5 +7,4 @@ export const DOCTYPE = {
         REPORT: "REPORT",
         ASSIGNMENT: "assignment"
     },
-
 }

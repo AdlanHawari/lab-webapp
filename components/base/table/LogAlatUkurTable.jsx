@@ -19,10 +19,9 @@ export default function LogAlatUkurTable({
     const [onDelete, setOnDelete] = useState(false)
     const [dataSelected, setDataSelected] = useState({})
     const [selected, setSelected] = useState()
-    const {readable, shorterReadable} = DateFormatter()
+    const {shorterReadable} = DateFormatter()
     const [submitState, setSubmitState] = useState(false)
     const [reqSent, setreqSent] = useState(false);
-
     const {deleteLogAlatUkur} = useLogAlatUkurFetcher()
 
     useEffect(() => {
@@ -33,8 +32,6 @@ export default function LogAlatUkurTable({
             mutate()
         }
     }, [reqSent])
-
-    console.log("datatable",data)
 
   return (
     <>
@@ -113,7 +110,6 @@ export default function LogAlatUkurTable({
                 ))}
             </tbody>
         </table>
-
         {onDelete&& 
         <AssuranceModal
             title="Hapus Log"
@@ -124,18 +120,13 @@ export default function LogAlatUkurTable({
                 <Button
                 className={classNames(submitState?"w-64":"bg-error w-64 hover:bg-error-dark")}
                 buttonStyle={submitState ? "primary_disabled" :"primary_default"}
-                // buttonStyle="primary_default"
                 disabled={submitState ? true:false}
                 type='button'
                 onClick={()=> {
                     setSubmitState(true)
                     async function fetchData(id){
                         const responseDel = await deleteLogAlatUkur(id)
-
-                        console.log("responseDel", responseDel)
-
                         if(responseDel.header.response_code==200){
-                         
                             setreqSent(true)
                         }
                         if(responseDel.header.response_code==400){
@@ -158,7 +149,6 @@ export default function LogAlatUkurTable({
                         }
                         Hapus
                     </Body3>
-
                 </Button>
             }
         >
@@ -167,7 +157,6 @@ export default function LogAlatUkurTable({
                     Hapus dari daftar log?
                 </Body3>
             </div>
-
         </AssuranceModal>
         }
     </>

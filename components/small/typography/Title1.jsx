@@ -5,10 +5,8 @@ export default function Title1({className, children}) {
     <div className={classNames(
         "title-1",
         className
-
     )}>
         {children}
-
     </div>
     )
 }

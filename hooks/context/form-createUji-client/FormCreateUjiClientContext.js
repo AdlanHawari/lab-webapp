@@ -4,14 +4,12 @@ const formCreateUjiClientContext = createContext()
 
 export default function FormCreateUjiClientContextProvider({children}){
     const [createUjiPopUp, setCreateUjiPopUp] = useState(false)
-
     const contextValue = useMemo(()=> {
         return {
             createUjiPopUp, 
             setCreateUjiPopUp
         }
     },[createUjiPopUp, setCreateUjiPopUp])
-
     return(
         <formCreateUjiClientContext.Provider value={contextValue}>
             {children}

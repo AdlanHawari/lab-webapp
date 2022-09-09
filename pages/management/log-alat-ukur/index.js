@@ -21,11 +21,8 @@ export default function LogAlatUkurPage() {
   })
 
   useEffect(() => {
-    
-    // delay(1000)
     if(!isValidating){
       if(user){
-        console.log("user", user)
         if(user.data.role.access_code != ACCESS_CODE.MANAGEMENT_KAL && user.data.role.access_code != ACCESS_CODE.MANAGEMENT_UJI && user.data.role.access_code != ACCESS_CODE.KEPALA_LAB_KAL && user.data.role.access_code != ACCESS_CODE.KEPALA_LAB_UJI &&  user.data.role.access_code != ACCESS_CODE.ADMIN){
           router.replace("/")
         }
@@ -35,27 +32,20 @@ export default function LogAlatUkurPage() {
       }
   
       if(error&& !user){
-        console.log("error", error)
         router.replace("/")
       }
 
     }
-    // else{
-    //   router.replace("/")
-    // }
   
   }, [user,error,isValidating])
   return (
     <>
-  
     {loading ?
     <div className="">
-
       <h3>Loading...</h3>
     </div>
     :
     render &&
-    // <div>LogAlatUkur</div>
     <LogAlatUkurProvider>
       <PageContextProvider>
         <DateFilterUjiContextProvider>
@@ -66,8 +56,6 @@ export default function LogAlatUkurPage() {
         </DateFilterUjiContextProvider>
       </PageContextProvider>
     </LogAlatUkurProvider>
-    
-    
   }
   </>
   )

@@ -1,11 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/solid'
 import Button from 'components/small/button_fixed/Button'
-import CustomComboBox from 'components/small/single_menu/CustomComboBox'
-import Body1 from 'components/small/typography/Body1'
 import { form_permohonan_uji_id } from 'constants/FormUtils'
-import { jenisAlatUkes } from 'constants/jenis-alat/JenisAlatUkes'
-import { jenisPekerjaan } from 'constants/JenisPekerjaan'
 import { Fragment } from 'react'
 import FormPermohonanUji from './FormPermohonanUji'
 
@@ -35,12 +31,8 @@ export default function PermohonanUjiModal({isOpen, setIsOpen}) {
               leaveTo="opacity-0"
             >
               <Dialog.Overlay className="fixed inset-0 bg-grey-500 opacity-75" />
-              {/* <Dialog.Overlay/> */}
             </Transition.Child>
-
-            {/* This element is to trick the browser into centering the modal contents. */}
             <span
-            //   className="inline-block h-screen align-middle"
               className="inline-block h-screen align-middle"
               aria-hidden="true"
             >
@@ -83,7 +75,6 @@ export default function PermohonanUjiModal({isOpen, setIsOpen}) {
                     </div>
                 </div>
               </div>
-                  
             </Transition.Child>
           </div>
         </Dialog>

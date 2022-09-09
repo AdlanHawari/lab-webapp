@@ -38,7 +38,6 @@ export const MENU_ITEM = {
         title: "Manajemen User",
         path: "/manajemen-user" 
     },
-     
     MANAJEMEN_ALAT_UKUR: {
         id: "alat-ukur",
         title: "Manajemen Alat Ukur",
@@ -56,5 +55,4 @@ export const MENU_ITEM = {
             }
         } 
     },
-
 }

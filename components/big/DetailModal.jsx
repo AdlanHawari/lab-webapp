@@ -2,24 +2,8 @@ import { Dialog, Transition } from "@headlessui/react"
 import { ChevronRightIcon, XIcon } from "@heroicons/react/solid"
 import Button from "components/small/button_fixed/Button"
 import QuickFilterButton from "components/small/button_small/QuickFilterButton"
-import QuickFilterSmaller from "components/small/button_small/QuickFilterSmaller"
-import Body1 from "components/small/typography/Body1"
-import Body2 from "components/small/typography/Body2"
-import Body3 from "components/small/typography/Body3"
-import CaptionReg from "components/small/typography/CaptionReg"
 import TitleSmall from "components/small/typography/TitleSmall"
-import { form_batal_permohonan_uji_id } from "constants/FormUtils"
-import { useDetailUjiClientContext } from "hooks/context/detail-uji-client/DetailUjiClientContext"
-import { usePersPenawaranContext } from "hooks/context/form-persetujuan-penawaran/PersPenawaranFormContext"
-import {Fragment, useState} from 'react'
-import Section1 from "./detail-section/Section1"
-import Section2 from "./detail-section/Section2"
-import SectionFee from "./detail-section/SectionFee"
-import SectionFormPraUji from "./detail-section/SectionFormPraUji"
-import SectionPaymentStep from "./detail-section/SectionPaymentStep"
-import SectionSchedule from "./detail-section/SectionSchedule"
-import FormCancelUji from "./FormCancelUji"
-import FormModal from "./FormModal"
+import {Fragment} from 'react'
 
 export default function DetailModal({
     status,
@@ -29,24 +13,17 @@ export default function DetailModal({
     setIsOpen,
     children,
     buttonSide,
-    data,
     setCancelPopUp
     }) {
 
-    // const {setPersPenawaranOpen, setFormPraUjiOpen, setUploadDokumenOpen} = useDetailUjiClientContext()
     function closeModal() {
         setIsOpen(false)
       }
-    
       function openModal() {
         setIsOpen(true)
       }
-
-    
-      console.log("status", current_status)
   return (
     <>
-    
     <Transition appear show={isOpen} as={Fragment}>
         <Dialog
         as="div"
@@ -65,13 +42,6 @@ export default function DetailModal({
                 >
                     <Dialog.Overlay className="fixed inset-0 bg-grey-500 opacity-75" />                
                 </Transition.Child>
-                {/* This element is to trick the browser into centering the modal contents. */}
-                {/* <span
-                className="inline-block h-detailModal align-middle"
-                aria-hidden="true"
-                >
-                &#8203;
-                </span> */}
                 <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-700"
@@ -98,7 +68,6 @@ export default function DetailModal({
                                 <ul className="flex items-center">
                                     {status.map((item,index)=>(
                                          index>0 && index<status.length-1 &&
-
                                             <li key={index} className="flex items-center">
                                                 <QuickFilterButton className={item.status == current_status ? "bg-primary-lighten10 border-primary-darken10" : "bg-grey-50"}>
                                                     <TitleSmall className={item.status == current_status ? "text-primary-darken10" : "text-grey-700"}>
@@ -110,7 +79,6 @@ export default function DetailModal({
                                                 <ChevronRightIcon className="h-6 w-6 text-grey-500" aria-hidden="true"/>     
                                                 }
                                             </li>
-                                        
                                     ))}
                                     {current_status == 99 &&
                                     <li className="flex items-center">
@@ -122,75 +90,23 @@ export default function DetailModal({
                                         </QuickFilterButton>
                                     </li>
                                     }
-                                    
                                 </ul>
                             </div>
                             <div className="flex h-innerDetailModal">
                                 <div className="relative h-full w-4/5 py-6 border-r border-grey-200">
                                     <div className="absolute max-h-innerDetailModal overflow-auto divide-y divide-grey-200 px-11 pb-20 w-full">
                                         {children}
-                                        {/* <Section1 data={data}/>
-                                        
-                                        <Section2 data={data}/>
-                                        
-
-                                    
-                                        {current_status>1 &&
-                                        <>
-                                            {current_status<5 &&
-                                                <SectionFee cost_detail={data.cost_detail} current_status={current_status}/>
-                                            }
-                                            
-                                            {current_status>4 &&
-
-                                                <SectionSchedule/>
-                                            }
-                                        </>
-                                        } */}
-
                                     </div>
-
                                 </div>
                                 <div className="relative h-innerDetailModal w-1/5">
                                     <div className="absolute inset-x-0 top-0 pt-6 px-10">
-
                                         {buttonSide}
-                                    {/* {current_status==2 &&
-                                            <Button 
-                                            buttonStyle="primary_default"
-                                            onClick={()=> setPersPenawaranOpen(true)}
-                                            >
-                                                Konfirmasi Penawaran
-                                            </Button>
-                                    }
-
-                                    {current_status==3 &&
-                                        <div className="block space-y-4">
-                                            <Button 
-                                            buttonStyle="primary_default"
-                                            onClick={()=>setFormPraUjiOpen(true)}
-                                            >
-                                                Isi Form Pra-Uji
-                                            </Button>
-                                            <Button 
-                                            buttonStyle="secondary_default"
-                                            onClick={()=>setUploadDokumenOpen(true)}
-                                            >
-                                                Upload Dokumen
-                                            </Button>
-
-                                        </div>
-                                    } */}
-
-
                                     </div>
-
                                     {current_status != 100 && current_status !=99 &&
                                     <div className="absolute inset-x-0 bottom-0 px-10">
                                         <Button 
                                         buttonStyle="secondary_neutral"
                                         onClick={
-                                            // ()=>{}
                                             setCancelPopUp?
                                             ()=>setCancelPopUp(true)
                                             :
@@ -200,25 +116,16 @@ export default function DetailModal({
                                         >
                                             Batalkan Permohonan
                                         </Button>
-
                                     </div>
                                     }
                                 </div>
-
                             </div>
-
                         </div>
                     </div>
-                    
                 </Transition.Child>
-
             </div>
-
         </Dialog>
-
     </Transition>
-
-   
     </>
   )
 }

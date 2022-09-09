@@ -8,7 +8,6 @@ export default function useGetToolsBrand() {
         getTools
     )
     const loading = !data && !error;
-
   return {
     loading_toolbrand: loading,
     error_toolbrand: error,

@@ -2,7 +2,6 @@ import Image from 'next/image'
 import login_bg from 'images/loginImage.png'
 import sip_logo from 'images/logo.png';
 
-
 export default function LoginLayout({ children }) {
   return (
         <div className="h-screen w-screen grid grid-cols-2 ">
@@ -29,16 +28,11 @@ export default function LoginLayout({ children }) {
                         width={207}
                         height={78}
                         quality={100}
-                        // objectFit="cover"
                         />
                     <div className='pt-28 block'>
-
                         {children}
-
                     </div>
-
                 </div>
-            
             </div>
         </div>
     )

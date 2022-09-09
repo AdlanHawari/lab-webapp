@@ -4,7 +4,6 @@ export const tool_details = {
     tool_name: "",
     serial: "",
     quantity: null
-
 }
 
 export const permohonanUjiInitVal = {

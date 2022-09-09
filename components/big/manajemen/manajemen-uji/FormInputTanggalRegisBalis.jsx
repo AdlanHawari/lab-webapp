@@ -5,7 +5,7 @@ import { ErrorMessage, Form, Formik } from 'formik'
 import { inputTanggalRegisBalisInitValues } from 'helper/initial-formik-values/InputTanggalRegisBalisInitValues'
 import InputTanggalRegisBalisValidationSchema from 'helper/yup/InputTanggalRegisBalisValidationSchema'
 import { useDetailUji } from 'hooks/fetcher/detail-uji/useDetailUji'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import handleFormData from 'utils/HandleFormData'
 import * as Yup from 'yup'
 
@@ -18,16 +18,6 @@ export default function FormInputTanggalRegisBalis({
     setreqSent,
 }) {
     const {updateTestApp, confirmTestApp} = useDetailUji()
-    const [update, setUpdate] = useState(false)
-    const [storeData, setStoreData] = useState(false)
-
-    // useEffect(() => {
-    //   if(storeData && update){
-    //     setreqSent(true)
-    //   }
-    
-    // }, [storeData, update])
-    
 
   return (
     <Formik
@@ -35,21 +25,13 @@ export default function FormInputTanggalRegisBalis({
     validationSchema={InputTanggalRegisBalisValidationSchema(Yup)}
     onSubmit={(values)=> {
         setSubmitState(true)
-        // console.log(values)
-        // console.log(data.id)
-
         let formData = handleFormData(values)
 
         async function fetchData(){
             const response = await updateTestApp(formData, data.id)
-            // const resStat = await fetcher.confirmTestApp(data.id)
-            console.log("respons", response)
             if(response.header.response_code == 200){
-                // setStoreData(true)
                 setreqSent(true)
             }
-            // if(response.header.response_code == )
-
         }
         fetchData()
     }}
@@ -60,8 +42,6 @@ export default function FormInputTanggalRegisBalis({
                     Isi dengan <strong>Tanggal Registrasi Balis</strong>
                 </Body3>
                 <div className="w-full">
-
-                
                 <DatePickerInput
                 setFormikValue={formik.setFieldValue}
                 id="balis_date"
@@ -69,15 +49,10 @@ export default function FormInputTanggalRegisBalis({
                 onBlur={formik.handleBlur}
                 />
                 </div>
-                
                 <ErrorMessage name="balis_date" component={ValidationMessage}/>
-            
             </div>
-
         </Form>
-
     }}
-
     </Formik>
   )
 }

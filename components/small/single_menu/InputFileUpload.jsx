@@ -23,12 +23,9 @@ export default function InputFileUpload({
         accept={accept}
         onChange={(event)=> {
         const file = event.target.files[0]
-        console.log("file",file)
         if(file){
-            // formik.setFieldValue("invoice", file)
             setFormikValue(id, file)
         }
-        // console.log("formik", formik.values.invoice)
         }}
         />
         <div className="w-full flex justify-between form-input px-2.5 py-1 rounded-xl text-xs  border-solid border-2 border-grey-300">
@@ -51,7 +48,6 @@ export default function InputFileUpload({
                 placeholder
             }
             </Title3Med>
-            
             <button 
             type='button'
             onClick={(event)=> {

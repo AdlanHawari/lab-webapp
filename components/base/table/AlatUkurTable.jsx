@@ -28,13 +28,11 @@ export default function AlatUkurTable({
   const {shorterReadable} = DateFormatter()
   const [submitState, setSubmitState] = useState(false)
   const [reqSent, setreqSent] = useState(false);
-
   const {deleteTool} = useAlatUkurFetcher()
 
   useEffect(() => {
     if(reqSent){
         setSubmitState(false)
-        // setOnError(false)
         setOnEdit(false)
         setOnDelete(false)
         setreqSent(false)
@@ -55,9 +53,7 @@ export default function AlatUkurTable({
                     )}>
                             {rowTitle}  
                         </Table2>
-        
                       </th>
-
                     ))}
                 </tr>
                 </thead>
@@ -98,7 +94,6 @@ export default function AlatUkurTable({
                             <Table1 className="text-black-500 leading-normal">
                                 {IntervalDate(item.recalibration_date,item.calibration_date)}
                             </Table1>
-                            
                           </td>
                           <td scope="col" className="" >
                             <div className="flex items-center justify-center space-x-4">
@@ -121,14 +116,11 @@ export default function AlatUkurTable({
                                     <TrashIcon className="w-4 h-5 text-white " aria-hidden="true"/>
                                 </button>
                             </div>
-                            
                         </td>
-                        
                         </tr>
                     ))}
                 </tbody>
         </table>
-
         {onDelete &&
           <AssuranceModal
           title="Hapus Alat Ukur"
@@ -139,19 +131,13 @@ export default function AlatUkurTable({
             <Button
             className={classNames(submitState?"w-64":"bg-error w-64 hover:bg-error-dark")}
             buttonStyle={submitState ? "primary_disabled" :"primary_default"}
-            // buttonStyle="primary_default"
             disabled={submitState ? true:false}
             type='button'
             onClick={()=> {
               setSubmitState(true)
-              // console.log("id",dataSelected.id)
               async function fetchData(id){
                 const responseDel = await deleteTool(id)
-
-                console.log("responseDel", responseDel)
-
                 if(responseDel.header.response_code==200){
-                    // setSubmitState(false)
                     setreqSent(true)
                 }
                 if(responseDel.header.response_code==400){
@@ -163,7 +149,6 @@ export default function AlatUkurTable({
                 if(responseDel.header.response_code==422){
                     setSubmitState(false)
                     setOnDelete(false)
-                    // setOnError(true)
                 }
               }
               fetchData(dataSelected.id)
@@ -175,7 +160,6 @@ export default function AlatUkurTable({
                   }
                   Hapus
               </Body3>
-
             </Button>
           }
           >
@@ -183,12 +167,9 @@ export default function AlatUkurTable({
               <Body3 className="text-black-400">
                 Hapus <strong className='text-black-400 underline'>{dataSelected.type} {dataSelected.brand} dengan no seri/ID {dataSelected["serial/id"]}</strong> dari daftar alat ukur?
               </Body3>
-
             </div>
-
           </AssuranceModal>
         }
-
         {onEdit &&
           <FormModal
           title="Edit Alat Ukur"
@@ -208,7 +189,6 @@ export default function AlatUkurTable({
                 <FontAwesomeIcon icon={faSpinner} className="animate-spin"/>
                 }
                 Ubah Alat Ukur
-
             </Button>
           }
           >
@@ -219,10 +199,8 @@ export default function AlatUkurTable({
             setSubmitState={setSubmitState}
             setreqSent={setreqSent}
             />
-
           </FormModal>
         }
-
     </>
   )
 }

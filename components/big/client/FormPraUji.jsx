@@ -5,7 +5,6 @@ import { jenisPekerjaan } from 'constants/JenisPekerjaan'
 import { ErrorMessage, Field, FieldArray, Form, Formik } from 'formik'
 import { formPraUjiInitValues } from 'helper/initial-formik-values/FormPraUjiInitValues'
 import FormPraUjiValidationSchema from 'helper/yup/FormPraUjiValidationSchema'
-import { useDetailUjiClientContext } from 'hooks/context/detail-uji-client/DetailUjiClientContext'
 import { useDetailUji } from 'hooks/fetcher/detail-uji/useDetailUji'
 import React, { useEffect, useState } from 'react'
 import DateFormatter from 'utils/DateFormatter'
@@ -21,7 +20,6 @@ export default function FormPraUji({
     const {readable} = DateFormatter()
     const [inputForm, setInputForm] = useState(false)
     const {confirmTestApp, inputFormPraUji} = useDetailUji()
-    
 
     function rearrangeObject(obj, fullData){
         let result = {
@@ -61,8 +59,6 @@ export default function FormPraUji({
             }
             result.tool_id = result.tool_id.concat(fullData.tools[index].id)
         })
-
-        
         return result
     }
 
@@ -74,82 +70,37 @@ export default function FormPraUji({
                     setSubmitState(false)
                     setReqSent(true)
                   }
-                  else{
-          
-                  }
             }
             else{
                 setSubmitState(false)
                 setReqSent(true)
               }
-
         }
-      
-    
         
     }, [inputForm])
-
-    
-    
 
   return (
     <Formik
         initialValues={formPraUjiInitValues}
         validationSchema={FormPraUjiValidationSchema(Yup)}
-        onSubmit={ async (values) => {
-
-            // console.log(values)
+        onSubmit={ (values) => {
             setSubmitState(true)
             const rearrangedValues = rearrangeObject(values, data)
-            // const finalValues = Object.assign(rearrangedValues, 
-            //     {tool_id: data.id}
-            //     )
-            console.log(rearrangedValues)
             let formData = handleFormData(rearrangedValues)
-            console.log("test id", data.id)
-            const response = await inputFormPraUji(formData, data.id)
-            console.log("respon", response)
 
-            if(response.header.response_code==200){
-                // setReqSent(true)
-                // setSubmitState(false)
-                // setErrorMsg('')
-                console.log("submit sent")
-                setInputForm(true)
-                // setFormPraUjiOpen(false)
+            async function fetchData(){
+                const response = await inputFormPraUji(formData, data.id)
+                if(response.header.response_code==200){
+                    setInputForm(true)
+                }
             }
-            else{
-                // setErrorMsg('Terjadi kesalahan')
-                // setSubmitState(false)
-            }
-
-
-
+            fetchData()
         }
-
         }
     >
         {formik => {
             return <Form id={id}>
                  <div className='block w-full pl-10 pr-32 space-y-3 divide-y divide-grey-200'>
-                    {/* <div className="">
-                        <h3>Alat 1</h3>
-                        <div className="grid grid-cols-2 gap-y-3 py-3">
-                            <Body1 className="text-black-400">
-                                Jenis Alat
-                            </Body1>
-                            <Body2 className="text-black-500">
-                                {data.tools[0].name}
-                            </Body2>
-                            <Body1 className="text-black-400">
-                                Jenis Uji
-                            </Body1>
-                            <Body2 className="text-black-500">
-                                {data.test_type}
-                            </Body2>
-                        </div>
-                        
-                    </div> */}
                     <div className="grid grid-cols-2 gap-y-3 py-3">
                         <Body1 className="text-black-400">
                             Nomor Surat
@@ -158,13 +109,13 @@ export default function FormPraUji({
                             {data.cost_detail.invoice_no}
                         </Body2>
                         <Body1 className="text-black-400">
-                        Tanggal Permohonan
+                            Tanggal Permohonan
                         </Body1>
                         <Body2 className="text-black-500">
                             {readable(data.created_at)}
                         </Body2>
                         <Body1 className="text-black-400">
-                        Nama Instansi
+                            Nama Instansi
                         </Body1>
                         <Body2 className="text-black-500">
                             {data.user.institution.name}
@@ -196,12 +147,10 @@ export default function FormPraUji({
                                     id="permit_holder"
                                     name="permit_holder"
                                     type="text"
-                                    
                                     placeholder="Isi Pemegang Izin"
                                     />
                                 <ErrorMessage name="permit_holder" component={ValidationMessage}/>
                             </div>
-
                             <Body1 className="text-black-400">
                                 Izin Pemanfaatan PPR No.
                             </Body1>
@@ -211,17 +160,13 @@ export default function FormPraUji({
                                     id="ppr_no"
                                     name="ppr_no"
                                     type="text"
-                                    
                                     placeholder="Isi Izin Pemanfaatan PPR"
                                     />
                                 <ErrorMessage name="ppr_no" component={ValidationMessage}/>
                             </div>
-
                     </div>
-
                     <div className="py-3">
                         <h3 className='pb-4'>Spesifikasi Alat</h3>
-
                         <FieldArray name="tool_info">
                             {({insert, remove, push}) => (
                                 <>
@@ -241,13 +186,10 @@ export default function FormPraUji({
                                                 <Body2 className="text-black-500">
                                                     {data.test_type}
                                                 </Body2>
-                                            
-                                        
                                                 <Body1 className="text-black-400">
                                                     Merk Alat
                                                 </Body1>
                                                 <Body2 className="text-black-500">
-                                                    {/* {item.tool.brand} */}
                                                     {data.test_type==jenisPekerjaan[0]?item.tool.brand:item.tool_brand}
                                                 </Body2>
                                                 <Body1 className="text-black-400">
@@ -256,7 +198,6 @@ export default function FormPraUji({
                                                 <Body2 className="text-black-500">
                                                     {item.tool_type}
                                                 </Body2>
-                                                
                                                 <Body1 className="text-black-400">
                                                     Buatan/Pabrik
                                                 </Body1>
@@ -266,12 +207,10 @@ export default function FormPraUji({
                                                         id={`tool_info.${index}.manufactured`}
                                                         name={`tool_info.${index}.manufactured`}
                                                         type="text"
-                                                        
                                                         placeholder="Isi Input"
                                                         />
                                                     <ErrorMessage name={`tool_info.${index}.manufactured`} component={ValidationMessage}/>
                                                 </div>
-
                                                 <Body1 className="text-black-400">
                                                     No. Seri Kontrol Panel
                                                 </Body1>
@@ -281,12 +220,10 @@ export default function FormPraUji({
                                                         id={`tool_info.${index}.control_panel_serial_no`}
                                                         name={`tool_info.${index}.control_panel_serial_no`}
                                                         type="text"
-                                                        
                                                         placeholder="Isi Input"
                                                         />
                                                     <ErrorMessage name={`tool_info.${index}.control_panel_serial_no`} component={ValidationMessage}/>
                                                 </div>
-
                                                 <Body1 className="text-black-400">
                                                     No. Seri Wadah Tabung
                                                 </Body1>
@@ -296,12 +233,10 @@ export default function FormPraUji({
                                                         id={`tool_info.${index}.tube_container_serial_no`}
                                                         name={`tool_info.${index}.tube_container_serial_no`}
                                                         type="text"
-                                                        
                                                         placeholder="Isi Input"
                                                         />
                                                     <ErrorMessage name={`tool_info.${index}.tube_container_serial_no`} component={ValidationMessage}/>
                                                 </div>
-
                                             </div>
                                         </div>
                                     ))}
@@ -309,25 +244,18 @@ export default function FormPraUji({
                             )}
                         </FieldArray>
                     </div>
-
                     <div className="block py-3 space-y-4">
                         <h3>Kolom Pertanyaan</h3>
                         <div className="block space-y-2">
-
                             <Body1 className="text-black-400">
                                 Bagaimana Kondisi Listrik dan Daya Listrik?
                             </Body1>
-
                             <Field as="textarea"
                             className="form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300  h-36 placeholder:body1 placeholder:text-grey-500"
-                            
                             name="q1"
                             type="text"
                             placeholder="Masukkan jawaban anda"
                             />
-                           
-
-                            
                             <Body1 className="text-black-400">
                                 Bagaimana Kondisi dari Fungsi Kolmator?
                             </Body1>
@@ -345,9 +273,6 @@ export default function FormPraUji({
                                     </Body2>
                                 </label>
                             </div>
-
-
-
                             <Body1 className="text-black-400">
                                 Bagaimana Kondisi dari Fungsi Tube/Tabung Sinar X?
                             </Body1>
@@ -365,9 +290,6 @@ export default function FormPraUji({
                                     </Body2>
                                 </label>
                             </div>
-
-
-
                             <Body1 className="text-black-400">
                                 Bagaimana Kondisi dari Fungsi Kontrol Panel?
                             </Body1>
@@ -385,12 +307,9 @@ export default function FormPraUji({
                                     </Body2>
                                 </label>
                             </div>
-
                         </div>
-
                         <div className=" block space-y-3">
                             <Body2 className="text-black-400">Untuk Radiografi Umum</Body2>
-
                             <div className="block space-y-1">
                                 <Body1 className="text-black-400">
                                     1.  Apakah sudah menggunakan ALC?
@@ -409,9 +328,7 @@ export default function FormPraUji({
                                         </Body2>
                                     </label>
                                 </div>
-
                             </div>
-
                             <div className="block space-y-1">
                                 <Body1 className="text-black-400">
                                     2. Moda Pengaturan mA dan s (terpisah) atau mAs?
@@ -430,14 +347,10 @@ export default function FormPraUji({
                                         </Body2>
                                     </label>
                                 </div>
-
                             </div>
-
                         </div>
-
                         <div className="block space-y-3">
                             <Body2 className="text-black-400">Untuk Dental Intraoral</Body2>
-
                             <div className="block space-y-1">
                                 <Body1 className="text-black-400">
                                     1.  Untuk alat Dental Intraoral, apakah tersedia kaset film radiografi dan pencuncian manual?
@@ -456,9 +369,7 @@ export default function FormPraUji({
                                         </Body2>
                                     </label>
                                 </div>
-
                             </div>
-
                             <div className="block space-y-1">
                                 <Body1 className="text-black-400">
                                 2.  Untuk alat Dental Intraoral, apabila tidak tersedia kaset film radiografi dan pencuncian manual, apakah memiliki akses ke klinik/RS terdekat untuk peminjaman kaset dan pencucian film?
@@ -477,19 +388,12 @@ export default function FormPraUji({
                                         </Body2>
                                     </label>
                                 </div>
-
                             </div>
-
                         </div>
-
                     </div>
                 </div>
-
             </Form>
-
         }}
-
-       
     </Formik>
   )
 }

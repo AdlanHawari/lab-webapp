@@ -23,33 +23,21 @@ export default function JenisPekerjaanFilter() {
     useEffect(() => {
         setjenisPekerjaanState(selected)
     }, [selected])
-    
 
   return (
     <div className="w-full">
         <Combobox 
-            
             value={selected} 
-            // value={values.id} 
             onChange={ value => {
-                // console.log("value", value)
-                // console.log("id", id)
-                // setFieldValue(id,value)
                 setSelected(value)
             }
-                // setSelected
-                // setSelected
-                // onChange
             }>
                 <div className="relative">
-                    <div 
-                    
+                    <div
                     className=" relative justify-start w-full text-sm font-medium text-grey-700 bg-white border border-grey-300 rounded-xl shadow-sm  "
-                    // className="relative w-full text-left bg-white font-medium rounded-xl shadow-sm cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-primary focus-visible:ring-offset-2 text-sm overflow-hidden"
                     >
                         <Combobox.Input
                         className=" inline-flex w-full px-3 py-2 text-sm font-medium text-grey-700 rounded-xl hover:bg-grey-50 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-secondary"
-                            // className="w-full border-none focus:ring-0 rounded-xl py-2 pl-3 pr-10 text-sm leading-5 text-grey-700"
                             onChange={
                                 (event) => setQuery(event.target.value)
                             }
@@ -61,9 +49,7 @@ export default function JenisPekerjaanFilter() {
                             aria-hidden="true"
                             />
                         </Combobox.Button>
-
                     </div>
-
                     <Transition
                         as={Fragment}
                         leave="transition ease-in duration-100"
@@ -81,7 +67,6 @@ export default function JenisPekerjaanFilter() {
                         ) : (
                             filteredItemLists.map((item,index) => (
                                 <Combobox.Option
-                                    // key={item.id}
                                     key={index}
                                     className={({ active }) =>
                                     `cursor-default select-none relative py-2 pl-10 pr-4 ${
@@ -112,20 +97,13 @@ export default function JenisPekerjaanFilter() {
                                         null}
                                     </>
                                     )}
-
                                 </Combobox.Option>
                             ))
-
                         )}
                         </Combobox.Options>
-
                     </Transition>
                 </div>
-
             </Combobox>
-
     </div>
-
-    
   )
 }

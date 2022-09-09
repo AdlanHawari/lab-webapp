@@ -3,7 +3,6 @@ function ForgetPassValidationSchema(yup){
         yup.object({
             email: yup.string().email("Email tidak valid").required("Masukkan email anda")
         })
-
     )
 }
 

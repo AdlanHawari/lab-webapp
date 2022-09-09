@@ -4,15 +4,12 @@ const log = {
     roles: "Penguji",
     notification_type: "Pengujian Dijadwalkan",
     message: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-
-
 }
 
 const generateLog = () => {
     let data = []
     for(let i = 0; i<9; i++){
         data.push(log)
-        
     }
     return data
 }

@@ -11,13 +11,6 @@ export default function DokumenPenugasanValidationSchema(yup) {
             .nullable()
             .required("Harap masukkan surat transportasi")
             ,
-        // test_documentation: yup
-        //     .mixed()
-        //     .nullable()
-        //     .required("Harap masukkan dokumentasi uji")
-        //     ,
-        
     })
-    
   )
 }

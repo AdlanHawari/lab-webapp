@@ -5,10 +5,8 @@ export default function Table1({className, children}) {
     <div className={classNames(
         "font-sans font-normal text-xs",
         className
-
     )}>
         {children}
-
     </div>
     )
 }

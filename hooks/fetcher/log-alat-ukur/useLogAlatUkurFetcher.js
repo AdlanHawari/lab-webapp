@@ -13,45 +13,32 @@ export const useLogAlatUkurFetcher = () => {
 }
 
 function useProvideLogAlatUkur(){
-
     const token = GetToken()
-
     async function getLogAlatUkur(url){
-
-        var requestOptions = {
+        let requestOptions = {
             method:'GET'  ,
             headers: {
-                'Authorization': `Bearer ${token}`,
-                // 'Content-Type': 'application/json'
+                'Authorization': `Bearer ${token}`
             },
             redirect: 'follow'
         };
-
         const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, requestOptions)
         const res = await req.json()
-
         return res
-
     }
 
     async function deleteLogAlatUkur(id){
-        var requestOptions = {
+        let requestOptions = {
             method:'DELETE'  ,
             headers: {
-                'Authorization': `Bearer ${token}`,
-                // 'Content-Type': 'application/json'
+                'Authorization': `Bearer ${token}`
             },
             redirect: 'follow'
         };
-
         const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/logs-tool/${id}`, requestOptions)
-    
         const res = await req.json()
-
         return res
-
     }
-
     return {
         getLogAlatUkur,
         deleteLogAlatUkur

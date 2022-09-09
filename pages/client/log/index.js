@@ -1,21 +1,16 @@
 import BaseLayout from "components/base/BaseLayout"
-import LogSection from "components/base/logsection/LogSection"
 import LogFilterSection from "components/big/log/LogFilterSection";
 import LogMainSection from "components/big/log/LogMainSection";
 import { ACCESS_CODE } from "constants/Access_Code";
-import { clientLogs } from "constants/test_objects/clientLog"
 import DateFilterUjiContextProvider from "hooks/context/filter-date/DateFilterUjiContext";
-import { useNotifContext } from "hooks/context/notif-context/NotifContext";
 import PageContextProvider from "hooks/context/pagination/PageContext";
 import useUser from "hooks/fetcher/auth/useUser";
 import { LogProvider } from "hooks/fetcher/log/useLogFetcher";
-import { useNotifFetcher } from "hooks/fetcher/notification/NotificationFetcher";
 import { useTitleContext } from "hooks/TitleContext";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function ClientLogPage() {
-
   const [title, setTitle] = useTitleContext();
   const router = useRouter()
   const { user, loading,error, isValidating } = useUser()
@@ -24,13 +19,9 @@ export default function ClientLogPage() {
     setTitle('Log')
   })
 
-  
-
   useEffect(() => {
     if(!isValidating){
-
       if(user){
-        console.log("user", user)
         if(user.data.role.access_code != ACCESS_CODE.CLIENT &&  user.data.role.access_code != ACCESS_CODE.ADMIN){
           router.replace("/")
         }
@@ -39,18 +30,15 @@ export default function ClientLogPage() {
         }
       }
       if(error&& !user){
-        console.log("error", error)
         router.replace("/")
       }
     }
-  
   }, [user,error, isValidating])
   
   return(
     <>
     {loading ?
       <div className="">
-
         <h3>Loading...</h3>
       </div>
       :
@@ -61,12 +49,9 @@ export default function ClientLogPage() {
             <div className="flex flex-col  space-y-5">
               <LogFilterSection/>
               <LogMainSection/>
-
-              {/* <LogSection/> */}
             </div>
             </DateFilterUjiContextProvider>
           </PageContextProvider>
-
         </LogProvider>
       }
     </>

@@ -11,8 +11,6 @@ export default function StatusFilter({
     titleSpace,
     onClick
 }) {
-
-
     const {statusFilter, setStatusFilter}= useStatusFilterContext();
   return (
     <div className={classNames('flex items-center ',
@@ -25,7 +23,6 @@ export default function StatusFilter({
         space ? space : "space-x-1"
         )}>
             {filter.map((item,index)=>(
-                
                 <QuickFilterButton key={index} 
                 className={classNames(
                     statusFilter==item.status?
@@ -37,7 +34,6 @@ export default function StatusFilter({
                     setStatusFilter(item.status)
                 }}>
                     <TitleSmall className={classNames(
-
                         statusFilter==item.status?
                         "text-primary-darken10":
                         "text-grey-700"
@@ -47,9 +43,7 @@ export default function StatusFilter({
                         {item.title}
                     </TitleSmall>
                 </QuickFilterButton>
-
             ))}
-            
         </div>
     </div>
   )

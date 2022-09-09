@@ -8,7 +8,6 @@ import NumberFormat from 'react-number-format'
 import CalculatorPPN from 'utils/CalculatorPPN'
 
 export default function PersetujuanPenawaranUji({data}) {
-    // console.log(data)
   return (
     <div className='block w-full pl-10 pr-32 space-y-3'>
         <Body3>
@@ -31,7 +30,6 @@ export default function PersetujuanPenawaranUji({data}) {
                 Merk Alat
             </Body1>
             <Body2 className="text-black-500">
-            {/* {data.tools[0].tool.brand} */}
             {data.test_type==jenisPekerjaan[0]?data.tools[0].tool.brand:data.tools[0].tool_brand}
             </Body2>
             <Body1 className="text-black-400">
@@ -52,27 +50,20 @@ export default function PersetujuanPenawaranUji({data}) {
             </CaptionReg>
         </Body1>
         <Body2 className="text-black-500">
-            {/* Rp13.000.000 */}
-                
-            <NumberFormat value={data.cost_detail.cost} displayType={'text'} thousandSeparator=',' prefix={'Rp'} /> 
-                
+            <NumberFormat value={data.cost_detail.cost} displayType={'text'} thousandSeparator=',' prefix={'Rp'} />
         </Body2>
         <Body1 className="text-black-400">
             PPN 10%
         </Body1>
         <Body2 className="text-black-500  ">
-            {/* Rp1.300.000 */}
             <NumberFormat value={CalculatorPPN(data.cost_detail.cost)} displayType={'text'} thousandSeparator=',' prefix={'Rp'} /> 
         </Body2>
-
         <Body2 className="text-black-400  border-t border-grey-200 pt-2">
             Total
         </Body2>
         <div className="flex">
             <Body3 className="text-black-500 border-t border-grey-200 pt-2">
-                {/* Rp14.300.000 */}
-                <NumberFormat value={data.cost_detail.cost_with_ppn} displayType={'text'} thousandSeparator=',' prefix={'Rp'} /> 
-                
+                <NumberFormat value={data.cost_detail.cost_with_ppn} displayType={'text'} thousandSeparator=',' prefix={'Rp'} />
             </Body3>
             </div>
         </div> 

@@ -4,10 +4,8 @@ import { ChevronDownIcon } from '@heroicons/react/solid'
 import classNames from 'classnames'
 import { MyLink } from 'components/general/MyLink'
 import Title1 from 'components/small/typography/Title1'
-import Title2Med from 'components/small/typography/Title2Med'
 import { MENU_ITEM } from 'constants/MenuItemConst'
 import { useTitleContext } from 'hooks/TitleContext'
-import { useEffect } from 'react'
 
 export default function DisclosureMenu({iconclassName,
   type,
@@ -30,9 +28,7 @@ export default function DisclosureMenu({iconclassName,
           bgclassName
           )}
           >
-        {/* <Disclosure.Button className="flex justify-between items-center w-48 h-11 py-2.5"> */}
           <div className="flex items-center space-x-5">
-
           {type == MENU_ITEM.UJI.id ?
             <LightningBoltIcon className={classNames(
                             "w-8",
@@ -68,12 +64,9 @@ export default function DisclosureMenu({iconclassName,
               leaveFrom="transform scale-100 opacity-100"
               leaveTo="transform scale-95 opacity-0"
             >
-
-            
           <Disclosure.Panel as='ul' static className={classNames(
             "pt-2 list-inside list-disc space-y-2",
             textclassName
-
           )}
           >
             {({close}) => (
@@ -82,22 +75,18 @@ export default function DisclosureMenu({iconclassName,
                 <li key={index} className={classNames(
                   "pl-10 h-11 py-2.5 ",
                   page == item.path && "bg-sidebar-submenu rounded-lg"
-                  // "bg-sidebar-submenu rounded-lg"
                 )}
                 >
                   <MyLink href={item.path} className="title-2-med" onClick={()=> {
                     close()
                     setTitle(item.title)
                     }}>
-                    {/* <Title2Med>{item.title}</Title2Med> */}
                     {item.title}
-                    {/* {page} */}
                   </MyLink>
                 </li>
               ))}
               </>
             )}
-            
           </Disclosure.Panel>
         </Transition>
       </>

@@ -2,8 +2,6 @@ import useSWR from "swr";
 import GetToken from "utils/GetToken";
 import { useSummaryFetcher } from "./useSummaryFetcher";
 
-
-
 export default function useSummary(
     start_date,
     end_date,
@@ -21,9 +19,7 @@ export default function useSummary(
         `/test-applications/status/counter?start_date=${start_date}&end_date=${end_date}&institution_id=${institution_id}&test_type=${test_type}`,
         summary.getSummary
     )
-
     const loading = !data && !error;
-
     return{
         loading,
         error,

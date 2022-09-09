@@ -8,7 +8,6 @@ export default function FormPraUjiValidationSchema(yup) {
               control_panel_serial_no: yup.string().required("Harap diisi"),
               tube_container_serial_no: yup.string().required("Harap diisi"),
         }))
-        
     })
   )
 }

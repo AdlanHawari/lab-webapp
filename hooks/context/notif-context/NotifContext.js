@@ -9,10 +9,10 @@ export default function NotifContextProvider({children}) {
     useEffect(() => {
         if(socket){
             socket.onopen = () => {
-                console.log("ws connected")
+                console.debug("ws connected")
             }
             socket.onmessage = (msg) => {
-                console.log("ws message", msg)
+                console.debug("ws message", msg)
                 if(msg.data =="1"){
                     setNewNotif(true)
                 }
@@ -22,7 +22,6 @@ export default function NotifContextProvider({children}) {
     const contextValue = useMemo(() => {
         return {newNotif, setNewNotif}        
     }, [newNotif, setNewNotif])
-
     
   return (
     <notifContext.Provider value={contextValue}>{children}</notifContext.Provider>

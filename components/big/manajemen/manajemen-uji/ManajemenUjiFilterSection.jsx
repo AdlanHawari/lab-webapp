@@ -6,12 +6,10 @@ import React from 'react'
 export default function ManajemenUjiFilterSection() {
   return (
     <div className="block space-y-6">
-
         <div className="flex justify-between">
           <div className="">
               <DateFilter/>
           </div>
-          
         </div>
         <StatusFilter 
         filter={manajemenUjiStatus}
