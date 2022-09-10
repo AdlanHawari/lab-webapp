@@ -120,8 +120,12 @@ export default function SmallCard({data, mutate}) {
                 <Body1 className="text-black-900">
                     Biaya Pengujian
                 </Body1>
-                <Body3 className="text-primary-darken10">
+                <Body3 className={classNames(data.cost_detail.cost_with_ppn ==0?"text-warning":"text-primary-darken10")}>
+                    {data.cost_detail.cost_with_ppn ==0?
+                    "Menunggu Konfirmasi"
+                    :
                     <NumberFormat value={data.cost_detail.cost_with_ppn} displayType={'text'} thousandSeparator=',' prefix={'Rp'} />
+                    }
                 </Body3>
             </div>
 

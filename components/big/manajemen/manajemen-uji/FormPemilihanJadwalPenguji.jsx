@@ -60,7 +60,7 @@ export default function FormPemilihanJadwalPenguji({
     }}
     >{formik => {
         return <Form id={id}>
-            <div className="h-screen flex flex-col divide-y divide-grey-200  w-full pl-10 pr-32">
+            <div className="min-h-screen flex flex-col divide-y divide-grey-200  w-full pl-10 pb-10 pr-32">
                 <div className="grid grid-cols-2 gap-y-3 py-3">
                     <Body1 className="text-black-400">
                         Nama Instansi

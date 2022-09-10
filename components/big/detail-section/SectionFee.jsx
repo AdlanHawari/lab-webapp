@@ -54,7 +54,11 @@ export default function SectionFee({data, cost_detail, current_status}) {
             </Body2>
             <div className="flex">
                 <Body3 className="text-black-500 border-t border-grey-200 pt-2">
+                    {cost_detail.cost_with_ppn==0?
+                    "Menunggu Konfirmasi"
+                    :
                     <NumberFormat value={cost_detail.cost_with_ppn} displayType={'text'} thousandSeparator=',' prefix={'Rp'} />
+                    }
                 </Body3>
             </div>
             <Body2 className="text-black-400">

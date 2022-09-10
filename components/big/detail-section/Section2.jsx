@@ -43,7 +43,7 @@ export default function Section2({data}) {
                     data.tools.map((item,index)=>(
                         index>0 &&
                             <li key={index}>
-                            {item.tool.type} - {item.test_type==jenisPekerjaan[0]?item.tools[0].tool.brand:item.tools[0].tool_brand} {item.tool_type} - {item.quantity} buah
+                                {item.tool.type} - {data.test_type==jenisPekerjaan[0]?item.tool.brand:item.tool_brand} {item.tool_type} - {item.quantity} buah
                             </li>
                     ))}
                 </ul>
