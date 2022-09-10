@@ -9,6 +9,7 @@ import { form_tolak_laporan_uji_id } from 'constants/FormUtils'
 import { useKonfirmLaporanUjiContext } from 'hooks/context/manajemen-uji/KonfirmLaporanUjiContext'
 import { useDetailUji } from 'hooks/fetcher/detail-uji/useDetailUji'
 import React, { useEffect, useState } from 'react'
+import { SingleFileDownloader } from 'utils/FileDownloader'
 import FormTolakLaporanUji from './FormTolakLaporanUji'
 
 export default function FormKonfirmLaporanUji({
@@ -26,7 +27,7 @@ export default function FormKonfirmLaporanUji({
         setTolakPopUp
     } = useKonfirmLaporanUjiContext()
     const [fileName, setFileName] = useState("")
-    const {confirmTestApp} = useDetailUji()
+    const {downloadDoc, confirmTestApp} = useDetailUji()
     async function SetujuiLaporan(testAppId){
         setSubmitState(true)
         const resp = await confirmTestApp(testAppId)
@@ -52,6 +53,10 @@ export default function FormKonfirmLaporanUji({
                 </h3>
                 <button 
                 className="flex justify-between items-center w-full py-2 px-2.5 bg-primary rounded-xl shadow-sm"
+                onClick={()=> {
+                    // SingleFileDownloader(downloadDoc, data.id, DOCTYPE.INVOICE, fileName)
+                }}
+                type="button"
                 >      
                     <Body2 className="text-white">
                         Laporan Uji

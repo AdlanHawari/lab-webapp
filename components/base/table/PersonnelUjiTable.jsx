@@ -278,7 +278,7 @@ export default function PersonnelUjiTable({data, mutate}) {
             { submitState &&
             <FontAwesomeIcon icon={faSpinner} className="animate-spin"/>
             }
-            Konfirmasi Berita Acara &amp; Selesaikan Uji
+            Konfirmasi Berita Acara
         </Button>
     </>}
     >

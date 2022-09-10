@@ -24,6 +24,7 @@ import DateFormatter from "utils/DateFormatter";
 import NumberFormat from "react-number-format";
 import FormCancelUji from "components/big/FormCancelUji";
 import classNames from "classnames";
+import { DOCTYPE } from "constants/DocType";
 
 export default function SmallCard({data, mutate}) {
     const [isDetailOpen, setIsDetailOpen] = useState(false)
@@ -52,6 +53,8 @@ export default function SmallCard({data, mutate}) {
             mutate()
         }
     }, [reqSent])
+
+    console.log(data.documents)
     
   return (
     <>
@@ -102,15 +105,35 @@ export default function SmallCard({data, mutate}) {
                     <ul>
                         {data.documents.map((item,index)=>(
                             <li key={index}>
-                                {item.type == "INVOICE"?
+                                {item.type == "INVOICE"&&
                                     <Body3 className="text-black-500">
                                             Bukti Pembayaran
                                     </Body3>
-                                    :
+                                }
+                                {item.type == DOCTYPE.BAP&&
                                     <Body3 className="text-black-500">
-                                            {item.type}
+                                            Berita Acara Pekerjaan
                                     </Body3>
                                 }
+                                
+                                {item.type == DOCTYPE.CERTIFICATE&&
+                                    <Body3 className="text-black-500">
+                                            Sertifikat
+                                    </Body3>
+                                }
+
+                                {item.type == DOCTYPE.NPWP&&
+                                    <Body3 className="text-black-500">
+                                            NPWP
+                                    </Body3>
+                                }
+                                {item.type == DOCTYPE.DOCGROUP&&
+                                    <Body3 className="text-black-500">
+                                            
+                                    </Body3>
+                                }
+
+                                
                             </li>
                         ))}
                     </ul>

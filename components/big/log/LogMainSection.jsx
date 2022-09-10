@@ -30,6 +30,7 @@ export default function LogMainSection() {
   useEffect(() => {
     if(data){
       setLastPage(data.header.total_page)
+      console.log(data)
     }
   },[data, error])
   return (

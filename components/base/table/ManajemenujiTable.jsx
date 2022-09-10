@@ -514,7 +514,7 @@ export default function ManajemenujiTable({data, mutate}) {
       }
       {regisBapetenPopUp &&
         <FormModal
-        title="Isi No Registrasi Bapeten"
+        title="Isi No Registrasi BAPETEN"
         bgColor="primary"
         isOpen={regisBapetenPopUp}
         setIsOpen={setRegisBapetenPopUp}

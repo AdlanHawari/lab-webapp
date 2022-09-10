@@ -47,7 +47,7 @@ export default function FormRegisBapeten({
         <Form id={id}>
             <div className="flex flex-col space-y-3  w-full pl-10 pr-32">
                 <Body3 className="text-black-400">
-                    Isi dengan <strong>Nomor Registrasi Bapeten</strong>
+                    Isi dengan <strong>Nomor Registrasi BAPETEN</strong>
                 </Body3>
                 <div className="block">
                   <Field
