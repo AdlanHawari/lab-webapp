@@ -26,6 +26,7 @@ export default function ManajemenUjiMainSection() {
     useEffect(() => {
       if(data){
         setLastPage(data.header.total_page)
+        console.log(data)
       }
   },[data])
 

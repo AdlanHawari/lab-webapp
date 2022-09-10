@@ -170,12 +170,12 @@ export default function FormCreateUser({
                     <div className="block">
                         <Field
                             className="placeholder:text-grey-500 form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300"
-                            id="user_create.phone"
-                            name="user_create.phone"
+                            id="user_create.phone_number"
+                            name="user_create.phone_number"
                             type="number"
                             placeholder="Isi Nomor Handphone"
                             />
-                        <ErrorMessage name="user_create.phone" component={ValidationMessage}/>
+                        <ErrorMessage name="user_create.phone_number" component={ValidationMessage}/>
                     </div>
                     <Body1 className="text-black-400">
                         Password<br/>

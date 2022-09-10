@@ -301,7 +301,7 @@ function useProvideDetailUjiFetcher(){
             redirect: 'follow'
         }
         try{
-            const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/documents/download/all?test_application_id=${id}${docGroup&&`&docGroup=${docGroup}`}`, requestOptions)
+            const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/documents/download/all?test_application_id=${id}${docGroup&&`&group=${docGroup}`}`, requestOptions)
             const fileBlob = await req.blob()
             return fileBlob
         }

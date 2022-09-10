@@ -7,7 +7,7 @@ export default function CreateUserValidationSchema(yup) {
                         position: yup.string().required("Harap diisi"),
                         email: yup.string().email("Harap diisi dengan email yg valid").required("Harap diisi"),
                         institution_id: yup.string().required("Harap diisi"),
-                        phone: yup.string()
+                        phone_number: yup.string()
                                     .required("Harap diisi")
                                     .matches(
                                     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,

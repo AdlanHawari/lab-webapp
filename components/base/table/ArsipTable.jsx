@@ -5,11 +5,14 @@ import Table2 from 'components/small/typography/Table2'
 import { arsipDokumenTableHead } from 'constants/table/RowTitle'
 import { useDetailUji } from 'hooks/fetcher/detail-uji/useDetailUji'
 import React from 'react'
+import DateFormatter from 'utils/DateFormatter'
 import { ZipFileDownloader } from 'utils/FileDownloader'
 import XRayDetector from 'utils/XRayDetector'
 
 export default function ArsipTable({data}) {
     const {downloadZipFile} = useDetailUji()
+    const {readable} = DateFormatter()
+    // console.log(data)
   return (
     <>
         <table className='bg-primary-lighten10 min-w-full shadow-lg rounded-lg'>
@@ -32,7 +35,7 @@ export default function ArsipTable({data}) {
                 <tr key={index} className="h-16">
                     <td className="w-48 py-2 px-4">
                         <Table1 className="text-black-500 leading-normal">
-                            Tanggal apa
+                            {readable(item.created_at)}
                         </Table1>
                     </td>
                     <td className="w-48 py-2 px-4">

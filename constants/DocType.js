@@ -5,7 +5,7 @@ export const DOCTYPE = {
     BAP: "BAP",
     NPWP: "NPWP",
     DOCGROUP: {
-        REPORT: "REPORT",
+        REPORT: "report",
         ASSIGNMENT: "assignment"
     },
 }

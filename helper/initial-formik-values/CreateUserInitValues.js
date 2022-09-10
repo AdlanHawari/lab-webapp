@@ -6,7 +6,7 @@ export const createUserInitValues = {
         position:"",
         email: "",
         institution_id: "",
-        phone: "",
+        phone_number: "",
         password: "",
         password_confirmation: "",
     },
