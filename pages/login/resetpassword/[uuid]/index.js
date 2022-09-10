@@ -74,7 +74,7 @@ export default function ResetPassPage() {
                         type="password"
                         placeholder="Masukkan password anda"
                         />
-                        <ErrorMessage name="password" component={ValidationMessage}/>
+                        <ErrorMessage name="new_password" component={ValidationMessage}/>
                     </div>
                     <div>
                         <Field

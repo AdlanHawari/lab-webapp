@@ -38,6 +38,7 @@ export default function ManajemenUserMainSection() {
     useEffect(() => {
         if(users){
         setLastPage(users.header.total_page)
+        console.log(users)
         }
     },[users,error])
 
