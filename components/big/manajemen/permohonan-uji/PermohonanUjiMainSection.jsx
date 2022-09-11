@@ -25,6 +25,7 @@ export default function PermohonanUjiMainSection() {
         useEffect(() => {
             if(data){
               setLastPage(data.header.total_page)
+              console.log(data)
             }
         },[data])
   

@@ -54,6 +54,16 @@ export default function Section1({data}) {
                 </Body2>
             </QuickFilterSmaller>
         </div>
+        {data.status==99&&
+        <>
+            <Body1 className="text-black-400">
+                Catatan Pembatalan
+            </Body1>
+            <Body2 className="text-black-500">
+                {data.remark}
+            </Body2>
+        </>
+        }
         <Body1 className="text-black-400">
             Jenis Uji
         </Body1>

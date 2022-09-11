@@ -3,6 +3,7 @@ import { ChevronDownIcon } from '@heroicons/react/outline'
 import { CheckIcon } from '@heroicons/react/solid'
 import classNames from 'classnames'
 import React, { Fragment, useEffect, useState } from 'react'
+import Body2 from '../typography/Body2'
 
 export default function InstansiDropDown({
     itemLists,
@@ -32,6 +33,8 @@ export default function InstansiDropDown({
             setFormikValue(formikName, selected.id)
         }
       }, [selected])
+
+      
    
   return (
     <div className="w-full">
@@ -67,6 +70,7 @@ export default function InstansiDropDown({
                         }
                 >
                     <Combobox.Options className="z-50 absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                        
                         {
                             filteredItemLists.length == 0 && query !== '' ?(
                                 <div className="cursor-default select-none relative py-2 px-4 text-gray-700">
@@ -109,6 +113,18 @@ export default function InstansiDropDown({
                                 ))
                                 )
                             }
+                            {setContext&&
+                                <Combobox.Option
+                                className="cursor-pointer w-full bg-error"
+                                    value={selected&&{}}
+                                >
+                                    <div className="py-2 pl-10 pr-4 w-full">
+                                        <span className="text-white font-normal text-sm">
+                                            Reset pilihan
+                                        </span>
+                                    </div>
+                                </Combobox.Option>
+                            }
                         {bottomButton &&
                             <Combobox.Option
                             value={{}}
@@ -116,6 +132,7 @@ export default function InstansiDropDown({
                                 {bottomButton}
                             </Combobox.Option>
                         }
+
                     </Combobox.Options>
                 </Transition>
             </div>

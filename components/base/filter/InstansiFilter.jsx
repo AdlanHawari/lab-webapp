@@ -6,7 +6,7 @@ import { useInstitutionFilterContext } from 'hooks/context/filter-institution/In
 import useInstitutionsList from 'hooks/fetcher/management-summary/useInstitutionsList'
 import React, { Fragment, useEffect, useState } from 'react'
 
-export default function InstansiFilter({itemLists}) {
+export default function InstansiFilter({itemLists, externResetClicked}) {
     const {institutionState, setInstitutionState} = useInstitutionFilterContext()
 
   return (

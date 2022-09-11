@@ -36,8 +36,10 @@ export default function SectionPaymentStep() {
             "pt-2 list-inside list-disc space-y-2"
           >
             {({close}) => (
-                <div className="">
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Qui neque deserunt debitis consequatur nihil enim mollitia sint unde amet voluptate?
+                <div className="px-2">
+                  <div className='bg-white px-6 py-3 border border-grey-300 rounded-xl'>
+                    Ketentuan Jasa dan Langkah Pembayaran Mengikuti S&amp;K yang berlaku pada PT. Sri Intan Perkasa
+                  </div>
                 </div>
             )}
           </Disclosure.Panel>

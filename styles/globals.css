@@ -199,3 +199,7 @@
 .react-datepicker__day--range-end {
     @apply bg-secondary-darker20 text-white hover:text-grey-700 hover:bg-white
 }
+
+.react-datepicker__day--today {
+    @apply text-primary font-bold
+}

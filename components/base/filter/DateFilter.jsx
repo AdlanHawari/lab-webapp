@@ -1,12 +1,14 @@
 import { forwardRef, useEffect, useState } from 'react'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid'
-import ReactDatePicker from 'react-datepicker'
+import ReactDatePicker, { registerLocale } from 'react-datepicker'
 import { format } from 'date-fns'
 import { CalendarIcon, ChevronDownIcon } from '@heroicons/react/outline'
 import classNames from "classnames";
 import Button from 'components/small/button_fixed/Button'
 import { useDateFilterUjiContext } from 'hooks/context/filter-date/DateFilterUjiContext'
 import DateFormatter from 'utils/DateFormatter'
+import id from 'date-fns/locale/id'
+
 
 export default function DateFilter() {
     const [open, setOpen] = useState(false)
@@ -29,8 +31,11 @@ useEffect(() => {
     }
 }, [dateRange, removeState])
 
+    registerLocale('id',id)
+
   return(
     <ReactDatePicker
+        locale="id"
         selectsRange={true}
         onChange={(update) => {
             setDateRange(update);
