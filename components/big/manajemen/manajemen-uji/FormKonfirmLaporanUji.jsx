@@ -34,6 +34,10 @@ export default function FormKonfirmLaporanUji({
         if(resp.header.response_code == 200){
             setreqSent(true)
         }
+        else{
+            setSubmitState(false)
+            alert(`Error response ${resp.header.response_code}`)
+        }
     }
 
     useEffect(() => {
@@ -61,7 +65,7 @@ export default function FormKonfirmLaporanUji({
                     <Body2 className="text-white">
                         Laporan Uji
                     </Body2>
-                    <Body2 className="text-white underline underline-offset-2">
+                    <Body2 className="text-white">
                         {fileName}
                     </Body2>
                 </button>

@@ -2,15 +2,16 @@ import { CalendarIcon } from '@heroicons/react/outline'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid'
 import classNames from 'classnames'
 import { format } from 'date-fns'
+import id from 'date-fns/locale/id'
 import React, { forwardRef, useEffect, useState } from 'react'
-import ReactDatePicker from 'react-datepicker'
+import ReactDatePicker, { registerLocale } from 'react-datepicker'
 import DateFormatter from 'utils/DateFormatter'
 import Button from '../button_fixed/Button'
 import Title3Med from '../typography/Title3Med'
 
 export default function DatePickerInput({
     setFormikValue,
-    id,
+    idInput,
     name,
     placeholder,
     onBlur
@@ -23,22 +24,26 @@ export default function DatePickerInput({
     useEffect(() => {
         if(selectedDate){
             setOpen(false)
-            setFormikValue(id, dateFormatter.filter(selectedDate))
+            setFormikValue(idInput, dateFormatter.filter(selectedDate))
         }
         if(removeState){
             setRemoveState(false)
         }
     }, [selectedDate, removeState])
+    registerLocale('id', id)
+
+    
 
   return (
     <ReactDatePicker
+    locale="id"
     selected={selectedDate}
     onChange={(update) => {
         setSelectedDate(update)
     }}
     open={open}
     onBlur={onBlur}
-    id={id}
+    id={idInput}
     name={name}
     onClickOutside={()=>setOpen(false)}
     nextMonthButtonLabel=">"

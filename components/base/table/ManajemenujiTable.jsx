@@ -196,12 +196,12 @@ export default function ManajemenujiTable({data, mutate}) {
                     </td>
                     <td className="max-w-24 p-4">
                         <Table1 className="text-black-500 leading-normal">
-                            isinya apa
+                            -
                         </Table1>
                     </td>
                     <td className="max-w-24 p-4">
                         <Table1 className="text-black-500 leading-normal">
-                            isinya apa
+                            -
                         </Table1>
                     </td>
                     <td className="">

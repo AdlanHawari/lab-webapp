@@ -1,5 +1,6 @@
 import DatePickerInput from 'components/small/single_menu/DatePickerInput'
 import JenisAlatDropDown from 'components/small/single_menu/JenisAlatDropDown'
+import JenisUjiDropDown from 'components/small/single_menu/JenisUjiDropdown'
 import Body1 from 'components/small/typography/Body1'
 import ValidationMessage from 'components/small/validation_form/ValidationMessage'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
@@ -34,6 +35,10 @@ export default function FormCreateAlatBaru({
             if(resp.header.response_code == 201){
                 setreqSent(true)
             }
+            else{
+                setSubmitState(false)
+                alert(`Error response ${resp.header.response_code}`)
+            }
         }
         fetchData()
     }}
@@ -42,10 +47,30 @@ export default function FormCreateAlatBaru({
             <div className="block h-screen w-full pl-10 pr-32 space-y-3">
                 <div className="grid grid-cols-2 gap-y-3 py-3">
                     <Body1 className="text-black-400">
+                        Jenis Uji
+                    </Body1>
+                    <div className="block">
+                        <JenisUjiDropDown
+                        setFormikValue={formik.setFieldValue}
+                        formikName="test_type"
+                        />
+                        
+                        <ErrorMessage name="test_type" component={ValidationMessage}/>
+                    </div>
+                    <Body1 className="text-black-400">
                         Alat
                     </Body1>
                     <div className="block">
-                        {tool_type &&
+                        <Field
+                            className="placeholder:text-grey-500 form-input w-full py-1 px-2 rounded-xl text-xs  border-solid border-2 border-grey-300"
+                            id="tool_type"
+                            name="tool_type"
+                            type="text"
+                            placeholder="Isi jenis alat"
+                            />
+                        <ErrorMessage name="tool_type" component={ValidationMessage}/>
+                    
+                        {/* {tool_type &&
                         <>
                             <JenisAlatDropDown
                             itemLists={tool_type}
@@ -55,7 +80,7 @@ export default function FormCreateAlatBaru({
                             />
                             <ErrorMessage name="tool_type" component={ValidationMessage}/>
                         </>
-                        }
+                        } */}
                     </div>
                     <Body1 className="text-black-400">
                         Merk Alat
@@ -90,7 +115,7 @@ export default function FormCreateAlatBaru({
                     <div className="block">
                         <DatePickerInput
                         setFormikValue={formik.setFieldValue}
-                        id="calibration_date"
+                        idInput="calibration_date"
                         name="calibration_date"
                         onBlur={formik.handleBlur}
                         />

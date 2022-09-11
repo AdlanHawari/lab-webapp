@@ -20,6 +20,7 @@ export default function AlatUkurTable({
   data,
   mutate
 }) {
+  console.log(data)
 
   const [selected, setSelected] = useState()
   const [onDelete, setOnDelete] = useState(false)

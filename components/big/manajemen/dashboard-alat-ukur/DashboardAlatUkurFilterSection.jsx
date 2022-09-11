@@ -11,7 +11,7 @@ import React, { useEffect } from 'react'
 export default function DashboardAlatUkurFilterSection() {
   const {setCreateAlatUkurPopUp} = useFormCreateAlatUkurContext()
   const {tool_type, loading, error } = useGetToolTypes(
-    "Uji Kesesuaian"
+    // "Uji Kesesuaian"
   )
   const {jenisAlatState, setJenisAlatState} = useJenisAlatFilterContext()
   const {currentPage, setCurrentPage} = usePageContext();
@@ -24,7 +24,7 @@ export default function DashboardAlatUkurFilterSection() {
   return (
     <div className="block space-y-6">
         <div className="flex justify-between">
-          <div className="w-64">
+          <div className="w-96">
             {tool_type&&
               <JenisAlatFilter
                 itemLists={tool_type}

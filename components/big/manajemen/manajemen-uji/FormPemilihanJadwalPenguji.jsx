@@ -115,7 +115,7 @@ export default function FormPemilihanJadwalPenguji({
                         <div className="block">
                             <DatePickerInput
                             setFormikValue={formik.setFieldValue}
-                            id="test_date"
+                            idInput="test_date"
                             name="test_date"
                             onBlur={formik.handleBlur}
                             />

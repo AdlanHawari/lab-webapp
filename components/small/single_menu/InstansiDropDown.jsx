@@ -3,6 +3,7 @@ import { ChevronDownIcon } from '@heroicons/react/outline'
 import { CheckIcon } from '@heroicons/react/solid'
 import classNames from 'classnames'
 import React, { Fragment, useEffect, useState } from 'react'
+import Body1 from '../typography/Body1'
 import Body2 from '../typography/Body2'
 
 export default function InstansiDropDown({
@@ -113,17 +114,19 @@ export default function InstansiDropDown({
                                 ))
                                 )
                             }
-                            {setContext&&
-                                <Combobox.Option
-                                className="cursor-pointer w-full bg-error"
-                                    value={selected&&{}}
-                                >
-                                    <div className="py-2 pl-10 pr-4 w-full">
-                                        <span className="text-white font-normal text-sm">
-                                            Reset pilihan
-                                        </span>
-                                    </div>
-                                </Combobox.Option>
+                            {setContext && Object.keys(selected).length >0&&
+                                <div className="w-full flex justify-center px-2 ">
+                                 <Combobox.Option
+                                 className="hover:bg-warning-dark cursor-pointer text-center w-full bg-warning px-4 py-1 rounded-lg"
+                                     value={selected&&{}}
+                                 >
+                                    <Body1 className="text-white ">
+                                        Hapus pilihan
+                                    </Body1>
+                                     
+                                 </Combobox.Option>
+
+                                </div>
                             }
                         {bottomButton &&
                             <Combobox.Option

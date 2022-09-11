@@ -46,8 +46,14 @@ export default function FormLaporanHasilUji({
             if(response.header.response_code == 200){
                 setStoreFile(true)
             }
+            if(response.header.response_code != 200){
+                alert(`Error upload: ${response.header.response_code}`)
+            }
             if(respConf.header.response_code == 200){
                 setConfirm(true)
+            }
+            if(respConf.header.response_code != 200){
+                alert(`Error confirm: ${respConf.header.response_code}`)
             }
         }
         fetchData()

@@ -44,7 +44,7 @@ export default function FormInputTanggalRegisBalis({
                 <div className="w-full">
                 <DatePickerInput
                 setFormikValue={formik.setFieldValue}
-                id="balis_date"
+                idInput="balis_date"
                 name="balis_date"
                 onBlur={formik.handleBlur}
                 />

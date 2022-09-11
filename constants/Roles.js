@@ -17,6 +17,11 @@ export const USER_ROLE = [
         access_code: ACCESS_CODE.PERSONNEL
     },
     {
+        id: 7,
+        name: "Personnel - Peers",
+        access_code:ACCESS_CODE.PERSONNEL_PEERS
+    },
+    {
         id: 4,
         name: "Management - Uji Kesesuaian",
         access_code:ACCESS_CODE.MANAGEMENT_UJI
@@ -28,7 +33,13 @@ export const USER_ROLE = [
     },
     {
         id: 6,
-        name: "Kepala Lab",
-        access_code:ACCESS_CODE.KEPALA_LAB
+        name: "Kepala Lab - Uji Kesesuaian",
+        access_code:ACCESS_CODE.KEPALA_LAB_UJI
+    },
+    {
+        id: 8,
+        name: "Kepala Lab - Kalibrasi",
+        access_code:ACCESS_CODE.KEPALA_LAB_KAL
     }
+    
 ]
